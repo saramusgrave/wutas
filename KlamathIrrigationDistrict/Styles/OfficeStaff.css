@@ -1,0 +1,260 @@
+﻿/*Office StaffPages*/
+#OfficeStaffMenu{
+	list-style-type: none;
+	margin: 0;
+	padding: 0;
+	overflow: auto;
+/*  position: float; */  
+	top: 0;
+	display: inline-block;
+	width: 100%;
+}
+#OfficeStaffMenu li{
+	list-style-type: none;
+	float: left;
+	background-color: #08ccff;
+}
+#OfficeStaffMenu li a{
+	display: block;
+	color: black;
+	text-align: center;
+	padding: 10px 20px;
+	text-decoration: none;
+	border: 1px solid black;
+	width: inherit;
+}
+#OfficeStaffMenu li a:hover:not(#active){
+	background-color:#0066ff;
+}
+#OfficeStaffMenu #active{
+	background-color: #0000cc;
+	color: white;
+}
+#active{
+	background-color: #0000cc;
+	color: white;
+}
+.FirstLast{
+	padding: 11.2px 30px;
+	text-align: center;
+	display: inline-block;
+	font-size: 14px;
+	border: 1px solid black;
+}
+.LogOutBtn:hover{
+	/*padding: 11.2px 30px;
+	text-align: center;
+	display: inline-block;
+	font-size: 14px;
+	background-color: #08ccff;
+	border: 1px solid black;*/
+    opacity: .8;
+    background-color: #08ccff;
+}
+caption{
+	text-align: left;
+    text-transform: uppercase;
+	color: #08ccff;
+	font-size: 25px;	
+    display: inline-block;
+}
+caption #SearchCustomers{
+	text-align: left;
+	color: #08ccff;
+	font-size: 25px;	
+}
+button {
+	background-color: #08ccff;
+	color: black;
+	padding: 11.8px 15px;
+	border: 1px solid black;
+	width: auto;
+}
+button:hover{
+	opacity: .8;
+}
+.DitchRiderContacts{
+	border: 1px solid #08ccff;
+	font-size: 20px;
+	border-collapse: collapse;
+	margin: 8px;
+	overflow: auto;
+}
+.DitchRiderContacts th{
+	background: #08ccff;
+	height: 10px;
+	vertical-align: bottom;
+	border: solid 1px #08ccff;
+}
+.DitchRiderContacts td{
+	text-align: center;
+    border-bottom: 1px solid #3399ff;
+}
+.DitchRiderContacts tr:nth-child(even){
+	background-color: #f2f2f2
+}
+.OfficeStaffCustomers{
+	border-collapse: collapse;
+}
+.OfficeStaffCustomers th{
+	border-collapse: collapse;
+	/*pale blue*/
+	background-color: #3399ff;
+}
+.OfficeStaffCustomers tr:nth-child(even){
+	background-color: #f2f2f2;
+}
+.OfficeStaffCustomers td{
+	border-bottom: 1px solid black;
+	text-align: left;
+	overflow: auto;
+	padding: 8px;
+}
+.OfficeStaffCustomers thead{
+	padding: 0px;
+}
+ul.pagination{    
+    display: inline-block;    
+    padding: 0;    
+    margin: 0;    
+}    
+ul.pagination li{    
+    display: inline;    
+}    
+ul.pagination li a{    
+    color: black;    
+    float: left;    
+    padding: 8px 16px;    
+    text-decoration: none;    
+    transition: background-color .3s; 
+    border: 1px solid black;   
+}  
+ul.pagination li a.active{    
+	background-color: #0000cc;
+	color: white;    
+} 
+ul.pagination li a:hover:not(.active){    
+    background-color: #0066ff;
+    color: white;   
+}
+ #SearchKIDStaff{
+    float: right;
+    width: 100px;
+    color: aqua;
+ }
+input[type=text]{
+    width: 100px;
+}
+input[type=password]{
+    width: 100px;
+}
+input[type=Comments]{
+	width: 100px;
+	overflow: auto;
+	word-wrap: break-word;
+}
+#Turnouts{
+	width:100px;
+}
+input[type=CFS]{
+	width: 20px;
+}
+input[type=number]{
+	width: 40px;
+}
+#DivisionID{
+    width: 90px;
+}
+input[type=TrackingID]{
+	width: 50px;
+}
+input[type=owner]{
+	width: 150px;
+	overflow: scroll;
+}	
+a:link{
+	color: #08ccff;
+	text-decoration: none;
+}
+a:visited{
+	color: #08ccff;
+	text-decoration: none;
+}
+#RBorder{
+	border-right: solid 2px #08ccff;
+}
+.tooptip{
+	position: relative;
+    display: inline-block;
+}
+.tooptip .tooltiptext{
+	visibility: hidden;
+	transition: opacity 1s;
+}
+.tooltip:hover .tooptiptext{
+	visibility: visible;
+	opacity: 1;
+}
+#Logo{
+	padding: 10px;
+}
+#Logo .footer{
+	border-collapse: collapse;
+}
+#Logo img{
+	height: 85px;
+	width: 150px;
+}
+#Logo .footer th{
+	vertical-align: bottom;
+	text-align: center;
+	background: #08ccff;
+}
+#Logo .footer td{
+	text-align: center;
+	font-size: 17px;
+	border: 1px solid black;
+}
+@media screen and (min-width: 1082px) {
+    #OfficeStaffMenu {
+        font-size: 20px;
+        overflow: auto;
+        display: inline-block;
+    }
+    #OfficeStaffMenu ul {
+        display: inline-block;
+    }
+    .FirstLast {
+        font-size: 20px;
+    }
+    .LogOutBtn {
+        font-size: 20px;
+        /*
+		height: 45px;
+		margin-left: 40px;
+		*/
+        display: inline-block;
+    }
+    .LogOutBtn:hover {
+        opacity: .6;
+    }
+    #OfficeStaffMenu li a {
+        text-align: center;
+        width: 200px;
+    }
+    #OfficeStaffMenu li {
+        list-style-type: none;
+        background-color: #08ccff;
+    }
+    .DitchRiderContacts {
+        width: 75%;
+    }
+    input[type=text]{
+        width: 175px;
+        height: 10px;
+    }
+    input[type=password]{
+        width: 175px;
+        height: 10px;
+    }
+}

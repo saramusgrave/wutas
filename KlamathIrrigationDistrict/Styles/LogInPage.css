@@ -1,0 +1,134 @@
+﻿.LogInPage
+{
+	text-align: center;
+	font-weight: bold;
+}
+
+.Instructions
+{
+	border-left: 6px solid #08ccff;
+	background-color: #f1f1f1;
+	padding: 20px;
+	text-align: left;
+}
+
+input[type=text], input[type=password], input[type=email]
+{
+	width: auto;
+	padding: 12px 20px;
+	margin: 8px 0;
+	display: inline-block;
+	border: 1px solid #ccc;
+	box-sizing: border-box;
+}
+
+button 
+{
+	background-color: #08ccff;
+	color: black;
+	padding: 14px 20px;
+	margin: 8px;
+	border: 1px solid black;
+}
+
+button:hover
+{
+	opacity: .8;
+}
+.Recovery
+{
+	text-align: left;
+	display: inline-block;
+	color: black;
+	border-collapse: collapse;
+	width: auto;
+}
+
+#Logoimg
+{
+	text-align: center;
+	margin: 24px 0 12px 0;
+}
+a:link
+{
+	color: blue;
+	text-decoration: none;
+}
+
+a:visited
+{
+	color: blue;
+	text-decoration: none;
+}
+
+.LogInLogo
+{
+	max-width: 40%;
+	border-radius: 20%;
+}
+
+.container
+{
+	text-align: center;
+}
+
+#Logo
+{
+	padding: 10px;
+}
+
+#Logo .footer
+{
+	border-collapse: collapse;
+	width: fill;
+	height: fill;
+}
+
+#Logo img
+{
+	height: 85px;
+	width: 150px;
+}
+
+#Logo .footer th
+{
+	vertical-align: bottom;
+	text-align: center;
+	background: #08ccff;
+}
+
+#Logo .footer td
+{
+	text-align: center;
+	vertical-align: center;
+	font-size: 17px;
+	border: 1px solid black;
+}
+@media screen and (min-width: 1082px)
+{
+	.LogInPage
+	{
+		font-size: 35px;
+		text-decoration: underline;
+	}
+
+	body
+	{
+		font-size: 20px;
+		margin-left: 100px;
+	}
+
+	input[name=LogIn]
+	{
+		font-size: 20px;
+	}
+
+	button
+	{
+		font-size: 20px;
+	}
+	.footer
+	{
+		margin-left: 300px;
+	}
+}

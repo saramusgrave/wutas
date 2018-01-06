@@ -1,0 +1,44 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>@ViewBag.Title</title>
+    <link rel="stylesheet" href="~/Styles/LogInPage.css" />
+    <link rel="icon" href="~/Attachments/KID.png" />
+    @RenderSection("PageHead",false)
+</head>
+<body>
+    @RenderBody()
+    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
+    <script src="~/Scripts/jquery.validate.min.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+    @RenderSection("Scripts", false)
+</body>
+
+</html>
+<footer>
+    <div id="Logo">
+        <table class="footer">
+            <tr>
+                <th>Contact KID</th>
+                <th>Main Office</th>
+                <th>Phone Num.</th>
+                <th>Hours</th>
+            </tr>
+            <tr>
+                <td>
+                    <img src="http://www.klamathirrigation.com/images/Old%20Hydro%201.jpg">
+                </td>
+                <td>
+                    6640 KID Lane,
+                    <br>Klamath Falls
+                    <br>OR 97603
+                </td>
+                <td>(541)882-661</td>
+                <td>
+                    8AM-4:30PM
+                    <br>Monday-Friday
+                </td>
+            </tr>
+        </table>
+    </div>
+</footer>

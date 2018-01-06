@@ -1,0 +1,33 @@
+﻿
+@using KlamathIrrigationDistrict.DataLayer.DataModels
+@model List<Customers>
+@{
+    ViewBag.Title = "KID Staff: Edit Customer";
+}
+<head>
+    <title>KID: Office Staff</title>
+    <meta name="viewport" content="width=device-width" />
+    <link rel="stylesheet" href="~/Styles/OfficeStaff.css" />
+    <script src="~/Scripts/KIDDitchRidersJS.js"></script>
+</head>
+<!--Log in Name, Customers, Ditch Riders, Log Out id=OfficeStaffMenu-->
+<header id="OfficeStaffMenu">
+    <ul>
+        <li><label class="FirstLast">Linda.Seater</label></li>
+        <li><a href="Index" id="active">Customers</a></li>
+        <li><a href="/OfficeStaff/Index">Staff</a></li>
+        <li><a href="/MapTaxLot/Index">MapTaxLots</a></li>
+        <li><a href="~/Account/Login" class="LogOutBtn">Log Out</a></li>
+    </ul>
+</header>
+<body>
+    <a href="Index" class="previous">&laquo; Previous</a>
+    @using (Html.BeginForm())
+    {
+        <div>
+
+        </div>
+    }
+
+
+</body>

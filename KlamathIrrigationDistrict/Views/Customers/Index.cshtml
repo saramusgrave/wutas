@@ -1,0 +1,55 @@
+﻿@using KlamathIrrigationDistrict.DataLayer.DataModels
+@model List<Customers>
+@{
+    ViewBag.Title = "KID Staff: Customers index";
+}
+<head>
+    <title>KID: Office Staff</title>
+    <meta name="viewport" content="width=device-width" />
+    <link rel="stylesheet" href="~/Styles/OfficeStaff.css" />
+    <script src="~/Scripts/KIDDitchRidersJS.js"></script>
+</head>
+<!--Log in Name, Customers, Ditch Riders, Log Out id=OfficeStaffMenu-->
+<header id="OfficeStaffMenu">
+    <ul>
+        <li><label class="FirstLast">Linda.Seater</label></li>
+        <li><a href="Index" id="active">Customers</a></li>
+        <li><a href="/OfficeStaff/Index">Staff</a></li>
+        <li><a href="/MapTaxLot/Index">MapTaxLots</a></li>
+        <li><a href="~/Account/Login" class="LogOutBtn">Log Out</a></li>
+    </ul>
+</header>
+<body>
+    <a href="/OfficeStaff/AddCustomer" class="next">Add &raquo;</a>
+    <table class="OfficeStaffCustomers">
+        <caption>Customers</caption>
+        <tr>
+            <th>Customer ID</th>
+            <th>Tracking ID</th>
+            <th>Name</th>
+            <th>Address 1</th>
+            <th>Address 2</th>
+            <th>City</th>
+            <th>State</th>
+            <th>Zip</th>
+            <th>Total Allotment</th>
+            <th colspan="2">History & Edit</th>
+        </tr>
+       @foreach (var customer in Model)
+            {
+            <tr>
+                <td>@customer.CustomerID</td>
+                <td>@customer.TrackingID</td>
+                <td>@customer.Name</td>
+                <td>@customer.Address1</td>
+                <td>@customer.Address2</td>
+                <td>@customer.City</td>
+                <td>@customer.State</td>
+                <td>@customer.Zip</td>
+                <td>@customer.TotalAllotment</td>
+                <td>@Html.ActionLink("Edit","../OfficeStaff/Edit",new { @CustomerID = customer.CustomerID })</td>
+            </tr>
+        }
+    </table>
+
+</body>

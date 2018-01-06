@@ -1,0 +1,87 @@
+﻿@using KlamathIrrigationDistrict.DataLayer.DataModels
+@model KIDStaff
+@{
+    ViewBag.Title = "KID Staff: Add Staff";
+
+}
+<link rel="stylesheet" href="~/Styles/OfficeStaff.css" />
+<link rel="stylesheet" href="~/Scripts/KIDDitchRidersJS.js" />
+<header id="OfficeStaffMenu">
+    <ul>
+        <li><label class="FirstLast">Linda.Seater</label></li>
+        <li><a href="/Customers/Index">Customers</a></li>
+        <li><a href="Index" id="active">Staff</a></li>
+        <li><a href="/MapTaxLot/Index">MapTaxLot</a></li>
+        <li><a href="~/Account/Login" class="LogOutBtn">Log Out</a></li>
+    </ul>
+</header>
+<body>
+    <!--Add a new Employee class=DitchRiderContacts-->
+    <a href="Index" class="previous">&laquo; Previous</a><br />
+    Edit Employee
+    @using (Html.BeginForm())
+    {
+        <div>
+            @Html.Label("Staff ID: ")
+            @Html.TextBoxFor(s => s.StaffID, new { @type = "number", disabled = "disabled" })
+        </div>
+        <div>
+            @Html.Label("Position:")
+            @Html.TextBoxFor(s => s.Position)
+            @Html.ValidationMessageFor(s => s.Position)
+        </div>
+        <div>
+            @Html.LabelFor(s => s.FirstName)
+            @Html.TextBoxFor(s => s.FirstName)
+            @Html.ValidationMessageFor(s => s.FirstName)
+        </div>
+        <div>
+            @Html.LabelFor(s => s.LastName)
+            @Html.TextBoxFor(s => s.LastName)
+            @Html.ValidationMessageFor(s => s.LastName)
+        </div>
+        <div>
+            @Html.LabelFor(s => s.Password)
+            @Html.TextBoxFor(s => s.Password)
+            @Html.ValidationMessageFor(s => s.Password)
+        </div>
+        <div>
+            @Html.LabelFor(s => s.Email)
+            @Html.TextBoxFor(s => s.Email, new { @type = "email" })
+            @Html.ValidationMessageFor(s => s.Email)
+        </div>
+        <div>
+            @Html.LabelFor(s => s.PhoneNumber)
+            @Html.TextBoxFor(s => s.PhoneNumber)
+            @Html.ValidationMessageFor(s => s.PhoneNumber)
+        </div>
+        <div>
+            @Html.Label("Active")
+            @Html.CheckBoxFor(s => s.StaffStatus)
+            @Html.ValidationMessageFor(s => s.StaffStatus)
+        </div>
+        <div>
+            @Html.LabelFor(s => s.StartDate)
+            @Html.TextBoxFor(s => s.StartDate)
+            @Html.ValidationMessageFor(s => s.StartDate)
+        </div>
+        <div>
+            @Html.LabelFor(s => s.EndDate)
+            @Html.TextBoxFor(s => s.EndDate)
+            @Html.ValidationMessageFor(s => s.EndDate)
+        </div>
+        <div>
+            @Html.LabelFor(s => s.ModifiedDateTime)
+            @Html.TextBoxFor(s => s.ModifiedDateTime, new { @type = "datetime" })
+            @Html.ValidationMessageFor(s => s.ModifiedDateTime)
+        </div>
+        <div>
+            @Html.LabelFor(s => s.ModifiedUser)
+            @Html.TextBoxFor(s => s.ModifiedUser)
+            @Html.ValidationMessageFor(s => s.ModifiedUser)
+        </div>
+        <div>
+            <button type="submit">Update</button>
+        </div>
+    }
+</body>

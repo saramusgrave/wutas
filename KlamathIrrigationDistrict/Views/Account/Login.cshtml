@@ -1,0 +1,30 @@
+﻿@using KlamathIrrigationDistrict.Models
+@model LoginViewModel
+    @{ 
+        ViewBag.Title = "KID: Log In Page";
+        ViewBag.Header = "Klamath Irrigation District Log In Page";
+    }
+
+    <header class="LogInPage">@ViewBag.Header</header>
+    <head>
+        <title>@ViewBag.Title</title>
+        <link rel="stylesheet" href="~/Styles/LogInPage.css" />
+    </head>
+    <body>
+        <!-- <form method="post" action="need to insert url to page where the username and password are stored"> -->
+        <!--Main Logo class=Logoimg-->
+        <div id="Logoimg">
+            <img src="http://www.klamathirrigation.com/images/Old%20Hydro%201.jpg" class="LogInLogo">
+        </div>
+        <!--Log in form class=container-->
+        <div class="container">
+            <label><b>UserName</b></label><br>
+            <input type="email" placeholder="Enter User Name" name="LogIn" required><br>
+            <label><b>Password</b></label><br>
+            <input type="password" placeholder="Enter Password" name="LogIn" required><br>
+            <button type="submit">Log In</button>
+            <input type="checkbox" checked="checked">Remember Me
+            <button type="submit">Cancel</button>
+            <span class="psw"><a href="ForgotPassword">Password?</a></span>
+        </div>
+    </body>

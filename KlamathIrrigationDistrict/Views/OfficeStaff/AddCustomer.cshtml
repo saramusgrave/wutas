@@ -1,0 +1,80 @@
+﻿@using KlamathIrrigationDistrict.DataLayer.DataModels
+@model Customers
+@{
+    ViewBag.Title = "KID Staff: Add Customers";
+}
+<head>
+    <title>KID: Office Staff</title>
+    <meta name="viewport" content="width=device-width" />
+    <link rel="stylesheet" href="~/Styles/OfficeStaff.css" />
+    <script src="~/Scripts/KIDDitchRidersJS.js"></script>
+</head>
+<!--Log in Name, Customers, Ditch Riders, Log Out id=OfficeStaffMenu-->
+<header id="OfficeStaffMenu">
+    <ul>
+        <li><label class="FirstLast">Linda.Seater</label></li>
+        <li><a href="Index" id="active">Customers</a></li>
+        <li><a href="Index">Staff</a></li>
+        <li><a href="./OfficeStaffMapTaxLots.html">MapTaxLots</a></li>
+        <li><a href="~/Account/Login" class="LogOutBtn">Log Out</a></li>
+    </ul>
+</header>
+<body>
+    <a href="/Customers/Index" class="previous">&laquo; Previous</a>
+    @using (Html.BeginForm())
+    {
+        <div>
+            @*@Html.LabelFor(m => m.CustomerID)
+            @Html.TextBoxFor(m => m.CustomerID)*@
+            Customer ID: @Html.EditorFor(m => m.CustomerID)
+            @Html.ValidationMessageFor(m => m.CustomerID)
+        </div>
+        <div>
+            @*@Html.LabelFor(m => m.TrackingID)
+            @Html.TextBoxFor(m => m.TrackingID)*@
+            Tracking ID: @Html.EditorFor(m => m.TrackingID)
+            @Html.ValidationMessageFor(m => m.TrackingID)
+        </div>
+        <div>
+            @Html.LabelFor(m => m.Name)
+            @Html.TextBoxFor(m => m.Name)
+            @Html.ValidationMessageFor(m => m.Name)
+        </div>
+        <div>
+            @Html.LabelFor(m => m.Address1)
+            @Html.TextBoxFor(m => m.Address1)
+            @Html.ValidationMessageFor(m => m.Address1)
+        </div>
+        <div>
+            @Html.LabelFor(m => m.Address2)
+            @Html.TextBoxFor(m => m.Address2)
+            @Html.ValidationMessageFor(m => m.Address2)
+        </div>
+        <div>
+            @Html.LabelFor(m => m.City)
+            @Html.TextBoxFor(m => m.City)
+            @Html.ValidationMessageFor(m => m.City)
+        </div>
+        <div>
+            @*@Html.LabelFor(m => m.State)
+            @Html.TextBoxFor(m => m.State)*@
+            State: @Html.EditorFor(m => m.State)
+            @Html.ValidationMessageFor(m => m.State)
+        </div>
+        <div>
+            @*@Html.LabelFor(m => m.Zip)
+            @Html.TextBoxFor(m => m.Zip)*@
+            Zip: @Html.EditorFor(m => m.Zip)
+            @Html.ValidationMessageFor(m => m.Zip)
+        </div>
+        <div>
+            @*@Html.LabelFor(m => m.TotalAllotment)
+            @Html.TextBoxFor(m => m.TotalAllotment)*@
+            Total Allotment: @Html.EditorFor(m => m.TotalAllotment)
+            @Html.ValidationMessageFor(m => m.TotalAllotment)
+        </div>
+    }
+    <div>
+        <button type="submit">Submit</button>
+    </div>
+</body>

@@ -1,0 +1,17 @@
+﻿@using KlamathIrrigationDistrict.DataLayer.DataModels
+@model List<KIDStaff>
+
+<h1>Klamath Irrigation District Staff</h1>
+<body>
+@foreach(var staff in Model)
+{
+    <div>
+        <h2>@staff.StaffID</h2>
+        <p>@staff.Position</p>
+        <p>@staff.FirstName</p>
+        <p>@staff.LastName</p>
+        <p>@staff.FullName</p>
+        <p>@staff.Password</p>
+    </div>
+}
+</body>

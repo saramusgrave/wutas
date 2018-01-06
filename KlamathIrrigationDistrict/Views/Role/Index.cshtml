@@ -1,0 +1,28 @@
+﻿@using KlamathIrrigationDistrict.DataLayer.DataModels
+@model List<Roles>
+
+@Html.ActionLink("Add Registration", "AddRegistration")
+<table>
+    <thead>
+        <tr>
+            <th>Staff ID</th>
+            <th>Staff Position</th>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Full Name</th>
+            <th>Password</th>
+        </tr>
+        
+    </thead>
+    @*@foreach (var Staff in RoleModel)
+    {
+        <tr>
+            <td>@Staff.StaffID</td>
+            <td>@Staff.Position</td>
+            <td>@Staff.FirstName</td>
+            <td>@Staff.LastName</td>
+            <td>@Staff.FullName</td>
+            <td>@Staff.Password</td>
+        </tr>
+    }*@
+</table>
