@@ -34,17 +34,17 @@ namespace KlamathIrrigationDistrict.DataLayer.DataModels
 
     public enum SelectStatusID1
     {
-        KID,
-        KBID,
-        WarrenAct,
-        GroupE,
+        KID ,
+        KBID ,
+        WarrenAct ,
+        GroupE ,
         Suspended,
-        NotUsed,
-        EnterpriseSuburban,
-        Marlin,
+        NotUsed ,
+        EnterpriseSuburban ,
+        Marlin ,
         PineGrove,
         ShastaView,
-        VanBrimer,
+        VanBrimer ,
         EnterpriseFarm
     }
     

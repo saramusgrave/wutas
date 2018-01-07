@@ -32,8 +32,8 @@
     </div>
     <div>
         @Html.LabelFor(m => m.DivisionID)
-        @*@Html.TextBoxFor(m => m.DivisionID)*@
-        @Html.DropDownList("DivisionID", new SelectList(Enum.GetValues(typeof(SelectDevision))), "DivisionID", new { @class = "form-control" })
+        @Html.TextBoxFor(m => m.DivisionID)
+        @*@Html.DropDownList("DivisionID", new SelectList(Enum.GetValues(typeof(SelectDevision))), "DivisionID", new { @class = "form-control" })*@
         @Html.ValidationMessageFor(m => m.DivisionID)
     </div>
     <div>
@@ -58,8 +58,8 @@
     </div>
     <div>
         @Html.LabelFor(m => m.Status)
-        @*@Html.TextBoxFor(m => m.Status)*@
-        @Html.DropDownList("Status", new SelectList(Enum.GetValues(typeof(SelectStatusID1))), "Status", new { @class = "form-control"})
+        @Html.TextBoxFor(m => m.Status)
+        @*@Html.DropDownList("Status", new SelectList(Enum.GetValues(typeof(SelectStatusID1))), "Status", new { @class = "form-control"})*@
         @Html.ValidationMessageFor(m => m.Status)
     </div>
     <div>

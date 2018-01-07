@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
+using System.Web.Mvc;
 
 namespace KlamathIrrigationDistrict.DataLayer.Repositories
 {
@@ -87,7 +88,7 @@ namespace KlamathIrrigationDistrict.DataLayer.Repositories
                 {
                     command.Connection = connection;
                     command.CommandType = CommandType.StoredProcedure;
-                    command.CommandText = "sp_map_InsertUpdate";
+                    command.CommandText = "sp_Map_InsertUpdate";
                     if(maptaxlots.MapTaxLot != null)
                     {
                         command.Parameters.AddWithValue("@MapTaxLot", maptaxlots.MapTaxLot);

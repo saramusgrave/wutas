@@ -30,11 +30,11 @@
             Tracking ID: @Html.EditorFor(m => m.TrackingID)
             Name: @Html.EditorFor(m => m.Name)
             Structure: @Html.EditorFor(m => m.Structure)
+            Long Name: @Html.EditorFor(m => m.LongName)
             Status: @Html.EditorFor(m => m.Status)
             Acers: @Html.EditorFor(m => m.Acers)
             Rate: @Html.EditorFor(m => m.Rate)
             Allotment: @Html.EditorFor(m => m.Allotment)
-            Long Name: @Html.EditorFor(m => m.LongName)
         </div>*@
         <div>
             @Html.LabelFor(m => m.MapTaxLot)
@@ -68,7 +68,6 @@
         </div>
         <div>
             @Html.LabelFor(m => m.Status)
-            @*@Html.TextBoxFor(m => m.Status)*@
             @Html.DropDownList("Status", new SelectList(Enum.GetValues(typeof(SelectStatusID1))), "Status")
             @Html.ValidationMessageFor(m => m.Status)
         </div>
@@ -79,7 +78,6 @@
         </div>
         <div>
             @Html.LabelFor(m => m.Rate)<br />
-            @*@Html.TextBoxFor(m => m.Rate)*@
             3.5 @Html.RadioButton("Rate", "3.5")<br />
             2.5 @Html.RadioButton("Rate", "2.5")
             @Html.ValidationMessageFor(m => m.Rate)
@@ -92,5 +90,6 @@
         <div>
             <button type="submit">Submit</button>
         </div>
+        
     }
 </body>

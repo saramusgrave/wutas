@@ -22,7 +22,20 @@ namespace KlamathIrrigationDistrict.DataLayer.DataModels
         public bool StaffStatus { get; set; }
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }
-        public DateTime ModifiedDateTime { get; set; }
+
+        //public DateTime ModifiedDateTime { get; set; }
+        private DateTime _Getdate = DateTime.Now;
+        public DateTime ModifiedDateTime
+        {
+            get
+            {
+                return _Getdate;
+            }
+            set
+            {
+                _Getdate = value;
+            }
+        }
         public string ModifiedUser { get; set; }
         public List<KIDStaff> kidstaff { get; set; }
     }

@@ -1,7 +1,7 @@
 ﻿@using KlamathIrrigationDistrict.DataLayer.DataModels
 @model KIDStaff
 @{
-    ViewBag.Title = "KID Staff: Add Staff";
+    ViewBag.Title = "KID Staff: Edit Staff";
 
 }
 <link rel="stylesheet" href="~/Styles/OfficeStaff.css" />
@@ -72,7 +72,7 @@
         </div>
         <div>
             @Html.LabelFor(s => s.ModifiedDateTime)
-            @Html.TextBoxFor(s => s.ModifiedDateTime, new { @type = "datetime" })
+            @Html.TextBoxFor(s => s.ModifiedDateTime)
             @Html.ValidationMessageFor(s => s.ModifiedDateTime)
         </div>
         <div>
