@@ -1,2 +1,222 @@
-﻿body {
+﻿#Menu
+{
+	float: center;
+	list-style-type: none;
+	overflow: auto;
+	position: float;
+	top: 0;
+	dispaly: inline-block;
+	width: 100%;
+}
+#Menu li
+{
+	list-style-type: none;
+	float: left;
+	background-color: #08ccff;
+}
+#Menu li a
+{
+	display: block;
+	color: black;
+	text-align: center;
+	padding: 10px 20px;
+	text-decoration: none;
+	border: 1px solid black;
+	width: inherit;
+}
+
+#Menu li a:hover:not(#active)
+{
+	background-color:#0066ff;
+}
+#Menu #active 
+{
+	background-color: #0000cc;
+	color: white;
+}
+#active
+{
+	background-color: #0000cc;
+	color: white;
+}
+.FirstLast
+{
+	padding: 11.2px 30px;
+	text-align: center;
+	display: inline-block;
+	font-size: 14px;
+	background-color: #08ccff;
+	border: 1px solid black;
+}
+
+.Contacts
+{	
+	padding: 200px;
+	border: 1px solid pink;
+	border-collapse: collapse;
+	box-sizing: border-box;
+}
+
+.Contacts th
+{
+	background: #3399ff;
+	vertical-align: bottom;
+	border: solid 1px #3399ff;
+}
+.Contacts td
+{
+	padding: 5px;
+	border: 1px solid black;
+	border-collapse: collapse;
+	box-sizing: border-box;
+	text-align: left;
+}
+.Contacts tr:nth-child(even)
+{
+	background-color: #f2f2f2
+}
+caption
+{
+	text-align: left;
+	text: bold;
+	color: #08ccff;
+	font-size: 25px;
+}
+
+
+button 
+{
+	background-color: #08ccff;
+	color: black;
+	padding: 11.8px 15px;
+	border: 1px solid black;
+	width: auto;
+}
+
+button:hover
+{
+	opacity: .7;
+}
+input[type=CFS]
+{
+	max-width: 50px;
+}
+input[type=Allotment]
+{
+	max-width: 40px;
+	background-color: #08ccff;
+	border: none;
+}
+input[type=Comments]
+{
+	overflow: auto;
+}
+input[list=CustomersStructures]
+{
+	max-width: 100px;
+}
+input[type=tel]
+{
+	max-width: 100px;
+}
+input[type=city]
+{
+	max-width: 100px;
+}
+input[type=state]
+{
+	max-width: 25px;
+}
+input[type=zip]
+{
+	max-width: 50px;
+}
+input[type=MapTaxLot]
+{
+	max-width: 120px;
+}
+
+#RBorder
+{
+	border-left: 1px solid #08ccff;
+}
+.LogOutBtn
+{
+	padding: 11.2px 30px;
+	text-align: enter;
+	display: inline-block;
+	font-size: 14px;
+	background-color: #08ccff;
+	border: 1px solid black;
+}
+
+#Logo
+{
+	padding: 10px;
+	display: block;
+	position: relative;	
+	bottom: 0px;
+	overflow: auto;
+}
+#Logo .footer
+{
+	border-collapse: collapse;
+	width: fill;
+	height: fill;
+}
+#Logo img
+{
+	height: 85px;
+	width: 150px;
+}
+#Logo .footer th
+{
+	vertical-align: bottom;
+	text-align: center;
+	background: #08ccff;
+}
+#Logo .footer td
+{
+	text-align: center;
+	vertical-align: center;
+	font-size: 17px;
+	border: 1px solid black;
+}
+@media screen and (min-width: 1082px)
+{
+	#Menu
+	{
+		width: 100%;
+		background: fill;
+		font-size: 20px;
+	}
+	#Menu #active
+	{
+		width:auto;
+	}
+	#Menu li a
+	{
+		text-align: center;
+	}
+	#Menu li
+	{	
+		list-style: none;
+	}
+	.FirstLast
+	{
+		font-size: 20px;
+	}
+	.LogOutBtn
+	{
+		font-size: 20px;
+	}
+	.LogOutBtn:hover
+	{
+		opacity: .6;
+	}
+	body
+	{
+		margin-left: 150px;
+	}
+		
 }
