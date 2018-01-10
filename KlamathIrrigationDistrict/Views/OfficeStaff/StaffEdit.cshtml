@@ -72,7 +72,7 @@
         </div>
         <div>
             @Html.LabelFor(s => s.ModifiedDateTime)
-            @Html.TextBoxFor(s => s.ModifiedDateTime)
+            @Html.TextBoxFor(s => s.ModifiedDateTime, new { @type = "datetime", @Value = DateTime.Now.ToString() })
             @Html.ValidationMessageFor(s => s.ModifiedDateTime)
         </div>
         <div>

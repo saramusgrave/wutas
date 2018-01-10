@@ -20,19 +20,18 @@
     </ul>
 </header>
 <body>
-    <a href="/Customers/Index" class="previous">&laquo; Previous</a>
+    <a href="/Customers/Index" class="previous">&laquo; Previous</a><br />
+    Add Customer
     @using (Html.BeginForm())
     {
         <div>
-            @*@Html.LabelFor(m => m.CustomerID)
-            @Html.TextBoxFor(m => m.CustomerID)*@
-            Customer ID: @Html.EditorFor(m => m.CustomerID)
+            @Html.LabelFor(m => m.CustomerID)
+            @Html.TextBoxFor(m => m.CustomerID)
             @Html.ValidationMessageFor(m => m.CustomerID)
         </div>
         <div>
-            @*@Html.LabelFor(m => m.TrackingID)
-            @Html.TextBoxFor(m => m.TrackingID)*@
-            Tracking ID: @Html.EditorFor(m => m.TrackingID)
+            @Html.LabelFor(m => m.TrackingID)
+            @Html.TextBoxFor(m => m.TrackingID)
             @Html.ValidationMessageFor(m => m.TrackingID)
         </div>
         <div>
@@ -56,25 +55,22 @@
             @Html.ValidationMessageFor(m => m.City)
         </div>
         <div>
-            @*@Html.LabelFor(m => m.State)
-            @Html.TextBoxFor(m => m.State)*@
-            State: @Html.EditorFor(m => m.State)
+            @Html.LabelFor(m => m.State)
+            @Html.TextBoxFor(m => m.State)
             @Html.ValidationMessageFor(m => m.State)
         </div>
         <div>
-            @*@Html.LabelFor(m => m.Zip)
-            @Html.TextBoxFor(m => m.Zip)*@
-            Zip: @Html.EditorFor(m => m.Zip)
+            @Html.LabelFor(m => m.Zip)
+            @Html.TextBoxFor(m => m.Zip)
             @Html.ValidationMessageFor(m => m.Zip)
         </div>
         <div>
-            @*@Html.LabelFor(m => m.TotalAllotment)
-            @Html.TextBoxFor(m => m.TotalAllotment)*@
-            Total Allotment: @Html.EditorFor(m => m.TotalAllotment)
+            @Html.LabelFor(m => m.TotalAllotment)
+            @Html.TextBoxFor(m => m.TotalAllotment)
             @Html.ValidationMessageFor(m => m.TotalAllotment)
         </div>
     }
     <div>
-        <button type="submit">Submit</button>
+        <button type="Submit">Add</button>
     </div>
 </body>

@@ -23,8 +23,8 @@ namespace KlamathIrrigationDistrict.DataLayer.DataModels
         [Required]
         [StringLength(2)]
         public string State { get; set; }
-        [StringLength(5)]
         public int Zip { get; set; }
         public decimal TotalAllotment { get; set; }
+        public List<Customers> customers { get; set; }
     }
 }

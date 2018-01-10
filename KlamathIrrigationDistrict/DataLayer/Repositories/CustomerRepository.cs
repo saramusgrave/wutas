@@ -1,16 +1,13 @@
 ﻿using KlamathIrrigationDistrict.DataLayer.DataModels;
 using KlamathIrrigationDistrict.DataLayer.Repository;
-using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
-using System.Linq;
-using System.Web;
 
 namespace KlamathIrrigationDistrict.DataLayer.Repositories
 {
-    public class CustomerRepository : ICustomerRepositories 
+    public class CustomerRepository : ICustomerRepositories
     {
         public virtual Customers Get(int CustomerID)
         {
@@ -26,7 +23,7 @@ namespace KlamathIrrigationDistrict.DataLayer.Repositories
                     connection.Open();
                     using (SqlDataReader reader = command.ExecuteReader())
                     {
-                        if(reader.Read())
+                        if (reader.Read())
                         {
                             s = new Customers();
                             s.CustomerID = int.Parse(reader["CustomerID"].ToString());
@@ -53,7 +50,7 @@ namespace KlamathIrrigationDistrict.DataLayer.Repositories
                 {
                     command.Connection = connection;
                     command.CommandType = CommandType.Text;
-                    command.CommandText = "SELECT * FROM Customers";
+                    command.CommandText = "SELECT * FROM Customers ORDER BY Name";
                     connection.Open();
                     using (SqlDataReader reader = command.ExecuteReader())
                     {
@@ -84,11 +81,12 @@ namespace KlamathIrrigationDistrict.DataLayer.Repositories
                 {
                     command.Connection = connection;
                     command.CommandType = CommandType.StoredProcedure;
-                    command.CommandText = "sp_customers_InsertUpdate";
-                    if(customers.CustomerID != null)
-                    {
-                        command.Parameters.AddWithValue("@CustomerID", customers.CustomerID);
-                    }
+                    command.CommandText = "sp_Customer_Insert_Update";
+                    //if (customers.CustomerID != null)
+                    //{
+                    //    command.Parameters.AddWithValue("@CustomerID", customers.CustomerID);
+                    //}
+                    command.Parameters.AddWithValue("@CustomerID", customers.CustomerID);
                     command.Parameters.AddWithValue("@TrackingID", customers.TrackingID);
                     command.Parameters.AddWithValue("@Name", customers.Name);
                     command.Parameters.AddWithValue("@Address1", customers.Address1);
