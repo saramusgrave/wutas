@@ -17,5 +17,6 @@ namespace KlamathIrrigationDistrict.DataLayer.DataModels
         public string StatusID6 { get; set; }
         public string StatusID7 { get; set; }
         public string StatusID8 { get; set; }
+        public List<Divisions> divisions { get; set; }
     }
 }

@@ -67,7 +67,7 @@ namespace KlamathIrrigationDistrict.DataLayer.Repositories
                             r.Structure = reader["Structure"].ToString();
                             r.LongName = reader["LongName"].ToString();
                             //won't work some odd reason don't show in depoloyment
-                           // r.Ride = int.Parse(reader["Ride"].ToString());
+                            //r.Ride = int.Parse(reader["Ride"].ToString());
                             r.Status = reader["Status"].ToString();
                             r.Acers = decimal.Parse(reader["Acers"].ToString());
                             r.Rate = decimal.Parse(reader["Rate"].ToString());

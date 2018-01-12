@@ -74,24 +74,6 @@ namespace KlamathIrrigationDistrict.Controllers
             _stafRepo.Save(kidstaff);
             return RedirectToAction("Index");
         }
-        //Add Customer
-        public ActionResult AddCustomer()
-        {
-            return View("AddCustomer");
-        }
-        //Edit Customer
-        public ActionResult Edit()
-        {
-            return View("Edit");
-        }
-        /*Delete?
-        [HttpGet]
-        public ActionResult Edit(int StaffID)
-        {
-            KIDStaff kidstaff = _stafRepo.Get(StaffID);
-            return View(kidstaff);
-        }
-        */
         [OutputCache(Duration = 300, VaryByParam = "id")]
         public ActionResult ViewStaff(int StaffID)
         {

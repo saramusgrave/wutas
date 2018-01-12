@@ -21,7 +21,7 @@ namespace KlamathIrrigationDistrict.Controllers
         [HttpGet]
         public ActionResult Index(int? page)
         {
-            int pageSize = 10;
+            int pageSize = 15;
             int pageIndex = 1;
             pageIndex = page.HasValue ? Convert.ToInt32(page) : 1;
             IPagedList<MapTaxLots> map = null;

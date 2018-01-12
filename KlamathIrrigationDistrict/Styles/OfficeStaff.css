@@ -171,7 +171,29 @@ input[type=text]{
     max-width: 65px;
 }
 /*End*/
-
+/*Dropdown for MTL style*/
+.dropdownMTL{
+    display: none;
+	position: absolute;
+	background-color: #f9f9f9;
+	box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+	z-index: 1;
+	width: 15%;
+}
+.dropdownMTL a{
+    color: black;
+	padding: 12px 16px;
+	text-decoration: none;
+	display: block;
+	text-align: center;
+}
+.dropdownMTL a:hover{
+    background-color: #f1f1f1;
+}
+.dropdown:hover .dropdownMTL{
+    display: inline-block;
+}
+/*End dropdown for MTL Style*/
 input[type=password]{
     width: 100px;
 }

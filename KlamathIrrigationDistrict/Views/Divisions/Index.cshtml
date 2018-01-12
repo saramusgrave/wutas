@@ -1,8 +1,8 @@
 ﻿@using KlamathIrrigationDistrict.DataLayer.DataModels
 @using PagedList.Mvc;
-@model PagedList.IPagedList<MapTaxLots>
-@*@model List<MapTaxLots>*@
-@{ 
+@model PagedList.IPagedList<Divisions>
+@*@model List<Divisions>*@
+@{
     ViewBag.Title = "KID Staff: Map Tax Lots";
 }
 <head>
@@ -18,53 +18,38 @@
         <li><a href="/Customers/Index">Customers</a></li>
         <li><a href="~/OfficeStaff/Index">Staff</a></li>
         <li class="dropdown">
-            <a href="Index" id="active">MapTaxLots</a>
+            <a href="/MapTaxLot/Index" id="active">MapTaxLots</a>
             <div class="dropdownMTL" style="overflow-x: auto;">
-                <a href="x">Divisons and Rates</a>
+                <a href="Index">Divisons and Rates</a>
             </div>
         </li>
-        
+
         <li><a href="~/Account/Login" class="LogOutBtn">Log Out</a></li>
     </ul>
 </header>
 <body>
-<a href="Add" class="next">Add &raquo;</a>
-<div style="overflow: auto">
-    <table class="OfficeStaffCustomers">
-        <caption>MapTaxLots</caption>
+    <a href="Add" class="next">Add &raquo;</a>
+    <div style="overflow: auto">
+        <table class="OfficeStaffCustomers">
+            <caption>Divisions</caption>
             <tr>
-                <th>Map Tax Lot</th>
                 <th>Division ID</th>
-                <th>Tracking ID</th>
-                <th>Owners Name</th>
-                <th>Structure</th>
-                <th>Status</th>
-                @*<th>Ride</th>*@
-                <th>Acers</th>
                 <th>Rate</th>
-                <th>Allotment</th>
-                <th colspan="2">History & Edit</th>
+                <th>Edit</th>
             </tr>
             @for (int i = 0; i < Model.Count; i++)
             {
                 <tr>
-                    <td>@Model[i].MapTaxLot</td>
                     <td>@Model[i].DivisionID</td>
-                    <td>@Model[i].TrackingID</td>
-                    <td>@Model[i].Name</td>
-                    <td>@Model[i].Structure</td>
-                    <td>@Model[i].Status</td>
-                    @*<td>@Model[i].Ride</td>*@
-                    <td>@Model[i].Acers</td>
                     <td>@Model[i].Rate</td>
-                    <td>@Model[i].Allotment</td>
                     <td>
-                        @Html.ActionLink("History", "History", new { @MapTaxLot = Model[i].MapTaxLot })
-                        @Html.ActionLink("Edit", "Edit", new { @MapTaxLot = Model[i].MapTaxLot })</td>
+                        
+                        @Html.ActionLink("Edit", "Edit", new { @DivisionID = Model[i].DivisionID })
+                    </td>
                 </tr>
             }
-    </table>
-</div>
+        </table>
+    </div>
     <div class="pagination" style="margin-left: 20px;">
         Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber)
         of @Model.PageCount @Html.PagedListPager(Model, page => Url.Action("Index", new { page }))

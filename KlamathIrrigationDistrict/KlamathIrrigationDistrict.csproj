@@ -206,6 +206,7 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\CustomersController.cs" />
     <Compile Include="Controllers\DitchRiderController.cs" />
+    <Compile Include="Controllers\DivisionsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\MapTaxLotController.cs" />
@@ -218,11 +219,13 @@
     <Compile Include="DataLayer\DataModels\KIDStaff.cs" />
     <Compile Include="DataLayer\DataModels\MapTaxLots.cs" />
     <Compile Include="DataLayer\DataModels\Roles.cs" />
+    <Compile Include="DataLayer\Interfaces\IDivisionsRepository.cs" />
     <Compile Include="DataLayer\Interfaces\IMapTaxLotRepository.cs" />
     <Compile Include="DataLayer\Interfaces\IOfficeStaffRepository.cs" />
     <Compile Include="DataLayer\Interfaces\IRolesRepository.cs" />
     <Compile Include="DataLayer\Repositories\CustomerRepository.cs" />
     <Compile Include="DataLayer\Interfaces\ICustomerRepositories.cs" />
+    <Compile Include="DataLayer\Repositories\DivisionsRepository.cs" />
     <Compile Include="DataLayer\Repositories\MapTaxLotRepository.cs" />
     <Compile Include="DataLayer\Repositories\OfficeStaffRepository.cs" />
     <Compile Include="DataLayer\Repositories\RoleRepository.cs" />
@@ -322,13 +325,14 @@
     <Content Include="Views\OfficeStaff\Index.cshtml" />
     <Content Include="Views\Role\JoinRole.cshtml" />
     <Content Include="Views\Role\Index.cshtml" />
-    <Content Include="Views\OfficeStaff\Edit.cshtml" />
     <Content Include="Views\OfficeStaff\Add.cshtml" />
     <Content Include="Views\MapTaxLot\Edit.cshtml" />
     <Content Include="Views\MapTaxLot\Add.cshtml" />
     <Content Include="Views\Customers\AddCustomer.cshtml" />
     <Content Include="Views\Customers\StaffEditCustomer.cshtml" />
     <Content Include="Views\OfficeStaff\StaffEdit.cshtml" />
+    <Content Include="Views\Divisions\Index.cshtml" />
+    <Content Include="Views\Divisions\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
