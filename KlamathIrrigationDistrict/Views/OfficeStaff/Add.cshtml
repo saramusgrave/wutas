@@ -53,7 +53,7 @@
         </div>
         <div>
             @Html.LabelFor(s => s.PhoneNumber)
-            @Html.TextBoxFor(s => s.PhoneNumber)
+            @Html.TextBoxFor(s => s.PhoneNumber, new { @type = "tel" })
             @Html.ValidationMessageFor(s => s.PhoneNumber)
         </div>
         @*<div>

@@ -26,47 +26,47 @@
     {
         <div>
             @Html.LabelFor(s => s.CustomerID)
-            @Html.TextBoxFor(s => s.CustomerID, new { @class = "CustomerID" })
+            @Html.TextBoxFor(s => s.CustomerID, new { @type = "TrackingID"})
             @Html.ValidationMessageFor(s => s.CustomerID)
         </div>
         <div>
             @Html.LabelFor(s => s.TrackingID)
-            @Html.TextBoxFor(s => s.TrackingID, new { @class = "CustomerID" })
+            @Html.TextBoxFor(s => s.TrackingID, new {@type = "TrackingID"})
             @Html.ValidationMessageFor(s => s.TrackingID)
         </div>
         <div>
             @Html.LabelFor(s => s.Name)
-            @Html.TextBoxFor(s => s.Name, new { @class = "Name" })
+            @Html.TextBoxFor(s => s.Name, new {@type="owner"})
             @Html.ValidationMessageFor(s => s.Name)
         </div>
         <div>
             @Html.LabelFor(s => s.Address1)
-            @Html.TextBoxFor(s => s.Address1, new { @class = "Address" })
+            @Html.TextBoxFor(s => s.Address1, new { @type="Address" })
             @Html.ValidationMessageFor(s => s.Address1)
         </div>
         <div>
             @Html.LabelFor(s => s.Address2)
-            @Html.TextBoxFor(s => s.Address2, new { @class = "Address" })
+            @Html.TextBoxFor(s => s.Address2, new {@type="Address" })
             @Html.ValidationMessageFor(s => s.Address2)
         </div>
         <div>
             @Html.LabelFor(s => s.City)
-            @Html.TextBoxFor(s => s.City, new { @class = "City" })
+            @Html.TextBoxFor(s => s.City, new { @type="Address" })
             @Html.ValidationMessageFor(s => s.City)
         </div>
         <div>
             @Html.LabelFor(s => s.State)
-            @Html.TextBoxFor(s => s.State, new { @class = "State" })
+            @Html.TextBoxFor(s => s.State, new { @type="Address"})
             @Html.ValidationMessageFor(s => s.State)
         </div>
         <div>
             @Html.LabelFor(s => s.Zip)
-            @Html.TextBoxFor(s => s.Zip, new { @class = "Zip" })
+            @Html.TextBoxFor(s => s.Zip, new { @type="Address" })
             @Html.ValidationMessageFor(s => s.Zip)
         </div>
         <div>
             @Html.LabelFor(s => s.TotalAllotment)
-            @Html.TextBoxFor(s => s.TotalAllotment, new { @class = "TotalAllotment" })
+            @Html.TextBoxFor(s => s.TotalAllotment, new { @type="Address"})
             @Html.ValidationMessageFor(s => s.TotalAllotment)
         </div>
         <div>

@@ -143,33 +143,14 @@ ul.pagination li a:hover:not(.active){
     color: aqua;
  }
 input[type=text]{
-    width: 100px;
+    max-width: 100px;
 }
 /*Formatting form html Helpers*/ 
-.Name{
-    resize: both;
-    overflow: auto;
-    width: 150px;
+input[type=Address]{
+	width: 500px;
+	overflow: scroll;
 }
-.CustomerID{
-   max-width: 50px;
-}
-.Adderss{
-    width: 500px;
-    overflow: auto;
-}
-.City{
-    width: 200px;
-}
-.State{
-    max-width: 30px;
-}
-.Zip{
-    max-width: 50px;
-}
-.TotalAllotment{
-    max-width: 65px;
-}
+	
 /*End*/
 /*Dropdown for MTL style*/
 .dropdownMTL{

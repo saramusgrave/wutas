@@ -27,7 +27,8 @@
         </div>
         <div>
             @Html.Label("Position:")
-            @Html.TextBoxFor(s => s.Position)
+            @Html.DropDownList("Position", new SelectList(Enum.GetValues(typeof(SelectPosition))),"Position")
+           @* @Html.TextBoxFor(s => s.Position)*@
             @Html.ValidationMessageFor(s => s.Position)
         </div>
         <div>
@@ -52,7 +53,7 @@
         </div>
         <div>
             @Html.LabelFor(s => s.PhoneNumber)
-            @Html.TextBoxFor(s => s.PhoneNumber)
+            @Html.TextBoxFor(s => s.PhoneNumber, new { @type = "tel" })
             @Html.ValidationMessageFor(s => s.PhoneNumber)
         </div>
         <div>

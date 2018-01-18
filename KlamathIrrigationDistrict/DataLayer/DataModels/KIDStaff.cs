@@ -39,4 +39,29 @@ namespace KlamathIrrigationDistrict.DataLayer.DataModels
         public string ModifiedUser { get; set; }
         public List<KIDStaff> kidstaff { get; set; }
     }
+    public enum SelectPosition
+    {
+        DistrictManager,
+        AssistantManager,
+        WaterMaster,
+        OfficeSpecialist,
+        Bookkeeper,
+        MaitenanceSupervisor,
+        Ride1,
+        Ride2,
+        Ride3,
+        Ride4,
+        Ride5,
+        Ride6,
+        Ride7,
+        Ride8,
+        ReliefRide1,
+        ReliefRide2,
+        ReliefRide3,
+        ReliefRide4,
+        ReliefRide5,
+        ReliefRide6,
+        ReliefRide7,
+        ReliefRide8
+    }
 }
