@@ -3,8 +3,7 @@
 	list-style-type: none;
 	margin: 0;
 	padding: 0;
-	overflow: auto;
-/*  position: float; */  
+	overflow: auto; 
 	top: 0;
 	display: inline-block;
 	width: 100%;
@@ -42,12 +41,6 @@
 	border: 1px solid black;
 }
 .LogOutBtn:hover{
-	/*padding: 11.2px 30px;
-	text-align: center;
-	display: inline-block;
-	font-size: 14px;
-	background-color: #08ccff;
-	border: 1px solid black;*/
     opacity: .8;
     background-color: #08ccff;
 }
@@ -63,7 +56,7 @@ caption #SearchCustomers{
 	color: #08ccff;
 	font-size: 25px;	
 }
-button {
+button{
 	background-color: #08ccff;
 	color: black;
 	padding: 11.8px 15px;
@@ -143,7 +136,7 @@ ul.pagination li a:hover:not(.active){
     color: aqua;
  }
 input[type=text]{
-    max-width: 100px;
+    width: 100px;
 }
 /*Formatting form html Helpers*/ 
 input[type=Address]{
@@ -245,38 +238,35 @@ a:visited{
 	font-size: 17px;
 	border: 1px solid black;
 }
-@media screen and (min-width: 1082px) {
-    #OfficeStaffMenu {
+/*1082 min width*/
+@media only screen and (min-width: 1024px){
+    #OfficeStaffMenu{
         font-size: 20px;
         overflow: auto;
         display: inline-block;
     }
-    #OfficeStaffMenu ul {
+    #OfficeStaffMenu ul{
         display: inline-block;
     }
-    .FirstLast {
+    .FirstLast{
         font-size: 20px;
     }
-    .LogOutBtn {
+    .LogOutBtn{
         font-size: 20px;
-        /*
-		height: 45px;
-		margin-left: 40px;
-		*/
         display: inline-block;
     }
-    .LogOutBtn:hover {
+    .LogOutBtn:hover{
         opacity: .6;
     }
-    #OfficeStaffMenu li a {
+    #OfficeStaffMenu li a{
         text-align: center;
         width: 200px;
     }
-    #OfficeStaffMenu li {
+    #OfficeStaffMenu li{
         list-style-type: none;
         background-color: #08ccff;
     }
-    .DitchRiderContacts {
+    .DitchRiderContacts{
         width: 75%;
     }
     input[type=text]{
@@ -286,5 +276,8 @@ a:visited{
     input[type=password]{
         width: 175px;
         height: 10px;
+    }
+    body{
+        color: magenta;
     }
 }
