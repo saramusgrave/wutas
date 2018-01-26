@@ -135,16 +135,7 @@ ul.pagination li a:hover:not(.active){
     width: 100px;
     color: aqua;
  }
-input[type=text]{
-    width: 100px;
-}
-/*Formatting form html Helpers*/ 
-input[type=Address]{
-	width: 500px;
-	overflow: scroll;
-}
-	
-/*End*/
+
 /*Dropdown for MTL style*/
 .dropdownMTL{
     display: none;
@@ -168,6 +159,36 @@ input[type=Address]{
     display: inline-block;
 }
 /*End dropdown for MTL Style*/
+input[type=text]{
+    width: 100px;
+}
+/*Formatting form html Helpers*/ 
+input[type=Address]{
+	width: 500px;
+	overflow: scroll;
+}
+input[type=mtl]{
+    width: 125px;    
+}
+input[type=Turnout]{
+    width: 100px;
+}
+input[type=LongName]{
+    width: 150px;
+}
+input[type=Acers]{
+    width: 50px;
+}
+input[type=datetime]{
+    box-sizing: content-box;
+}
+input[type=User]{
+    width: 50%;
+}
+input[type=tel]{
+    width: 100px;
+}
+/*End*/
 input[type=password]{
     width: 100px;
 }
@@ -176,24 +197,23 @@ input[type=Comments]{
 	overflow: auto;
 	word-wrap: break-word;
 }
-#Turnouts{
-	width:100px;
-}
 input[type=CFS]{
-	width: 20px;
+	width: 50px;
 }
 input[type=number]{
 	width: 40px;
 }
-#DivisionID{
-    width: 90px;
-}
-input[type=TrackingID]{
+input[type=CustomerID]{
 	width: 50px;
 }
 input[type=owner]{
-	width: 150px;
-	overflow: scroll;
+    width: 100%;
+}
+#DivisionID{
+    width: 90px;
+}
+#Turnouts{
+	width:100px;
 }	
 a:link{
 	color: #08ccff;
@@ -277,7 +297,7 @@ a:visited{
         width: 175px;
         height: 10px;
     }
-    body{
-        color: magenta;
+    input[type=owner]{
+        width: 50%;
     }
 }

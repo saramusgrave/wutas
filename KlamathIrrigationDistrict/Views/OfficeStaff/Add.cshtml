@@ -22,13 +22,12 @@
     @using (Html.BeginForm())
     {
         <div>
-            @Html.LabelFor(s => s.StaffID)
-            @Html.TextBoxFor(s => s.StaffID, new { @type = "number" })
-            @Html.ValidationMessageFor(s => s.StaffID)
+            @Html.Label("Staff ID: ")
+            @Html.TextBoxFor(s => s.StaffID, new { @type = "number"})
         </div>
         <div>
-            @Html.LabelFor(s => s.Position)
-            @Html.TextBoxFor(s => s.Position)
+            @Html.Label("Position:")
+            @Html.DropDownList("Position", new SelectList(Enum.GetValues(typeof(SelectPosition))), "Position")
             @Html.ValidationMessageFor(s => s.Position)
         </div>
         <div>
@@ -43,7 +42,8 @@
         </div>
         <div>
             @Html.LabelFor(s => s.Password)
-            @Html.TextBoxFor(s => s.Password)
+            @Html.TextBoxFor(s => s.Password, new { @type = "password", @Id = "psw" })
+            <input type="checkbox" onclick="ShowPassword()">Show Password
             @Html.ValidationMessageFor(s => s.Password)
         </div>
         <div>
@@ -56,14 +56,9 @@
             @Html.TextBoxFor(s => s.PhoneNumber, new { @type = "tel" })
             @Html.ValidationMessageFor(s => s.PhoneNumber)
         </div>
-        @*<div>
-                @Html.Label("Active")
-                @Html.CheckBoxFor(s => s.StaffStatus)
-                @Html.ValidationMessageFor(s => s.StaffStatus)
-            </div>*@
         <div>
-            @Html.LabelFor(s => s.StaffStatus)
-            @Html.TextBoxFor(s => s.StaffStatus)
+            @Html.Label("Active")
+            @Html.CheckBoxFor(s => s.StaffStatus)
             @Html.ValidationMessageFor(s => s.StaffStatus)
         </div>
         <div>
@@ -78,12 +73,12 @@
         </div>
         <div>
             @Html.LabelFor(s => s.ModifiedDateTime)
-            @Html.TextBoxFor(s => s.ModifiedDateTime)
+            @Html.TextBoxFor(s => s.ModifiedDateTime, new { @type = "datetime", @Value = DateTime.Now.ToString(), @disabled = "disabled" })
             @Html.ValidationMessageFor(s => s.ModifiedDateTime)
         </div>
         <div>
             @Html.LabelFor(s => s.ModifiedUser)
-            @Html.TextBoxFor(s => s.ModifiedUser)
+            @Html.TextBoxFor(s => s.ModifiedUser, new { @type = "User"})
             @Html.ValidationMessageFor(s => s.ModifiedUser)
         </div>
         <div>

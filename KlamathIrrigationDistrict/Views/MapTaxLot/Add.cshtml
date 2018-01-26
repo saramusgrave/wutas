@@ -27,56 +27,54 @@
 {
     <div>
         @Html.LabelFor(m => m.MapTaxLot)
-        @Html.TextBoxFor( m => m.MapTaxLot)
+        @Html.TextBoxFor( m => m.MapTaxLot, new { @type = "mtl" })
         @Html.ValidationMessageFor(m => m.MapTaxLot)
     </div>
     <div>
         @Html.LabelFor(m => m.DivisionID)
-        @Html.TextBoxFor(m => m.DivisionID)
-        @*@Html.DropDownList("DivisionID", new SelectList(Enum.GetValues(typeof(SelectDevision))), "DivisionID", new { @class = "form-control" })*@
+        @*@Html.TextBoxFor(m => m.DivisionID)*@
+        @Html.DropDownList("DivisionID", new SelectList(Enum.GetValues(typeof(SelectDevision))), "DivisionID", new { @class = "form-control" })
         @Html.ValidationMessageFor(m => m.DivisionID)
     </div>
     <div>
         @Html.LabelFor(m => m.TrackingID)
-        @Html.TextBoxFor(m => m.TrackingID)
+        @Html.TextBoxFor(m => m.TrackingID, new { @type = "CustomerID" })
         @Html.ValidationMessageFor(m => m.TrackingID)
     </div>
     <div>
         @Html.LabelFor(m =>m.Name)
-        @Html.TextBoxFor(m =>m.Name)
+        @Html.TextBoxFor(m =>m.Name, new { @type = "owner" })
         @Html.ValidationMessageFor(m => m.Name)
     </div>
     <div>
         @Html.LabelFor(m => m.Structure)
-        @Html.TextBoxFor(m => m.Structure)
+        @Html.TextBoxFor(m => m.Structure, new { @type = "Turnout" })
         @Html.ValidationMessageFor(m => m.Structure)
     </div>
     <div>
         @Html.LabelFor(m => m.LongName)
-        @Html.TextBoxFor(m => m.LongName)
+        @Html.TextBoxFor(m => m.LongName, new { @type = "LongName" })
         @Html.ValidationMessageFor(m => m.LongName)
     </div>
     <div>
         @Html.LabelFor(m => m.Status)
-        @Html.TextBoxFor(m => m.Status)
-        @*@Html.DropDownList("Status", new SelectList(Enum.GetValues(typeof(SelectStatusID1))), "Status", new { @class = "form-control"})*@
+        @*@Html.TextBoxFor(m => m.Status)*@
+        @Html.DropDownList("Status", new SelectList(Enum.GetValues(typeof(SelectStatusID1))), "Status", new { @class = "form-control"})
         @Html.ValidationMessageFor(m => m.Status)
     </div>
     <div>
         @Html.LabelFor(m => m.Acers)
-        @Html.TextBoxFor(m => m.Acers)
+        @Html.TextBoxFor(m => m.Acers, new { @type = "Acers" })
         @Html.ValidationMessageFor(m => m.Acers)
     </div>
     <div>
         @Html.LabelFor(m => m.Rate)<br />
-        @*@Html.TextBoxFor(m => m.Rate)*@
-        3.5 @Html.RadioButton("Rate", "3.5")<br />
-        2.5 @Html.RadioButton("Rate", "2.5")
+        @Html.TextBoxFor(m => m.Rate, new { @type = "CFS" })
         @Html.ValidationMessageFor(m => m.Rate)
     </div>
     <div>
         @Html.LabelFor(m => m.Allotment)
-        @Html.TextBoxFor(m => m.Allotment)
+        @Html.TextBoxFor(m => m.Allotment, new { @type = "Acers" })
         @Html.ValidationMessageFor(m => m.Allotment)
     </div>
     <div>

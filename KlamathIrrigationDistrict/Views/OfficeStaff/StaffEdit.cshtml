@@ -6,6 +6,18 @@
 }
 <link rel="stylesheet" href="~/Styles/OfficeStaff.css" />
 <link rel="stylesheet" href="~/Scripts/KIDDitchRidersJS.js" />
+<script src="~/Scripts/KIDDitchRidersJS.js"></script>
+@*<script>
+    function ShowPassword() {
+        var x = document.getElementById("psw");
+        if (x.type == "password") {
+            x.type = "text";
+        }
+        else {
+            x.type = "password";
+        }
+    }
+</script>*@
 <header id="OfficeStaffMenu">
     <ul>
         <li><label class="FirstLast">Linda.Seater</label></li>
@@ -28,7 +40,6 @@
         <div>
             @Html.Label("Position:")
             @Html.DropDownList("Position", new SelectList(Enum.GetValues(typeof(SelectPosition))),"Position")
-           @* @Html.TextBoxFor(s => s.Position)*@
             @Html.ValidationMessageFor(s => s.Position)
         </div>
         <div>
@@ -43,7 +54,8 @@
         </div>
         <div>
             @Html.LabelFor(s => s.Password)
-            @Html.TextBoxFor(s => s.Password)
+            @Html.TextBoxFor(s => s.Password, new { @type = "password", @Id="psw" })
+            <input type="checkbox" onclick="ShowPassword()">Show Password
             @Html.ValidationMessageFor(s => s.Password)
         </div>
         <div>
@@ -63,22 +75,22 @@
         </div>
         <div>
             @Html.LabelFor(s => s.StartDate)
-            @Html.TextBoxFor(s => s.StartDate)
+            @Html.TextBoxFor(s => s.StartDate, new { @type = "datetime" })
             @Html.ValidationMessageFor(s => s.StartDate)
         </div>
         <div>
             @Html.LabelFor(s => s.EndDate)
-            @Html.TextBoxFor(s => s.EndDate)
+            @Html.TextBoxFor(s => s.EndDate, new { @type = "datetime" })
             @Html.ValidationMessageFor(s => s.EndDate)
         </div>
         <div>
             @Html.LabelFor(s => s.ModifiedDateTime)
-            @Html.TextBoxFor(s => s.ModifiedDateTime, new { @type = "datetime", @Value = DateTime.Now.ToString() })
+            @Html.TextBoxFor(s => s.ModifiedDateTime, new { @type = "datetime", @Value = DateTime.Now.ToString(), @disabled="disabled"})
             @Html.ValidationMessageFor(s => s.ModifiedDateTime)
         </div>
         <div>
             @Html.LabelFor(s => s.ModifiedUser)
-            @Html.TextBoxFor(s => s.ModifiedUser)
+            @Html.TextBoxFor(s => s.ModifiedUser, new { @type = "User" })
             @Html.ValidationMessageFor(s => s.ModifiedUser)
         </div>
         <div>
