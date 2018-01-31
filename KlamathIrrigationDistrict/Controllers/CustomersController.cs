@@ -87,5 +87,28 @@ namespace KlamathIrrigationDistrict.Controllers
             };
             return ViewCustomers(CustomerID);
         }
+
+
+        //view the ICustomerRepositories
+        //need to add the TrackingID from the MTL - ensure that it matches with Customer's Tracking ID
+        //Allow to sync with 
+        public ActionResult ViewHistory(int TrackingID)
+        {
+            Customers.MapTaxLots customers_Info = _custRepo.Get(TrackingID);
+            Customers History = new Customers();
+
+            Customers.MapTaxLots MTL = new Customers.MapTaxLots();
+            {
+                Name = customers_Info.
+            }
+        
+
+            //foreach (CustomerHistory.TrackingID in WaterRequest)
+            //{
+
+            //}
+
+            return ViewHistory(TrackingID);
+        }
     }
 }

@@ -41,6 +41,32 @@ namespace KlamathIrrigationDistrict.DataLayer.Repositories
             }
             return (s);
         }
+
+        public virtual Customers GetTrackingID(int TrackingID)
+        {
+            Customers C_TrackID = null;
+            using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings[@"KlamathIrrigation_Test"].ConnectionString))
+            {
+                using (SqlCommand command = new SqlCommand())
+                {
+                    command.Connection = connection;
+                    command.CommandType = CommandType.Text;
+                    command.CommandText = "SELECT TrackingID FROM Customers";
+                    command.Parameters.AddWithValue("@TrackingID", TrackingID);
+                    connection.Open();
+                    using (SqlDataReader reader = command.ExecuteReader())
+                    {
+                        if (reader.Read())
+                        {
+                            C_TrackID = new Customers();
+                            C_TrackID.TrackingID = int.Parse(reader["TrackingID"].ToString());                            
+                        }
+                    }
+                }
+            }
+            return (C_TrackID);
+        }
+
         public virtual List<Customers> ViewCustomers()
         {
             List<Customers> vc = new List<Customers>();
@@ -73,6 +99,40 @@ namespace KlamathIrrigationDistrict.DataLayer.Repositories
             }
             return (vc);
         }
+
+        public virtual List<Customers.MapTaxLots> ViewHistory()
+        {
+            //view history - vh
+            List<Customers>  vh = new List<Customers>();
+            //List<MapTaxLots> ch = new List<MapTaxLots>();
+            using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings[@"KlamathIrrigation_Test"].ConnectionString))
+            {
+                using (SqlCommand command = new SqlCommand())
+                {
+                    command.Connection = connection;
+                    command.CommandType = CommandType.Text;
+                    command.CommandText = "SELECT Name, CustomerID, TrackingID, Structures, Status, Acres FROM C.Customers, M.MapTaxLots WHERE C.TrackingID = M.TrackingID;";
+                    connection.Open();
+                    using (SqlDataReader reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            Customers.MapTaxLots s = new Customers.MapTaxLots();
+                            s.Name = reader["Name"].ToString();
+                            s.CustomerID = int.Parse(reader["CustomerID"].ToString());
+                            s.TrackingID = int.Parse(reader["TrackingID"].ToString());
+                            s.Structure  = reader["Structure"].ToString();
+                            s.Status     = reader["Statust"].ToString();
+                            s.Acers = decimal.Parse(reader["Acers"].ToString());
+                            
+                            //will add the above data to the customer's profile - view history (VH)
+                            vh.Add(s);
+                        }
+                    }
+                }
+            }
+        }
+
         public virtual void Save(Customers customers)
         {
             using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings[@"KlamathIrrigation_Test"].ConnectionString))
@@ -101,4 +161,11 @@ namespace KlamathIrrigationDistrict.DataLayer.Repositories
             }
         }
     }
+
+    //public class List<T1, T2>
+    //{
+    //    List<T1> vh = new List<T1>();
+    //    List<T2> ch = new List<T2>();
+        
+    //}
 }
