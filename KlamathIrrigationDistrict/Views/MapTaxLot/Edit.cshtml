@@ -32,6 +32,7 @@
         <div>
             @Html.LabelFor(m => m.DivisionID)
             @Html.DropDownList("DivisionID", new SelectList(Enum.GetValues(typeof(SelectDevision))), "DivisionID")
+            
             @Html.ValidationMessageFor(m => m.DivisionID)
         </div>
         <div>
@@ -49,6 +50,11 @@
             @Html.TextBoxFor(m => m.Structure, new { @type = "Turnout" })
             @Html.ValidationMessageFor(m => m.Structure)
         </div>
+        @*<div>
+            @Html.LabelFor(m => m.Ride)
+            @Html.TextBoxFor(m => m.Ride)
+            @Html.ValidationMessageFor(m => m.Ride)
+        </div>*@
         <div>
             @Html.LabelFor(m => m.LongName)
             @Html.TextBoxFor(m => m.LongName, new { @type = "LongName" })
@@ -67,12 +73,12 @@
         /*Rate should be auto calculated bassed off of DistrictID and Status*/
         <div>
             @Html.LabelFor(m => m.Rate)
-            @Html.TextBoxFor(m => m.Rate, new { @disabled = "disabled", @type="CFS" })
+            @Html.TextBoxFor(m => m.Rate, new { @type="CFS" })
             @Html.ValidationMessageFor(m => m.Rate)
         </div>
         <div>
             @Html.LabelFor(m => m.Allotment)
-            @Html.TextBoxFor(m => m.Allotment, new { @disabled = "disabled", @type="Acers"})
+            @Html.TextBoxFor(m => m.Allotment, new { @type="Acers"})
             @Html.ValidationMessageFor(m => m.Allotment)
         </div>
         <div>

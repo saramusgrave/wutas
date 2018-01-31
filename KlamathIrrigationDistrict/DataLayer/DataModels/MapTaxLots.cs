@@ -26,6 +26,7 @@ namespace KlamathIrrigationDistrict.DataLayer.DataModels
     
     public enum SelectDevision
     {
+        [Display(Name ="K.I.D.")]
         KID,
         KBID,
         WarrenAct,

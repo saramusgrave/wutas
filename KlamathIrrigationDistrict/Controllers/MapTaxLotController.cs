@@ -66,21 +66,12 @@ namespace KlamathIrrigationDistrict.Controllers
         //[HttpGet]
         public ActionResult Edit(string MapTaxLot)
         {
-            //MapTaxLots maptaxlot = _mapRepo.Get(MapTaxLot);
-            //return View(maptaxlot);
-            //return View(new MapTaxLots());
             var std = _mapRepo.ViewTaxLot().Where(s => s.MapTaxLot == MapTaxLot).FirstOrDefault();
             return View(std);
         }
         [HttpPost]
         public ActionResult Edit(MapTaxLots maptaxlots)
         {
-            //if (!ModelState.IsValid)
-            //{
-            //    return View(maptaxlots);
-            //}
-            //_mapRepo.Save(maptaxlots);
-            //return RedirectToAction("Index");
             string MapTaxLot = maptaxlots.MapTaxLot;
             string DivisionID = maptaxlots.DivisionID;
             int TrackingID = maptaxlots.TrackingID;
@@ -95,7 +86,6 @@ namespace KlamathIrrigationDistrict.Controllers
             _mapRepo.Save(maptaxlots);
             return RedirectToAction("Index");
         }
-
         [OutputCache(Duration = 300, VaryByParam = "id")]
         public ActionResult ViewTaxLot(string MapTaxLot)
         {

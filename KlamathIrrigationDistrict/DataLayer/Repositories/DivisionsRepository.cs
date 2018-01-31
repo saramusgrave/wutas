@@ -20,11 +20,11 @@ namespace KlamathIrrigationDistrict.DataLayer.Repositories
                 using (SqlCommand command = new SqlCommand())
                 {
                     command.Connection = connection;
-                    command.CommandText = "SELECT * FROM Divisions";
+                    command.CommandText = "SELECT * FROM Divisons";
                     command.CommandType = CommandType.Text;
                     connection.Open();
                     using(SqlDataReader reader = command.ExecuteReader())
-                        {
+                    {
                         if (reader.Read())
                         {
                             p = new Divisions();
@@ -52,7 +52,7 @@ namespace KlamathIrrigationDistrict.DataLayer.Repositories
                 using (SqlCommand command = new SqlCommand())
                 {
                     command.Connection = connection;
-                    command.CommandText = "SELECT DivisionID, Rate FROM Divisons";
+                    command.CommandText = "SELECT * FROM Divisons";
                     command.CommandType = CommandType.Text;
                     connection.Open();
                     using (SqlDataReader reader = command.ExecuteReader())
@@ -62,6 +62,15 @@ namespace KlamathIrrigationDistrict.DataLayer.Repositories
                             Divisions Div = new Divisions();
                             Div.DivisionID = reader["DivisionID"].ToString();
                             Div.Rate = decimal.Parse(reader["Rate"].ToString());
+                            Div.StatusID1 = reader["StatusID1"].ToString();
+                            Div.StatusID2 = reader["StatusID2"].ToString();
+                            Div.StatusID3 = reader["StatusID3"].ToString();
+                            Div.StatusID4 = reader["StatusID4"].ToString();
+                            Div.StatusID5 = reader["StatusID5"].ToString();
+                            Div.StatusID6 = reader["StatusID6"].ToString();
+                            Div.StatusID7 = reader["StatusID7"].ToString();
+                            Div.StatusID8 = reader["StatusID8"].ToString();
+
                             DivisionList.Add(Div);
                         }
                     }
@@ -69,16 +78,20 @@ namespace KlamathIrrigationDistrict.DataLayer.Repositories
             }
             return (DivisionList);
         }
-        public virtual void Save(Divisions divisions)
+        public void Save(Divisions divisions)
         {
-            using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["KlamathIrrigation_Test"].ConnectionString))
+            using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings[@"KlamathIrrigation_Test"].ConnectionString))
             {
                 using (SqlCommand command = new SqlCommand())
                 {
                     command.Connection = connection;
                     command.CommandType = CommandType.StoredProcedure;
                     command.CommandText = "sp_Rate_Update";
-                    command.Parameters.AddWithValue("@DivisionID", divisions.DivisionID);
+                    if(divisions.DivisionID != null)
+                    {
+                        command.Parameters.AddWithValue("@DivisionsID", divisions.DivisionID);
+                    }
+                  //command.Parameters.AddWithValue("@DivisionID", divisions.DivisionID);
                     command.Parameters.AddWithValue("@Rate", divisions.Rate);
                     connection.Open();
                     command.ExecuteNonQuery();

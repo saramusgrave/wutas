@@ -1,0 +1,40 @@
+﻿@using KlamathIrrigationDistrict.DataLayer.DataModels
+@model List<Divisions>
+@{
+    ViewBag.Title = "KID OfficeStaff: Edit Division Rates";
+}
+<head>
+    <title>KID: Office Staff</title>
+    <meta name="viewport" content="width=device-width" />
+    <link rel="stylesheet" href="~/Styles/OfficeStaff.css" type="text/css" />
+    <script src="~/Scripts/KIDDitchRidersJS.js"></script>
+</head>
+<header id="OfficeStaffMenu">
+    <ul>
+        <li><label class="FirstLast">Linda.Seater</label></li>
+        <li><a href="/Customers/Index">Customers</a></li>
+        <li><a href="/OfficeStaff/Index">Staff</a></li>
+        <li><a href="Index" id="active">MapTaxLots</a></li>
+        <li><a href="~/Account/Login" class="LogOutBtn">Log Out</a></li>
+    </ul>
+</header>
+<body>
+    <a href="Index" class="previous">&laquo; Previous</a><br />
+    <div style="overflow: auto">
+        <table class="OfficeStaffCustomers">
+            <caption>Edit Divisions and Rates</caption>
+            <tr>
+                <th>Division</th>
+                <th>Rate</th>
+                <th colspan="3">Status</th>
+            </tr>
+            @for(int i = 0; i < Model.Count; i++)
+            {
+                <tr>
+                    <td>@Model[i].DivisionID</td>
+                    <td>@Model[i].Rate</td>
+                </tr>
+            }
+        </table>
+    </div>
+</body>
