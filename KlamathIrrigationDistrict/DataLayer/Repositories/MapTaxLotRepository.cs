@@ -80,6 +80,24 @@ namespace KlamathIrrigationDistrict.DataLayer.Repositories
             }
             return (TaxLotList);
         }
+        //Save MapTaxLots edit devison and rate status
+        public virtual void SaveDivisionRate(MapTaxLots maptaxlots)
+        {
+            using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings[@"KlamathIrrigation_Test"].ConnectionString))
+            {
+                using (SqlCommand command = new SqlCommand())
+                {
+                    command.Connection = connection;
+                    command.CommandType = CommandType.StoredProcedure;
+                    command.CommandText = "sp_Map_Rate_Update";
+                    command.Parameters.AddWithValue("@DivisionID", maptaxlots.DivisionID);
+                    command.Parameters.AddWithValue("@Status", maptaxlots.Status);
+                    command.Parameters.AddWithValue("@Rate", maptaxlots.Rate);
+                    connection.Open();
+                    command.ExecuteNonQuery();
+                }
+            }
+        }
         public virtual void Save(MapTaxLots maptaxlots)
         {
             using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings[@"KlamathIrrigation_Test"].ConnectionString))
@@ -89,7 +107,7 @@ namespace KlamathIrrigationDistrict.DataLayer.Repositories
                     command.Connection = connection;
                     command.CommandType = CommandType.StoredProcedure;
                     command.CommandText = "sp_Map_InsertUpdate";
-                    if(maptaxlots.MapTaxLot != null)
+                    if (maptaxlots.MapTaxLot != null)
                     {
                         command.Parameters.AddWithValue("@MapTaxLot", maptaxlots.MapTaxLot);
                     }

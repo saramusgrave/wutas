@@ -3,8 +3,7 @@
 	list-style-type: none;
 	margin: 0;
 	padding: 0;
-	overflow: auto;
-/*  position: float; */  
+	overflow: auto; 
 	top: 0;
 	display: inline-block;
 	width: 100%;
@@ -42,12 +41,6 @@
 	border: 1px solid black;
 }
 .LogOutBtn:hover{
-	/*padding: 11.2px 30px;
-	text-align: center;
-	display: inline-block;
-	font-size: 14px;
-	background-color: #08ccff;
-	border: 1px solid black;*/
     opacity: .8;
     background-color: #08ccff;
 }
@@ -63,7 +56,7 @@ caption #SearchCustomers{
 	color: #08ccff;
 	font-size: 25px;	
 }
-button {
+button{
 	background-color: #08ccff;
 	color: black;
 	padding: 11.8px 15px;
@@ -142,35 +135,7 @@ ul.pagination li a:hover:not(.active){
     width: 100px;
     color: aqua;
  }
-input[type=text]{
-    width: 100px;
-}
-/*Formatting form html Helpers*/ 
-.Name{
-    resize: both;
-    overflow: auto;
-    width: 150px;
-}
-.CustomerID{
-   max-width: 50px;
-}
-.Adderss{
-    width: 500px;
-    overflow: auto;
-}
-.City{
-    width: 200px;
-}
-.State{
-    max-width: 30px;
-}
-.Zip{
-    max-width: 50px;
-}
-.TotalAllotment{
-    max-width: 65px;
-}
-/*End*/
+
 /*Dropdown for MTL style*/
 .dropdownMTL{
     display: none;
@@ -194,6 +159,36 @@ input[type=text]{
     display: inline-block;
 }
 /*End dropdown for MTL Style*/
+input[type=text]{
+    width: 100px;
+}
+/*Formatting form html Helpers*/ 
+input[type=Address]{
+	width: 500px;
+	overflow: scroll;
+}
+input[type=mtl]{
+    width: 125px;    
+}
+input[type=Turnout]{
+    width: 100px;
+}
+input[type=LongName]{
+    width: 150px;
+}
+input[type=Acers]{
+    width: 50px;
+}
+input[type=datetime]{
+    box-sizing: content-box;
+}
+input[type=User]{
+    width: 50%;
+}
+input[type=tel]{
+    width: 100px;
+}
+/*End*/
 input[type=password]{
     width: 100px;
 }
@@ -202,24 +197,23 @@ input[type=Comments]{
 	overflow: auto;
 	word-wrap: break-word;
 }
-#Turnouts{
-	width:100px;
-}
 input[type=CFS]{
-	width: 20px;
+	width: 50px;
 }
 input[type=number]{
 	width: 40px;
 }
-#DivisionID{
-    width: 90px;
-}
-input[type=TrackingID]{
+input[type=CustomerID]{
 	width: 50px;
 }
 input[type=owner]{
-	width: 150px;
-	overflow: scroll;
+    width: 100%;
+}
+#DivisionID{
+    width: 90px;
+}
+#Turnouts{
+	width:100px;
 }	
 a:link{
 	color: #08ccff;
@@ -264,38 +258,35 @@ a:visited{
 	font-size: 17px;
 	border: 1px solid black;
 }
-@media screen and (min-width: 1082px) {
-    #OfficeStaffMenu {
+/*1082 min width*/
+@media only screen and (min-width: 1024px){
+    #OfficeStaffMenu{
         font-size: 20px;
         overflow: auto;
         display: inline-block;
     }
-    #OfficeStaffMenu ul {
+    #OfficeStaffMenu ul{
         display: inline-block;
     }
-    .FirstLast {
+    .FirstLast{
         font-size: 20px;
     }
-    .LogOutBtn {
+    .LogOutBtn{
         font-size: 20px;
-        /*
-		height: 45px;
-		margin-left: 40px;
-		*/
         display: inline-block;
     }
-    .LogOutBtn:hover {
+    .LogOutBtn:hover{
         opacity: .6;
     }
-    #OfficeStaffMenu li a {
+    #OfficeStaffMenu li a{
         text-align: center;
         width: 200px;
     }
-    #OfficeStaffMenu li {
+    #OfficeStaffMenu li{
         list-style-type: none;
         background-color: #08ccff;
     }
-    .DitchRiderContacts {
+    .DitchRiderContacts{
         width: 75%;
     }
     input[type=text]{
@@ -305,5 +296,8 @@ a:visited{
     input[type=password]{
         width: 175px;
         height: 10px;
+    }
+    input[type=owner]{
+        width: 50%;
     }
 }

@@ -13,5 +13,6 @@ namespace KlamathIrrigationDistrict.DataLayer.Interfaces
         MapTaxLots Get(string MapTaxLot);
         List<MapTaxLots> ViewTaxLot();
         void Save(MapTaxLots maptaxlots);
+        void SaveDivisionRate(MapTaxLots maptaxlots);
     }
 }

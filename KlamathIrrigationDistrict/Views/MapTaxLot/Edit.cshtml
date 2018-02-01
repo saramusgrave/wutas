@@ -6,7 +6,7 @@
 <head>
     <title>KID: Office Staff</title>
     <meta name="viewport" content="width=device-width" />
-    <link rel="stylesheet" href="~/Styles/OfficeStaff.css" />
+    <link rel="stylesheet" href="~/Styles/OfficeStaff.css" type="text/css"/>
     <script src="~/Scripts/KIDDitchRidersJS.js"></script>
 </head>
 <header id="OfficeStaffMenu">
@@ -20,50 +20,44 @@
     </ul>
 </header>
 <body>
-    <a href="Index" class="previous">&laquo; Previous</a>
+    <a href="Index" class="previous">&laquo; Previous</a><br />
     Edit MapTaxLot
     @using (Html.BeginForm())
     {
-        @*<div>
-            MapTaxLot: @Html.EditorFor(m => m.MapTaxLot)
-            Division ID: @Html.EditorFor(m => m.DivisionID)
-            Tracking ID: @Html.EditorFor(m => m.TrackingID)
-            Name: @Html.EditorFor(m => m.Name)
-            Structure: @Html.EditorFor(m => m.Structure)
-            Long Name: @Html.EditorFor(m => m.LongName)
-            Status: @Html.EditorFor(m => m.Status)
-            Acers: @Html.EditorFor(m => m.Acers)
-            Rate: @Html.EditorFor(m => m.Rate)
-            Allotment: @Html.EditorFor(m => m.Allotment)
-        </div>*@
         <div>
             @Html.LabelFor(m => m.MapTaxLot)
-            @Html.TextBoxFor(m => m.MapTaxLot)
+            @Html.TextBoxFor(m => m.MapTaxLot, new { @type = "mtl" } )
             @Html.ValidationMessageFor(m => m.MapTaxLot)
         </div>
         <div>
             @Html.LabelFor(m => m.DivisionID)
             @Html.DropDownList("DivisionID", new SelectList(Enum.GetValues(typeof(SelectDevision))), "DivisionID")
+            
             @Html.ValidationMessageFor(m => m.DivisionID)
         </div>
         <div>
             @Html.LabelFor(m => m.TrackingID)
-            @Html.TextBoxFor(m => m.TrackingID)
+            @Html.TextBoxFor(m => m.TrackingID, new { @type = "CustomerID"})
             @Html.ValidationMessageFor(m => m.TrackingID)
         </div>
         <div>
             @Html.LabelFor(m => m.Name)
-            @Html.TextBoxFor(m => m.Name)
+            @Html.TextBoxFor(m => m.Name, new { @type = "owner"})
             @Html.ValidationMessageFor(m => m.Name)
         </div>
         <div>
             @Html.LabelFor(m => m.Structure)
-            @Html.TextBoxFor(m => m.Structure)
+            @Html.TextBoxFor(m => m.Structure, new { @type = "Turnout" })
             @Html.ValidationMessageFor(m => m.Structure)
         </div>
+        @*<div>
+            @Html.LabelFor(m => m.Ride)
+            @Html.TextBoxFor(m => m.Ride)
+            @Html.ValidationMessageFor(m => m.Ride)
+        </div>*@
         <div>
             @Html.LabelFor(m => m.LongName)
-            @Html.TextBoxFor(m => m.LongName)
+            @Html.TextBoxFor(m => m.LongName, new { @type = "LongName" })
             @Html.ValidationMessageFor(m => m.LongName)
         </div>
         <div>
@@ -73,23 +67,22 @@
         </div>
         <div>
             @Html.LabelFor(m => m.Acers)
-            @Html.TextBoxFor(m => m.Acers)
+            @Html.TextBoxFor(m => m.Acers, new { @type = "Acers" })
             @Html.ValidationMessageFor(m => m.Acers)
         </div>
+        /*Rate should be auto calculated bassed off of DistrictID and Status*/
         <div>
-            @Html.LabelFor(m => m.Rate)<br />
-            3.5 @Html.RadioButton("Rate", "3.5")<br />
-            2.5 @Html.RadioButton("Rate", "2.5")
+            @Html.LabelFor(m => m.Rate)
+            @Html.TextBoxFor(m => m.Rate, new { @type="CFS" })
             @Html.ValidationMessageFor(m => m.Rate)
         </div>
         <div>
             @Html.LabelFor(m => m.Allotment)
-            @Html.TextBoxFor(m => m.Allotment)
+            @Html.TextBoxFor(m => m.Allotment, new { @type="Acers"})
             @Html.ValidationMessageFor(m => m.Allotment)
         </div>
         <div>
             <button type="submit">Submit</button>
         </div>
-        
     }
 </body>

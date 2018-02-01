@@ -1,4 +1,13 @@
-﻿function ConfirmFn()
+﻿function ShowPassword() {
+    var x = document.getElementById("psw");
+    if (x.type == "password") {
+        x.type = "text";
+    }
+    else {
+        x.type = "password";
+    }
+}
+function ConfirmFn()
 {
 	var txt;
 	if(confirm("You'r about to delete a Customer on the Waitlist\nare you SURE you want to do this?") == true)
@@ -11,6 +20,7 @@
 	}
 	document.getElementById("Delete").innerHTML = txt;
 }
+
 function SearchCustomersFn()
 {
 	var input, filter, table, tr, td, i;
