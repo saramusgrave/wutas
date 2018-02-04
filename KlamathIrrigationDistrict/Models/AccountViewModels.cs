@@ -49,10 +49,16 @@ namespace KlamathIrrigationDistrict.Models
 
     public class LoginViewModel
     {
+        //add
         [Required]
-        [Display(Name = "Email")]
-        [EmailAddress]
-        public string Email { get; set; }
+        [Display(Name = "UserName")]
+        public string UserName { get; set; }
+
+        //commented out
+        //[Required]
+        //[Display(Name = "Email")]
+        //[EmailAddress]
+        //public string Email { get; set; }
 
         [Required]
         [DataType(DataType.Password)]
@@ -67,6 +73,15 @@ namespace KlamathIrrigationDistrict.Models
 
     public class RegisterViewModel
     {
+        //add user role and user name as requirement
+        [Required]
+        [Display(Name = "UserRoles")]
+        public string UserRoles { get; set; }
+        [Required]
+        [Display(Name = "UserName")]
+        public string UserName { get; set; }
+
+        //keep 
         [Required]
         [EmailAddress]
         [Display(Name = "Email")]

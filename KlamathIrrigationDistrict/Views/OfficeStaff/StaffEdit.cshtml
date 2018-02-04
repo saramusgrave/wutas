@@ -39,7 +39,10 @@
         </div>
         <div>
             @Html.Label("Position:")
-            @Html.DropDownList("Position", new SelectList(Enum.GetValues(typeof(SelectPosition))),"Position")
+            @Html.DropDownList("Position", new SelectList(Enum.GetValues(typeof(SelectPosition))))
+            @Html.DropDownListFor(m => m.Position, new SelectList(Enum.GetValues(typeof(SelectPosition))))
+            @Html.DropDownList("Position", Model.Position)
+            @Html.TextBoxFor(m => m.Position)
             @Html.ValidationMessageFor(s => s.Position)
         </div>
         <div>

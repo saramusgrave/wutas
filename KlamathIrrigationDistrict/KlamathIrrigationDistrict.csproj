@@ -212,6 +212,7 @@
     <Compile Include="Controllers\MapTaxLotController.cs" />
     <Compile Include="Controllers\OfficeStaffController.cs" />
     <Compile Include="Controllers\RoleController.cs" />
+    <Compile Include="Controllers\userscontroller.cs" />
     <Compile Include="Controllers\WaterMasterController.cs" />
     <Compile Include="DataLayer\DataModels\Customers.cs" />
     <Compile Include="DataLayer\DataModels\DitchRiders.cs" />
@@ -239,6 +240,7 @@
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\RoleModel.cs" />
+    <Compile Include="Models\StaffEditModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
@@ -334,9 +336,12 @@
     <Content Include="Views\Divisions\Index.cshtml" />
     <Content Include="Views\Divisions\Edit.cshtml" />
     <Content Include="Views\MapTaxLot\EditDivisionRate.cshtml" />
+    <Content Include="Views\Role\Create.cshtml" />
+    <Content Include="Views\userscontroller\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\StaffEditModel\" />
     <Folder Include="Views\WaterMaster\" />
   </ItemGroup>
   <ItemGroup>

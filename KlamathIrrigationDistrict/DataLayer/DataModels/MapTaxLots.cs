@@ -23,7 +23,6 @@ namespace KlamathIrrigationDistrict.DataLayer.DataModels
         public string Name { get; set; }
         public List<MapTaxLots> maptaxlots { get; set; }
     }
-    
     public enum SelectDevision
     {
         [Display(Name ="K.I.D.")]

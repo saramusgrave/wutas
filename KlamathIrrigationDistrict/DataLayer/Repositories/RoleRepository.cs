@@ -104,7 +104,7 @@ namespace KlamathIrrigationDistrict.DataLayer.Repositories
 
         public void SaveRoles(Roles roles)
         {
-            Roles r = null;
+            //Roles r = null;
             using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings[@"KlamathIrrigation_Test"].ConnectionString))
             {
                 using (SqlCommand command = new SqlCommand())

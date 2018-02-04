@@ -1,6 +1,7 @@
 ﻿using KlamathIrrigationDistrict.DataLayer.DataModels;
 using KlamathIrrigationDistrict.DataLayer.Interfaces;
 using KlamathIrrigationDistrict.DataLayer.Repositories;
+using KlamathIrrigationDistrict.Models;
 using PagedList;
 using System;
 using System.Collections.Generic;
@@ -37,8 +38,18 @@ namespace KlamathIrrigationDistrict.Controllers
         //Edit Staff
         public ActionResult StaffEdit(int StaffID)
         {
+            //StaffEditModel model = new StaffEditModel();
+            //model.StaffMember = _stafRepo.ViewStaff().Where(s => s.StaffID == StaffID).FirstOrDefault();
+            //model.PositionID = new List<SelectListItem>();
+            //return View(model);
+
+            //var x = new StaffEditModel
+            //x.staff = _stafRepo.ViewStaff().Where(s => s.StaffID == StaffID).FirstOrDefault();
+
+            //Original
             var std = _stafRepo.ViewStaff().Where(s => s.StaffID == StaffID).FirstOrDefault();
             return View(std);
+
         }
         [HttpPost]
         public ActionResult StaffEdit(KIDStaff std)

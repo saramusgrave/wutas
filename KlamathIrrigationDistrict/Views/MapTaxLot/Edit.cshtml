@@ -31,8 +31,7 @@
         </div>
         <div>
             @Html.LabelFor(m => m.DivisionID)
-            @Html.DropDownList("DivisionID", new SelectList(Enum.GetValues(typeof(SelectDevision))), "DivisionID")
-            
+            @Html.DropDownList("DivisionID", new SelectList(Enum.GetValues(typeof(SelectDevision))), "DivisionID")         
             @Html.ValidationMessageFor(m => m.DivisionID)
         </div>
         <div>
