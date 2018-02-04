@@ -188,7 +188,7 @@ namespace KlamathIrrigationDistrict.Controllers
                     //var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
                     //await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
 
-                    //Assignm Role to user Here
+                    //Assign Role to user Here
                     await this.UserManager.AddToRoleAsync(user.Id, model.UserRoles);
                     //ends here
 

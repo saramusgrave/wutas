@@ -337,7 +337,7 @@
     <Content Include="Views\Divisions\Edit.cshtml" />
     <Content Include="Views\MapTaxLot\EditDivisionRate.cshtml" />
     <Content Include="Views\Role\Create.cshtml" />
-    <Content Include="Views\userscontroller\Index.cshtml" />
+    <Content Include="Views\Users\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

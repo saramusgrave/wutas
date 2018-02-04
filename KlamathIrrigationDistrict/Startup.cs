@@ -33,7 +33,7 @@ namespace KlamathIrrigationDistrict
                 //create admin super user who will maintain the website
                 var user = new ApplicationUser();
                 user.UserName = "Admin";
-                user.Email = "smmusgrave96@gmil.com";
+                user.Email = "Admin@Admin.com";
                 string userPWD = "Admin01";
                 var chkUser = UserManager.Create(user, userPWD);
 
