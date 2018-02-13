@@ -1,0 +1,49 @@
+﻿@using KlamathIrrigationDistrict.DataLayer.DataModels
+@using PagedList.Mvc
+@model PagedList.IPagedList<Positions>
+@{
+    ViewBag.Title = "KID Staff: Position";
+
+}
+<link rel="stylesheet" href="~/Styles/OfficeStaff.css" />
+<link rel="stylesheet" href="~/Scripts/KIDDitchRidersJS.js" />
+<header id="OfficeStaffMenu">
+    <ul>
+        <li><label class="FirstLast">Linda.Seater</label></li>
+        <li><a href="/Customers/Index">Customers</a></li>
+        <li><a href="Index" id="active">Staff</a></li>
+        <li><a href="/MapTaxLot/Index">MapTaxLot</a></li>
+        <li><a href="~/Account/Login" class="LogOutBtn">Log Out</a></li>
+    </ul>
+</header>
+<body>
+    <!--List of Ditch Riders, Relief Ditch Riders, Phone Number and Position at KID class=DitchRiderContacts-->
+    <a href="Add" class="next">Add &raquo;</a>
+    <div style="overflow: auto;">
+        <table class="OfficeStaffCustomers" id="TableKIDStaff">
+            <caption>Positions</caption>
+            <tr>
+                <th>@Html.Label("PositionID")</th>
+                <th>@Html.Label("Position")</th>
+                <th>@Html.Label("Edit")</th>
+            </tr>
+            @*Need to display list as Position = KIDStaff.Position = Positions.Position where KIDStaff.Position = Positions.PositionID*@
+            @*Need to have staff status filter*@
+            @for (int i = 0; i < Model.Count; i++)
+            {
+                <tr>
+                    <td>@Model[i].PositionID</td>
+                    <td>@Model[i].Position</td>
+                    <td>
+                        @Html.ActionLink("Edit Position", "PositionEdit", new { @PositionID = Model[i].PositionID })
+                    </td>
+                </tr>
+            }
+        </table>
+    </div>
+    <div class="pagination" style="margin-left: 20px;">
+        Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber)
+        of @Model.PageCount @Html.PagedListPager(Model, page => Url.Action("Index", new { page }))
+    </div>
+    <br />
+</body>

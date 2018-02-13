@@ -5,7 +5,7 @@
 
 }
 <link rel="stylesheet" href="~/Styles/OfficeStaff.css" />
-<link rel="stylesheet" href="~/Scripts/KIDDitchRidersJS.js" />
+<script src="~/Scripts/KIDDitchRidersJS.js"></script>
 <header id="OfficeStaffMenu">
     <ul>
         <li><label class="FirstLast">Linda.Seater</label></li>
@@ -21,13 +21,12 @@
     New Employee
     @using (Html.BeginForm())
     {
-        <div>
-            @Html.Label("Staff ID: ")
-            @Html.TextBoxFor(s => s.StaffID, new { @type = "number"})
-        </div>
+        @Html.HiddenFor(s => s.StaffID)
+       
         <div>
             @Html.Label("Position:")
-            @Html.DropDownList("Position", new SelectList(Enum.GetValues(typeof(SelectPosition))), "Position")
+            @*@Html.DropDownList("Position", new SelectList(Enum.GetValues(typeof(SelectPosition))), "Position")*@
+            @Html.TextBoxFor(s => s.Position, new { @type = "number"})
             @Html.ValidationMessageFor(s => s.Position)
         </div>
         <div>

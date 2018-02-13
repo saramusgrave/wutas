@@ -7,17 +7,6 @@
 <link rel="stylesheet" href="~/Styles/OfficeStaff.css" />
 <link rel="stylesheet" href="~/Scripts/KIDDitchRidersJS.js" />
 <script src="~/Scripts/KIDDitchRidersJS.js"></script>
-@*<script>
-    function ShowPassword() {
-        var x = document.getElementById("psw");
-        if (x.type == "password") {
-            x.type = "text";
-        }
-        else {
-            x.type = "password";
-        }
-    }
-</script>*@
 <header id="OfficeStaffMenu">
     <ul>
         <li><label class="FirstLast">Linda.Seater</label></li>
@@ -33,15 +22,12 @@
     Edit Employee
     @using (Html.BeginForm())
     {
-        <div>
-            @Html.Label("Staff ID: ")
-            @Html.TextBoxFor(s => s.StaffID, new { @type = "number", disabled = "disabled" })
-        </div>
+        @Html.HiddenFor(s => s.StaffID)
+        
         <div>
             @Html.Label("Position:")
-            @Html.DropDownList("Position", new SelectList(Enum.GetValues(typeof(SelectPosition))))
-            @Html.DropDownListFor(m => m.Position, new SelectList(Enum.GetValues(typeof(SelectPosition))))
-            @Html.DropDownList("Position", Model.Position)
+            @*@Html.DropDownList("Position", new SelectList(Enum.GetValues(typeof(SelectPosition))))*@
+           
             @Html.TextBoxFor(m => m.Position)
             @Html.ValidationMessageFor(s => s.Position)
         </div>

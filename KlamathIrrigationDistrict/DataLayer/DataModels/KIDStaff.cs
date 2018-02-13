@@ -9,7 +9,7 @@ namespace KlamathIrrigationDistrict.DataLayer.DataModels
     public class KIDStaff
     {
         public int StaffID { get; set; }
-        public string Position { get; set; }
+        public int Position { get; set; }
         [StringLength(50)]
         public string FirstName { get; set; }
         [StringLength(50)]
@@ -42,50 +42,28 @@ namespace KlamathIrrigationDistrict.DataLayer.DataModels
     }
     public enum SelectPosition
     {
-        //[Description("District Manager")]
-        [Display(Name ="District Manager")]
-        DistrictManager,
-        [Description("Assistant Manager")]
-        AssistantManager,
-        [Description("Water Master")]
-        WaterMaster,
-        [Description("Office Specialist")]
-        OfficeSpecialist,
-        [Description("Book Keeper")]
-        Bookkeeper,
-        [Description("Maitenance Supervisor")]
-        MaitenanceSupervisor,
-        [Description("Ride 1")]
-        Ride1,
-        [Description("Ride 2")]
-        Ride2,
-        [Description("Ride 3")]
-        Ride3,
-        [Description("Ride 4")]
-        Ride4,
-        [Description("Ride 5")]
-        Ride5,
-        [Description("Ride 6")]
-        Ride6,
-        [Description("Ride 7")]
-        Ride7,
-        [Description("Ride 8")]
-        Ride8,
-        [Description("Relief Ride 1")]
-        ReliefRide1,
-        [Description("Relief Ride 2")]
-        ReliefRide2,
-        [Description("Relief Ride 3")]
-        ReliefRide3,
-        [Description("Relief Ride 4")]
-        ReliefRide4,
-        [Description("Relief Ride 5")]
-        ReliefRide5,
-        [Description("Relief Ride 6")]
-        ReliefRide6,
-        [Description("Relief Ride 7")]
-        ReliefRide7,
-        [Description("Relief Ride 8")]
-        ReliefRide8
+        Admin = 1,
+        DistrictManager = 2,
+        AssistantManager = 3,
+        WaterMaster = 4,
+        OfficeSpecialist = 5,
+        Bookkeeper = 6,
+        MaitenanceSupervisor = 7,
+        Ride1 = 8,
+        Ride2 = 9,
+        Ride3 = 10,
+        Ride4 = 11,
+        Ride5 = 12,
+        Ride6 = 13,
+        Ride7 = 14,
+        Ride8 = 15,
+        ReliefRide1 = 16,
+        ReliefRide2 = 17,
+        ReliefRide3 = 18,
+        ReliefRide4 = 19,
+        ReliefRide5 = 20,
+        ReliefRide6 = 21,
+        ReliefRide7 = 22,
+        ReliefRide8 = 23
     }
 }
