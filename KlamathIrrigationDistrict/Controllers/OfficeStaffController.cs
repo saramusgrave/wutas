@@ -123,7 +123,7 @@ namespace KlamathIrrigationDistrict.Controllers
             {
                 return View(kidstaff);
             }
-            //Adds user to ASP side of things
+            //Adds user to ASP side of things...ASP = SQL, ASP = SQL
             var user = new ApplicationUser { UserName = kidstaff.Email, Email = kidstaff.Email};
             var result = this.UserManager.Create(user, kidstaff.Password);
             if (result.Succeeded)

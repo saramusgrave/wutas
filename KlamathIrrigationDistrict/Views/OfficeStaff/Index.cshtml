@@ -4,7 +4,6 @@
 @*@model List<KIDStaff>*@
 @{ 
     ViewBag.Title = "KID Staff: Home Page";
-
 }
 <link rel="stylesheet" href="~/Styles/OfficeStaff.css" />
 <link rel="stylesheet" href="~/Scripts/KIDDitchRidersJS.js"/>
@@ -41,6 +40,7 @@
                 </tr>
             @*Need to display list as Position = KIDStaff.Position = Positions.Position where KIDStaff.Position = Positions.PositionID*@
             @*Need to have staff status filter*@
+          
             @for (int i = 0; i < Model.Count; i++)
             {
                 <tr>
