@@ -2,65 +2,140 @@
 using KlamathIrrigationDistrict.DataLayer.Interfaces;
 using KlamathIrrigationDistrict.DataLayer.Repositories;
 using KlamathIrrigationDistrict.Models;
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
+using System;
+using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace KlamathIrrigationDistrict.Controllers
 {
+    [Authorize]
     public class RoleController : Controller
     {
-        private IOfficeStaffRepository _OfficeRepo;
-        private IRolesRepository _RoleRepo;
-
+        //private IOfficeStaffRepository _OfficeRepo;
+        //private IRolesRepository _RoleRepo;
+        ApplicationDbContext context;
+        //userscontroller isAdminUser;
         public RoleController()
         {
-            _OfficeRepo = new OfficeStaffRepository();
-            _RoleRepo = new RoleRepository();
+            //_OfficeRepo = new OfficeStaffRepository();
+            //_RoleRepo = new RoleRepository();
+            context = new ApplicationDbContext();
         }
-
+        
         //Get: Registration
-        [HttpGet]
+        //[HttpGet]
         public ActionResult Index()
         {
-            return View(_RoleRepo.GetUserRole(User.Identity.Name));
+            if (User.Identity.IsAuthenticated)
+            {
+                if (!isAdminUser())
+                {
+                    return RedirectToAction("Index", "Home");
+                }
+            }
+            else
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
+            var Roles = context.Roles.ToList();
+            return View(Roles);
+            //Original
+            //return View(_RoleRepo.GetUserRole(User.Identity.Name));
         }
 
-        [HttpGet]
-        [Authorize]
-        public ActionResult AddRole()
+        public Boolean isAdminUser()
         {
-            RoleModel model = new RoleModel();
-            model.Staff = _OfficeRepo.ViewStaff();
-            return View(model);
+            if (User.Identity.IsAuthenticated)
+            {
+                var user = User.Identity;
+                var UserManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(context));
+                var s = UserManager.GetRoles(user.GetUserId());
+                if (s[0].ToString() == "Admin")
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            return false;
+        }
+        public ActionResult Create()
+        {
+            if (User.Identity.IsAuthenticated)
+            {
+
+
+                if (!isAdminUser())
+                {
+                    return RedirectToAction("Index", "Home");
+                }
+            }
+            else
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
+            var Role = new IdentityRole();
+            return View(Role);
         }
         [HttpPost]
-        [Authorize]
-        public ActionResult AddRole(RoleModel role)
+        public ActionResult Create(IdentityRole Role)
         {
-            if (!ModelState.IsValid)
+            if (User.Identity.IsAuthenticated)
             {
-                role.Staff = _OfficeRepo.ViewStaff();
-                return View(role);
+                if (!isAdminUser())
+                {
+                    return RedirectToAction("Index", "Home");
+                }
             }
-            Roles roleData = new Roles();
-            roleData.StaffID = role.StaffID;
-            roleData.Position = role.Position;
-            roleData.FirstName = role.FirstName;
-            roleData.LastName = role.LastName;
-            roleData.FullName = role.FullName;
-            roleData.Password = role.Password;
+            else
+            {
+                return RedirectToAction("Index", "Home");
+            }
 
-            _RoleRepo.SaveRoles(roleData);
+            context.Roles.Add(Role);
+            context.SaveChanges();
             return RedirectToAction("Index");
         }
-        [HttpGet]
-        public ActionResult AdminIndex()
-        {
-            return View(_RoleRepo.GetRoles());
-        }
+        //[HttpGet]
+        //[Authorize]
+        //public ActionResult AddRole()
+        //{
+        //    RoleModel model = new RoleModel();
+        //    model.Staff = _OfficeRepo.ViewStaff();
+        //    return View(model);
+        //}
+        //[HttpPost]
+        //[Authorize]
+        //public ActionResult AddRole(RoleModel role)
+        //{
+        //    if (!ModelState.IsValid)
+        //    {
+        //        role.Staff = _OfficeRepo.ViewStaff();
+        //        return View(role);
+        //    }
+        //    Roles roleData = new Roles();
+        //    roleData.StaffID = role.StaffID;
+        //    roleData.Position = role.Position;
+        //    roleData.FirstName = role.FirstName;
+        //    roleData.LastName = role.LastName;
+        //    roleData.FullName = role.FullName;
+        //    roleData.Password = role.Password;
+
+        //    _RoleRepo.SaveRoles(roleData);
+        //    return RedirectToAction("Index");
+        //}
+        //[HttpGet]
+        //public ActionResult AdminIndex()
+        //{
+        //    //original
+        //    return View(_RoleRepo.GetRoles());
+        //}
         //Commented out below 
         //private ApplicationRoleManager _RoleManager;
         //private ApplicationUserManager _UserManager;

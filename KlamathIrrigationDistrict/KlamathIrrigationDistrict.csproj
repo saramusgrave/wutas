@@ -212,23 +212,28 @@
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\MapTaxLotController.cs" />
     <Compile Include="Controllers\OfficeStaffController.cs" />
+    <Compile Include="Controllers\PositionsController.cs" />
     <Compile Include="Controllers\RoleController.cs" />
+    <Compile Include="Controllers\userscontroller.cs" />
     <Compile Include="Controllers\WaterMasterController.cs" />
     <Compile Include="DataLayer\DataModels\Customers.cs" />
     <Compile Include="DataLayer\DataModels\DitchRiders.cs" />
     <Compile Include="DataLayer\DataModels\Divisions.cs" />
     <Compile Include="DataLayer\DataModels\KIDStaff.cs" />
     <Compile Include="DataLayer\DataModels\MapTaxLots.cs" />
+    <Compile Include="DataLayer\DataModels\Positions.cs" />
     <Compile Include="DataLayer\DataModels\Roles.cs" />
     <Compile Include="DataLayer\Interfaces\IDivisionsRepository.cs" />
     <Compile Include="DataLayer\Interfaces\IMapTaxLotRepository.cs" />
     <Compile Include="DataLayer\Interfaces\IOfficeStaffRepository.cs" />
+    <Compile Include="DataLayer\Interfaces\IPositionsRepository.cs" />
     <Compile Include="DataLayer\Interfaces\IRolesRepository.cs" />
     <Compile Include="DataLayer\Repositories\CustomerRepository.cs" />
     <Compile Include="DataLayer\Interfaces\ICustomerRepositories.cs" />
     <Compile Include="DataLayer\Repositories\DivisionsRepository.cs" />
     <Compile Include="DataLayer\Repositories\MapTaxLotRepository.cs" />
     <Compile Include="DataLayer\Repositories\OfficeStaffRepository.cs" />
+    <Compile Include="DataLayer\Repositories\PositionsRepository.cs" />
     <Compile Include="DataLayer\Repositories\RoleRepository.cs" />
     <Compile Include="DataLayer\Repositories\StaffCashingRepository.cs" />
     <Compile Include="DataLayer\Repositories\StaffRepository.cs" />
@@ -240,6 +245,7 @@
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\RoleModel.cs" />
+    <Compile Include="Models\StaffEditModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
@@ -335,9 +341,14 @@
     <Content Include="Views\Divisions\Index.cshtml" />
     <Content Include="Views\Divisions\Edit.cshtml" />
     <Content Include="Views\MapTaxLot\EditDivisionRate.cshtml" />
+    <Content Include="Views\Role\Create.cshtml" />
+    <Content Include="Views\Users\Index.cshtml" />
+    <Content Include="Views\Positions\Index.cshtml" />
+    <Content Include="Views\OfficeStaff\_StaffList.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\StaffEditModel\" />
     <Folder Include="Views\WaterMaster\" />
   </ItemGroup>
   <ItemGroup>

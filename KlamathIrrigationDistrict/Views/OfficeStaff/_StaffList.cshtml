@@ -1,0 +1,14 @@
+﻿@using KlamathIrrigationDistrict.DataLayer.DataModels
+@model List<Positions>
+
+@foreach(var pos in Model)
+{
+    <td>
+        @pos.PositionID
+    </td>
+  
+    <td>
+        @pos.Position
+    </td>
+   
+}
