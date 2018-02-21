@@ -1,4 +1,5 @@
 ﻿using KlamathIrrigationDistrict.DataLayer.DataModels;
+using KlamathIrrigationDistrict.DataLayer.Interfaces;
 using KlamathIrrigationDistrict.DataLayer.Repositories;
 using KlamathIrrigationDistrict.DataLayer.Repository;
 using PagedList;
@@ -11,11 +12,13 @@ namespace KlamathIrrigationDistrict.Controllers
 {
     public class CustomersController : Controller
     {
-        private ICustomerRepositories _custRepo;
+        private ICustomerRepositories _custRepo;        
+
         public CustomersController()
         {
             _custRepo = new CustomerRepository();
         }
+
         /*Views for list of Customers*/
         [HttpGet]
         public ActionResult Index(int? page)
@@ -54,6 +57,7 @@ namespace KlamathIrrigationDistrict.Controllers
             var cust = _custRepo.ViewCustomers().Where(s => s.CustomerID == CustomerID).FirstOrDefault();
             return View(cust);
         }
+
         [HttpPost]
         public ActionResult StaffEditCustomer(Customers cust)
         {
@@ -67,8 +71,12 @@ namespace KlamathIrrigationDistrict.Controllers
             int Zip = cust.Zip;
             decimal TotalAllotment = cust.TotalAllotment;
             _custRepo.Save(cust);
+            _custRepo.ViewCustomerWaterHistory(cust.CustomerID);     //given edit -> change history
             return RedirectToAction("Index");
         }
+
+        
+
         [OutputCache(Duration = 300, VaryByParam = "id")]
         public ActionResult ViewCustomers(int CustomerID)
         {
@@ -88,27 +96,42 @@ namespace KlamathIrrigationDistrict.Controllers
             return ViewCustomers(CustomerID);
         }
 
+        //----------------------------------------------------------------------------------------------------------------
+        //user will apply for water
+        //public ActionResult ApplyWaterRequest(WaterOrderRequest Request)
+        //{
+        //    // WaterOrderRequest Requests = _custRepo.AddWaterOrderRequest(WaterOrderRequest Request);
+        //    WaterOrderRequest Requests = new WaterOrderRequest()
+        //    {
+        //        CustomerID = Request.CustomerID,
+        //        TrackingID = Request.TrackingID,
+        //        Name = Request.Name,
+        //        Structure = Request.Structure,
+        //        CustomerComments = Request.CustomerComments,
+        //        RequestedCFS = Request.RequestedCFS,
+        //        //TotalAllotment = Request.TotalAllotment
+        //    };
+
+        //    return RedirectToAction("CustomerWaterRequests");
+        //}
+        //----------------------------------------------------------------------------------------------------------------
+
 
         //view the ICustomerRepositories
         //need to add the TrackingID from the MTL - ensure that it matches with Customer's Tracking ID
         //Allow to sync with 
-        public ActionResult ViewHistory(int TrackingID)
-        {
-            Customers.MapTaxLots customers_Info = _custRepo.Get(TrackingID);
-            Customers History = new Customers();
-
-            Customers.MapTaxLots MTL = new Customers.MapTaxLots();
-            {
-                Name = customers_Info.
-            }
-        
-
-            //foreach (CustomerHistory.TrackingID in WaterRequest)
+        public ActionResult ViewWaterHistory(int CustomerID)
+        {          
+            //do i need to specify how to get the customerID? (BELOW)
+            //Customers customers = _custRepo.Get(CustomerID);
+            //if(customers == null)
             //{
-
+            //    return HttpNotFound();
             //}
+            //return View(customers);
 
-            return ViewHistory(TrackingID);
+            _custRepo.ViewCustomerWaterHistory(CustomerID);
+            return RedirectToAction("CustomerWaterOrderHistory");
         }
     }
 }

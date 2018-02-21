@@ -16,6 +16,15 @@ namespace KlamathIrrigationDistrict.DataLayer.DataModels
         public int TrackingID { get; set; }
         [Required]
         public string Name { get; set; }
+
+        //3 var constructor created to help pass the info for customers into the requests
+        //public CustomersInfo (int ID, int TrackingNum, string CustomerName)
+        //{
+        //    ID = CustomerID;
+        //    TrackingNum = TrackingID;
+        //    CustomerName = Name;
+        //}
+
         [Required]
         public string Address1 { get; set; }
         public string Address2 { get; set; }
@@ -28,32 +37,41 @@ namespace KlamathIrrigationDistrict.DataLayer.DataModels
         public decimal TotalAllotment { get; set; }
         public List<Customers> customers { get; set; }
         
-        //allow the return of info form the MapTaxLots to Customer
-        public class MapTaxLots : Customers
-        {            
-            //public MapTaxLots(String MapTaxLot, String Division, int TrackingID, String Structure, String LongName, int Ride, String Status, Decimal Acers, Decimal Rate, Decimal Allotment, String Name) :
-            //    base (Name, CustomerID, TrackingID, Structure, Status, Acers)
-            //{
-            //    Customers.MapTaxLots s = new Customers.MapTaxLots();
-            //    Customers n = new Customers();
-            //    if (s.TrackingID == n.TrackingID)
-            //    {
+        //public Customers ( int PersonID, string CustomerName, int TrackNumber)
+        //{
+        //    CustomerID = PersonID;
+        //    Name = CustomerName;
+        //    TrackingID = TrackNumber;
+        //}
+        
+    }
 
-            //    }
-            //}
+    //WaterOrderRequest Class would inherit the customerID from Customers
+    public class WaterOrderRequest : Customers
+    {
+        public decimal RequestedCFS { get; set; }
 
-            public List<MapTaxLots> MTL { get; set; }
+        public string CustomerComments { get; set; }
 
-            //need to be able to read and write for update in customer
-            public string MapTaxLot { get; }
-            public string DivisionID { get; }
-            public int TrackingID { get; set; }
-            public string Structure { get; set; }
-            public string LongName { get; set; }
-            public string Status { get; set; }
-            public decimal Acers { get; set; }
-            public decimal Rate { get; set; }
-            public decimal Allotment { get; set; }
+        //this is the ID for the water request itself
+        public int RequestID { get; set; }
+
+        public string Structure { get; set; }
+
+        //need to find datatype acceptable for date -> datetime 
+        //public (date) CustomerDate {get; set;}
+
+        //constructor to pass Variables into WaterOrder
+        public WaterOrderRequest
+            (int personID, string CustomerName, int tracknumber, decimal CFS, string Comments, decimal Allotment, string structureID)
+        {
+            personID = CustomerID;
+            CustomerName = Name;
+            tracknumber = TrackingID;
+            CFS = RequestedCFS;
+            Comments = CustomerComments;
+            Allotment = TotalAllotment;
+            structureID = Structure;
         }
     }
 }

@@ -11,6 +11,10 @@ namespace KlamathIrrigationDistrict.DataLayer.Interfaces
     public interface IMapTaxLotRepository
     {
         MapTaxLots Get(string MapTaxLot);
+
+        //get the TrackingID from MapTaxLot
+        MapTaxLots Get_TrackingID(int TrackingID);
+
         List<MapTaxLots> ViewTaxLot();
         void Save(MapTaxLots maptaxlots);
         void SaveDivisionRate(MapTaxLots maptaxlots);

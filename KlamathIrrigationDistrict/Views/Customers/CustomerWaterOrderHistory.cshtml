@@ -1,0 +1,126 @@
+﻿@using KlamathIrrigationDistrict.DataLayer.DataModels
+@*@model IEnumerable<Customers>*@
+@model WaterOrderRequest
+@*@{
+        ViewBag.Title = "CustomerWaterOrderHistory";
+    }*@
+<head>
+    <title>KID: Customers</title>
+    <meta name="viewport" content="width=device-width" />
+    <link rel="stylesheet" href="~/Styles/Customers.css" />
+    <script src="~/Scripts/KIDDitchRidersJS.js"></script>
+</head>
+
+<header id="Menu">
+    <ul>
+        <li>
+            <label class="FirstLast">First.Last</label>
+        </li>
+        <li><a href="./Index.html">Requests</a></li>
+        <li><a id="active" href="~/Views/Customers/CustomerWaterOrderHistory.cshtml">History</a></li>
+        <li><a href="~/Views/Customers/CustomersContactsPage.cshtml">Contacts</a></li>
+        <!--edit account page needs work-->
+        <li><a href="~/Views/Customers/CustomerEditPage.cshtml">Edit Account</a></li>
+        <li><a href="~/Views/Customers/CustomerConversionPage.cshtml">Conversions</a></li>
+
+        <a href="../KIDLogInPageHTML.html"><button class="LogOutBtn">Log Out</button></a>
+    </ul>
+</header>
+<body>
+    <p>
+        Instructions: Enter the Date Range of history you would like to see.
+    </p>
+    <div style="overflow-x: auto;">
+        <!--Select Data Range Class = Contacts-->
+        <table class="Contacts">
+            <caption>Select Date Range</caption>
+            <tr>
+                <th>Starting Date</th>
+                <th>Ending Date</th>
+                <th></th>
+            </tr>
+            <tr>
+                <td>
+                    <input type="date" name="Start Date" value="" />
+                </td>
+
+                <td>
+                    <input type="date" name="End Date" value="" />
+                </td>
+                <td>
+                    <button>Set Range</button>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div style="overflow-x: auto;">
+        <!--Your Requests Table class=Contacts-->
+        <table class="Customers" style="float: left;">
+            <caption>Water Order History</caption>
+            <tr>
+                <th>@Html.Label("RequestID")</th>
+                <th>@Html.Label("CustomerID")</th>
+                <th>@Html.Label("TrackingID") </th>
+                <th>@Html.Label("Customer Name")</th>
+                <th>@Html.Label("MapTaxLot")</th>
+                <th>@Html.Label("Structure")</th>
+                <th>@Html.Label("Requested CFS")</th>
+                <th>@Html.Label("Given CFS")</th>
+                <th>@Html.Label("Customer Comments")</th>
+                <th>@Html.Label("DitchRider Comments")</th>
+                <th>@Html.Label("Request Date")</th>
+                <th>@Html.Label("Complete Date")</th>
+            </tr>
+            <!--should invoke the action from CustomerController-->
+            @Html.Action("ViewWaterHistory");
+
+            @*
+                <!--will continuously display WaterOrderID within customers, need to set between dates-->
+                <!--IEnumerable needed to be defined (TOP) to hold collection of attributes-->
+                @@for (int i = 0; i < Model.Count; i++)
+                {
+                    <tr>
+                        <!--"Label" represents attribute name and from what class-->
+                        @*<td>@Html.Label("WaterOrderID", new { @class = "Customers" })</td>
+                        <td>@Html.TextBoxFor(m => m.WaterOrderID, new { @class = "Customers" })</td>
+
+                        <td>@Html.Label("Date", new { @class = "Customers" })</td>
+                        <td>@Html.TextBoxFor(m => m.Date, new { @class = "Customers" })</td>
+
+                        <td>@Html.Label("RequestedCFS", new { @class = "Customers" })</td>
+                        <td>@Html.TextBoxFor(m => m.RequestedCFS, new { @class = "Customers" })</td>
+
+                        <td>@Html.Label("CustomerComments", new { @class = "Customers" })</td>
+                        <td>@Html.TextBoxFor(m => m.CustomerComments, new { @class = "Customers" })</td>*@
+            @*@Html.ActionLink("ViewWaterHistory",  )
+                </tr>
+                }*@
+</body>
+@*
+    </table>
+        <!--</div>
+        <div style="overflow-x: auto;">
+        <!--Ditch Rider Log class=Contacts-->
+        <table class="Customers" style="float: center-right;">
+            <caption>Ditch Rider Log</caption>
+            <tr>
+                <th id="RBorder">Structure</th>
+                <th>Date</th>
+                <th>CFS</th>
+                <th>Comments</th>
+            </tr>
+            <tr>
+                <td id="RBorder">T7563</td>
+                <td>08/10/17</td>
+                <td>5</td>
+                <td>No comments</td>
+            </tr>
+            <tr>
+                <td id="RBorder">T7563</td>
+                <td>08/17/17</td>
+                <td>-5</td>
+                <td>No comments</td>
+            </tr>
+        </table>
+    </div>
+*@

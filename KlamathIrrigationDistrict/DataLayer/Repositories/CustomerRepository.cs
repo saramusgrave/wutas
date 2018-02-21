@@ -7,6 +7,7 @@ using System.Data.SqlClient;
 
 namespace KlamathIrrigationDistrict.DataLayer.Repositories
 {
+    //Actual body for the header file -> ICustomerRepository
     public class CustomerRepository : ICustomerRepositories
     {
         public virtual Customers Get(int CustomerID)
@@ -100,39 +101,27 @@ namespace KlamathIrrigationDistrict.DataLayer.Repositories
             return (vc);
         }
 
-        public virtual List<Customers.MapTaxLots> ViewHistory()
+        //use the stored procedure to display the customer's water history
+        //parameter need to be customerID? Not customers?
+        public virtual void ViewCustomerWaterHistory (int CustomerID)
         {
-            //view history - vh
-            List<Customers>  vh = new List<Customers>();
-            //List<MapTaxLots> ch = new List<MapTaxLots>();
+            //Customers C_CustomerID = CustomerID;
             using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings[@"KlamathIrrigation_Test"].ConnectionString))
             {
                 using (SqlCommand command = new SqlCommand())
                 {
                     command.Connection = connection;
-                    command.CommandType = CommandType.Text;
-                    command.CommandText = "SELECT Name, CustomerID, TrackingID, Structures, Status, Acres FROM C.Customers, M.MapTaxLots WHERE C.TrackingID = M.TrackingID;";
+                    command.CommandType = CommandType.StoredProcedure;
+                    command.CommandText = "sp_CustomerHistory";
+                    command.Parameters.AddWithValue("@CustomerID", CustomerID);
                     connection.Open();
-                    using (SqlDataReader reader = command.ExecuteReader())
-                    {
-                        while (reader.Read())
-                        {
-                            Customers.MapTaxLots s = new Customers.MapTaxLots();
-                            s.Name = reader["Name"].ToString();
-                            s.CustomerID = int.Parse(reader["CustomerID"].ToString());
-                            s.TrackingID = int.Parse(reader["TrackingID"].ToString());
-                            s.Structure  = reader["Structure"].ToString();
-                            s.Status     = reader["Statust"].ToString();
-                            s.Acers = decimal.Parse(reader["Acers"].ToString());
-                            
-                            //will add the above data to the customer's profile - view history (VH)
-                            vh.Add(s);
-                        }
-                    }
+                    command.ExecuteNonQuery();
                 }
             }
+            //return (CustomerID)
         }
 
+        //apply the stored procedure of updating or entering in new customer data
         public virtual void Save(Customers customers)
         {
             using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings[@"KlamathIrrigation_Test"].ConnectionString))
@@ -160,12 +149,135 @@ namespace KlamathIrrigationDistrict.DataLayer.Repositories
                 }
             }
         }
-    }
 
-    //public class List<T1, T2>
-    //{
-    //    List<T1> vh = new List<T1>();
-    //    List<T2> ch = new List<T2>();
-        
-    //}
+        //-------------------------------------------------------------------------------------------------------------------
+        //take parameters to apply the requested water order
+        //public virtual void ApplyWaterOrder(WaterOrderRequest WaterOrder)
+        //{
+        //    using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings[@"KlamathIrrigation_Test"].ConnectionString))
+        //    {
+        //        using (SqlCommand command = new SqlCommand())
+        //        {
+        //            command.Connection = connection;
+        //            command.CommandType = CommandType.StoredProcedure;
+        //            //not sure if procedure (CustomerWaterRequest) need more to handle variables
+        //            //command.CommandText = "SELECT * FROM Customers ORDER BY Name"; -- viewcustomers function
+        //            command.CommandText = "CustomerWaterRequest";
+        //            command.Parameters.AddWithValue("@CustomerID", WaterOrder.CustomerID);
+        //            command.Parameters.AddWithValue("@Allotment", WaterOrder.TotalAllotment);
+        //            command.Parameters.AddWithValue("@TrackingID", WaterOrder.TrackingID);
+        //            command.Parameters.AddWithValue("@StructureID", WaterOrder.Structure);
+        //            command.Parameters.AddWithValue("@CFSRequested", WaterOrder.RequestedCFS);
+        //            command.Parameters.AddWithValue("CustomerName", WaterOrder.Name);
+        //            command.Parameters.AddWithValue("CustomerComments", WaterOrder.CustomerComments);
+
+        //            connection.Open();
+        //            command.ExecuteNonQuery();
+        //        }
+        //    }
+
+        //}
+        //-------------------------------------------------------------------------------------------------------------------
+
+        public virtual void AddWaterOrderRequest(WaterOrderRequest NewWaterOrder)
+        {
+            //find a better way to Apply request for Water Order
+            //WaterOrderRequest NewOrder = null;
+            using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings[@"KlamathIrrigation_Test"].ConnectionString))
+            {
+                using (SqlCommand command = new SqlCommand())
+                {
+                    command.Connection = connection;
+                    command.CommandType = CommandType.Text;
+                    command.CommandText = 
+                        "INSERT INTO Requests" + 
+                        "(CustomerID, TrackingID, CustomerName, Structure, CustomerDate, CFSRequested, CustomerComments" +
+                        "VALUES (@CustomerID, @TrackingID, @CustomerName, @Structure, @CustomerDate, @CFSRequested, @CustomerComments";
+                    command.Parameters.AddWithValue("@CustomerID", NewWaterOrder.CustomerID);
+                    command.Parameters.AddWithValue("@TrackingID", NewWaterOrder.TrackingID);
+                    command.Parameters.AddWithValue("@CustomerName", NewWaterOrder.Name);
+                    command.Parameters.AddWithValue("@Structure", NewWaterOrder.Structure);
+                    //use getdate parameter to fulfill the customerdate
+                    command.Parameters.AddWithValue("@CustomerDate", "GETDATE()");
+                    command.Parameters.AddWithValue("@CFSRequested", NewWaterOrder.RequestedCFS);
+                    command.Parameters.AddWithValue("@CustomerComments", NewWaterOrder.CustomerComments);
+                    connection.Open();
+                    command.ExecuteNonQuery();
+                }
+            }
+        }
+
+
+        //public static void AddProduct(Product product)
+
+        //{
+
+        //    //set up sql connection
+
+        //    SqlConnection conn = DatabaseDB.GetConnection();
+
+
+
+        //    //write query
+
+        //    string strIns =
+
+        //        "INSERT INTO Products " +
+
+        //        "(ProductCode, Description, UnitPrice)" +
+
+        //        "Values (@Code, @Description, @UnitPrice)";
+
+
+
+        //    //creates our command
+
+        //    SqlCommand cmd = new SqlCommand(strIns, conn);
+
+
+
+        //    cmd.Parameters.AddWithValue("@Code", product.ProdCode);
+
+        //    cmd.Parameters.AddWithValue("@Description", product.Description);
+
+        //    cmd.Parameters.AddWithValue("@UnitPrice", product.Price);
+
+
+
+        //    try
+
+        //    {
+
+        //        conn.Open();
+
+
+
+        //        cmd.ExecuteNonQuery();
+
+
+
+        //        MessageBox.Show("Record has been added");
+
+
+
+        //    }
+
+        //    catch (Exception ex)
+
+        //    {
+
+        //        throw ex;
+
+        //    }
+
+        //    finally
+
+        //    {
+
+        //        conn.Close();
+
+        //    }
+        //}
+
+    }
 }
