@@ -205,7 +205,7 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\CustomersController.cs" />
-    <Compile Include="Controllers\DitchRiderController.cs" />
+    <Compile Include="Controllers\DitchRidersController.cs" />
     <Compile Include="Controllers\DivisionsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
@@ -222,6 +222,7 @@
     <Compile Include="DataLayer\DataModels\MapTaxLots.cs" />
     <Compile Include="DataLayer\DataModels\Positions.cs" />
     <Compile Include="DataLayer\DataModels\Roles.cs" />
+    <Compile Include="DataLayer\Interfaces\IDitchRidersRepository.cs" />
     <Compile Include="DataLayer\Interfaces\IDivisionsRepository.cs" />
     <Compile Include="DataLayer\Interfaces\IMapTaxLotRepository.cs" />
     <Compile Include="DataLayer\Interfaces\IOfficeStaffRepository.cs" />
@@ -229,6 +230,7 @@
     <Compile Include="DataLayer\Interfaces\IRolesRepository.cs" />
     <Compile Include="DataLayer\Repositories\CustomerRepository.cs" />
     <Compile Include="DataLayer\Interfaces\ICustomerRepositories.cs" />
+    <Compile Include="DataLayer\Repositories\DitchRidersRepository.cs" />
     <Compile Include="DataLayer\Repositories\DivisionsRepository.cs" />
     <Compile Include="DataLayer\Repositories\MapTaxLotRepository.cs" />
     <Compile Include="DataLayer\Repositories\OfficeStaffRepository.cs" />
@@ -324,7 +326,7 @@
     <Content Include="Smtp.config">
       <SubType>Designer</SubType>
     </Content>
-    <Content Include="Views\DitchRider\Index.cshtml" />
+    <Content Include="Views\DitchRiders\Index.cshtml" />
     <Content Include="Views\Shared\KIDLayout.cshtml" />
     <Content Include="Views\Customers\Index.cshtml" />
     <Content Include="Views\MapTaxLot\Index.cshtml" />
@@ -344,6 +346,7 @@
     <Content Include="Views\Users\Index.cshtml" />
     <Content Include="Views\Positions\Index.cshtml" />
     <Content Include="Views\OfficeStaff\_StaffList.cshtml" />
+    <Content Include="Views\DitchRiders\EditRequest.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
