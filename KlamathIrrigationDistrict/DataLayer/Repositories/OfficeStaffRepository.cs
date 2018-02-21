@@ -19,7 +19,7 @@ namespace KlamathIrrigationDistrict.DataLayer.Repositories
                 using (SqlCommand command = new SqlCommand())
                 {
                     command.Connection = connection;
-                    command.CommandText = "SELECT * FORM KIDStaff";
+                    command.CommandText = "SELECT * FROM KIDStaff";
                     command.CommandType = CommandType.Text;
 
                     connection.Open();

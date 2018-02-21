@@ -10,8 +10,8 @@
 <header id="OfficeStaffMenu">
     <ul>
         <li><label class="FirstLast">Linda.Seater</label></li>
-        <li><a href="/Customers/Index">Customers</a></li>
-        <li><a href="Index" id="active">Staff</a></li>
+        <li><a href="/OfficeStaff/ViewCustomers">Customers</a></li>
+        <li><a id="active href="Index" ">Staff</a></li>
         <li><a href="/MapTaxLot/Index">MapTaxLot</a></li>
         <li><a href="~/Account/Login" class="LogOutBtn">Log Out</a></li>
     </ul>
@@ -57,6 +57,7 @@
                     <td>@Model[i].ModifiedDateTime</td>
                     <td>@Model[i].ModifiedUser</td>
                     <td>
+                        <!--below will create link for the button labeled "Edit Staff" referencing action of StaffEdit function-->
                         @Html.ActionLink("Edit Staff", "StaffEdit", new { @StaffID = Model[i].StaffID})
                     </td>
                 </tr>

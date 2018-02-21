@@ -45,6 +45,31 @@ namespace KlamathIrrigationDistrict.DataLayer.Repositories
             }
             return (s);
         }
+
+        //return the TrackingID from MapTaxLots
+        public virtual MapTaxLots Get_TrackingID(int TrackingId)
+        {
+            MapTaxLots ID = null;
+            using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings[@"KlamathIrrigation_Test"].ConnectionString))
+            {
+                using (SqlCommand command = new SqlCommand())
+                {
+                    command.Connection = connection;
+                    command.CommandText = "SELECT TrackingID FROM MapTaxLot";
+                    connection.Open();
+                    using (SqlDataReader reader = command.ExecuteReader())
+                    {
+                        if (reader.Read())
+                        {
+                            ID = new MapTaxLots();                            
+                            ID.TrackingID = int.Parse(reader["TrackingID"].ToString());                            
+                        }
+                    }
+                }
+            }
+            return (ID);
+        }
+
         public virtual List<MapTaxLots> ViewTaxLot()
         {
             List<MapTaxLots> TaxLotList = new List<MapTaxLots>();
