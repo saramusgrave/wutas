@@ -54,186 +54,241 @@
     </ul>
 </header>
 <body>
+    @* AddRequest will allow use to apply for water request *@
+    <a href="AddRequest" class="next">Add Water Order &raquo;</a>
+    @* jump to display customer's view of current active orders *@
     <div style="overflow-x: auto;">
-        <table class="Contacts">
-            <caption>Current Requests</caption>
+        <table class="ActiveRequests">
+            <caption>Active Requests</caption>
             <tr>
-                @*<th>@Html.Label("RequestID")</th>
+                <th>@Html.Label("RequestID")</th>
                 <th>@Html.Label("Structure")</th>
+                <th>@Html.Label("CFS Requesting")</th>
                 <th>@Html.Label("Date")</th>
-                <th>@Html.Label("CFS")</th>
-                <th>@Html.Label("Comments")</th>*@
-                <th>RequestID</th>
+                <th>@Html.Label("Comments")</th>
+                <th>@Html.Label("Status")</th>
+                @*<th>RequestID</th>
                 <th>Structure</th>
                 <th>Date</th>
                 <th>CFS</th>
-                <th>Comments</th>
+                <th>Comments</th>*@
             </tr>
-
-            @for (int i =0; i < Model.Count; i++)
+            @* Allow the user to input into 'Active Request' -> add a request *@
+            @for (int i = 0; i < Model.Count; i++)
             {
-                <tr>@Model[i].</tr>
+                <tr>
+                    <td>@Model[i].RequestID</td>
+                    <td>@Model[i].Structure</td>
+                    @*<td>@Html.TextBoxFor(Model => Model[i].CustomerCFS_1, new { @Type = "number" })</td>*@
+                    <td>@Model[i].CustomerCFS_1</td>
+                    <td>@Model[i].TimeStampCustomer1.ToShortDateString()</td>
+                    <td>@Html.TextAreaFor(Model => Model[i].CustomerComments_1)</td>
+                    @*<td>
+                        @Html.ActionLink("Submit", "AddWaterOrderRequest", new { @RequestID = Model[i].RequestID })
+                    </td>*@
+                </tr>
             }
 
+
+
         </table>
-        <!--Current Requests class=Contacts-->
-        @*<table class="Contacts">
-            <caption>Current Requests</caption>
-            <tr>
-                <th>Structure</th>
-                <th>Date</th>
-                <th>CFS</th>
-                <th>Comments</th>
-                <th colspan="2">Ditch Rider</th>
-            </tr>
-            <tr>
-                <td>T4378</td>
-                <td>08/07/17</td>
-                <td><input type="CFS" value="5" disabled></td>
-                <td>
-                    <input type="Comments" placeholder="Comments.." disabled>
-                </td>
-                <td>
-                    <input type="checkbox" checked disabled>Confirmed
-                    <br><input type="checkbox" disabled>Rejected
-                </td>
-                <td>
-                    <button hidden>Edit Request</button>
-                </td>
-            </tr>
-            <tr>
-                <td>T4378</td>
-                <td>08/08/17</td>
-                <td><input type="CFS" value="-5" disabled></td>
-                <td>
-                    <input type="Comments" placeholder="Comments.." disabled>
-                </td>
-                <td>
-                    <input type="checkbox" disabled>Confirmed
-                    <br><input type="checkbox" disabled>Rejected
-                </td>
-                <td>
-                    <button id="active">Edit Request</button>
-                </td>
-            </tr>
-            <tr>
-                <td>T58392</td>
-                <td>08/10/17</td>
-                <td><input type="CFS" value="6" disabled></td>
-                <td>
-                    <input type="Comments" placeholder="Comments.." disabled>
-                </td>
-                <td>
-                    <input type="checkbox" disabled>Confirmed
-                    <br><input type="checkbox" disabled>Rejected
-                </td>
-                <td>
-                    <button>Edit Request</button>
-                </td>
-            </tr>
-            <tr>
-                <td>T58392</td>
-                <td>08/11/17</td>
-                <td><input type="CFS" value="-6" disabled></td>
-                <td>
-                    <input type="Comments" placeholder="Comments..." disabled>
-                </td>
-                <td>
-                    <input type="checkbox" disabled>Confirmed
-                    <br><input type="checkbox" disabled>Rejected
-                </td>
-                <td>
-                    <button>Edit Request</button>
-                </td>
-            </tr>
-        </table>
-    </div>*@
-    <div style="overflow-x: auto;">
-        <!--Add Request class=Contacts-->
-        <table class="Contacts">
-            <caption>Add Request</caption>
-            <tr>
-                <th>Structure</th>
-                <th>Date</th>
-                <th>CFS</th>
-                <th colspan="2">Comments</th>
-            </tr>
-            <tr>
-                <td>
-                    <input list="CustomersStructures" placeholder="Structure">
-                    <datalist id="CustomersStructures">
-                        <option value="T4378"></option>
-                        <option value="T58392"></option>
-                    </datalist>
-                </td>
-                <td>
-                    <input type="date" value="2017-08-12">
-                </td>
-                <td>
-                    <input type="CFS" value="0">
-                </td>
-                <td>
-                    <input type="Comments" placeholder="Comments...">
-                </td>
-                <td>
-                    <button>Submit Request</button>
-                </td>
-            </tr>
-        </table>
-    </div>
-    <div style="overflow-x: auto;">
-        <!--Edit Requests class=Contacts-->
-        <table class="Contacts">
-            <caption>Edit Request</caption>
-            <tr>
-                <th>Structure</th>
-                <th>Date</th>
-                <th>CFS</th>
-                <th colspan="2">Comments</th>
-            </tr>
-            <tr>
-                <td>T4378</td>
-                <td>
-                    <input type="date" value="2017-08-08">
-                </td>
-                <td>
-                    <input type="CFS" value="-5">
-                </td>
-                <td>
-                    <input type="Comments" placeholder="Comments...">
-                </td>
-                <td>
-                    <button>Update Request</button>
-                </td>
-            </tr>
-        </table>
-    </div>
-    <div style="overflow-x: auto;">
-        <!--Wait List class=Contacts-->
-        <table class="Contacts">
-            <caption>Wait List</caption>
-            <tr>
-                <th>Number</th>
-                <th>Structure</th>
-                <th>Date</th>
-                <th>CFS</th>
-                <th>Comments</th>
-                <th>Note</th>
-            </tr>
-            <tr>
-                <td>1</td>
-                <td>
-                    T5832
-                </td>
-                <td>08/12/17</td>
-                <td><input type="CFS" value="4" disabled></td>
-                <td>
-                    <input type="Comments" placeholder="Comments..." disabled>
-                </td>
-                <td>Ditch Rider will call when you are removed from wait list.</td>
-            </tr>
-        </table>
-    </div>
+        <div style="overflow-x: auto;">
+            <table class="ActiveRequests">
+                <caption>Complete Request</caption>
+                <tr>
+                    <th>@Html.Label("RequestID")</th>
+                    <th>@Html.Label("Structure")</th>
+                    <th>@Html.Label("CFS Requested")</th>
+                    <th>@Html.Label("Request Date")</th>
+                    <th>@Html.Label("Comments")</th>
+                    <th>@Html.Label("Applied CFS")</th>
+                    <th>@Html.Label("Staff Name")</th>
+                    @*<th>@Html.Label("Ditch Rider Date")</th>*@
+                    <th>@Html.Label("Comments")</th>
+                    <th>@Html.Label("Status")</th>
+                    <th>@Html.Label("Date")</th>
+                </tr>
+                @* Allow the user to input into 'Active Request' -> add a request *@
+                @for (int i = 0; i < Model.Count; i++)
+            {
+                <tr>
+                    <td>@Model[i].RequestID</td>
+                    <td>@Model[i].Structure</td>                    
+                    <td>@Model[i].CustomerCFS_1</td>
+                    <td>@Model[i].TimeStampCustomer1</td>
+                    <td id="RBorder">@Model[i].CustomerComments_1</td>                    
+                    @*<td>@Model[i].DitchRiderDate.ToShortDateString()</td>*@
+                    <td>@Model[i].StaffCFS1</td>
+                    <td>@Model[i].StaffName_1</td>
+                    <td>@Model[i].StaffComments1</td>
+                    <td>@Model[i].RequestStatus1</td>
+                    <td>@Model[i].TimeStampStaff1</td>
+                    @*<td>
+            @Html.ActionLink("Submit", "AddWaterOrderRequest", new { @RequestID = Model[i].RequestID })
+        </td>*@
+                </tr>
+        }
+
+            </table>
+            <!--Current Requests class=Contacts-->
+            @*<table class="Contacts">
+                    <caption>Current Requests</caption>
+                    <tr>
+                        <th>Structure</th>
+                        <th>Date</th>
+                        <th>CFS</th>
+                        <th>Comments</th>
+                        <th colspan="2">Ditch Rider</th>
+                    </tr>
+                    <tr>
+                        <td>T4378</td>
+                        <td>08/07/17</td>
+                        <td><input type="CFS" value="5" disabled></td>
+                        <td>
+                            <input type="Comments" placeholder="Comments.." disabled>
+                        </td>
+                        <td>
+                            <input type="checkbox" checked disabled>Confirmed
+                            <br><input type="checkbox" disabled>Rejected
+                        </td>
+                        <td>
+                            <button hidden>Edit Request</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>T4378</td>
+                        <td>08/08/17</td>
+                        <td><input type="CFS" value="-5" disabled></td>
+                        <td>
+                            <input type="Comments" placeholder="Comments.." disabled>
+                        </td>
+                        <td>
+                            <input type="checkbox" disabled>Confirmed
+                            <br><input type="checkbox" disabled>Rejected
+                        </td>
+                        <td>
+                            <button id="active">Edit Request</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>T58392</td>
+                        <td>08/10/17</td>
+                        <td><input type="CFS" value="6" disabled></td>
+                        <td>
+                            <input type="Comments" placeholder="Comments.." disabled>
+                        </td>
+                        <td>
+                            <input type="checkbox" disabled>Confirmed
+                            <br><input type="checkbox" disabled>Rejected
+                        </td>
+                        <td>
+                            <button>Edit Request</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>T58392</td>
+                        <td>08/11/17</td>
+                        <td><input type="CFS" value="-6" disabled></td>
+                        <td>
+                            <input type="Comments" placeholder="Comments..." disabled>
+                        </td>
+                        <td>
+                            <input type="checkbox" disabled>Confirmed
+                            <br><input type="checkbox" disabled>Rejected
+                        </td>
+                        <td>
+                            <button>Edit Request</button>
+                        </td>
+                    </tr>
+                </table>
+            </div>*@
+            <div style="overflow-x: auto;">
+                <!--Add Request class=Contacts-->
+                <table class="Contacts">
+                    <caption>Add Request</caption>
+                    <tr>
+                        <th>Structure</th>
+                        <th>Date</th>
+                        <th>CFS</th>
+                        <th colspan="2">Comments</th>
+                    </tr>
+                    <tr>
+                        <td>
+                            <input list="CustomersStructures" placeholder="Structure">
+                            <datalist id="CustomersStructures">
+                                <option value="T4378"></option>
+                                <option value="T58392"></option>
+                            </datalist>
+                        </td>
+                        <td>
+                            <input type="date" value="2017-08-12">
+                        </td>
+                        <td>
+                            <input type="CFS" value="0">
+                        </td>
+                        <td>
+                            <input type="Comments" placeholder="Comments...">
+                        </td>
+                        <td>
+                            <button>Submit Request</button>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            @* Customer cannot edit their request, only staff can *@
+            @* <div style="overflow-x: auto;">
+                <!--Edit Requests class=Contacts-->
+                <table class="Contacts">
+                    <caption>Edit Request</caption>
+                    <tr>
+                        <th>Structure</th>
+                        <th>Date</th>
+                        <th>CFS</th>
+                        <th colspan="2">Comments</th>
+                    </tr>
+                    <tr>
+                        <td>T4378</td>
+                        <td>
+                            <input type="date" value="2017-08-08">
+                        </td>
+                        <td>
+                            <input type="CFS" value="-5">
+                        </td>
+                        <td>
+                            <input type="Comments" placeholder="Comments...">
+                        </td>
+                        <td>
+                            <button>Update Request</button>
+                        </td>
+                    </tr>
+                </table>
+            </div>*@
+            <div style="overflow-x: auto;">
+                <!--Wait List class=Contacts-->
+                <table class="Contacts">
+                    <caption>Wait List</caption>
+                    <tr>
+                        <th>Number</th>
+                        <th>Structure</th>
+                        <th>Date</th>
+                        <th>CFS</th>
+                        <th>Comments</th>
+                        <th>Note</th>
+                    </tr>
+                    <tr>
+                        <td>1</td>
+                        <td>
+                            T5832
+                        </td>
+                        <td>08/12/17</td>
+                        <td><input type="CFS" value="4" disabled></td>
+                        <td>
+                            <input type="Comments" placeholder="Comments..." disabled>
+                        </td>
+                        <td>Ditch Rider will call when you are removed from wait list.</td>
+                    </tr>
+                </table>
+            </div>
 </body>
 <footer>
     <div id="Logo">
