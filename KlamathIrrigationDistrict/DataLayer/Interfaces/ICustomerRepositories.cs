@@ -14,6 +14,9 @@ namespace KlamathIrrigationDistrict.DataLayer.Repository
         //allow customer to view their information
         List<Customers> ViewCustomers();
 
+        //list all of customers request
+        List<Customers> ViewAppliedRequests();
+
         //save the customer information when updated
         //used by the staff or customer
         void Save(Customers customers);
@@ -22,14 +25,13 @@ namespace KlamathIrrigationDistrict.DataLayer.Repository
         //history based on customerID
         void ViewCustomerWaterHistory(int CustomerID);
 
-        //uses a stored procedure to reference process
-        //allocate info form customer profile into a water order with request
-        //void ApplyWaterOrder(WaterOrderRequest WaterOrder);
-
         //Does not use stored procedure, will only apply all that a customer can in request for
-        void AddWaterOrderRequest(WaterOrderRequest NewWaterOrder);
+        void AddWaterOrderRequest(Customers NewWaterOrder);
 
-     
+        //Submit a customer request for water
+        //void SubmitRequest(Customers std);
+
+
     }
 
 

@@ -30,25 +30,47 @@ namespace KlamathIrrigationDistrict.Controllers
             CustomerRepository customerrepository = new CustomerRepository();
             Customers CustomerStaff = new Customers();
             List<Customers> obCustomerList = new List<Customers>();
-            obCustomerList = customerrepository.ViewCustomers();
+            obCustomerList = customerrepository.ViewAppliedRequests();
             CustomerStaff.customers = obCustomerList;
             cstaff = obCustomerList.ToPagedList(pageIndex, pageSize);
             return View(cstaff);
         }
+
+        //public ActionResult RequestIndex(int? page)
+        //{
+        //    int pageSize = 10;
+        //    int pageIndex = 1;
+        //    pageIndex = page.HasValue ? Convert.ToInt32(page) : 1;
+        //    IPagedList<Customers> cstaff = null;
+        //    CustomerRepository customerrepository = new CustomerRepository();
+        //    Customers CustomerStaff = new Customers();
+        //    List<Customers> obCustomerList = new List<Customers>();
+
+        //    obCustomerList = customerrepository.ViewCustomerWaterHistory(_custRepo.Get);
+
+        //    CustomerStaff.customers = obCustomerList;
+        //    cstaff = obCustomerList.ToPagedList(pageIndex, pageSize);
+        //    return View(cstaff);
+        //}
+
         //View for Staff to add a customer
         [HttpGet]
         public ActionResult AddCustomer()
         {
             return View(new Customers());
         }
+
+        //used to add water order request
         [HttpPost]
-        public ActionResult AddCustomer(Customers customers)
+        public ActionResult AddCustomerRequest(Customers CustomersRequest)
         {
             if (!ModelState.IsValid)
             {
-                return View(customers);
+                return View(CustomersRequest);
             }
-            _custRepo.Save(customers);
+            //_custRepo.Save(customers);
+            //reference CustomerRepository - AddWaterOrderRequest
+            _custRepo.AddWaterOrderRequest(CustomersRequest);
             return RedirectToAction("Index");
         }
         //View for Staff to Edit a customer
@@ -95,25 +117,40 @@ namespace KlamathIrrigationDistrict.Controllers
             };
             return ViewCustomers(CustomerID);
         }
+        
 
         //----------------------------------------------------------------------------------------------------------------
         //user will apply for water
-        //public ActionResult ApplyWaterRequest(WaterOrderRequest Request)
-        //{
-        //    // WaterOrderRequest Requests = _custRepo.AddWaterOrderRequest(WaterOrderRequest Request);
-        //    WaterOrderRequest Requests = new WaterOrderRequest()
-        //    {
-        //        CustomerID = Request.CustomerID,
-        //        TrackingID = Request.TrackingID,
-        //        Name = Request.Name,
-        //        Structure = Request.Structure,
-        //        CustomerComments = Request.CustomerComments,
-        //        RequestedCFS = Request.RequestedCFS,
-        //        //TotalAllotment = Request.TotalAllotment
-        //    };
+        public ActionResult ApplyWaterRequest(Customers Request)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(Request);
+            }
+            //reference repository to add a request
+            _custRepo.AddWaterOrderRequest(Request);
 
-        //    return RedirectToAction("CustomerWaterRequests");
-        //}
+            return RedirectToAction("Index");
+        }
+
+        public ActionResult SubmitRequest(int RequestID)
+        {
+            var std = _custRepo.ViewAppliedRequests().Where(s => s.RequestID == RequestID).FirstOrDefault();
+            return View(std);
+        }
+
+        //
+        [HttpPost]
+        public ActionResult SubmitRequest(Customers std)
+        {
+            int RequestID = std.RequestID;
+            DateTime CustomerDate = std.CustomerDate1;
+            Decimal CFSRequested = std.CustomerCFS_1;
+            string CustomerComments = std.CustomerComments_1;
+            _custRepo.AddWaterOrderRequest(std);
+            return RedirectToAction("Index");
+        }
+
         //----------------------------------------------------------------------------------------------------------------
 
 
@@ -121,7 +158,7 @@ namespace KlamathIrrigationDistrict.Controllers
         //need to add the TrackingID from the MTL - ensure that it matches with Customer's Tracking ID
         //Allow to sync with 
         public ActionResult ViewWaterHistory(int CustomerID)
-        {          
+        {
             //do i need to specify how to get the customerID? (BELOW)
             //Customers customers = _custRepo.Get(CustomerID);
             //if(customers == null)
