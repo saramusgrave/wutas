@@ -1,8 +1,8 @@
 ﻿@using KlamathIrrigationDistrict.DataLayer.DataModels
 @model DitchRiderRequests
-    @{ 
-        ViewBag.Tite = "KID D.R. Update Requests";
-    }
+@{
+    ViewBag.Title = "KID D.R.: Edit Request";
+}
 <head>
     <title>KID: Ditch Rider</title>
     <meta name="viewport" content="width=device-width" />
@@ -58,57 +58,49 @@
                 <a href="./KIDDitchRiderRide4CanalsC4SHTML.html">C4S</a>
             </div>
         </li>
-        <a href="~/Views/Account/Login"><button class="LogOutBtn">Log Out</button></a>
+        <a href="~/Account/Login"><button class="LogOutBtn">Log Out</button></a>
     </ul>
 </header>
 <body>
-    <a href="Index" class="previous">&laquo; Previous</a><br />
+    <a href="Index4" class="previous">&laquo; Previous</a><br />
     Update Request
     @using (Html.BeginForm())
     {
         @Html.HiddenFor(s => s.RequestID)
-        @Html.HiddenFor(s => s.CustomerID)
-        @Html.HiddenFor(s => s.TrackingID)
-        @Html.HiddenFor(s => s.MapTaxLot)
+        @Html.HiddenFor(s => s.KIDStaffID1)
 
         <div>
             @Html.Label("Customer Name: ")
-            @Html.DisplayTextFor(s => s.CustomerName)
+            @Html.TextBoxFor(s => s.CustomerName, new { @disabled = "diabled", @class = "CustomerName"})
         </div>
         <div>
-            @Html.Label("Allotment: ")
-            @Html.DisplayTextFor(s => s.Allotment)
+            @Html.Label("Time Stamp: ")
+            @Html.TextBoxFor(s => s.TimeStampStaff1, new { @type = "datetime", @disabled = "disabled" })
         </div>
         <div>
-            @Html.Label("Structure: ")
-            @Html.DisplayTextFor(s => s.Structure)
+            @Html.Label("Date: ")
+            @Html.TextBoxFor(s => s.StaffDate1, new { @type = "date"})
         </div>
         <div>
-            @Html.Label("Customer Date: ")
-            @Html.DisplayTextFor(s => s.CustomerDate)
+            @Html.Label("Status: ")
+            @Html.TextBoxFor(s => s.RequestStatus1)
+            @*<input list="RequestStatus" />*@
         </div>
         <div>
-            @Html.Label("CFS Requested: ")
-            @Html.DisplayTextFor(s => s.CFSRequested)
+            @Html.Label("CFS: ")
+            @Html.TextBoxFor(s => s.StaffCFS1, new { @type = "number" })
         </div>
         <div>
-            @Html.Label("Customer Comments: ")
-            @Html.DisplayTextFor(s => s.CustomerComments)
-        </div>
-        <div>
-            @Html.Label("Ditch Rider Date: ")
-            @Html.TextBoxFor(s => s.DitchRiderDate, new { @type = "datetime", @Value = DateTime.Now.ToString(), @disabled = "disabled" })
-        </div>
-        <div>
-            @Html.Label("CFS Given: ")
-            @Html.TextBoxFor(s => s.CFSGiven, new { @type = "number" })
-        </div>
-        <div>
-            @Html.Label("Ditch Rider Comments: ")
-            @Html.TextAreaFor(s => s.DitchRiderComments)
+            @Html.Label("Comments: ")
+            @Html.TextAreaFor(s => s.StaffComments1)
         </div>
         <div>
             <button type="submit">Submit</button>
         </div>
     }
 </body>
+<datalist id="RequestStatus">
+    <option value="Confirm">Confirm</option>
+    <option value="Reject">Reject</option>
+    <option value="Waitlist">Waitlist</option>
+</datalist>

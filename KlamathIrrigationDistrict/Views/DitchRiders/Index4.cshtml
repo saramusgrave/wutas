@@ -15,7 +15,7 @@
     <div id="RideCenter">
         <li class="dropdown">
             <a class="./KIDDitchRider4HTML.html">Ride 4</a>
-            <div class="dropdownRide" style="overflow-x: auto;">
+            @*<div class="dropdownRide" style="overflow-x: auto;">
                 <a href="../Ride1/KIDDitchRider1HTML.html">1</a>
                 <a href="../Ride2/KIDDitchRider2HTML.html">2</a>
                 <a href="../Ride3/KIDDitchRider3HTML.html">3</a>
@@ -24,7 +24,7 @@
                 <a href="../Ride6/KIDDitchRider6HTML.html">6</a>
                 <a href="../Ride7/KIDDitchRider7HTML.html">7</a>
                 <a href="../Ride8/KIDDitchRider8HTML.html">8</a>
-            </div>
+            </div>*@
         </li>
     </div>
     <!--Log in Name, Customers, Requests, Canals, LogOUt id=Menu-->
@@ -32,11 +32,11 @@
         <li><label class="FirstLast">Scott.Linville</label></li>
         <li><a href="./KIDDitchRiderRide4CustomersHTML.html">Customers</a></li>
         <li class="dropdown">
-            <a class="RequestDropDown" href="./KIDDitchRider4HTML.html" id="active">Requests</a>
+            <a class="RequestDropDown" href="DitchRiders/Index4" id="active">Requests</a>
             <!--Requests drop down menu class=dropdownRequest-->
             <div class="dropdownRequest" style="overflow-x: auto;">
                 <a href="./KIDDitchRiderRide4AppendingWaitlistHTML.html">Appending/Waitlist</a>
-                <a href="./KIDDitchRiderRide4CallRequestsHTML.html">Call Requests</a>
+                <a href="/DitchRiders/AddRequest4On">Call Requests</a>
             </div>
         </li>
         <li class="dropdown">
@@ -59,14 +59,14 @@
                 <a href="./KIDDitchRiderRide4CanalsC4SHTML.html">C4S</a>
             </div>
         </li>
-        <a href="~/Views/Account/Login"><button class="LogOutBtn">Log Out</button></a>
+        <a href="~/Account/Login"><button class="LogOutBtn">Log Out</button></a>
     </ul>
 </header>
 <body>
     <div style="overflow-x: auto;">
         <!--Alphabet List for ActiveRequests class=ActiveRequests-->
         <table class="ActiveRequests">
-            <caption>Active Requests</caption>
+            <caption>Active Requests (On)</caption>
             @*<div style="overflow-x: auto;">*@
                 <!--CanalsList class=CanalsList-->
                 @*<table class="CanalsList">
@@ -92,31 +92,62 @@
         <!-- ActiveRequests Table class=ActiveRequests-->
         @*<table class="ActiveRequests">*@
             <tr>
-                <th>@Html.Label("Request Date")</th>
-                <th>@Html.Label("Customer Name")</th>
+                <th>@Html.Label("Date")</th>
+                <th>@Html.Label("Name")</th>
                 <th>@Html.Label("Turn Out")</th>
-                <th>@Html.Label("CFS Requested")</th>
-                <th id="RBorder">@Html.Label("Customer Comments")</th>
-                <th>@Html.Label("Ditch Rider Date")</th>
+                <th>@Html.Label("CFS")</th>
+                <th id="RBorder">@Html.Label("Comments")</th>
                 <th>@Html.Label("Ditch Rider")</th>
-                <th>@Html.Label("CFS Given")</th>
-                <th colspan="2">@Html.Label("Ditch Rider Comments")</th>
+                <th>@Html.Label("Date")</th>
+                <th>@Html.Label("CFS")</th>
+                <th colspan="2">@Html.Label("Comments")</th>
             </tr>
-            @for (int i =0; i < Model.Count; i++)
+            @for (int i = 0; i < Model.Count; i++)
             {
                 <tr>
-                    <td>@Model[i].CustomerDate.ToShortDateString()</td>
+                    <td>@Model[i].CustomerDate1.ToShortDateString()</td>
                     <td>@Model[i].CustomerName</td>
                     <td>@Model[i].Structure</td>
-                    <td>@Model[i].CFSRequested</td>
-                    <td id="RBorder">@Model[i].CustomerComments</td>
-                    <td>@Model[i].DitchRiderDate.ToShortDateString()</td>
+                    <td>@Model[i].CustomerCFS1</td>
+                    <td id="RBorder">@Model[i].CustomerComments1</td>
                     <td>Scott Linville</td>
-                    <td>@Html.TextBoxFor(Model => Model[i].CFSGiven, new { @type = "number" })</td>
-                    <td>@Html.TextAreaFor(Model => Model[i].DitchRiderComments)</td>
-                    <td>
-                        @Html.ActionLink("Edit Request", "EditRequest", new { @RequestID = Model[i].RequestID})
-                    </td>
+                    <td>@Model[i].StaffDate1.ToShortDateString()</td>
+                    <td>@Model[i].StaffCFS1</td>
+                    <td>@Model[i].StaffComments1</td>
+                    @*<td>@Html.TextBoxFor(Model => Model[i].StaffCFS1, new { @type = "number"})</td>
+                    <td>@Html.TextAreaFor(Model => Model[i].StaffComments1)</td>*@
+                    <td>@Html.ActionLink("Edit Request","EditRequest4On", new {@RequestID = Model[i].RequestID}) </td>
+                </tr>
+            }
+        </table>
+    </div>
+    <div style="overflow-x: auto;">
+        <table class="ActiveRequests">
+            <caption>Active Requests (off)</caption>
+            <tr>
+                <th>@Html.Label("Date")</th>
+                <th>@Html.Label("Name")</th>
+                <th>@Html.Label("Turn Out")</th>
+                <th>@Html.Label("CFS")</th>
+                <th id="RBorder">@Html.Label("Comments")</th>
+                <th>@Html.Label("Ditch Rider")</th>
+                <th>@Html.Label("Date")</th>
+                <th>@Html.Label("CFS")</th>
+                <th colspan="2">@Html.Label("Comments")</th>
+            </tr>
+            @for (int i = 0; i < Model.Count; i++)
+            {
+                <tr>
+                    <td>@Model[i].CustomerDate2.ToShortDateString()</td>
+                    <td>@Model[i].CustomerName</td>
+                    <td>@Model[i].Structure</td>
+                    <td>@Model[i].CustomerCFS2</td>
+                    <td id="RBorder">@Model[i].CustomerComments2</td>
+                    <td>Scott Linville</td>
+                    <td>@Model[i].StaffDate2.ToShortDateString()</td>
+                    <td>@Model[i].StaffCFS2</td>
+                    <td>@Model[i].StaffComments2</td>
+                    <td>@Html.ActionLink("Edit Request", "EditRequest4Off", new { @RequestID = Model[i].RequestID }) </td>
                 </tr>
             }
         </table>
@@ -124,7 +155,7 @@
     <div style="overflow-x: auto;">
         <!--Completed Requests class=ActiveRequests-->
         <table class="ActiveRequests">
-            <caption>Completed Requests</caption>
+            <caption>Completed Requests (On)</caption>
             @*<table class="CanalsList">
                 <th>A</th>
                 <th>C</th>
@@ -148,28 +179,60 @@
         @*<table class="ActiveRequests">*@
             
             <tr>
-                <th>@Html.Label("Request Date")</th>
-                <th>@Html.Label("Customer Name")</th>
+                <th>@Html.Label("Date")</th>
+                <th>@Html.Label("Name")</th>
                 <th>@Html.Label("Turn Out")</th>
-                <th>@Html.Label("CFS Requested")</th>
-                <th id="RBorder">@Html.Label("Customer Comments")</th>
-                <th>@Html.Label("Ditch Rider Date")</th>
+                <th>@Html.Label("CFS")</th>
+                <th id="RBorder">@Html.Label("Comments")</th>
                 <th>@Html.Label("Ditch Rider")</th>
-                <th>@Html.Label("CFS Given")</th>
-                <th>@Html.Label("Ditch Rider Comments")</th>
+                <th>@Html.Label("Date")</th>
+                <th>@Html.Label("CFS")</th>
+                <th colspan="2">@Html.Label("Comments")</th>
+            </tr>
+            @for (int i = 0; i < Model.Count; i++)
+            {
+            <tr>
+                <td>@Model[i].CustomerDate1.ToShortDateString()</td>
+                <td>@Model[i].CustomerName</td>
+                <td>@Model[i].Structure</td>
+                <td>@Model[i].CustomerCFS1</td>
+                <td id="RBorder">@Model[i].CustomerComments1</td>
+                <td>Scott Linville</td>
+                <td>@Model[i].StaffDate1.ToShortDateString()</td>
+                <td>@Model[i].StaffCFS1</td>
+                <td>@Model[i].StaffComments1</td>
+                @*<td>@Html.TextBoxFor(Model => Model[i].StaffCFS1, new { @type = "number" })</td>
+                <td>@Html.TextAreaFor(Model => Model[i].StaffComments1)</td>*@
+            </tr>
+            }
+        </table>
+    </div>
+    <div style="overflow-x: auto;">
+        <table class="ActiveRequests">
+            <caption>Completed Requests (off)</caption>
+            <tr>
+                <th>@Html.Label("Date")</th>
+                <th>@Html.Label("Name")</th>
+                <th>@Html.Label("Turn Out")</th>
+                <th>@Html.Label("CFS")</th>
+                <th id="RBorder">@Html.Label("Comments")</th>
+                <th>@Html.Label("Ditch Rider")</th>
+                <th>@Html.Label("Date")</th>
+                <th>@Html.Label("CFS")</th>
+                <th colspan="2">@Html.Label("Comments")</th>
             </tr>
             @for (int i = 0; i < Model.Count; i++)
             {
                 <tr>
-                    <td>@Model[i].CustomerDate.ToShortDateString()</td>
+                    <td>@Model[i].CustomerDate2.ToShortDateString()</td>
                     <td>@Model[i].CustomerName</td>
                     <td>@Model[i].Structure</td>
-                    <td>@Model[i].CFSRequested</td>
-                    <td id="RBorder">@Model[i].CustomerComments</td>
-                    <td>@Model[i].DitchRiderDate.ToShortDateString()</td>
+                    <td>@Model[i].CustomerCFS2</td>
+                    <td id="RBorder">@Model[i].CustomerComments2</td>
                     <td>Scott Linville</td>
-                    <td>@Model[i].CFSGiven</td>
-                    <td>@Model[i].DitchRiderComments</td>
+                    <td>@Model[i].StaffDate2.ToShortDateString()</td>
+                    <td>@Model[i].StaffCFS2</td>
+                    <td>@Model[i].StaffComments2</td>
                 </tr>
             }
         </table>
