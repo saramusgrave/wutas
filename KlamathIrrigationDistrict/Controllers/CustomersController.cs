@@ -1,7 +1,6 @@
 ﻿using KlamathIrrigationDistrict.DataLayer.DataModels;
 using KlamathIrrigationDistrict.DataLayer.Interfaces;
 using KlamathIrrigationDistrict.DataLayer.Repositories;
-using KlamathIrrigationDistrict.DataLayer.Repository;
 using PagedList;
 using System;
 using System.Collections.Generic;
@@ -12,7 +11,7 @@ namespace KlamathIrrigationDistrict.Controllers
 {
     public class CustomersController : Controller
     {
-        private ICustomerRepositories _custRepo;
+        private ICustomerRepository _custRepo;
 
         public CustomersController()
         {
