@@ -152,7 +152,7 @@ namespace KlamathIrrigationDistrict.DataLayer.Repositories
                         while (reader.Read())
                         {
                             Customers StaffInfo = new Customers();
-                            StaffInfo.Staff_Position = int.Parse(reader["Position"].ToString());
+                            StaffInfo.Staff_Position = reader["Position"].ToString();
                             StaffInfo.Staff_FirstName = reader["FirstName"].ToString();                            
                             StaffInfo.Staff_LastName = reader["LastName"].ToString();                        
                             StaffInfo.Staff_Email = reader["Email"].ToString();

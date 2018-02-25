@@ -35,7 +35,7 @@ namespace KlamathIrrigationDistrict.DataLayer.DataModels
         public List<Customers> customers { get; set; }
         //-------------------------------------------------------------------------------------
         //info to obtain the staff info for contact
-        public int Staff_Position { get; set; }
+        public string Staff_Position { get; set; }
         [StringLength(50)]
         public string Staff_FirstName { get; set; }
         [StringLength(50)]

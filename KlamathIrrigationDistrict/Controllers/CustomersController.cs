@@ -56,6 +56,8 @@ namespace KlamathIrrigationDistrict.Controllers
             return View(CustomerContacts);
         }
 
+
+
         //View for Staff to add a customer
         [HttpGet]
         public ActionResult AddCustomer()
