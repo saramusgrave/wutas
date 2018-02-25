@@ -1,7 +1,6 @@
 ﻿@using KlamathIrrigationDistrict.DataLayer.DataModels
 @using PagedList.Mvc;
 @model PagedList.IPagedList<KIDStaff>
-@*@model List<KIDStaff>*@
 @{ 
     ViewBag.Title = "KID Staff: Home Page";
 }
@@ -24,7 +23,6 @@
         <table class="OfficeStaffCustomers" id="TableKIDStaff">
             <caption>KID Staff</caption>
                 <tr>
-                    @*<th>@Html.Label("Staff ID")</th>*@
                     <th>@Html.Label("Position")</th>
                     <th>@Html.Label("First Name")</th>
                     <th>@Html.Label("Last Name")</th>
@@ -38,13 +36,10 @@
                     <th>@Html.Label("Modified By")</th>
                     <th>@Html.Label("Edit Staff")</th>
                 </tr>
-            @*Need to display list as Position = KIDStaff.Position = Positions.Position where KIDStaff.Position = Positions.PositionID*@
             @*Need to have staff status filter*@
-          
             @for (int i = 0; i < Model.Count; i++)
             {
                 <tr>
-                    @*<td>@Model[i].StaffID</td>*@
                     <td>@Model[i].Position</td>
                     <td>@Model[i].FirstName</td>
                     <td>@Model[i].LastName</td>

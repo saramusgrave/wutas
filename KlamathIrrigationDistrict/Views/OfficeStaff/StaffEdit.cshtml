@@ -9,7 +9,7 @@
 <script src="~/Scripts/KIDDitchRidersJS.js"></script>
 <header id="OfficeStaffMenu">
     <ul>
-        <li><label class="FirstLast">Linda.Seater</label></li>
+        <li><label class="FirstLast">@User.Identity.Name</label></li>
         <li><a href="/Customers/Index">Customers</a></li>
         <li><a href="Index" id="active">Staff</a></li>
         <li><a href="/MapTaxLot/Index">MapTaxLot</a></li>
@@ -23,8 +23,8 @@
     @using (Html.BeginForm())
     {
         @Html.HiddenFor(s => s.StaffID)
-        @Html.HiddenFor(s => s.ModifiedDateTime)
-        @Html.HiddenFor(s => s.ModifiedUser)
+        @Html.HiddenFor(s => s.ModifiedDateTime, new { @Value = DateTime.Now })
+        @Html.HiddenFor(s => s.ModifiedUser, new { @Value = User.Identity.Name })
         
         <div>
             @Html.Label("Position:")
@@ -74,16 +74,6 @@
             @Html.TextBoxFor(s => s.EndDate, new { @type = "datetime" })
             @Html.ValidationMessageFor(s => s.EndDate)
         </div>
-        @*<div>
-            @Html.LabelFor(s => s.ModifiedDateTime)
-            @Html.TextBoxFor(s => s.ModifiedDateTime, new { @type = "datetime", @Value = DateTime.Now.ToString(), @disabled="disabled"})
-            @Html.ValidationMessageFor(s => s.ModifiedDateTime)
-        </div>
-        <div>
-            @Html.LabelFor(s => s.ModifiedUser)
-            @Html.TextBoxFor(s => s.ModifiedUser, new { @type = "User" })
-            @Html.ValidationMessageFor(s => s.ModifiedUser)
-        </div>*@
         <div>
             <button type="submit">Update</button>
         </div>
