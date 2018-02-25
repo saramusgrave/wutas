@@ -16,7 +16,7 @@ namespace KlamathIrrigationDistrict.DataLayer.Interfaces
         void EditStaff(KIDStaff kidstaff);
         //KIDStaff: Insert & Update 
         void Save(KIDStaff kidstaff);
-
+         
         //from Alen
         //KIDStaff StaffMember { get; set; }
         //List<SelectListItem> PositionTypes { get; set; }

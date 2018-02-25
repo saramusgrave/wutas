@@ -1,8 +1,11 @@
 ﻿@using KlamathIrrigationDistrict.DataLayer.DataModels
 @using PagedList.Mvc;
 @model PagedList.IPagedList<Customers>
+    @{ 
+        ViewBag.Title = "Customer: Home Page";
+    }
 <head>
-    <title>KID: Customers</title>
+    <title>Customer: Home Page</title>
     <meta name="viewport" content="width=device-width" />
     <link rel="stylesheet" href="~/Styles/Customers.css" />
     <script src="~/Scripts/KIDDitchRidersJS.js"></script>
@@ -10,21 +13,12 @@
 <!--Menu-->
 <header id="Menu">
     <ul>
-        <li>
-            <label class="FirstLast">First.Last</label>
-        </li>
-        @*<li><a id="active" href="./KIDCustomersHomePageHTML.html">Requests</a></li>
-        <li><a href="./KIDCustomersHistoryPageHTML.html">History</a></li>
-        <li><a href="./KIDCustomersContactsPageHTML.html">Contacts</a></li>
-        <li><a href="./KIDCustomersEditAccountPageHTML.html">Edit Account</a></li>
-        <li><a href="./KIDCustomersConversionsPageHTML.html">Conversions</a></li>*@
-
-        <li><a id="active" href="./Index.cshtml">Requests</a></li>
-        <li><a href="~/Views/Customers/CustomerWaterOrderHistory.cshtml">History</a></li>
-        <li><a href="~/Views/Customers/CustomersContactsPage.cshtml">Contacts</a></li>
+        <li><label class="FirstLast">First.Last</label></li>
+        <li><a id="active" href="Customers/Index">Requests</a></li>
+        <li><a href="./CustomerWaterHistory">History</a></li>
+        <li><a href="./ContactsPage">Contacts</a></li>
+        <li><a href="./CustomerProfile">Profile</a></li>
         <!--edit account page needs work-->
-        <li><a href="~/Views/Customers/CustomerEditPage.cshtml">Edit Account</a></li>
-        <li><a href="./CustomerConversionPage.cshtml">Conversions</a></li>
         <a href="../KIDLogInPageHTML.html"><button class="LogOutBtn">Log Out</button></a>
 
         <li>
@@ -39,7 +33,7 @@
                 <br>
                 <!--Orange  #ed7d30for Alotment 50% GONE!-->
                 Allotment in AFPA
-                <input style="color: #ed7d30; font-weight: bold;" type="Allotment" value="100" readonly>/20
+                <input style="color: #ed7d30; font-weight: bold;" type="Allotment" value="100" readonly>/200
                 <br>
                 <!--Gold #e4be00 for Alotment 25% GONE!-->
                 Allotment in AFPA
@@ -50,15 +44,14 @@
                 <input style="color: #ff0000; font-weight: bold;" type="Allotment" value="0" readonly>/200
             </b>
         </li>
-        <a href="../KIDLogInPageHTML.html"><button class="LogOutBtn">Log Out</button></a>
     </ul>
 </header>
 <body>
     @* AddRequest will allow use to apply for water request *@
-    <a href="AddRequest" class="next">Add Water Order &raquo;</a>
+    @*<a href="AddRequest" class="next">Add Water Order &raquo;</a>*@
     @* jump to display customer's view of current active orders *@
     <div style="overflow-x: auto;">
-        <table class="ActiveRequests">
+        <table class="Contacts">
             <caption>Active Requests</caption>
             <tr>
                 <th>@Html.Label("RequestID")</th>
@@ -83,17 +76,16 @@
                     <td>@Model[i].CustomerCFS_1</td>
                     <td>@Model[i].TimeStampCustomer1.ToShortDateString()</td>
                     <td>@Html.TextAreaFor(Model => Model[i].CustomerComments_1)</td>
+                    <td>@Model[i].RequestStatus1</td>
                     @*<td>
                         @Html.ActionLink("Submit", "AddWaterOrderRequest", new { @RequestID = Model[i].RequestID })
                     </td>*@
                 </tr>
             }
-
-
-
         </table>
+        </div>
         <div style="overflow-x: auto;">
-            <table class="ActiveRequests">
+            <table class="Contacts">
                 <caption>Complete Request</caption>
                 <tr>
                     <th>@Html.Label("RequestID")</th>
@@ -114,15 +106,15 @@
                 <tr>
                     <td>@Model[i].RequestID</td>
                     <td>@Model[i].Structure</td>                    
-                    <td>@Model[i].CustomerCFS_1</td>
-                    <td>@Model[i].TimeStampCustomer1</td>
-                    <td id="RBorder">@Model[i].CustomerComments_1</td>                    
+                    <td>@Model[i].CustomerCFS_2</td>
+                    <td>@Model[i].TimeStampCustomer2</td>
+                    <td id="RBorder">@Model[i].CustomerComments_2</td>                    
                     @*<td>@Model[i].DitchRiderDate.ToShortDateString()</td>*@
-                    <td>@Model[i].StaffCFS1</td>
-                    <td>@Model[i].StaffName_1</td>
-                    <td>@Model[i].StaffComments1</td>
-                    <td>@Model[i].RequestStatus1</td>
-                    <td>@Model[i].TimeStampStaff1</td>
+                    <td>@Model[i].StaffCFS2</td>
+                    <td>@Model[i].StaffName_2</td>
+                    <td>@Model[i].StaffComments2</td>
+                    <td>@Model[i].RequestStatus2</td>
+                    <td>@Model[i].TimeStampStaff2</td>
                     @*<td>
             @Html.ActionLink("Submit", "AddWaterOrderRequest", new { @RequestID = Model[i].RequestID })
         </td>*@
@@ -130,6 +122,7 @@
         }
 
             </table>
+            </div>
             <!--Current Requests class=Contacts-->
             @*<table class="Contacts">
                     <caption>Current Requests</caption>

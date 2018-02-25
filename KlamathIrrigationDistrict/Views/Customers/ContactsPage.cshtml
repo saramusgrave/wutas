@@ -1,0 +1,82 @@
+﻿@using KlamathIrrigationDistrict.DataLayer.DataModels
+@using PagedList.Mvc;
+@model PagedList.IPagedList<Customers>
+@{
+    ViewBag.Title = "Customers: ContactsPage";
+}
+<head>
+    <title>Customers: Contacts</title>
+    <meta name="viewport" content="width=device-width" />
+    <link rel="stylesheet" href="~/Styles/Customers.css" />
+    <script src="~/Scripts/KIDDitchRidersJS.js"></script>
+</head>
+<!--First.LastName, Requests, history, Contacts, Edit Account, Conversions-->
+<header id="Menu">
+    <ul>
+        <li><label class="FirstLast">First.Last</label></li>
+        <li><a href="./Index">Requests</a></li>
+        <li><a href="./CustomerWaterHistory">History</a></li>
+        <li><a id="active" href="Customers/ContactsPage" >Contacts</a></li>
+        <!--edit account page needs work-->
+        <a href="../KIDLogInPageHTML.html"><button class="LogOutBtn">Log Out</button></a>
+
+        <li>
+            <b>
+                Allotment in AFPA
+                <!--Dark Green #005e00 for Full Allotment!-->
+                <input style="color: #005e00; font-weight: bold;" type="Allotment" value="200" readonly>/200
+                <br>
+                <!--Lime Green #0cfc29 for Alotment 75% GONE!-->
+                Allotment in AFPA
+                <input style="color: #0cfc29; font-weight: bold;" type="Allotment" value="150" readonly>/200
+                <br>
+                <!--Orange  #ed7d30for Alotment 50% GONE!-->
+                Allotment in AFPA
+                <input style="color: #ed7d30; font-weight: bold;" type="Allotment" value="100" readonly>/200
+                <br>
+                <!--Gold #e4be00 for Alotment 25% GONE!-->
+                Allotment in AFPA
+                <input style="color: #e4be00; font-weight: bold;" type="Allotment" value="50" readonly>/200
+                <br>
+                <!--Red #ff0000 for NO Alotment Left!-->
+                Allotment in AFPA
+                <input style="color: #ff0000; font-weight: bold;" type="Allotment" value="0" readonly>/200
+            </b>
+        </li>
+
+    </ul>
+</header>
+<body>
+    <!--Ditch Riders Table class=Contacts-->
+    <input type="search" id="SearchKIDStaff" onkeyup="SearchKIDStaff()" placeholder="Search for Position" />
+    <div style="overflow: auto;">
+        <table class="Contacts">
+            <caption>KID Staff</caption>
+            <tr>
+                <th>@Html.Label("Position")</th>
+                <th>@Html.Label("First Name")</th>
+                <th>@Html.Label("Last Name")</th>
+                <th>@Html.Label("Email")</th>
+                <th>@Html.Label("Phone Number")</th>
+            </tr>
+            @*Need to display list as Position = KIDStaff.Position = Positions.Position where KIDStaff.Position = Positions.PositionID*@
+            @*Need to have staff status filter*@
+
+            @for (int i = 0; i < Model.Count; i++)
+            {
+                <tr>
+                    <td>@Model[i].Staff_Position</td>
+                    <td>@Model[i].Staff_FirstName</td>
+                    <td>@Model[i].Staff_LastName</td>
+                    <td>@Model[i].Staff_Email</td>
+                    <td>@Model[i].Staff_PhoneNumber</td>
+                </tr>
+            }
+        </table>
+    </div>
+    <div class="pagination" style="margin-left: 20px;">
+        Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber)
+        of @Model.PageCount @Html.PagedListPager(Model, page => Url.Action("ContactsPage", new { page }))
+    </div>
+</body>
+

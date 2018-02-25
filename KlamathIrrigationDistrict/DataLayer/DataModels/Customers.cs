@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
+using System.Web.Mvc;
 
 namespace KlamathIrrigationDistrict.DataLayer.DataModels
 {
@@ -17,7 +18,10 @@ namespace KlamathIrrigationDistrict.DataLayer.DataModels
         public int TrackingID { get; set; }
         [Required]
         public string Name { get; set; }
-
+        [Required]
+        public string Email { get; set; }
+        [Required]
+        public string Password { get; set; }
         [Required]
         public string Address1 { get; set; }
         public string Address2 { get; set; }
@@ -29,6 +33,20 @@ namespace KlamathIrrigationDistrict.DataLayer.DataModels
         public int Zip { get; set; }
         public decimal TotalAllotment { get; set; }
         public List<Customers> customers { get; set; }
+        //-------------------------------------------------------------------------------------
+        //info to obtain the staff info for contact
+        public int Staff_Position { get; set; }
+        [StringLength(50)]
+        public string Staff_FirstName { get; set; }
+        [StringLength(50)]
+        public string Staff_LastName { get; set; }
+        [EmailAddress]
+        public string Staff_Email { get; set; }
+        [Phone]
+        [StringLength(13)]
+        public string Staff_PhoneNumber { get; set; }
+
+
         //-------------------------------------------------------------------------------------
 
         //List of items to allow input for requests
