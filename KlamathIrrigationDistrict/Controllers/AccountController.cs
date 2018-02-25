@@ -90,6 +90,10 @@ namespace KlamathIrrigationDistrict.Controllers
             switch (result)
             {
                 case SignInStatus.Success:
+                    if (User.IsInRole("Office Specialist"))
+                    {
+                        return RedirectToAction("Index", "OfficeStaff");
+                    }
                     return RedirectToLocal(returnUrl);
                 case SignInStatus.LockedOut:
                     return View("Lockout");

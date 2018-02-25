@@ -1,5 +1,6 @@
 ﻿using KlamathIrrigationDistrict.DataLayer.DataModels;
 using KlamathIrrigationDistrict.DataLayer.Interfaces;
+using KlamathIrrigationDistrict.Models;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -29,7 +30,7 @@ namespace KlamathIrrigationDistrict.DataLayer.Repositories
                         {
                             p = new KIDStaff();
                             p.StaffID = int.Parse(reader["StaffID"].ToString());
-                            p.Position = int.Parse(reader["Position"].ToString());
+                            p.Position = reader["Position"].ToString();
                             p.FirstName = reader["FirstName"].ToString();
                             p.LastName = reader["LastName"].ToString();
                             p.Password = reader["Password"].ToString();
@@ -63,9 +64,10 @@ namespace KlamathIrrigationDistrict.DataLayer.Repositories
                     {
                         while (reader.Read())
                         {
+                            //guid
                             KIDStaff Staff = new KIDStaff();
                             Staff.StaffID = int.Parse(reader["StaffID"].ToString());
-                            Staff.Position = int.Parse(reader["Position"].ToString());
+                            Staff.Position = reader["Position"].ToString();
                             Staff.FirstName = reader["FirstName"].ToString();
                             Staff.LastName = reader["LastName"].ToString();
                             Staff.Password = reader["Password"].ToString();
@@ -109,32 +111,59 @@ namespace KlamathIrrigationDistrict.DataLayer.Repositories
         //    }
         //    return (staffmember);
         //}
-        //public List<SelectListItem> PositionTypes()
-        //{
-        //    List<SelectListItem> PositionList = new List<SelectListItem>();
-        //    //List<Positions> PositionList = new List<Positions>();
-        //    using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["KlamathIrrigation_Test"].ConnectionString))
-        //    {
-        //        using (SqlCommand command = new SqlCommand())
-        //        {
-        //            command.Connection = connection;
-        //            command.CommandText = "SELECT Position FROM Positions ORDER BY PositionID";
-        //            command.CommandType = CommandType.Text;
+        public static ListModel GetPositionList()
+        {
+            ListModel model = new ListModel();
+            using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["KlamathIrrigation_Test"].ConnectionString))
+            {
+                using (SqlCommand command = new SqlCommand())
+                {
+                    command.Connection = connection;
+                    command.CommandText = "SELECT * FROM Positions ORDER BY PositionID";
+                    command.CommandType = CommandType.Text;
 
-        //            connection.Open();
+                    connection.Open();
 
-        //            using (SqlDataReader reader = command.ExecuteReader())
-        //            {
-        //                while (reader.Read())
-        //                {
-        //                    Positions p = new Positions();
-        //                    new SelectListItem() { Text = p.Position, Value = p.PositionID.ToString() };                                                   
-        //                }
-        //            }
-        //        }
-        //    }
-        //    return (PositionList);
-        //}
+                    using (SqlDataReader reader = command.ExecuteReader())
+                    {
+                        model.PositionList = new List<SelectListItem>();
+                        while (reader.Read())
+                        {
+                            model.PositionList.Add(new SelectListItem { Text = reader.GetString(1), Value = reader.GetInt32(0).ToString() });
+                        }
+                    }
+                }
+                return model;
+            }
+        }
+
+
+        public List<SelectListItem> GetPositionList(KIDStaff p)
+        {
+            List<SelectListItem> PositionList = new List<SelectListItem>();
+            //List<Positions> PositionList = new List<Positions>();
+            using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["KlamathIrrigation_Test"].ConnectionString))
+            {
+                using (SqlCommand command = new SqlCommand())
+                {
+                    command.Connection = connection;
+                    command.CommandText = "SELECT Position FROM KIDStaff ORDER BY PositionID";
+                    command.CommandType = CommandType.Text;
+
+                    connection.Open();
+
+                    using (SqlDataReader reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            var t = new SelectListItem() { Text = p.Position, Value = p.Position };
+                            PositionList.Add(t);
+                        }
+                    }
+                }
+            }
+            return (PositionList);
+        }
 
 
 

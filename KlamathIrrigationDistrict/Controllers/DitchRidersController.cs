@@ -118,20 +118,20 @@ namespace KlamathIrrigationDistrict.Controllers
         [HttpGet]
         public ActionResult AddRequest4On()
         {
-            ////StructureListModel model = new StructureListModel();
+            StructureListModel model = new StructureListModel();
             //DitchRiderRequests model = new DitchRiderRequests();
-            //model.HorsleyStructures = new List<SelectListItem>()
-            //{
-            //    new SelectListItem() { Text = "T4603", Value = "T4603"},
-            //    new SelectListItem() { Text = "T4604", Value = "T4604" },
-            //    new SelectListItem() { Text = "T4505", Value = "T4605"},
-            //    new SelectListItem() { Text = "T4607", Value = "T4607"},
-            //    new SelectListItem() { Text = "T4603", Value = "T4603"},
-            //    new SelectListItem() { Text = "P4609", Value = "P4609"},
-            //    new SelectListItem() { Text = "T4610", Value = "T4610"},
-            ////};
-            //return View(model);
-            return View(new DitchRiderRequests());
+            model.HorsleyStructures = new List<SelectListItem>()
+            {
+                new SelectListItem() { Text = "T4603", Value = "T4603"},
+                new SelectListItem() { Text = "T4604", Value = "T4604"},
+                new SelectListItem() { Text = "T4505", Value = "T4605"},
+                new SelectListItem() { Text = "T4607", Value = "T4607"},
+                new SelectListItem() { Text = "T4603", Value = "T4603"},
+                new SelectListItem() { Text = "P4609", Value = "P4609"},
+                new SelectListItem() { Text = "T4610", Value = "T4610"},
+            };
+            return View(model);
+            //return View(new DitchRiderRequests());
         }
         //public ActionResult AddRequest4On()
         //{

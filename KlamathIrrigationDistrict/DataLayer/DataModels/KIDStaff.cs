@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using System.Web.Mvc;
 
 namespace KlamathIrrigationDistrict.DataLayer.DataModels
 {
@@ -9,7 +10,7 @@ namespace KlamathIrrigationDistrict.DataLayer.DataModels
     public class KIDStaff
     {
         public int StaffID { get; set; }
-        public int Position { get; set; }
+        public string Position { get; set; }
         [StringLength(50)]
         public string FirstName { get; set; }
         [StringLength(50)]
@@ -39,31 +40,7 @@ namespace KlamathIrrigationDistrict.DataLayer.DataModels
         }
         public string ModifiedUser { get; set; }
         public List<KIDStaff> kidstaff { get; set; }
-    }
-    public enum SelectPosition
-    {
-        Admin = 1,
-        DistrictManager = 2,
-        AssistantManager = 3,
-        WaterMaster = 4,
-        OfficeSpecialist = 5,
-        Bookkeeper = 6,
-        MaitenanceSupervisor = 7,
-        Ride1 = 8,
-        Ride2 = 9,
-        Ride3 = 10,
-        Ride4 = 11,
-        Ride5 = 12,
-        Ride6 = 13,
-        Ride7 = 14,
-        Ride8 = 15,
-        ReliefRide1 = 16,
-        ReliefRide2 = 17,
-        ReliefRide3 = 18,
-        ReliefRide4 = 19,
-        ReliefRide5 = 20,
-        ReliefRide6 = 21,
-        ReliefRide7 = 22,
-        ReliefRide8 = 23
+        //public List<SelectListItem> PositionTypes { get; set; }
+        public List<SelectListItem> GetPositionList { get; set; }
     }
 }

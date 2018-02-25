@@ -80,5 +80,6 @@ namespace KlamathIrrigationDistrict.DataLayer.DataModels
         public List<DitchRiderRequests> ditchriderrequests { get; set; }
         public List<SelectListItem> HorsleyStructures { get; set; }
         public List<SelectListItem> RyanStructures { get; set; }
+        
     }
 }

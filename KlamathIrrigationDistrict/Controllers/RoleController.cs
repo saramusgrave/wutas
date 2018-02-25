@@ -7,6 +7,8 @@ using System.Web.Mvc;
 using System;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
+using System.Web;
+using Microsoft.AspNet.Identity.Owin;
 
 namespace KlamathIrrigationDistrict.Controllers
 {
@@ -50,17 +52,18 @@ namespace KlamathIrrigationDistrict.Controllers
         {
             if (User.Identity.IsAuthenticated)
             {
-                var user = User.Identity;
-                var UserManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(context));
-                var s = UserManager.GetRoles(user.GetUserId());
-                if (s[0].ToString() == "Admin")
-                {
-                    return true;
-                }
-                else
-                {
-                    return false;
-                }
+                return User.IsInRole("Admin");
+                //var user = User.Identity;
+                //var UserManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(context));
+                //var s = UserManager.GetRoles(user.GetUserId());
+                //if (s[0].ToString() == "Admin")
+                //{
+                //    return true;
+                //}
+                //else
+                //{
+                //    return false;
+                //}
             }
             return false;
         }
@@ -68,8 +71,6 @@ namespace KlamathIrrigationDistrict.Controllers
         {
             if (User.Identity.IsAuthenticated)
             {
-
-
                 if (!isAdminUser())
                 {
                     return RedirectToAction("Index", "Home");
@@ -137,20 +138,20 @@ namespace KlamathIrrigationDistrict.Controllers
         //    return View(_RoleRepo.GetRoles());
         //}
         //Commented out below 
-        //private ApplicationRoleManager _RoleManager;
-        //private ApplicationUserManager _UserManager;
+        private ApplicationRoleManager _RoleManager;
+        private ApplicationUserManager _UserManager;
 
-        //protected ApplicationRoleManager RoleManager
-        //{
-        //    get
-        //    {
-        //        if (_RoleManager == null)
-        //        {
-        //            _RoleManager = HttpContext.GetOwinContext().Get<ApplicationRoleManager>();
-        //        }
-        //        return _RoleManager;
-        //    }
-        //}
+        protected ApplicationRoleManager RoleManager
+        {
+            get
+            {
+                if (_RoleManager == null)
+                {
+                    _RoleManager = HttpContext.GetOwinContext().Get<ApplicationRoleManager>();
+                }
+                return _RoleManager;
+            }
+        }
 
         //protected ApplicationUserManager UserManager
         //{

@@ -12,7 +12,7 @@ namespace KlamathIrrigationDistrict.Controllers
 {
     public class CustomersController : Controller
     {
-        private ICustomerRepositories _custRepo;        
+        private ICustomerRepositories _custRepo;
 
         public CustomersController()
         {
@@ -20,6 +20,7 @@ namespace KlamathIrrigationDistrict.Controllers
         }
 
         /*Views for list of Customers*/
+        [Authorize(Roles = "Office Specialist")]
         [HttpGet]
         public ActionResult Index(int? page)
         {
@@ -54,6 +55,7 @@ namespace KlamathIrrigationDistrict.Controllers
         //}
 
         //View for Staff to add a customer
+        [Authorize(Roles = "Office Specialist")]
         [HttpGet]
         public ActionResult AddCustomer()
         {
@@ -74,12 +76,13 @@ namespace KlamathIrrigationDistrict.Controllers
             return RedirectToAction("Index");
         }
         //View for Staff to Edit a customer
+        [Authorize(Roles = "Office Specialist")]
         public ActionResult StaffEditCustomer(int CustomerID)
         {
             var cust = _custRepo.ViewCustomers().Where(s => s.CustomerID == CustomerID).FirstOrDefault();
             return View(cust);
         }
-
+        [Authorize(Roles = "Office Specialist")]
         [HttpPost]
         public ActionResult StaffEditCustomer(Customers cust)
         {
@@ -96,9 +99,6 @@ namespace KlamathIrrigationDistrict.Controllers
             _custRepo.ViewCustomerWaterHistory(cust.CustomerID);     //given edit -> change history
             return RedirectToAction("Index");
         }
-
-        
-
         [OutputCache(Duration = 300, VaryByParam = "id")]
         public ActionResult ViewCustomers(int CustomerID)
         {
