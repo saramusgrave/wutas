@@ -246,6 +246,7 @@
     <Compile Include="Models\ApplicationRole.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\ListModel.cs" />
     <Compile Include="Models\RoleModel.cs" />
     <Compile Include="Models\StaffEditModel.cs" />
     <Compile Include="Models\StructureListModel.cs" />

@@ -8,7 +8,7 @@
 <script src="~/Scripts/KIDDitchRidersJS.js"></script>
 <header id="OfficeStaffMenu">
     <ul>
-        <li><label class="FirstLast">Linda.Seater</label></li>
+        <li><label class="FirstLast">@User.Identity.Name</label></li>
         <li><a href="/Customers/Index">Customers</a></li>
         <li><a href="Index" id="active">Staff</a></li>
         <li><a href="/MapTaxLot/Index">MapTaxLot</a></li>
@@ -22,11 +22,14 @@
     @using (Html.BeginForm())
     {
         @Html.HiddenFor(s => s.StaffID)
+        @Html.HiddenFor(s => s.ModifiedDateTime)
+        @Html.HiddenFor(s => s.ModifiedUser)
+        @*@Html.HiddenFor(s => s.ModifiedUser, new { @Value = User.Identity.Name})*@
        
         <div>
             @Html.Label("Position:")
-            @*@Html.DropDownList("Position", new SelectList(Enum.GetValues(typeof(SelectPosition))), "Position")*@
-            @Html.TextBoxFor(s => s.Position, new { @type = "number"})
+            @*@Html.DropDownList("Position", Model.GetPositionList);*@
+            @Html.TextBoxFor(s => s.Position)
             @Html.ValidationMessageFor(s => s.Position)
         </div>
         <div>
@@ -70,16 +73,16 @@
             @Html.TextBoxFor(s => s.EndDate, new { @type = "date" })
             @Html.ValidationMessageFor(s => s.EndDate)
         </div>
-        <div>
+        @*<div>
             @Html.LabelFor(s => s.ModifiedDateTime)
             @Html.TextBoxFor(s => s.ModifiedDateTime, new { @type = "datetime", @Value = DateTime.Now.ToString(), @disabled = "disabled" })
             @Html.ValidationMessageFor(s => s.ModifiedDateTime)
-        </div>
-        <div>
+        </div>*@
+        @*<div>
             @Html.LabelFor(s => s.ModifiedUser)
             @Html.TextBoxFor(s => s.ModifiedUser, new { @type = "User"})
             @Html.ValidationMessageFor(s => s.ModifiedUser)
-        </div>
+        </div>*@
         <div>
             <button type="Submit">Add</button>
         </div>

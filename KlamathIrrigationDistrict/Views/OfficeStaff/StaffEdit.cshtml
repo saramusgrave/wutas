@@ -23,6 +23,8 @@
     @using (Html.BeginForm())
     {
         @Html.HiddenFor(s => s.StaffID)
+        @Html.HiddenFor(s => s.ModifiedDateTime)
+        @Html.HiddenFor(s => s.ModifiedUser)
         
         <div>
             @Html.Label("Position:")
@@ -72,7 +74,7 @@
             @Html.TextBoxFor(s => s.EndDate, new { @type = "datetime" })
             @Html.ValidationMessageFor(s => s.EndDate)
         </div>
-        <div>
+        @*<div>
             @Html.LabelFor(s => s.ModifiedDateTime)
             @Html.TextBoxFor(s => s.ModifiedDateTime, new { @type = "datetime", @Value = DateTime.Now.ToString(), @disabled="disabled"})
             @Html.ValidationMessageFor(s => s.ModifiedDateTime)
@@ -81,7 +83,7 @@
             @Html.LabelFor(s => s.ModifiedUser)
             @Html.TextBoxFor(s => s.ModifiedUser, new { @type = "User" })
             @Html.ValidationMessageFor(s => s.ModifiedUser)
-        </div>
+        </div>*@
         <div>
             <button type="submit">Update</button>
         </div>
