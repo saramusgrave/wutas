@@ -14,7 +14,7 @@ namespace KlamathIrrigationDistrict.DataLayer.Repositories
         public virtual MapTaxLots Get(string MapTaxLot)
         {
             MapTaxLots s = null;
-            using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings[@"KlamathIrrigation_Test"].ConnectionString))
+            using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings[@"KID"].ConnectionString))
             {
                 using (SqlCommand command = new SqlCommand())
                 {
@@ -50,7 +50,7 @@ namespace KlamathIrrigationDistrict.DataLayer.Repositories
         public virtual MapTaxLots Get_TrackingID(int TrackingId)
         {
             MapTaxLots ID = null;
-            using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings[@"KlamathIrrigation_Test"].ConnectionString))
+            using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings[@"KID"].ConnectionString))
             {
                 using (SqlCommand command = new SqlCommand())
                 {
@@ -73,7 +73,7 @@ namespace KlamathIrrigationDistrict.DataLayer.Repositories
         public virtual List<MapTaxLots> ViewTaxLot()
         {
             List<MapTaxLots> TaxLotList = new List<MapTaxLots>();
-            using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["KlamathIrrigation_Test"].ConnectionString))
+            using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["KID"].ConnectionString))
             {
                 using (SqlCommand command = new SqlCommand())
                 {
@@ -108,7 +108,7 @@ namespace KlamathIrrigationDistrict.DataLayer.Repositories
         //Save MapTaxLots edit devison and rate status
         public virtual void SaveDivisionRate(MapTaxLots maptaxlots)
         {
-            using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings[@"KlamathIrrigation_Test"].ConnectionString))
+            using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings[@"KID"].ConnectionString))
             {
                 using (SqlCommand command = new SqlCommand())
                 {
@@ -125,7 +125,7 @@ namespace KlamathIrrigationDistrict.DataLayer.Repositories
         }
         public virtual void Save(MapTaxLots maptaxlots)
         {
-            using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings[@"KlamathIrrigation_Test"].ConnectionString))
+            using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings[@"KID"].ConnectionString))
             {
                 using (SqlCommand command = new SqlCommand())
                 {

@@ -15,7 +15,7 @@ namespace KlamathIrrigationDistrict.DataLayer.Repositories
         public Roles GetRoles(int id)
         {
             Roles r = null;
-            using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings[@"KlamathIrrigation_Test"].ConnectionString))
+            using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings[@"KID"].ConnectionString))
             {
                 using (SqlCommand command = new SqlCommand())
                 {
@@ -45,7 +45,7 @@ namespace KlamathIrrigationDistrict.DataLayer.Repositories
         public List<Roles> GetRoles()
         {
             List<Roles> rolesList = new List<Roles>();
-            using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings[@"KlamathIrrigation_Test"].ConnectionString))
+            using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings[@"KID"].ConnectionString))
             {
                 using (SqlCommand command = new SqlCommand())
                 {
@@ -74,7 +74,7 @@ namespace KlamathIrrigationDistrict.DataLayer.Repositories
         public List<Roles> GetUserRole(string FullName)
         {
             List<Roles> rolesList = new List<Roles>();
-            using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings[@"KlamathIrrigation_Test"].ConnectionString))
+            using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings[@"KID"].ConnectionString))
             {
                 using (SqlCommand command = new SqlCommand())
                 {
@@ -105,7 +105,7 @@ namespace KlamathIrrigationDistrict.DataLayer.Repositories
         public void SaveRoles(Roles roles)
         {
             //Roles r = null;
-            using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings[@"KlamathIrrigation_Test"].ConnectionString))
+            using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings[@"KID"].ConnectionString))
             {
                 using (SqlCommand command = new SqlCommand())
                 {

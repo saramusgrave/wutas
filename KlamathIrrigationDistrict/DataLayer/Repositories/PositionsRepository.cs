@@ -15,7 +15,7 @@ namespace KlamathIrrigationDistrict.DataLayer.Repositories
         public List<Positions> PositionsList()
         {
             List<Positions> PositionsList = new List<Positions>();
-            using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["KlamathIrrigation_Test"].ConnectionString))
+            using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["KID"].ConnectionString))
             {
                 using (SqlCommand command = new SqlCommand())
                 {

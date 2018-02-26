@@ -16,7 +16,7 @@ namespace KlamathIrrigationDistrict.DataLayer.Repositories
         public DitchRiderRequests Get(int ID)
         {
             DitchRiderRequests p = null;
-            using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["KlamathIrrigation_Test"].ConnectionString))
+            using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["KID"].ConnectionString))
             {
                 using (SqlCommand command = new SqlCommand())
                 {
@@ -64,7 +64,7 @@ namespace KlamathIrrigationDistrict.DataLayer.Repositories
         public List<DitchRiderRequests> ViewRequests4()
         {
             List<DitchRiderRequests> RequestList = new List<DitchRiderRequests>();
-            using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["KlamathIrrigation_Test"].ConnectionString))
+            using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["KID"].ConnectionString))
             {
                 using (SqlCommand command = new SqlCommand())
                 {
@@ -112,7 +112,7 @@ namespace KlamathIrrigationDistrict.DataLayer.Repositories
         public List<DitchRiderRequests> ViewRequests5()
         {
             List<DitchRiderRequests> RequestList = new List<DitchRiderRequests>();
-            using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["KlamathIrrigation_Test"].ConnectionString))
+            using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["KID"].ConnectionString))
             {
                 using (SqlCommand command = new SqlCommand())
                 {
@@ -159,7 +159,7 @@ namespace KlamathIrrigationDistrict.DataLayer.Repositories
         //Ditch rider4 add request as if customer on
         public virtual void AddRequest4On(DitchRiderRequests ditchriderrequests)
         {
-            using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["KlamathIrrigation_Test"].ConnectionString))
+            using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["KID"].ConnectionString))
             {
                 using (SqlCommand command = new SqlCommand())
                 {
@@ -182,7 +182,7 @@ namespace KlamathIrrigationDistrict.DataLayer.Repositories
         //Ditch rider5 add request as if customer on
         public virtual void AddRequest5On(DitchRiderRequests ditchriderrequests)
         {
-            using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["KlamathIrrigation_Test"].ConnectionString))
+            using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["KID"].ConnectionString))
             {
                 using (SqlCommand command = new SqlCommand())
                 {
@@ -205,7 +205,7 @@ namespace KlamathIrrigationDistrict.DataLayer.Repositories
         //Ditch rider4 add request as if customer off
         public virtual void AddRequest4Off(DitchRiderRequests ditchriderrequests)
         {
-            using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["KlamathIrrigation_Test"].ConnectionString))
+            using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["KID"].ConnectionString))
             {
                 using (SqlCommand command = new SqlCommand())
                 {
@@ -225,7 +225,7 @@ namespace KlamathIrrigationDistrict.DataLayer.Repositories
         //Edit a Requests as ditch Rider on 4
         public virtual void EditRequest4On(DitchRiderRequests ditchriderrequests)
         {
-            using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["KlamathIrrigation_Test"].ConnectionString))
+            using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["KID"].ConnectionString))
             {
                 using (SqlCommand command = new SqlCommand())
                 {
@@ -249,7 +249,7 @@ namespace KlamathIrrigationDistrict.DataLayer.Repositories
         //Edit a Requests as ditch Rider 5 on
         public virtual void EditRequest5On(DitchRiderRequests ditchriderrequests)
         {
-            using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["KlamathIrrigation_Test"].ConnectionString))
+            using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["KID"].ConnectionString))
             {
                 using (SqlCommand command = new SqlCommand())
                 {
@@ -272,7 +272,7 @@ namespace KlamathIrrigationDistrict.DataLayer.Repositories
         //Edit a Requests as ditch Rider off 4
         public virtual void EditRequest4Off(DitchRiderRequests ditchriderrequests)
         {
-            using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["KlamathIrrigation_Test"].ConnectionString))
+            using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["KID"].ConnectionString))
             {
                 using (SqlCommand command = new SqlCommand())
                 {
@@ -295,7 +295,7 @@ namespace KlamathIrrigationDistrict.DataLayer.Repositories
         //Edit a Requests as ditch Rider off 5
         public virtual void EditRequest5Off(DitchRiderRequests ditchriderrequests)
         {
-            using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["KlamathIrrigation_Test"].ConnectionString))
+            using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["KID"].ConnectionString))
             {
                 using (SqlCommand command = new SqlCommand())
                 {

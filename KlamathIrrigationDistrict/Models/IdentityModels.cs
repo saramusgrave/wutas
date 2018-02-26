@@ -31,7 +31,7 @@ namespace KlamathIrrigationDistrict.Models
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
         public ApplicationDbContext()
-            : base("KlamathIrrigation_Test", throwIfV1Schema: false)
+            : base("KID", throwIfV1Schema: false)
         {
         }
 

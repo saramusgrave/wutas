@@ -17,7 +17,7 @@ namespace KlamathIrrigationDistrict.DataLayer.Repositories
         public virtual Customers Get(int CustomerID)
         {
             Customers s = null;
-            using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings[@"KlamathIrrigation_Test"].ConnectionString))
+            using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings[@"KID"].ConnectionString))
             {
                 using (SqlCommand command = new SqlCommand())
                 {
@@ -51,7 +51,7 @@ namespace KlamathIrrigationDistrict.DataLayer.Repositories
         {
             //List<Customers> RequestList = new List<Customers>();
             Customers p = null;
-            using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["KlamathIrrigation_Test"].ConnectionString))
+            using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["KID"].ConnectionString))
             {
                 using (SqlCommand command = new SqlCommand())
                 {
@@ -101,7 +101,7 @@ namespace KlamathIrrigationDistrict.DataLayer.Repositories
         public virtual List<Customers> ViewCustomers()
         {
             List<Customers> vc = new List<Customers>();
-            using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings[@"KlamathIrrigation_Test"].ConnectionString))
+            using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings[@"KID"].ConnectionString))
             {
                 using (SqlCommand command = new SqlCommand())
                 {
@@ -137,7 +137,7 @@ namespace KlamathIrrigationDistrict.DataLayer.Repositories
         public List<Customers> ViewStaff()
         {
             List<Customers> StaffContacts = new List<Customers>();
-            using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["KlamathIrrigation_Test"].ConnectionString))
+            using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["KID"].ConnectionString))
             {
                 using (SqlCommand command = new SqlCommand())
                 {
@@ -170,7 +170,7 @@ namespace KlamathIrrigationDistrict.DataLayer.Repositories
         public List<Customers> ViewCustomerRequests()
         {
             List<Customers> RequestList = new List<Customers>();
-            using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["KlamathIrrigation_Test"].ConnectionString))
+            using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["KID"].ConnectionString))
             {
                 using (SqlCommand command = new SqlCommand())
                 {
@@ -242,7 +242,7 @@ namespace KlamathIrrigationDistrict.DataLayer.Repositories
         //apply the stored procedure of updating or entering in new customer data
         public virtual void Save(Customers customers)
         {
-            using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings[@"KlamathIrrigation_Test"].ConnectionString))
+            using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings[@"KID"].ConnectionString))
             {
                 using (SqlCommand command = new SqlCommand())
                 {
@@ -301,7 +301,7 @@ namespace KlamathIrrigationDistrict.DataLayer.Repositories
         {
             //find a better way to Apply request for Water Order
             //WaterOrderRequest NewOrder = null;
-            using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings[@"KlamathIrrigation_Test"].ConnectionString))
+            using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings[@"KID"].ConnectionString))
             {
                 using (SqlCommand command = new SqlCommand())
                 {

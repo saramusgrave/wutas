@@ -15,7 +15,7 @@ namespace KlamathIrrigationDistrict.DataLayer.Repositories
         public Divisions Get(string DivisionID)
         {
             Divisions p = null;
-            using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["KlamathIrrigation_Test"].ConnectionString))
+            using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["KID"].ConnectionString))
             {
                 using (SqlCommand command = new SqlCommand())
                 {
@@ -47,7 +47,7 @@ namespace KlamathIrrigationDistrict.DataLayer.Repositories
         public List<Divisions> ViewDivisions()
         {
             List<Divisions> DivisionList = new List<Divisions>();
-            using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["KlamathIrrigation_Test"].ConnectionString))
+            using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["KID"].ConnectionString))
             {
                 using (SqlCommand command = new SqlCommand())
                 {
@@ -80,7 +80,7 @@ namespace KlamathIrrigationDistrict.DataLayer.Repositories
         }
         public void Save(Divisions divisions)
         {
-            using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings[@"KlamathIrrigation_Test"].ConnectionString))
+            using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings[@"KID"].ConnectionString))
             {
                 using (SqlCommand command = new SqlCommand())
                 {

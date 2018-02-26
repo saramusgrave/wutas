@@ -15,7 +15,7 @@ namespace KlamathIrrigationDistrict.DataLayer.Repositories
         public KIDStaff Get(int id)
         {
             KIDStaff p = null;
-            using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["KlamathIrrigation_Test"].ConnectionString))
+            using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["KID"].ConnectionString))
             {
                 using (SqlCommand command = new SqlCommand())
                 {
@@ -50,7 +50,7 @@ namespace KlamathIrrigationDistrict.DataLayer.Repositories
         public List<KIDStaff> ViewStaff()
         {
             List<KIDStaff> StaffList = new List<KIDStaff>();
-            using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["KlamathIrrigation_Test"].ConnectionString))
+            using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["KID"].ConnectionString))
             {
                 using (SqlCommand command = new SqlCommand())
                 {
@@ -114,7 +114,7 @@ namespace KlamathIrrigationDistrict.DataLayer.Repositories
         public static ListModel GetPositionList()
         {
             ListModel model = new ListModel();
-            using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["KlamathIrrigation_Test"].ConnectionString))
+            using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["KID"].ConnectionString))
             {
                 using (SqlCommand command = new SqlCommand())
                 {
@@ -142,7 +142,7 @@ namespace KlamathIrrigationDistrict.DataLayer.Repositories
         {
             List<SelectListItem> PositionList = new List<SelectListItem>();
             //List<Positions> PositionList = new List<Positions>();
-            using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["KlamathIrrigation_Test"].ConnectionString))
+            using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["KID"].ConnectionString))
             {
                 using (SqlCommand command = new SqlCommand())
                 {
@@ -174,7 +174,7 @@ namespace KlamathIrrigationDistrict.DataLayer.Repositories
         //Add KID Staff member
         public virtual void AddStaff(KIDStaff kidstaff)
         {
-            using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["KlamathIrrigation_Test"].ConnectionString))
+            using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["KID"].ConnectionString))
             {
                 using (SqlCommand command = new SqlCommand())
                 {
@@ -201,7 +201,7 @@ namespace KlamathIrrigationDistrict.DataLayer.Repositories
         //Edit KID Staff member
         public virtual void EditStaff(KIDStaff kidstaff)
         {
-            using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["KlamathIrrigation_Test"].ConnectionString))
+            using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["KID"].ConnectionString))
             {
                 using (SqlCommand command = new SqlCommand())
                 {
@@ -230,7 +230,7 @@ namespace KlamathIrrigationDistrict.DataLayer.Repositories
         }
         public virtual void Save(KIDStaff kidstaff)
         {
-            using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["KlamathIrrigation_Test"].ConnectionString))
+            using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["KID"].ConnectionString))
             {
                 using (SqlCommand command = new SqlCommand())
                 {
