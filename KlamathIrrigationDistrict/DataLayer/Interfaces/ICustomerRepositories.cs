@@ -28,16 +28,8 @@ namespace KlamathIrrigationDistrict.DataLayer.Interfaces
         //used by the staff or customer
         void Save(Customers customers);
 
-        //CustomerID allow for user to see their History of water usage
-        //history based on customerID
-        //void ViewCustomerWaterHistory(int CustomerID);
-
         //Does not use stored procedure, will only apply all that a customer can in request for
         void AddWaterOrderRequest(Customers NewWaterOrder);
-
-        //Submit a customer request for water
-        //void SubmitRequest(Customers std);
-
 
     }
 

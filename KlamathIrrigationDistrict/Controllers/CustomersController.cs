@@ -18,8 +18,10 @@ namespace KlamathIrrigationDistrict.Controllers
             _custRepo = new CustomerRepository();
         }
 
+        //NEED AN ActionResult for each page in views
+
         /*Views for list of Customers*/
-        [Authorize(Roles = "Office Specialist")]
+        //[Authorize(Roles = "Office Specialist")]
         [HttpGet]
         public ActionResult Index(int? page)
         {
@@ -30,28 +32,94 @@ namespace KlamathIrrigationDistrict.Controllers
             CustomerRepository customerrepository = new CustomerRepository();
             Customers CustomerStaff = new Customers();
             List<Customers> obCustomerList = new List<Customers>();
-            obCustomerList = customerrepository.ViewAppliedRequests();
+            obCustomerList = customerrepository.ViewCustomerRequests();
+            CustomerStaff.customers = obCustomerList;
+            cstaff = obCustomerList.ToPagedList(pageIndex, pageSize);
+            return View(cstaff);
+        }
+        
+      
+        [HttpGet]
+        public ActionResult IndexCustomer(int? page)
+        {
+            //this will have the request components
+            int pageSize = 10;
+            int pageIndex = 1;
+            pageIndex = page.HasValue ? Convert.ToInt32(page) : 1;
+            IPagedList<Customers> cstaff = null;
+            CustomerRepository customerrepository = new CustomerRepository();
+            Customers CustomerStaff = new Customers();
+            List<Customers> obCustomerList = new List<Customers>();
+            obCustomerList = customerrepository.ViewCustomerRequests();
             CustomerStaff.customers = obCustomerList;
             cstaff = obCustomerList.ToPagedList(pageIndex, pageSize);
             return View(cstaff);
         }
 
-        //public ActionResult RequestIndex(int? page)
-        //{
-        //    int pageSize = 10;
-        //    int pageIndex = 1;
-        //    pageIndex = page.HasValue ? Convert.ToInt32(page) : 1;
-        //    IPagedList<Customers> cstaff = null;
-        //    CustomerRepository customerrepository = new CustomerRepository();
-        //    Customers CustomerStaff = new Customers();
-        //    List<Customers> obCustomerList = new List<Customers>();
+        public ActionResult ContactsPage(int? page)
+        {
+            int pageSize = 10;
+            int pageIndex = 1;
+            pageIndex = page.HasValue ? Convert.ToInt32(page) : 1;
+            IPagedList<Customers> cstaff = null;
+            CustomerRepository customerrepository = new CustomerRepository();
+            Customers CustomerStaff = new Customers();
+            List<Customers> obCustomerList = new List<Customers>();
+            obCustomerList = customerrepository.ViewStaff();
+            CustomerStaff.customers = obCustomerList;
+            cstaff = obCustomerList.ToPagedList(pageIndex, pageSize);
+            return View(cstaff);
+        }
 
-        //    obCustomerList = customerrepository.ViewCustomerWaterHistory(_custRepo.Get);
+        //does not work because there is no ID referenced, attained at login
+        [OutputCache(Duration = 300, VaryByParam = "id")]
+        public ActionResult CustomerProfile(int CustomerID)
+        {
+            Customers customers = _custRepo.Get(CustomerID);
+            Customers CustomerModel = new Customers()
+            {
+                CustomerID = customers.CustomerID,
+                TrackingID = customers.TrackingID,
+                Name = customers.Name,
+                Address1 = customers.Address1,
+                Address2 = customers.Address2,
+                City = customers.City,
+                State = customers.State,
+                Zip = customers.Zip,
+                TotalAllotment = customers.TotalAllotment,
+            };
+            return CustomerProfile(CustomerID);
+        }
 
-        //    CustomerStaff.customers = obCustomerList;
-        //    cstaff = obCustomerList.ToPagedList(pageIndex, pageSize);
-        //    return View(cstaff);
-        //}
+        public ActionResult CustomerWaterHistory(int? page)
+        {
+            int pageSize = 10;
+            int pageIndex = 1;
+            pageIndex = page.HasValue ? Convert.ToInt32(page) : 1;
+            IPagedList<Customers> cstaff = null;
+            CustomerRepository customerrepository = new CustomerRepository();
+            Customers CustomerStaff = new Customers();
+            List<Customers> obCustomerList = new List<Customers>();
+            obCustomerList = customerrepository.ViewCustomerRequests();
+            CustomerStaff.customers = obCustomerList;
+            cstaff = obCustomerList.ToPagedList(pageIndex, pageSize);
+            return View(cstaff);
+        }
+
+        public ActionResult CustomerAddRequest(Customers WaterRequest)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(WaterRequest);
+            }
+            //_custRepo..AddRequest4On(ditchriderrequests);
+            _custRepo.AddWaterOrderRequest(WaterRequest);
+            return RedirectToAction("CustomerAddRequest");
+        }
+
+        
+        //---------------------------------------------------------------------------------------
+        //functionality for specific people under the customer side
 
         //View for Staff to add a customer
         [Authorize(Roles = "Office Specialist")]
@@ -72,7 +140,7 @@ namespace KlamathIrrigationDistrict.Controllers
             //_custRepo.Save(customers);
             //reference CustomerRepository - AddWaterOrderRequest
             _custRepo.AddWaterOrderRequest(CustomersRequest);
-            return RedirectToAction("Index");
+            return RedirectToAction("IndexCustomer");
         }
         //View for Staff to Edit a customer
         [Authorize(Roles = "Office Specialist")]
@@ -95,28 +163,49 @@ namespace KlamathIrrigationDistrict.Controllers
             int Zip = cust.Zip;
             decimal TotalAllotment = cust.TotalAllotment;
             _custRepo.Save(cust);
-            _custRepo.ViewCustomerWaterHistory(cust.CustomerID);     //given edit -> change history
+            //_custRepo.ViewCustomerRequests(cust.CustomerID);     //given edit -> change history
             return RedirectToAction("Index");
         }
-        [OutputCache(Duration = 300, VaryByParam = "id")]
-        public ActionResult ViewCustomers(int CustomerID)
+
+
+        
+
+        //View 'CustomerWaterHistory' will use this function as reference
+        //will be used when have CustomerID as a reference to their own profile
+        public ActionResult ViewCustomerWaterHistory(int CustomerID)
         {
             Customers customers = _custRepo.Get(CustomerID);
-            Customers CustomerModel = new Customers()
+            Customers CustomerHistory = new Customers()
             {
+                RequestID = customers.RequestID,
+                TimeStampCustomer1 = customers.TimeStampCustomer1,
+                CustomerDate1 = customers.CustomerDate1,
                 CustomerID = customers.CustomerID,
-                TrackingID = customers.TrackingID,
                 Name = customers.Name,
-                Address1 = customers.Address1,
-                Address2 = customers.Address2,
-                City = customers.City,
-                State = customers.State,
-                Zip = customers.Zip,
-                TotalAllotment = customers.TotalAllotment,
+                Structure = customers.Structure,
+                CustomerCFS_1 = customers.CustomerCFS_1,
+                CustomerComments_1 = customers.CustomerComments_1,
+                TimeStampStaff1 = customers.TimeStampStaff1,
+                KIDStaffID_1 = customers.KIDStaffID_1,
+                StaffName_1 = customers.StaffName_1,
+                StaffDate1 = customers.StaffDate1,
+                RequestStatus1 = customers.RequestStatus1,
+                StaffCFS1 = customers.StaffCFS1,
+                StaffComments1 = customers.StaffComments1,
+                TimeStampCustomer2 = customers.TimeStampCustomer2,
+                CustomerDate2 = customers.CustomerDate2,
+                CustomerCFS_2 = customers.CustomerCFS_2,
+                CustomerComments_2 = customers.CustomerComments_2,
+                TimeStampStaff2 = customers.TimeStampStaff2,
+                KIDStaffID_2 = customers.KIDStaffID_2,
+                StaffName_2 = customers.StaffName_2,
+                StaffDate2 = customers.StaffDate2,
+                RequestStatus2 = customers.RequestStatus2,
+                StaffCFS2 = customers.StaffCFS2,
+                StaffComments2 = customers.StaffComments2
             };
-            return ViewCustomers(CustomerID);
+            return CustomerProfile(CustomerID);
         }
-        
 
         //----------------------------------------------------------------------------------------------------------------
         //user will apply for water
@@ -132,11 +221,11 @@ namespace KlamathIrrigationDistrict.Controllers
             return RedirectToAction("Index");
         }
 
-        public ActionResult SubmitRequest(int RequestID)
-        {
-            var std = _custRepo.ViewAppliedRequests().Where(s => s.RequestID == RequestID).FirstOrDefault();
-            return View(std);
-        }
+        //public ActionResult SubmitRequest(int RequestID)
+        //{
+        //    var std = _custRepo.ViewAppliedRequests().Where(s => s.RequestID == RequestID).FirstOrDefault();
+        //    return View(std);
+        //}
 
         //
         [HttpPost]
@@ -166,7 +255,7 @@ namespace KlamathIrrigationDistrict.Controllers
             //}
             //return View(customers);
 
-            _custRepo.ViewCustomerWaterHistory(CustomerID);
+            _custRepo.ViewCustomerRequests();
             return RedirectToAction("CustomerWaterOrderHistory");
         }
     }
