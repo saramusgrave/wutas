@@ -57,10 +57,10 @@ namespace KlamathIrrigationDistrict.Controllers
         {
             _stafRepo = new OfficeStaffRepository();
         }
-        
+
         /*Views for Home page of Office Staff*/
         //Home page office staff will display list of all staff
-        //[Authorize(Roles = "Office Specialist")]
+        [Authorize(Roles = "Office Specialist")]
         [HttpGet]
         public ActionResult Index(int? page)
         {
@@ -108,7 +108,7 @@ namespace KlamathIrrigationDistrict.Controllers
             return (RedirectToAction("Index"));
         }
         //Edit Staff
-        //[Authorize(Roles = "Office Specialist")]
+        [Authorize(Roles = "Office Specialist")]
 
         public ActionResult StaffEdit(int StaffID)
         {
@@ -122,8 +122,7 @@ namespace KlamathIrrigationDistrict.Controllers
             var std = _stafRepo.ViewStaff().Where(s => s.StaffID == StaffID).FirstOrDefault();
             return View(std);
         }
-        //[Authorize(Roles = "Office Specialist")]
-
+        [Authorize(Roles = "Office Specialist")]
         [HttpPost]
         public ActionResult StaffEdit(KIDStaff std)
         {
@@ -146,14 +145,14 @@ namespace KlamathIrrigationDistrict.Controllers
         }
 
         //Add Staff
-        //[Authorize(Roles = "Office Specialist")]
+        [Authorize(Roles = "Office Specialist")]
 
         [HttpGet]
         public ActionResult Add()
         {
             return View(new KIDStaff());
         }
-        //[Authorize(Roles = "Office Specialist")]
+        [Authorize(Roles = "Office Specialist")]
 
         [HttpPost]
         public ActionResult Add(KIDStaff kidstaff)
@@ -182,7 +181,7 @@ namespace KlamathIrrigationDistrict.Controllers
             //Return home page
             return RedirectToAction("Index");
         }
-        //[Authorize(Roles = "Office Specialist")]
+        [Authorize(Roles = "Office Specialist")]
 
         [OutputCache(Duration = 300, VaryByParam = "id")]
         public ActionResult ViewStaff(int StaffID)
