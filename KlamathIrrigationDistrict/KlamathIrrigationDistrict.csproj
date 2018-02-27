@@ -250,7 +250,6 @@
     <Compile Include="DataLayer\Repositories\PositionsRepository.cs" />
     <Compile Include="DataLayer\Repositories\RoleRepository.cs" />
     <Compile Include="DataLayer\Repositories\StaffCashingRepository.cs" />
-    <Compile Include="DataLayer\Repositories\StaffRepository.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>

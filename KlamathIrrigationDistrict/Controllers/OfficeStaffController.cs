@@ -4,7 +4,6 @@ using KlamathIrrigationDistrict.DataLayer.Repositories;
 using KlamathIrrigationDistrict.Models;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.AspNet.Identity;
-using Microsoft.Owin.Security;
 using PagedList;
 using System;
 using System.Collections.Generic;
