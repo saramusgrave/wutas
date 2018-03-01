@@ -46,7 +46,6 @@ namespace KlamathIrrigationDistrict.DataLayer.Repositories
             }
             return (s);
         }
-
         public virtual Customers GetRequestID(int RequestID)
         {
             //List<Customers> RequestList = new List<Customers>();

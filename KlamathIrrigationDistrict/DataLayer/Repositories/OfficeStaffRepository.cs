@@ -111,31 +111,31 @@ namespace KlamathIrrigationDistrict.DataLayer.Repositories
         //    }
         //    return (staffmember);
         //}
-        public static ListModel GetPositionList()
-        {
-            ListModel model = new ListModel();
-            using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["KID"].ConnectionString))
-            {
-                using (SqlCommand command = new SqlCommand())
-                {
-                    command.Connection = connection;
-                    command.CommandText = "SELECT * FROM Positions ORDER BY PositionID";
-                    command.CommandType = CommandType.Text;
+        //public static ListModel GetPositionList()
+        //{
+        //    ListModel model = new ListModel();
+        //    using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["KID"].ConnectionString))
+        //    {
+        //        using (SqlCommand command = new SqlCommand())
+        //        {
+        //            command.Connection = connection;
+        //            command.CommandText = "SELECT * FROM Positions ORDER BY PositionID";
+        //            command.CommandType = CommandType.Text;
 
-                    connection.Open();
+        //            connection.Open();
 
-                    using (SqlDataReader reader = command.ExecuteReader())
-                    {
-                        model.PositionList = new List<SelectListItem>();
-                        while (reader.Read())
-                        {
-                            model.PositionList.Add(new SelectListItem { Text = reader.GetString(1), Value = reader.GetInt32(0).ToString() });
-                        }
-                    }
-                }
-                return model;
-            }
-        }
+        //            using (SqlDataReader reader = command.ExecuteReader())
+        //            {
+        //                model.PositionList = new List<SelectListItem>();
+        //                while (reader.Read())
+        //                {
+        //                    model.PositionList.Add(new SelectListItem { Text = reader.GetString(1), Value = reader.GetInt32(0).ToString() });
+        //                }
+        //            }
+        //        }
+        //        return model;
+        //    }
+        //}
 
 
         public List<SelectListItem> GetPositionList(KIDStaff p)

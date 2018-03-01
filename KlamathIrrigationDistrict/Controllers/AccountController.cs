@@ -94,6 +94,10 @@ namespace KlamathIrrigationDistrict.Controllers
                     {
                         return RedirectToAction("Index", "OfficeStaff");
                     }
+                    else if(User.IsInRole("Ride 4"))
+                    {
+                        return RedirectToAction("Index4", "DitchRiders");
+                    }
                     return RedirectToLocal(returnUrl);
                 case SignInStatus.LockedOut:
                     return View("Lockout");

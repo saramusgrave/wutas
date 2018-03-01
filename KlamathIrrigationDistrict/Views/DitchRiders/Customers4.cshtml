@@ -1,7 +1,7 @@
 ﻿@using KlamathIrrigationDistrict.DataLayer.DataModels
-@model DitchRiderRequests
-@{
-    ViewBag.Title = "KID D.R.: Edit Request";
+@model List<DitchRiderCustomers>
+@{ 
+    ViewBag.Title = "KID D.R.: Customers";
 }
 <head>
     <title>KID: Ditch Rider</title>
@@ -14,28 +14,18 @@
     <div id="RideCenter">
         <li class="dropdown">
             <a class="./KIDDitchRider4HTML.html">Ride 4</a>
-            <div class="dropdownRide" style="overflow-x: auto;">
-                <a href="../Ride1/KIDDitchRider1HTML.html">1</a>
-                <a href="../Ride2/KIDDitchRider2HTML.html">2</a>
-                <a href="../Ride3/KIDDitchRider3HTML.html">3</a>
-                <a href="./KIDDitchRider4HTML.html" id="active">4</a>
-                <a href="../Ride5/KIDDitchRider5HTML.html">5</a>
-                <a href="../Ride6/KIDDitchRider6HTML.html">6</a>
-                <a href="../Ride7/KIDDitchRider7HTML.html">7</a>
-                <a href="../Ride8/KIDDitchRider8HTML.html">8</a>
-            </div>
         </li>
     </div>
     <!--Log in Name, Customers, Requests, Canals, LogOUt id=Menu-->
     <ul id="Menu">
-        <li><label class="FirstLast">Scott.Linville</label></li>
+        <li><label class="FirstLast">@User.Identity.Name</label></li>
         <li><a href="./KIDDitchRiderRide4CustomersHTML.html">Customers</a></li>
         <li class="dropdown">
-            <a class="RequestDropDown" href="./KIDDitchRider4HTML.html" id="active">Requests</a>
+            <a class="RequestDropDown" href="DitchRiders/Index4" id="active">Requests</a>
             <!--Requests drop down menu class=dropdownRequest-->
             <div class="dropdownRequest" style="overflow-x: auto;">
                 <a href="./KIDDitchRiderRide4AppendingWaitlistHTML.html">Appending/Waitlist</a>
-                <a href="./KIDDitchRiderRide4CallRequestsHTML.html">Call Requests</a>
+                <a href="/DitchRiders/AddRequest4On">Call Requests</a>
             </div>
         </li>
         <li class="dropdown">
@@ -62,36 +52,23 @@
     </ul>
 </header>
 <body>
-    <a href="Index4" class="previous">&laquo; Previous</a><br />
-    Update Request
-    @using (Html.BeginForm())
-    {
-        @Html.HiddenFor(s => s.RequestID)
-        @Html.HiddenFor(s => s.TimeStampStaff2)
-        @Html.HiddenFor(s => s.Staff2, new { @Value = User.Identity.Name})
-
-        <div>
-            @Html.Label("Customer Name: ")
-            @Html.TextBoxFor(s => s.CustomerName, new { @disabled = "diabled", @class = "CustomerName" })
-        </div>
-        <div>
-            @Html.Label("Date: ")
-            @Html.TextBoxFor(s => s.StaffDate2, new { @type = "date" })
-        </div>
-        <div>
-            @Html.Label("Status: ")
-            @Html.TextBoxFor(s => s.RequestStatus2)
-        </div>
-        <div>
-            @Html.Label("CFS: ")
-            @Html.TextBoxFor(s => s.StaffCFS2, new { @type = "number" })
-        </div>
-        <div>
-            @Html.Label("Comments: ")
-            @Html.TextAreaFor(s => s.StaffComments2)
-        </div>
-        <div>
-            <button type="submit">Submit</button>
-        </div>
-    }
+    <div style="overflow-x: auto;">
+        <!--Completed Requests class=ActiveRequests-->
+        <table class="ActiveRequests">
+            <caption>Customers</caption>
+            <tr>
+                <th>@Html.Label("Name")</th>
+                <th>@Html.Label("Structure")</th>
+                <th>@Html.Label("Customer ID")</th>
+            </tr>
+            @for (int i = 0; i < Model.Count; i++)
+            {
+                <tr>
+                    <td>@Model[i].Name</td>
+                    <td>@Model[i].StructureID</td>
+                    <td>@Model[i].CustomerID</td>
+                </tr>
+            }
+        </table>
+    </div>
 </body>
