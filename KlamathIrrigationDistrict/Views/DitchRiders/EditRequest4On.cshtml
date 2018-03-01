@@ -67,15 +67,12 @@
     @using (Html.BeginForm())
     {
         @Html.HiddenFor(s => s.RequestID)
-        @Html.HiddenFor(s => s.KIDStaffID1)
+        @Html.HiddenFor(s => s.Staff1)
+        @Html.HiddenFor(s => s.TimeStampStaff1)
 
         <div>
             @Html.Label("Customer Name: ")
             @Html.TextBoxFor(s => s.CustomerName, new { @disabled = "diabled", @class = "CustomerName"})
-        </div>
-        <div>
-            @Html.Label("Time Stamp: ")
-            @Html.TextBoxFor(s => s.TimeStampStaff1, new { @type = "datetime", @disabled = "disabled" })
         </div>
         <div>
             @Html.Label("Date: ")
@@ -84,7 +81,6 @@
         <div>
             @Html.Label("Status: ")
             @Html.TextBoxFor(s => s.RequestStatus1)
-            @*<input list="RequestStatus" />*@
         </div>
         <div>
             @Html.Label("CFS: ")
@@ -99,8 +95,3 @@
         </div>
     }
 </body>
-<datalist id="RequestStatus">
-    <option value="Confirm">Confirm</option>
-    <option value="Reject">Reject</option>
-    <option value="Waitlist">Waitlist</option>
-</datalist>

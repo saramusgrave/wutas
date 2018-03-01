@@ -19,7 +19,7 @@
     </div>
     <!--Log in Name, Customers, Requests, Canals, LogOUt id=Menu-->
     <ul id="Menu">
-        <li><label class="FirstLast">Scott.Linville</label></li>
+        <li><label class="FirstLast">@User.Identity.Name</label></li>
         <li><a href="./KIDDitchRiderRide4CustomersHTML.html">Customers</a></li>
         <li class="dropdown">
             <a class="RequestDropDown" href="/DitchRiders/Index4">Requests</a>
@@ -56,7 +56,7 @@
     <div style="overflow-x: auto;">
         <!--Alphabet List for ActiveRequests class=ActiveRequests-->
         <table class="ActiveRequests">
-            <caption>Add Request(on)</caption>
+            <caption>Add Requests(On)</caption>
             <tr>
                 <th>@Html.Label("Request Date")</th>
                 <th>@Html.Label("Customer ID")</th>
@@ -66,26 +66,22 @@
                 <th colspan="2">@Html.Label("Customer Comments")</th>
             </tr>
             <tr>
-                @Html.HiddenFor(m => m.RequestID)
-                <td>@Html.TextBoxFor(m => m.CustomerDate1, new { @type = "date", @placeholder = "02/02/2018"})</td>
-                <td>@Html.TextBoxFor(m => m.CustomerID, new { @type = "number", @Value = "3681" })</td>
-                <td>@Html.DropDownListFor(m => m.Structure, Model.HorsleyStructures)</td>
-                <td>@Html.TextBoxFor(m => m.CustomerName, new { @Value = "Horsley Luther J & Candace O"})</td>
-                @*<td>@Html.TextBoxFor(m => m.Structure)</td>*@
-                @*<td><input list="HorsleyStructures"</td>*@
-                <td>@Html.TextBoxFor(m => m.CustomerCFS1, new {@type = "number"})</td>
-                <td>@Html.TextBoxFor(m => m.CustomerComments1, new {@Value = "Made by Scott Linville"})</td>
-                <td><button type="submit">Add</button></td>
-            </tr>    
+                @using (Html.BeginForm())
+                {
+                    @Html.HiddenFor(m => m.RequestID)
+                    @Html.HiddenFor(m => m.TimeStampCustomer1)
+                    @*@Html.HiddenFor(m => m.CustomerID, new { @Value = "3681" })*@
+                    <td>@Html.TextBoxFor(m => m.CustomerDate1, new { @type = "date" }) </td>
+                    <td>@Html.TextBoxFor(m => m.CustomerID, new { @type = "number", @Value = "3681" }) </td>
+                    <td>@Html.TextBoxFor(m => m.CustomerName, new { @Value = "Horsley Luther J & Candace O" })</td>
+                    @*Drop down works*@
+                    <td>@Html.DropDownListFor(m => m.Structure, Model.HorsleyStructures)</td>
+                    <td>@Html.TextBoxFor(m => m.CustomerCFS1, new { @type = "number" }) </td>
+                    <td>@Html.TextBoxFor(m => m.CustomerComments1, new { @Value = "Made By " + User.Identity.Name })</td>
+                    <td><button type="submit">Add</button></td>
+                }
+            </tr>
         </table>
-        @Html.Partial("_AddRequest4Off")
     </div>
+        @Html.Partial("_AddRequest4Off")
 </body>
-<datalist id="HorsleyStructures">
-    <option value="T4603"></option>
-    <option value="T4604"></option>
-    <option value="T4605"></option>
-    <option value="T4607"></option>
-    <option value="P4609"></option>
-    <option value="T4610"></option>
-</datalist>

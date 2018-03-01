@@ -1,5 +1,6 @@
 ﻿@using KlamathIrrigationDistrict.DataLayer.DataModels
 @model DitchRiderRequests
+
 <div style="overflow-x: auto;">
     <!--Alphabet List for ActiveRequests class=ActiveRequests-->
     <table class="ActiveRequests">
@@ -13,15 +14,18 @@
             <th colspan="2">@Html.Label("Customer Comments")</th>
         </tr>
         <tr>
-            @Html.HiddenFor(m => m.RequestID)
-            <td>@Html.TextBoxFor(m => m.CustomerDate2, new { @type = "date", @placeholder = "02/02/2018" })</td>
-            <td>@Html.TextBoxFor(m => m.CustomerID, new { @type = "number", @Value = "3681" })</td>
-            <td>@Html.TextBoxFor(m => m.CustomerName, new { @Value = "Horsley Luther J & Candace O" })</td>
-            <td>@Html.TextBoxFor(m => m.Structure)</td>
-            @*<td><input list="HorsleyStructures"</td>*@
-            <td>@Html.TextBoxFor(m => m.CustomerCFS2, new { @type = "number" })</td>
-            <td>@Html.TextBoxFor(m => m.CustomerComments2, new { @Value = "Made by Scott Linville" })</td>
-            <td><button type="submit">Add</button></td>
+            @using (Html.BeginForm())
+            {
+                @Html.HiddenFor(m => m.RequestID)
+                @Html.HiddenFor(m => m.TimeStampCustomer2)
+                <td>@Html.TextBoxFor(m => m.CustomerDate2, new { @type = "date"})</td>
+                <td>@Html.TextBoxFor(m => m.CustomerID, new { @type = "number", @Value = "3681" })</td>
+                <td>@Html.TextBoxFor(m => m.CustomerName, new { @Value = "Horsley Luther J & Candace O" })</td>
+                <td>@Html.DropDownListFor(m => m.Structure, Model.HorsleyStructures)</td>
+                <td>@Html.TextBoxFor(m => m.CustomerCFS2, new { @type = "number" })</td>
+                <td>@Html.TextBoxFor(m => m.CustomerComments2, new { @Value = "Made by " + User.Identity.Name })</td>
+                <td><button type="submit">Add</button></td>
+            }
         </tr>
     </table>
 </div>
