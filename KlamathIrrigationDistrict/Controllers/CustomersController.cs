@@ -38,7 +38,7 @@ namespace KlamathIrrigationDistrict.Controllers
             return View(cstaff);
         }
         
-      
+        
         [HttpGet]
         public ActionResult IndexCustomer(int? page)
         {
@@ -74,6 +74,7 @@ namespace KlamathIrrigationDistrict.Controllers
         //does not work because there is no ID referenced, attained at login
         [OutputCache(Duration = 300, VaryByParam = "id")]
         public ActionResult CustomerProfile(int CustomerID)
+        //public ActionResult CustomerProfile()
         {
             Customers customers = _custRepo.Get(CustomerID);
             Customers CustomerModel = new Customers()
@@ -105,7 +106,9 @@ namespace KlamathIrrigationDistrict.Controllers
             cstaff = obCustomerList.ToPagedList(pageIndex, pageSize);
             return View(cstaff);
         }
-
+        
+        //[Authorize(Roles = "Customer")]
+        [HttpGet]
         public ActionResult CustomerAddRequest(Customers WaterRequest)
         {
             if (!ModelState.IsValid)
@@ -114,7 +117,7 @@ namespace KlamathIrrigationDistrict.Controllers
             }
             //_custRepo..AddRequest4On(ditchriderrequests);
             _custRepo.AddWaterOrderRequest(WaterRequest);
-            return RedirectToAction("CustomerAddRequest");
+            return RedirectToAction("IndexCustomer");
         }
 
         
@@ -128,20 +131,22 @@ namespace KlamathIrrigationDistrict.Controllers
         {
             return View(new Customers());
         }
-
+                
         //used to add water order request
-        [HttpPost]
-        public ActionResult AddCustomerRequest(Customers CustomersRequest)
-        {
-            if (!ModelState.IsValid)
-            {
-                return View(CustomersRequest);
-            }
-            //_custRepo.Save(customers);
-            //reference CustomerRepository - AddWaterOrderRequest
-            _custRepo.AddWaterOrderRequest(CustomersRequest);
-            return RedirectToAction("IndexCustomer");
-        }
+        //[Authorize(Roles = "Customer")]
+        //[HttpPost]
+        //public ActionResult AddCustomerRequest(Customers CustomersRequest)
+        //{
+        //    if (!ModelState.IsValid)
+        //    {
+        //        return View(CustomersRequest);
+        //    }
+        //    //_custRepo.Save(customers);
+        //    //reference CustomerRepository - AddWaterOrderRequest
+        //    _custRepo.AddWaterOrderRequest(CustomersRequest);
+        //    return RedirectToAction("IndexCustomer");
+        //}
+
         //View for Staff to Edit a customer
         [Authorize(Roles = "Office Specialist")]
         public ActionResult StaffEditCustomer(int CustomerID)
@@ -186,7 +191,6 @@ namespace KlamathIrrigationDistrict.Controllers
                 CustomerCFS_1 = customers.CustomerCFS_1,
                 CustomerComments_1 = customers.CustomerComments_1,
                 TimeStampStaff1 = customers.TimeStampStaff1,
-                KIDStaffID_1 = customers.KIDStaffID_1,
                 StaffName_1 = customers.StaffName_1,
                 StaffDate1 = customers.StaffDate1,
                 RequestStatus1 = customers.RequestStatus1,
@@ -197,7 +201,6 @@ namespace KlamathIrrigationDistrict.Controllers
                 CustomerCFS_2 = customers.CustomerCFS_2,
                 CustomerComments_2 = customers.CustomerComments_2,
                 TimeStampStaff2 = customers.TimeStampStaff2,
-                KIDStaffID_2 = customers.KIDStaffID_2,
                 StaffName_2 = customers.StaffName_2,
                 StaffDate2 = customers.StaffDate2,
                 RequestStatus2 = customers.RequestStatus2,
@@ -208,25 +211,7 @@ namespace KlamathIrrigationDistrict.Controllers
         }
 
         //----------------------------------------------------------------------------------------------------------------
-        //user will apply for water
-        public ActionResult ApplyWaterRequest(Customers Request)
-        {
-            if (!ModelState.IsValid)
-            {
-                return View(Request);
-            }
-            //reference repository to add a request
-            _custRepo.AddWaterOrderRequest(Request);
-
-            return RedirectToAction("Index");
-        }
-
-        //public ActionResult SubmitRequest(int RequestID)
-        //{
-        //    var std = _custRepo.ViewAppliedRequests().Where(s => s.RequestID == RequestID).FirstOrDefault();
-        //    return View(std);
-        //}
-
+        
         //
         [HttpPost]
         public ActionResult SubmitRequest(Customers std)

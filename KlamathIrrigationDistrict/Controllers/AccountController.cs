@@ -94,7 +94,15 @@ namespace KlamathIrrigationDistrict.Controllers
                     {
                         return RedirectToAction("Index", "OfficeStaff");
                     }
+
+                    //check the success of who signed in -> customer
+                    //redirect to the customer index page
+                    else if (User.IsInRole("Customer"))
+                    {
+                        return RedirectToAction("IndexCustomer", "Customers");
+                    }
                     return RedirectToLocal(returnUrl);
+
                 case SignInStatus.LockedOut:
                     return View("Lockout");
                 case SignInStatus.RequiresVerification:

@@ -14,7 +14,7 @@
 <!--Menu-->
 <header id="Menu">
     <ul>
-        <li><label class="FirstLast">First.Last</label></li>
+        <li><label class="FirstLast">@User.Identity.Name</label></li>
         <li><a id="active" href="Customers/IndexCustomer">Requests</a></li>
         <li><a href="./CustomerWaterHistory">History</a></li>
         <li><a href="./ContactsPage">Contacts</a></li>
@@ -76,7 +76,8 @@
                     @*<td>@Html.TextBoxFor(Model => Model[i].CustomerCFS_1, new { @Type = "number" })</td>*@
                     <td>@Model[i].CustomerCFS_1</td>
                     <td>@Model[i].TimeStampCustomer1.ToShortDateString()</td>
-                    <td>@Html.TextAreaFor(Model => Model[i].CustomerComments_1)</td>
+                    @*<td>@Html.TextAreaFor(Model => Model[i].CustomerComments_1)</td>*@
+                    <td>@Model[i].CustomerComments_1</td>
                     <td>@Model[i].RequestStatus1</td>
                     @*<td>
                         @Html.ActionLink("Submit", "AddWaterOrderRequest", new { @RequestID = Model[i].RequestID })
