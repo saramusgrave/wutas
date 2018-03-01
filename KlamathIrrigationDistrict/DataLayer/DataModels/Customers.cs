@@ -33,6 +33,7 @@ namespace KlamathIrrigationDistrict.DataLayer.DataModels
         public int Zip { get; set; }
         public decimal TotalAllotment { get; set; }
         public List<Customers> customers { get; set; }
+
         //-------------------------------------------------------------------------------------
         //info to obtain the staff info for contact
         public string Staff_Position { get; set; }
@@ -46,9 +47,7 @@ namespace KlamathIrrigationDistrict.DataLayer.DataModels
         [StringLength(13)]
         public string Staff_PhoneNumber { get; set; }
 
-
         //-------------------------------------------------------------------------------------
-
         //List of items to allow input for requests
         public int RequestID { get; set; }
 
@@ -86,12 +85,8 @@ namespace KlamathIrrigationDistrict.DataLayer.DataModels
         //the request status of second round of applied request
         public String RequestStatus2 { get; set; }
 
-
         //-------------------------------------------------------------------------------------
         //DitchRider Variables for Customer to see when viewing the customer history
-        
-        //The staff id for completing task - first set of water usage
-        public int KIDStaffID_1 { get; set; }
 
         //name that links with staffID
         public String StaffName_1 { get; set; }
@@ -107,9 +102,6 @@ namespace KlamathIrrigationDistrict.DataLayer.DataModels
 
         //will be referenced to allow customer to view staff comments
         public string StaffComments1 { get; set; }
-
-        //the second id referenceing staff on a request
-        public int KIDStaffID_2 { get; set; }
 
         //reference ID, display actual staff name
         public string StaffName_2 { get; set; }

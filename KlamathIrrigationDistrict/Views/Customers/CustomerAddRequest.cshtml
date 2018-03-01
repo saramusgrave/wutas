@@ -61,13 +61,14 @@
             </tr>
             <tr>
                 @Html.HiddenFor(m => m.RequestID)
-                <td>@Html.TextBoxFor(m => m.CustomerDate1, new { @type = "date", @placeholder = "02/02/2018" })</td>
+                <td>@Html.TextBoxFor(m => m.CustomerDate1, new { @type = "date", @placeholder = "GETDATE()" })</td>
                 <td>@Html.TextBoxFor(m => m.CustomerID, new { @type = "number", @Value = "760" })</td>
                 <td>@Html.TextBoxFor(m => m.Name, new { @Value = "Kliewer Ryan & Laurinda" })</td>
                 <td>@Html.TextBoxFor(m => m.Structure)</td>
                 <td>@Html.TextBoxFor(m => m.CustomerCFS_1, new { @type = "number" })</td>
-                <td>@Html.TextBoxFor(m => m.CustomerComments_1)</td>
-                <td><button type="submit">Submit Request</button></td>
+                <td>@Html.TextBoxFor(m => m.CustomerComments_1, new { @type = "Comments" })</td>
+                <!--below will refernce the AddCustomerRequest function, needs to also have parameter-->
+                <td><button type""submit" onclick="AddCustomerRequest();">Submit</button></td>
             </tr>
             @*<tr>
                 <td></td>

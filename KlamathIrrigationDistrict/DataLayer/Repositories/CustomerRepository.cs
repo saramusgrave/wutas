@@ -24,7 +24,7 @@ namespace KlamathIrrigationDistrict.DataLayer.Repositories
                     command.Connection = connection;
                     command.CommandType = CommandType.Text;
                     command.CommandText = "SELECT * FROM Customers";
-                    command.Parameters.AddWithValue("@CustomerID", CustomerID);
+                    //command.Parameters.AddWithValue("@CustomerID", CustomerID);
                     connection.Open();
                     using (SqlDataReader reader = command.ExecuteReader())
                     {
@@ -72,8 +72,7 @@ namespace KlamathIrrigationDistrict.DataLayer.Repositories
                             p.CustomerCFS_1 = int.Parse(reader["CustomerCFS1"].ToString());
                             p.CustomerComments_1 = reader["CustomerComments1"].ToString();
                             p.TimeStampStaff1 = DateTime.Parse(reader["TimeStampStaff1"].ToString());
-                            p.KIDStaffID_1 = int.Parse(reader["KIDStaffID1"].ToString());
-                            p.StaffName_1 = reader["StaffName1"].ToString();
+                            p.StaffName_1 = reader["Staff1"].ToString();
                             p.StaffDate1 = DateTime.Parse(reader["StaffDate1"].ToString());
                             p.RequestStatus1 = reader["RequestStatus1"].ToString();
                             p.StaffCFS1 = int.Parse(reader["StaffCFS1"].ToString());
@@ -81,10 +80,9 @@ namespace KlamathIrrigationDistrict.DataLayer.Repositories
                             p.TimeStampCustomer2 = DateTime.Parse(reader["TimeStampCustomer2"].ToString());
                             p.CustomerDate2 = DateTime.Parse(reader["CustomerDate2"].ToString());
                             p.CustomerCFS_2 = int.Parse(reader["CustomerCFS2"].ToString());
-                            p.CustomerComments_2 = reader["CustomerCommetns2"].ToString();
+                            p.CustomerComments_2 = reader["CustomerComments2"].ToString();
                             p.TimeStampStaff2 = DateTime.Parse(reader["TimeStampStaff2"].ToString());
-                            p.KIDStaffID_2 = int.Parse(reader["KIDStaffID2"].ToString());
-                            p.StaffName_2 = reader["StaffName2"].ToString();
+                            p.StaffName_2 = reader["Staff2"].ToString();
                             p.StaffDate2 = DateTime.Parse(reader["StaffDate2"].ToString());
                             p.RequestStatus2 = reader["RequestStatus2"].ToString();
                             p.StaffCFS2 = int.Parse(reader["StaffCFS2"].ToString());
@@ -106,7 +104,7 @@ namespace KlamathIrrigationDistrict.DataLayer.Repositories
                 {
                     command.Connection = connection;
                     command.CommandType = CommandType.Text;
-                    command.CommandText = "SELECT * FROM Customers ORDER BY Name";
+                    command.CommandText = "SELECT * FROM CustomerInfo ORDER BY Name";
                     connection.Open();
                     using (SqlDataReader reader = command.ExecuteReader())
                     {
@@ -192,8 +190,7 @@ namespace KlamathIrrigationDistrict.DataLayer.Repositories
                             p.CustomerCFS_1 = int.Parse(reader["CustomerCFS1"].ToString());
                             p.CustomerComments_1 = reader["CustomerComments1"].ToString();
                             p.TimeStampStaff1 = DateTime.Parse(reader["TimeStampStaff1"].ToString());
-                            p.KIDStaffID_1 = int.Parse(reader["KIDStaffID1"].ToString());
-                            p.StaffName_1 = reader["StaffName1"].ToString();
+                            p.StaffName_1 = reader["Staff1"].ToString();
                             p.StaffDate1 = DateTime.Parse(reader["StaffDate1"].ToString());
                             p.RequestStatus1 = reader["RequestStatus1"].ToString();
                             p.StaffCFS1 = int.Parse(reader["StaffCFS1"].ToString());
@@ -201,10 +198,9 @@ namespace KlamathIrrigationDistrict.DataLayer.Repositories
                             p.TimeStampCustomer2 = DateTime.Parse(reader["TimeStampCustomer2"].ToString());
                             p.CustomerDate2 = DateTime.Parse(reader["CustomerDate2"].ToString());
                             p.CustomerCFS_2 = int.Parse(reader["CustomerCFS2"].ToString());
-                            p.CustomerComments_2 = reader["CustomerCommetns2"].ToString();
+                            p.CustomerComments_2 = reader["CustomerComments2"].ToString();
                             p.TimeStampStaff2 = DateTime.Parse(reader["TimeStampStaff2"].ToString());
-                            p.KIDStaffID_2 = int.Parse(reader["KIDStaffID2"].ToString());
-                            p.StaffName_2 = reader["StaffName2"].ToString();
+                            p.StaffName_2 = reader["Staff2"].ToString();
                             p.StaffDate2 = DateTime.Parse(reader["StaffDate2"].ToString());
                             p.RequestStatus2 = reader["RequestStatus2"].ToString();
                             p.StaffCFS2 = int.Parse(reader["StaffCFS2"].ToString());
@@ -220,7 +216,7 @@ namespace KlamathIrrigationDistrict.DataLayer.Repositories
 
         //use the stored procedure to display the customer's water history
         //parameter need to be customerID? Not customers?
-        //public virtual void ViewCustomerWaterHistory (int CustomerID)
+        //public virtual void ViewTotalAllotment (int CustomerID)
         //{
         //    //Customers C_CustomerID = CustomerID;
         //    using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings[@"KlamathIrrigation_Test"].ConnectionString))
@@ -229,7 +225,7 @@ namespace KlamathIrrigationDistrict.DataLayer.Repositories
         //        {
         //            command.Connection = connection;
         //            command.CommandType = CommandType.StoredProcedure;
-        //            command.CommandText = "sp_CustomerHistory";
+        //            command.CommandText = "sp_TotalAllotment_Update";
         //            command.Parameters.AddWithValue("@CustomerID", CustomerID);
         //            connection.Open();
         //            command.ExecuteNonQuery();
@@ -266,36 +262,7 @@ namespace KlamathIrrigationDistrict.DataLayer.Repositories
                 }
             }
         }
-
-        //-------------------------------------------------------------------------------------------------------------------
-        //take parameters to apply the requested water order
-        //public virtual void ApplyWaterOrder(WaterOrderRequest WaterOrder)
-        //{
-        //    using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings[@"KlamathIrrigation_Test"].ConnectionString))
-        //    {
-        //        using (SqlCommand command = new SqlCommand())
-        //        {
-        //            command.Connection = connection;
-        //            command.CommandType = CommandType.StoredProcedure;
-        //            //not sure if procedure (CustomerWaterRequest) need more to handle variables
-        //            //command.CommandText = "SELECT * FROM Customers ORDER BY Name"; -- viewcustomers function
-        //            command.CommandText = "CustomerWaterRequest";
-        //            command.Parameters.AddWithValue("@CustomerID", WaterOrder.CustomerID);
-        //            command.Parameters.AddWithValue("@Allotment", WaterOrder.TotalAllotment);
-        //            command.Parameters.AddWithValue("@TrackingID", WaterOrder.TrackingID);
-        //            command.Parameters.AddWithValue("@StructureID", WaterOrder.Structure);
-        //            command.Parameters.AddWithValue("@CFSRequested", WaterOrder.RequestedCFS);
-        //            command.Parameters.AddWithValue("CustomerName", WaterOrder.Name);
-        //            command.Parameters.AddWithValue("CustomerComments", WaterOrder.CustomerComments);
-
-        //            connection.Open();
-        //            command.ExecuteNonQuery();
-        //        }
-        //    }
-
-        //}
-        //-------------------------------------------------------------------------------------------------------------------
-
+        
         public virtual void AddWaterOrderRequest(Customers NewWaterOrder)
         {
             //find a better way to Apply request for Water Order
@@ -305,17 +272,19 @@ namespace KlamathIrrigationDistrict.DataLayer.Repositories
                 using (SqlCommand command = new SqlCommand())
                 {
                     command.Connection = connection;
-                    command.CommandType = CommandType.Text;
-                    command.CommandText = 
-                        "INSERT INTO Requests" + 
-                        "(CustomerID, CustomerName, Structure, CustomerCFS1, TimeStampCustomer1, " +
-                        "CustomerDate1, CustomerComments1" +
-                        "VALUES (@CustomerID, @CustomerName, @Structure, @TimeStampCustomer1, @CustomerDate1, @CustomerCFS1, @CustomerComments1";
+                    command.CommandType = CommandType.StoredProcedure;
+                    command.CommandText = "sp_Customer_AddRequest";
+                    //command.CommandType = CommandType.Text;
+                    //command.CommandText = 
+                    //    "INSERT INTO Requests" + 
+                    //    "(CustomerID, CustomerName, Structure, CustomerCFS1, TimeStampCustomer1, " +
+                    //    "CustomerDate1, CustomerComments1" +
+                    //    "VALUES (@CustomerID, @CustomerName, @Structure, @TimeStampCustomer1, @CustomerDate1, @CustomerCFS1, @CustomerComments1";
                     command.Parameters.AddWithValue("@CustomerID", NewWaterOrder.CustomerID);
                     command.Parameters.AddWithValue("@CustomerName", NewWaterOrder.Name);
                     command.Parameters.AddWithValue("@Structure", NewWaterOrder.Structure);
                     //use getdate parameter to fulfill the customerdate
-                    command.Parameters.AddWithValue("@TimeStampCustomer1", NewWaterOrder.TimeStampCustomer1);
+                    //command.Parameters.AddWithValue("@TimeStampCustomer1", NewWaterOrder.TimeStampCustomer1);
                     command.Parameters.AddWithValue("@CustomerDate1", NewWaterOrder._GetCustomerDate);
                     command.Parameters.AddWithValue("@CustomerCFS1", NewWaterOrder.CustomerCFS_1);
                     command.Parameters.AddWithValue("@CustomerComments1", NewWaterOrder.CustomerComments_1);
@@ -324,103 +293,7 @@ namespace KlamathIrrigationDistrict.DataLayer.Repositories
                 }
             }
         }
-
-        //public virtual void AddRequest(Customers WaterOrder)
-        //{
-        //    using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["KlamathIrrigation_Test"].ConnectionString))
-        //    {
-        //        using (SqlCommand command = new SqlCommand())
-        //        {
-        //            command.Connection = connection;
-        //            command.CommandType = CommandType.StoredProcedure;
-        //            command.CommandText = "sp_DitchRider_AddRequests";
-
-        //            command.Parameters.AddWithValue("@CustomerID", WaterOrder.CustomerID);
-        //            command.Parameters.AddWithValue("@TrackingID", WaterOrder.TrackingID);
-        //            command.Parameters.AddWithValue("@CustomerName", WaterOrder.CustomerName);
-        //            command.Parameters.AddWithValue("@Allotment", WaterOrder.Allotment);
-        //            command.Parameters.AddWithValue("@MapTaxLot", WaterOrder.MapTaxLot);
-        //            command.Parameters.AddWithValue("@Structure", WaterOrder.Structure);
-        //            command.Parameters.AddWithValue("@Customerdate", WaterOrder.CustomerDate);
-        //            command.Parameters.AddWithValue("@CFSRequeted", WaterOrder.CFSRequested);
-        //            command.Parameters.AddWithValue("@CustomerComments", WaterOrder.CustomerComments);
-        //            connection.Open();
-        //            command.ExecuteNonQuery();
-        //        }
-        //    }
-        //}
-
-
-        //public static void AddProduct(Product product)
-
-        //{
-
-        //    //set up sql connection
-
-        //    SqlConnection conn = DatabaseDB.GetConnection();
-
-
-
-        //    //write query
-
-        //    string strIns =
-
-        //        "INSERT INTO Products " +
-
-        //        "(ProductCode, Description, UnitPrice)" +
-
-        //        "Values (@Code, @Description, @UnitPrice)";
-
-
-
-        //    //creates our command
-
-        //    SqlCommand cmd = new SqlCommand(strIns, conn);
-
-
-
-        //    cmd.Parameters.AddWithValue("@Code", product.ProdCode);
-
-        //    cmd.Parameters.AddWithValue("@Description", product.Description);
-
-        //    cmd.Parameters.AddWithValue("@UnitPrice", product.Price);
-
-
-
-        //    try
-
-        //    {
-
-        //        conn.Open();
-
-
-
-        //        cmd.ExecuteNonQuery();
-
-
-
-        //        MessageBox.Show("Record has been added");
-
-
-
-        //    }
-
-        //    catch (Exception ex)
-
-        //    {
-
-        //        throw ex;
-
-        //    }
-
-        //    finally
-
-        //    {
-
-        //        conn.Close();
-
-        //    }
-        //}
+        
 
     }
 }
