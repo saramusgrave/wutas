@@ -13,7 +13,7 @@ namespace KlamathIrrigationDistrict.DataLayer.Repositories
 {
     //Actual body for the header file -> ICustomerRepository
     public class CustomerRepository : ICustomerRepository
-    {
+    {        
         public virtual Customers Get(int CustomerID)
         {
             Customers s = null;
@@ -22,9 +22,9 @@ namespace KlamathIrrigationDistrict.DataLayer.Repositories
                 using (SqlCommand command = new SqlCommand())
                 {
                     command.Connection = connection;
-                    command.CommandType = CommandType.Text;
                     command.CommandText = "SELECT * FROM Customers";
-                    //command.Parameters.AddWithValue("@CustomerID", CustomerID);
+                    command.CommandType = CommandType.Text;
+
                     connection.Open();
                     using (SqlDataReader reader = command.ExecuteReader())
                     {
@@ -106,6 +106,8 @@ namespace KlamathIrrigationDistrict.DataLayer.Repositories
                     command.Connection = connection;
                     command.CommandType = CommandType.Text;
                     command.CommandText = "SELECT * FROM CustomerInfo ORDER BY Name";
+                    //command.CommandText = "SELECT * FROM CustomerInfo WHERE CustomerID = @CustomerID";
+                    //command.Parameters.AddWithValue("@CustomerID", CustomerID);
                     connection.Open();
                     using (SqlDataReader reader = command.ExecuteReader())
                     {
@@ -123,6 +125,41 @@ namespace KlamathIrrigationDistrict.DataLayer.Repositories
                             s.Zip = int.Parse(reader["Zip"].ToString());
                             s.TotalAllotment = decimal.Parse(reader["TotalAllotment"].ToString());
                             s.Password = reader["Password"].ToString();
+                            vc.Add(s);
+                        }
+                    }
+                }
+            }
+            return (vc);
+        }
+
+
+        public virtual List<Customers> ViewCustomers(int CustomerID)
+        {            
+            List<Customers> vc = new List<Customers>();
+            using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings[@"KID"].ConnectionString))
+            {
+                using (SqlCommand command = new SqlCommand())
+                {
+                    command.Connection = connection;
+                    command.CommandType = CommandType.Text;
+                    //command.CommandText = "SELECT * FROM CustomerInfo ORDER BY Name";
+                    command.CommandText = "SELECT * FROM CustomerInfo WHERE CustomerID = @CustomerID";
+                    command.Parameters.AddWithValue("@CustomerID", CustomerID);
+                    connection.Open();
+                    using (SqlDataReader reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            Customers s = new Customers();
+                            s.CustomerID = int.Parse(reader["CustomerID"].ToString());
+                            s.Name = reader["Name"].ToString();
+                            s.Address1 = reader["StreetName"].ToString();
+                            //s.Address2 = reader["Address2"].ToString();
+                            s.City = reader["City"].ToString();
+                            s.State = reader["State"].ToString();
+                            s.Zip = int.Parse(reader["Zip"].ToString());
+                            s.Phone = reader["Phone"].ToString();
                             vc.Add(s);
                         }
                     }
@@ -165,7 +202,7 @@ namespace KlamathIrrigationDistrict.DataLayer.Repositories
         }
 
 
-        public List<Customers> ViewCustomerRequests()
+        public List<Customers> ViewCustomerRequests(int CustomerID)
         {
             List<Customers> RequestList = new List<Customers>();
             using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["KID"].ConnectionString))
@@ -174,7 +211,8 @@ namespace KlamathIrrigationDistrict.DataLayer.Repositories
                 {
                     command.Connection = connection;
                     //command.CommandText = "SELECT * FROM Requests";
-                    command.CommandText = "SELECT * FROM Requests";
+                    command.CommandText = "SELECT * FROM Requests WHERE CustomerID = @CustomerID";
+                    command.Parameters.AddWithValue("@CustomerID", CustomerID);
                     command.CommandType = CommandType.Text;
                     connection.Open();
                     using (SqlDataReader reader = command.ExecuteReader())
