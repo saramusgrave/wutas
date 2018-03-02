@@ -43,5 +43,6 @@ namespace KlamathIrrigationDistrict.DataLayer.DataModels
         public int CustomerMTLHisID { get; set; }
         public string Name { get; set; }
         public int CustomerID { get; set; }
+        public string Lateral { get; set; }
     }
 }

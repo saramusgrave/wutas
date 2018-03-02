@@ -76,6 +76,7 @@ namespace KlamathIrrigationDistrict.DataLayer.Repositories
                         {
                             DitchRiderCustomers c = new DitchRiderCustomers();
                             c.StructureID = reader["StructureID"].ToString();
+                            c.Lateral = reader["Lateral"].ToString();
                             c.Ride = int.Parse(reader["Ride"].ToString());
                             c.CustomerMTLHisID = int.Parse(reader["CustomerMTLHisID"].ToString());
                             c.Name = reader["Name"].ToString();

@@ -59,6 +59,7 @@
             <tr>
                 <th>@Html.Label("Name")</th>
                 <th>@Html.Label("Structure")</th>
+                <th>@Html.Label("Lateral")</th>
                 <th>@Html.Label("Customer ID")</th>
             </tr>
             @for (int i = 0; i < Model.Count; i++)
@@ -66,6 +67,7 @@
                 <tr>
                     <td>@Model[i].Name</td>
                     <td>@Model[i].StructureID</td>
+                    <td>@Model[i].Lateral</td>
                     <td>@Model[i].CustomerID</td>
                 </tr>
             }
