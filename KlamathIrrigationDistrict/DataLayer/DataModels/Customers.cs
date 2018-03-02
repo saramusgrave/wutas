@@ -10,6 +10,9 @@ namespace KlamathIrrigationDistrict.DataLayer.DataModels
     //Customers Table
     public class Customers
     {
+        //constuctor for Customers
+        public Customers() { }
+
         //-------------------------------------------------------------------------------------
         //Customers(int CustomerID, int TrackingID, String Name, Decimal TotalAllotment)
         [Required]
@@ -22,6 +25,9 @@ namespace KlamathIrrigationDistrict.DataLayer.DataModels
         public string Email { get; set; }
         [Required]
         public string Password { get; set; }
+
+        public string Phone { get; set; }
+
         [Required]
         public string Address1 { get; set; }
         public string Address2 { get; set; }

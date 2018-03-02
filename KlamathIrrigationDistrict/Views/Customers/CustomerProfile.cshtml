@@ -1,6 +1,7 @@
 ﻿@using KlamathIrrigationDistrict.DataLayer.DataModels
 @using PagedList.Mvc;
 @model PagedList.IPagedList<Customers>
+@*@model Customers*@
 @{
     ViewBag.Title = "Customer: Profile";
 }
@@ -13,7 +14,7 @@
 <!--Menu-->
 <header id="Menu">
     <ul>
-        <li><label class="FirstLast">First.Last</label></li>
+        <li><label class="FirstLast">@User.Identity.Name</label></li>
         <li><a  href="./Index">Requests</a></li>
         <li><a href="./CustomerWaterHistory">History</a></li>
         <li><a href="./ContactsPage">Contacts</a></li>
@@ -52,24 +53,19 @@
         <table class="Contacts">
             <caption>Current Customer Info</caption>
             <tr>
-                <th>@Html.Label("Total Allotment")</th>
                 <th>@Html.Label("CustomerID")</th>
                 <th>@Html.Label("CustomerName")</th>
-                <th>@Html.Label("TrackingID")</th>
-                <th>@Html.Label("Email")</th>
                 <th>@Html.Label("Address 1")</th>
                 <th>@Html.Label("City")</th>
                 <th>@Html.Label("State")</th>
                 <th>@Html.Label("ZipCode")</th>
             </tr>
+           
             @for (int i = 0; i < Model.Count; i++)
             {
                 <tr>
-                    <td>@Model[i].TotalAllotment</td>
                     <td>@Model[i].CustomerID</td>
                     <td>@Model[i].Name</td>
-                    <td>@Model[i].TrackingID</td>
-                    <td>@Model[i].Email</td>
                     <td>@Model[i].Address1</td>
                     <td>@Model[i].City</td>
                     <td>@Model[i].State</td>

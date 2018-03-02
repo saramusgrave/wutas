@@ -11,8 +11,8 @@
 </head>
 <header id="Menu">
     <ul>
-        <li><label class="FirstLast">First.Last</label></li>
-        <li><a href="/Customers/IndexCustomer">Requests</a></li>
+        <li><label class="FirstLast">@User.Identity.Name</label></li>
+        <li><a href="/Customers/Index">Requests</a></li>
         <li><a href="./CustomerWaterHistory">History</a></li>
         <li><a href="./ContactsPage">Contacts</a></li>
         <li><a href="./CustomerProfile">Profile</a></li>
@@ -46,7 +46,7 @@
     </ul>
 </header>
 <body>
-    <a href="IndexCustomer" class="next">Previous &raquo;</a>
+    <a href="Index" class="next">Previous &raquo;</a>
     <div style="overflow-x: auto;">
         <!--Add Request class=Contacts-->
         <table class="Contacts">
@@ -67,8 +67,8 @@
                 <td>@Html.TextBoxFor(m => m.Structure)</td>
                 <td>@Html.TextBoxFor(m => m.CustomerCFS_1, new { @type = "number" })</td>
                 <td>@Html.TextBoxFor(m => m.CustomerComments_1, new { @type = "Comments" })</td>
-                <!--below will refernce the AddCustomerRequest function, needs to also have parameter-->
-                <td><button type""submit" onclick="AddCustomerRequest();">Submit</button></td>
+                <!--below will refernce the AddCustomerRequest function, needs to also have parameter FIX!!!!!-->
+                <td><button type""submit" onclick="AddCustomerRequest(new Customers);">Submit</button></td>
             </tr>
             @*<tr>
                 <td></td>

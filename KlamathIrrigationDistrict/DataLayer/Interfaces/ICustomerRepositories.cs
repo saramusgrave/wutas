@@ -18,11 +18,14 @@ namespace KlamathIrrigationDistrict.DataLayer.Interfaces
         //allow customer to view their information
         List<Customers> ViewCustomers();
 
+        //pull the specific customer information
+        List<Customers> ViewCustomers(int CustomerID);
+
         //allow user to see staff contacts
         List<Customers> ViewStaff();
 
         //list all of customers request
-        List<Customers> ViewCustomerRequests();
+        List<Customers> ViewCustomerRequests(int CustomerID);
 
         //save the customer information when updated
         //used by the staff or customer
@@ -32,12 +35,4 @@ namespace KlamathIrrigationDistrict.DataLayer.Interfaces
         void AddWaterOrderRequest(Customers NewWaterOrder);
 
     }
-
-
-    //public interface ICustomerRepository : WaterOrderRequest
-
-
-    //public class List<T1, T2>
-    //{
-    //}
 }
