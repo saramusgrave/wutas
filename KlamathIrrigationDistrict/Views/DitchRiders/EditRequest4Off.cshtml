@@ -28,7 +28,7 @@
     </div>
     <!--Log in Name, Customers, Requests, Canals, LogOUt id=Menu-->
     <ul id="Menu">
-        <li><label class="FirstLast">Scott.Linville</label></li>
+        <li><label class="FirstLast">@User.Identity.Name</label></li>
         <li><a href="./KIDDitchRiderRide4CustomersHTML.html">Customers</a></li>
         <li class="dropdown">
             <a class="RequestDropDown" href="./KIDDitchRider4HTML.html" id="active">Requests</a>
@@ -80,7 +80,8 @@
         </div>
         <div>
             @Html.Label("Status: ")
-            @Html.TextBoxFor(s => s.RequestStatus2)
+            @Html.DropDownListFor(s => s.RequestStatus2, Model.RequestStatus_2)
+            @*@Html.TextBoxFor(s => s.RequestStatus2)*@
         </div>
         <div>
             @Html.Label("CFS: ")

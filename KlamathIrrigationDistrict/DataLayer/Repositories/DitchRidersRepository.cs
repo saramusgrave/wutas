@@ -5,8 +5,6 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
-using System.Linq;
-using System.Web;
 
 namespace KlamathIrrigationDistrict.DataLayer.Repositories
 {
@@ -67,7 +65,7 @@ namespace KlamathIrrigationDistrict.DataLayer.Repositories
                 using (SqlCommand command = new SqlCommand())
                 {
                     command.Connection = connection;
-                    command.CommandText = "SELECT * FROM [Ride Customer List] WHERE Ride = '4' ";
+                    command.CommandText = "SELECT * FROM [Ride Customer List TotalAllotment] WHERE Ride = '4' ORDER BY Lateral ASC";
                     command.CommandType = CommandType.Text;
                     connection.Open();
                     using (SqlDataReader reader = command.ExecuteReader())
@@ -81,12 +79,13 @@ namespace KlamathIrrigationDistrict.DataLayer.Repositories
                             c.CustomerMTLHisID = int.Parse(reader["CustomerMTLHisID"].ToString());
                             c.Name = reader["Name"].ToString();
                             c.CustomerID = int.Parse(reader["CustomerID"].ToString());
+                            c.TotalAllotment = float.Parse(reader["TotalAllotment"].ToString());
                             CustomerList.Add(c);
                         }
                     }
                 }
             }
-            return (CustomerList);
+        return (CustomerList);
     }
     //View Request for all completed request ViewRequests4
     public List<DitchRiderRequests> ViewRequests4()
@@ -97,7 +96,7 @@ namespace KlamathIrrigationDistrict.DataLayer.Repositories
                 using (SqlCommand command = new SqlCommand())
                 {
                     command.Connection = connection;
-                    command.CommandText = "SELECT * FROM Requests WHERE CustomerID = '3681' ORDER BY CustomerDate1 ";
+                    command.CommandText = "SELECT * FROM Requests WHERE Structure LIKE '4%' ORDER BY CustomerDate1 ";
                     command.CommandType = CommandType.Text;
                     connection.Open();
                     using (SqlDataReader reader = command.ExecuteReader())
@@ -113,7 +112,7 @@ namespace KlamathIrrigationDistrict.DataLayer.Repositories
                             p.Structure = reader["Structure"].ToString();
                             p.CustomerCFS1 = int.Parse(reader["CustomerCFS1"].ToString());
                             p.TimeStampStaff1 = DateTime.Parse(reader["TimeStampStaff1"].ToString());
-                            p.Staff1 = reader["Staff1"].ToString();
+                            p.Staff1 = reader["Staff"].ToString();
                             p.StaffDate1 = DateTime.Parse(reader["StaffDate1"].ToString());
                             p.RequestStatus1 = reader["RequestStatus1"].ToString();
                             p.StaffCFS1 = int.Parse(reader["StaffCFS1"].ToString());
@@ -142,7 +141,7 @@ namespace KlamathIrrigationDistrict.DataLayer.Repositories
                 using (SqlCommand command = new SqlCommand())
                 {
                     command.Connection = connection;
-                    command.CommandText = "SELECT CustomerDate1, CustomerName, Structure, CustomerCFS1, CustomerComments1 FROM Requests WHERE CustomerID = '3681' ORDER BY CustomerDate1";
+                    command.CommandText = "SELECT CustomerDate1, CustomerName, Structure, CustomerCFS1, CustomerComments1 FROM Requests WHERE Structure LIKE '4%' ORDER BY CustomerDate1";
                     command.CommandType = CommandType.Text;
                     connection.Open();
                     using (SqlDataReader reader = command.ExecuteReader())
@@ -154,6 +153,7 @@ namespace KlamathIrrigationDistrict.DataLayer.Repositories
                             p.CustomerName = reader["CustomerName"].ToString();
                             p.Structure = reader["Structure"].ToString();
                             p.CustomerCFS1 = int.Parse(reader["CustomerCFS1"].ToString());
+                            p.CustomerComments1 = reader["CustomerComments1"].ToString();
                             RequestList.Add(p);
                         }
                     }
@@ -170,7 +170,7 @@ namespace KlamathIrrigationDistrict.DataLayer.Repositories
                 using (SqlCommand command = new SqlCommand())
                 {
                     command.Connection = connection;
-                    command.CommandText = "SELECT CustomerDate2, CustomerName, Structure, CustomerCFS2, CustomerComments2 FROM Requests  WHERE CustomerID = '3681' ORDER BY CustomerDate2";
+                    command.CommandText = "SELECT CustomerDate2, CustomerName, Structure, CustomerCFS2, CustomerComments2 FROM Requests  WHERE Structure LIKE '4%' ORDER BY CustomerDate2";
                     command.CommandType = CommandType.Text;
                     connection.Open();
                     using (SqlDataReader reader = command.ExecuteReader())
@@ -310,7 +310,7 @@ namespace KlamathIrrigationDistrict.DataLayer.Repositories
                             p.Structure = reader["Structure"].ToString();
                             p.CustomerCFS1 = int.Parse(reader["CustomerCFS1"].ToString());
                             p.TimeStampStaff1 = DateTime.Parse(reader["TimeStampStaff1"].ToString());
-                            p.Staff1 = reader["StaffName1"].ToString();
+                            p.Staff1 = reader["Staff1"].ToString();
                             p.StaffDate1 = DateTime.Parse(reader["StaffDate1"].ToString());
                             p.RequestStatus1 = reader["RequestStatus1"].ToString();
                             p.StaffCFS1 = int.Parse(reader["StaffCFS1"].ToString());
@@ -318,7 +318,7 @@ namespace KlamathIrrigationDistrict.DataLayer.Repositories
                             p.CustomerDate2 = DateTime.Parse(reader["CustomerDate2"].ToString());
                             p.CustomerCFS2 = int.Parse(reader["CustomerCFS2"].ToString());
                             p.TimeStampStaff2 = DateTime.Parse(reader["TimeStampStaff2"].ToString());
-                            p.Staff2 = reader["StaffName2"].ToString();
+                            p.Staff2 = reader["Staff2"].ToString();
                             p.StaffDate2 = DateTime.Parse(reader["StaffDate2"].ToString());
                             p.RequestStatus2 = reader["RequestStatus2"].ToString();
                             p.StaffCFS2 = int.Parse(reader["StaffCFS2"].ToString());
