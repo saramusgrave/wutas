@@ -13,7 +13,7 @@ namespace KlamathIrrigationDistrict.DataLayer.Interfaces
         Customers Get(int CustomerID);
 
         //get the Request ID
-        Customers GetRequestID(int RequestID);
+        //Customers GetRequestID(int RequestID);
 
         //allow customer to view their information
         List<Customers> ViewCustomers();
@@ -33,6 +33,8 @@ namespace KlamathIrrigationDistrict.DataLayer.Interfaces
 
         //Does not use stored procedure, will only apply all that a customer can in request for
         void AddWaterOrderRequest(Customers NewWaterOrder);
+
+        //need to write a an update function that would update the AspNetUsers when customerID is updated
 
     }
 }

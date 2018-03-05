@@ -86,6 +86,7 @@ namespace KlamathIrrigationDistrict.Controllers
             // To enable password failures to trigger account lockout, change to shouldLockout: true
 
             //add
+            //below (result = ) has an issue, why?
             var result = await SignInManager.PasswordSignInAsync(model.UserName, model.Password, model.RememberMe, shouldLockout: false);
             switch (result)
             {
@@ -97,6 +98,10 @@ namespace KlamathIrrigationDistrict.Controllers
                     else if(User.IsInRole("Ride 4"))
                     {
                         return RedirectToAction("Index4", "DitchRiders");
+                    }
+                    else if(User.IsInRole("Customer"))
+                    {
+                        return RedirectToAction("Index", "Customers");
                     }
                     return RedirectToLocal(returnUrl);
                 case SignInStatus.LockedOut:

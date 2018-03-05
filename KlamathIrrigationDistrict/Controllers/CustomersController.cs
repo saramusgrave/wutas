@@ -1,16 +1,58 @@
 ﻿using KlamathIrrigationDistrict.DataLayer.DataModels;
 using KlamathIrrigationDistrict.DataLayer.Interfaces;
 using KlamathIrrigationDistrict.DataLayer.Repositories;
+using KlamathIrrigationDistrict.Models;
+using Microsoft.AspNet.Identity.Owin;
+using Microsoft.AspNet.Identity;
 using PagedList;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
+using System.Web;
 
 namespace KlamathIrrigationDistrict.Controllers
 {
     public class CustomersController : Controller
     {
+        //attain the login information
+        
+        private ApplicationUserManager _userManager;
+
+        public CustomersController(ApplicationUserManager userManager, ApplicationRoleManager userRole)
+        {
+            UserManager = userManager;
+            RoleManager = userRole;
+        }
+
+        private ApplicationRoleManager _RoleManager;
+        protected ApplicationRoleManager RoleManager
+        {
+            get
+            {
+                if (_RoleManager == null)
+                {
+                    _RoleManager = HttpContext.GetOwinContext().Get<ApplicationRoleManager>();
+                }
+                return _RoleManager;
+            }
+            private set
+            {
+                _RoleManager = value;
+            }
+        }
+        public ApplicationUserManager UserManager
+        {
+            get
+            {
+                return _userManager ?? HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
+            }
+            private set
+            {
+                _userManager = value;
+            }
+        }
+
         private ICustomerRepository _custRepo;
 
         public CustomersController()
@@ -25,7 +67,6 @@ namespace KlamathIrrigationDistrict.Controllers
         //----------------------------------------------------------------------------------------
         /*Views for list of Customers*/
         [Authorize(Roles = "Office Specialist, Customer")]
-        //[OutputCache(Duration = 500, VaryByParam = "CustomerID")]
         [HttpGet]
         public ActionResult Index(int? page)
         {
@@ -40,6 +81,9 @@ namespace KlamathIrrigationDistrict.Controllers
             CustomerRepository customerrepository = new CustomerRepository();
             Customers CustomerStaff = new Customers();
             List<Customers> obCustomerList = new List<Customers>();
+
+            //((applicationUser)User.Identity).CustomerID
+            //CustomerID = ((ApplicationUser)User.Identity).CustomerID;
 
             if (User.Identity.Name.Equals("ryhayandgrain@gmail.com"))
             {
@@ -202,7 +246,37 @@ namespace KlamathIrrigationDistrict.Controllers
             return RedirectToAction("Index");
         }
 
-        
+        //AddCustomer
+        [Authorize(Roles = "Office Specialist")]
+        [HttpPost]
+        public ActionResult AddCustomer(Customers personInfo)
+        {
+            //Adding to KIDStaff
+            if (!ModelState.IsValid)
+            {
+                return View(personInfo);
+            }
+            //Adds user to ASP side of things...ASP = SQL, ASP = SQL
+            //modified date time = get now
+            //modifed user = get current user login
+            var user = new ApplicationUser { UserName = personInfo.Email, Email = personInfo.Email};
+            var result = this.UserManager.Create(user, personInfo.Password);
+            if (result.Succeeded)
+            {
+                //is this correct -> add to the role of customer
+                UserManager.AddToRole(user.Id, "Customer");
+
+                //UserManager.AddToRole(user.Id, "Project Worker");
+                var role = this.RoleManager.FindByName("");
+                //role.Users.Add();
+                //this.UserManager.AddToRole(user.Id, kidstaff.UserRoles);
+            }
+            //SQL Statement to add to KIDStaff
+            //_stafRepo.AddStaff(kidstaff);
+            //Return home page
+            return RedirectToAction("Index");
+        }
+
         //---------------------------------------------------------------------------------------
         //functionality for specific people under the customer side
 
@@ -213,21 +287,21 @@ namespace KlamathIrrigationDistrict.Controllers
         {
             return View(new Customers());
         }
-                
+
         //used to add water order request
         //[Authorize(Roles = "Customer")]
         //[HttpPost]
-        //public ActionResult AddCustomerRequest(Customers CustomersRequest)
-        //{
-        //    if (!ModelState.IsValid)
-        //    {
-        //        return View(CustomersRequest);
-        //    }
-        //    //_custRepo.Save(customers);
-        //    //reference CustomerRepository - AddWaterOrderRequest
-        //    _custRepo.AddWaterOrderRequest(CustomersRequest);
-        //    return RedirectToAction("IndexCustomer");
-        //}
+        public ActionResult AddCustomerRequest(Customers CustomersRequest)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(CustomersRequest);
+            }
+            //_custRepo.Save(customers);
+            //reference CustomerRepository - AddWaterOrderRequest
+            _custRepo.AddWaterOrderRequest(CustomersRequest);
+            return RedirectToAction("IndexCustomer");
+        }
 
         //View for Staff to Edit a customer
         [Authorize(Roles = "Office Specialist")]

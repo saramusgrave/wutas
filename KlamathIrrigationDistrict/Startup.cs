@@ -26,7 +26,7 @@ namespace KlamathIrrigationDistrict
             var roleManager = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(context));
             var UserManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(context));
 
-            
+
             //In startup iam createing first admin role and creating a default admin user
             if (!roleManager.RoleExists("Admin"))
             {
@@ -42,7 +42,7 @@ namespace KlamathIrrigationDistrict
                 var chkUser = UserManager.Create(user, userPWD);
 
                 //Add default user to Role Admin
-                if(chkUser.Succeeded)
+                if (chkUser.Succeeded)
                 {
                     var result1 = UserManager.AddToRole(user.Id, "Admin");
                 }

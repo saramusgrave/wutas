@@ -46,54 +46,54 @@ namespace KlamathIrrigationDistrict.DataLayer.Repositories
             }
             return (s);
         }
-        public virtual Customers GetRequestID(int RequestID)
-        {
-            //List<Customers> RequestList = new List<Customers>();
-            Customers p = null;
-            using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["KID"].ConnectionString))
-            {
-                using (SqlCommand command = new SqlCommand())
-                {
-                    command.Connection = connection;
-                    //command.CommandText = "SELECT * FROM Requests";
-                    command.CommandText = "SELECT * FROM Requests";
-                    command.CommandType = CommandType.Text;
-                    connection.Open();
-                    using (SqlDataReader reader = command.ExecuteReader())
-                    {
-                        while (reader.Read())
-                        {
-                            p.RequestID = int.Parse(reader["RequestID"].ToString());
-                            p.TimeStampCustomer1 = DateTime.Parse(reader["TimeStampCustomer1"].ToString());
-                            p.CustomerDate1 = DateTime.Parse(reader["CustomerDate1"].ToString());
-                            p.CustomerID = int.Parse(reader["CustomerID"].ToString());
-                            p.Name = reader["CustomerName"].ToString();
-                            p.Structure = reader["Structure"].ToString();
-                            p.CustomerCFS_1 = int.Parse(reader["CustomerCFS1"].ToString());
-                            p.CustomerComments_1 = reader["CustomerComments1"].ToString();
-                            p.TimeStampStaff1 = DateTime.Parse(reader["TimeStampStaff1"].ToString());
-                            p.StaffName_1 = reader["Staff1"].ToString();
-                            p.StaffDate1 = DateTime.Parse(reader["StaffDate1"].ToString());
-                            p.RequestStatus1 = reader["RequestStatus1"].ToString();
-                            p.StaffCFS1 = int.Parse(reader["StaffCFS1"].ToString());
-                            p.StaffComments1 = reader["StaffComments1"].ToString();
-                            p.TimeStampCustomer2 = DateTime.Parse(reader["TimeStampCustomer2"].ToString());
-                            p.CustomerDate2 = DateTime.Parse(reader["CustomerDate2"].ToString());
-                            p.CustomerCFS_2 = int.Parse(reader["CustomerCFS2"].ToString());
-                            p.CustomerComments_2 = reader["CustomerComments2"].ToString();
-                            p.TimeStampStaff2 = DateTime.Parse(reader["TimeStampStaff2"].ToString());
-                            p.StaffName_2 = reader["Staff2"].ToString();
-                            p.StaffDate2 = DateTime.Parse(reader["StaffDate2"].ToString());
-                            p.RequestStatus2 = reader["RequestStatus2"].ToString();
-                            p.StaffCFS2 = int.Parse(reader["StaffCFS2"].ToString());
-                            p.StaffComments2 = reader["StaffComments2"].ToString();
-                        }
-                    }
-                }
-            }
-            return (p);
+        //public virtual Customers GetRequestID(int RequestID)
+        //{
+        //    //List<Customers> RequestList = new List<Customers>();
+        //    Customers p = null;
+        //    using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["KID"].ConnectionString))
+        //    {
+        //        using (SqlCommand command = new SqlCommand())
+        //        {
+        //            command.Connection = connection;
+        //            //command.CommandText = "SELECT * FROM Requests";
+        //            command.CommandText = "SELECT * FROM Requests";
+        //            command.CommandType = CommandType.Text;
+        //            connection.Open();
+        //            using (SqlDataReader reader = command.ExecuteReader())
+        //            {
+        //                while (reader.Read())
+        //                {
+        //                    p.RequestID = int.Parse(reader["RequestID"].ToString());
+        //                    p.TimeStampCustomer1 = DateTime.Parse(reader["TimeStampCustomer1"].ToString());
+        //                    p.CustomerDate1 = DateTime.Parse(reader["CustomerDate1"].ToString());
+        //                    p.CustomerID = int.Parse(reader["CustomerID"].ToString());
+        //                    p.Name = reader["CustomerName"].ToString();
+        //                    p.Structure = reader["Structure"].ToString();
+        //                    p.CustomerCFS_1 = int.Parse(reader["CustomerCFS1"].ToString());
+        //                    p.CustomerComments_1 = reader["CustomerComments1"].ToString();
+        //                    p.TimeStampStaff1 = DateTime.Parse(reader["TimeStampStaff1"].ToString());
+        //                    p.StaffName_1 = reader["Staff1"].ToString();
+        //                    p.StaffDate1 = DateTime.Parse(reader["StaffDate1"].ToString());
+        //                    p.RequestStatus1 = reader["RequestStatus1"].ToString();
+        //                    p.StaffCFS1 = int.Parse(reader["StaffCFS1"].ToString());
+        //                    p.StaffComments1 = reader["StaffComments1"].ToString();
+        //                    p.TimeStampCustomer2 = DateTime.Parse(reader["TimeStampCustomer2"].ToString());
+        //                    p.CustomerDate2 = DateTime.Parse(reader["CustomerDate2"].ToString());
+        //                    p.CustomerCFS_2 = int.Parse(reader["CustomerCFS2"].ToString());
+        //                    p.CustomerComments_2 = reader["CustomerComments2"].ToString();
+        //                    p.TimeStampStaff2 = DateTime.Parse(reader["TimeStampStaff2"].ToString());
+        //                    p.StaffName_2 = reader["Staff2"].ToString();
+        //                    p.StaffDate2 = DateTime.Parse(reader["StaffDate2"].ToString());
+        //                    p.RequestStatus2 = reader["RequestStatus2"].ToString();
+        //                    p.StaffCFS2 = int.Parse(reader["StaffCFS2"].ToString());
+        //                    p.StaffComments2 = reader["StaffComments2"].ToString();
+        //                }
+        //            }
+        //        }
+        //    }
+        //    return (p);
 
-        }
+        //}
 
         public virtual List<Customers> ViewCustomers()
         {
@@ -228,7 +228,7 @@ namespace KlamathIrrigationDistrict.DataLayer.Repositories
                             p.CustomerCFS_1 = int.Parse(reader["CustomerCFS1"].ToString());
                             p.CustomerComments_1 = reader["CustomerComments1"].ToString();
                             p.TimeStampStaff1 = DateTime.Parse(reader["TimeStampStaff1"].ToString());
-                            p.StaffName_1 = reader["Staff1"].ToString();
+                            p.StaffName_1 = reader["Staff"].ToString();
                             p.StaffDate1 = DateTime.Parse(reader["StaffDate1"].ToString());
                             p.RequestStatus1 = reader["RequestStatus1"].ToString();
                             p.StaffCFS1 = int.Parse(reader["StaffCFS1"].ToString());

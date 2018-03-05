@@ -49,7 +49,7 @@
     <a href="Index" class="next">Previous &raquo;</a>
     <div style="overflow-x: auto;">
         <!--Add Request class=Contacts-->
-        <table class="Contacts">
+        @*<table class="Contacts">
             <caption>Add Request (On)</caption>
             <tr>
                 <th>@Html.Label("Request Date")</th>
@@ -70,28 +70,49 @@
                 <!--below will refernce the AddCustomerRequest function, needs to also have parameter FIX!!!!!-->
                 <td><button type""submit" onclick="AddCustomerRequest(new Customers);">Submit</button></td>
             </tr>
-            @*<tr>
-                <td></td>
-                <td>
-                    <input list="CustomersStructures" placeholder="Structure">
-                    <datalist id="CustomersStructures">
-                        <option value="T4378"></option>
-                        <option value="T58392"></option>
-                    </datalist>
-                </td>
-                <td>
-                    <input type="date" value="2017-08-12">
-                </td>
-                <td>
-                    <input type="CFS" value="0">
-                </td>
-                <td>
-                    <input type="Comments" placeholder="Comments...">
-                </td>
-                <td>
-                    <button>Submit Request</button>
-                </td>
-            </tr>*@
-        </table>
+        </table>*@
+        ADD REQUEST
+        @using (Html.BeginForm())
+        {
+        <div>
+            @Html.Label("Request Date")
+            @*@Html.LabelFor(m => m.CustomerDate1)*@
+            @Html.TextBoxFor(m => m.CustomerDate1, new { @type = "date", @placeholder = "GETDATE()" })
+            @Html.ValidationMessageFor(m => m.CustomerDate1)
+        </div>
+            <div>
+                @Html.Label("CustomerID")
+                @*@Html.LabelFor(m => m.CustomerID)*@
+                @Html.TextBoxFor(m => m.CustomerID, new { @type = "number", @Value = "760" })
+                @Html.ValidationMessageFor(m => m.CustomerID)
+            </div>
+            <div>
+                @Html.Label("Name")
+                @*@Html.LabelFor(m => m.Name)*@
+                @Html.TextBoxFor(m => m.Name, new { @Value = "Kliewer Ryan & Laurinda" })
+                @Html.ValidationMessageFor(m => m.Name)
+            </div>
+            <div>
+                @Html.Label("Structure")
+                @*@Html.LabelFor(m => m.Structure)*@
+                @Html.TextBoxFor(m => m.Structure)
+                @Html.ValidationMessageFor(m => m.Structure)
+            </div>
+            <div>
+                @Html.Label("CFS Requesting")
+                @*@Html.LabelFor(m => m.CustomerCFS_1)*@
+                @Html.TextBoxFor(m => m.CustomerCFS_1)
+                @Html.ValidationMessageFor(m => m.CustomerCFS_1)
+            </div>
+            <div>
+                @Html.Label("Comments")
+                @*@Html.LabelFor(m => m.CustomerComments_1)*@
+                @Html.TextBoxFor(m => m.CustomerComments_1)
+                @Html.ValidationMessageFor(m => m.CustomerComments_1)
+            </div>
+        }
+        <div>
+            <button type="submit" onclick="AddCustomerRequest(new Customers)">Submit</button>
+        </div>
     </div>
 </body>
