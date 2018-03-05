@@ -1,4 +1,7 @@
-﻿<table class="ActiveRequests">
+﻿@using KlamathIrrigationDistrict.DataLayer.DataModels
+@using PagedList.Mvc;
+@model PagedList.IPagedList<DitchRiderRequests>
+<table class="ActiveRequests">
     <caption>Active Requests (On)</caption>
     <tr>
         <th>@Html.Label("Date")</th>
@@ -19,3 +22,7 @@
         </tr>
     }
 </table>
+<div class="pagination" style="margin-left: 20px;">
+    Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber)
+    of @Model.PageCount @Html.PagedListPager(Model, page => Url.Action("Index4", new { page }))
+</div>

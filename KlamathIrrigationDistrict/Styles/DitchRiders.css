@@ -1,12 +1,12 @@
 ﻿/*Ditch Rider Pages*/
 #Header 
 {
-	float: center;
+	/*float: center;*/
 	list-style-type: none;
 	/*margin-left: 75px;
 	margin-right: 75px;*/
 	overflow: auto;
-	position: float;
+	/*position: float;*/
 	top: 0;
 	display: inline-block;
 	width: 600px;
@@ -25,7 +25,16 @@
 	text-decoration: none;
 	border: 1px solid black;
 }
- 
+
+#RideCenter a
+{
+	display: block;
+	text-align: center;
+	padding: 14px 16px;
+	text-decoration: none;
+	border: 1px solid black;
+}
+
 #Menu
 {
 	float: left;
@@ -249,7 +258,7 @@ input[type=TrackingID]
 #Logo 
 {
 	display: block;
-	postition: relative;
+	/*postition: relative;*/
 	bottom: 0px;
 	overflow: auto;
 	padding: 10px;
@@ -257,8 +266,8 @@ input[type=TrackingID]
 #Logo .footer
 {
 	border-collapse: collapse;
-	width: fill;
-	height: fill;
+	/*width: fill;
+	height: fill;*/
 }
 #Logo img
 {
@@ -274,7 +283,7 @@ input[type=TrackingID]
 #Logo .footer td
 {
 	text-align: center;
-	vertical-align: center;
+	/*vertical-align: center;*/
 	font-size: 17px;
 	border: 1px solid black;
 }

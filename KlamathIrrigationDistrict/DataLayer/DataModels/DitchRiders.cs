@@ -35,6 +35,8 @@ namespace KlamathIrrigationDistrict.DataLayer.DataModels
         public List<DitchRiderRequests> ditchriderrequests { get; set; }
         public List<SelectListItem> HorsleyStructures { get; set; }
         public List<SelectListItem> RyanStructures { get; set; }
+        public List<SelectListItem> RequestStatus_1 { get; set; }
+        public List<SelectListItem> RequestStatus_2 { get; set; }
     }
     public class DitchRiderCustomers
     {
@@ -44,5 +46,7 @@ namespace KlamathIrrigationDistrict.DataLayer.DataModels
         public string Name { get; set; }
         public int CustomerID { get; set; }
         public string Lateral { get; set; }
+        public float TotalAllotment { get; set; }
+        public List<DitchRiderCustomers> ditchridercustomers { get; set; }
     }
 }

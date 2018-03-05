@@ -1,4 +1,7 @@
-﻿<div style="overflow-x: auto;">
+﻿@using KlamathIrrigationDistrict.DataLayer.DataModels
+@using PagedList.Mvc;
+@model PagedList.IPagedList<DitchRiderRequests>
+<div style="overflow-x: auto;">
     <table class="ActiveRequests">
         <caption>Active Requests (off)</caption>
         <tr>
@@ -18,7 +21,11 @@
                 <td>@Model[i].CustomerComments2</td>
                 <td>@Html.ActionLink("Edit Request", "EditRequest4Off", new { @RequestID = Model[i].RequestID }) </td>
             </tr>
-        }
+            }
     </table>
+</div>
+<div class="pagination" style="margin-left: 20px;">
+    Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber)
+    of @Model.PageCount @Html.PagedListPager(Model, page => Url.Action("Index4", new { page }))
 </div>
 

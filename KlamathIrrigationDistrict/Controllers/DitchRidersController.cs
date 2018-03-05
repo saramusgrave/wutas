@@ -25,7 +25,7 @@ namespace KlamathIrrigationDistrict.Controllers
         [HttpGet]
         public ActionResult Index4(int? page)
         {
-            int pageSize = 10;
+            int pageSize = 25;
             int pageIndex = 1;
             pageIndex = page.HasValue ? Convert.ToInt32(page) : 1;
             IPagedList<DitchRiderRequests> ditchRider = null;
@@ -39,10 +39,24 @@ namespace KlamathIrrigationDistrict.Controllers
         }
         //Ditch Rider View Customer List on Ride 4
         [HttpGet]
-        public ActionResult Customers4()
+        public ActionResult Customers4(int? page)
         {
-            var std = _ditchRiderRepo.Customers4();
-            return View(std);
+            int pageSize = 25;
+            int pageIndex = 1;
+            pageIndex = page.HasValue ? Convert.ToInt32(page) : 1;
+            IPagedList<DitchRiderCustomers> ditchRider = null;
+            DitchRidersRepository repository = new DitchRidersRepository();
+            DitchRiderCustomers ditchriderrequests = new DitchRiderCustomers();
+            List<DitchRiderCustomers> obditchriderlist = new List<DitchRiderCustomers>();
+            obditchriderlist = repository.Customers4();
+            ditchriderrequests.ditchridercustomers = obditchriderlist;
+            ditchRider = obditchriderlist.ToPagedList(pageIndex, pageSize);
+            return View(ditchRider);
+
+
+
+            //var std = _ditchRiderRepo.Customers4();
+            //return View(std);
         }
         //Ditch Rider View Active Requests Ride 4 On
         [Authorize (Roles = "Ride 4, Relief Ride 4")]
@@ -109,6 +123,24 @@ namespace KlamathIrrigationDistrict.Controllers
                 new SelectListItem() { Text = "T4603", Value = "T4603"},
                 new SelectListItem() { Text = "P4609", Value = "P4609"},
                 new SelectListItem() { Text = "T4610", Value = "T4610"},
+            };
+            model.RequestStatus_1 = new List<SelectListItem>()
+            {
+                new SelectListItem() { Text = "Pending", Value = "Pending" },
+                new SelectListItem() { Text = "Confirm", Value = "Confirm" },
+                new SelectListItem() { Text = "Rejected", Value = "Rejected" },
+                new SelectListItem() { Text = "Violation", Value = "Violation" },
+                new SelectListItem() { Text = "Contact Office", Value = "Contact Office" },
+                new SelectListItem() { Text = "Wait List", Value = "Wait List" },
+            };
+            model.RequestStatus_2 = new List<SelectListItem>()
+            {
+                new SelectListItem() { Text = "Pending", Value = "Pending" },
+                new SelectListItem() { Text = "Confirm", Value = "Confirm" },
+                new SelectListItem() { Text = "Rejected", Value = "Rejected" },
+                new SelectListItem() { Text = "Violation", Value = "Violation" },
+                new SelectListItem() { Text = "Contact Office", Value = "Contact Office" },
+                new SelectListItem() { Text = "Wait List", Value = "Wait List" },
             };
             return View(model);
 
