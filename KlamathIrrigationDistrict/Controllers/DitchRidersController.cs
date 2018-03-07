@@ -127,11 +127,15 @@ namespace KlamathIrrigationDistrict.Controllers
         //Ditch Rider Add Request as if Customer Ride 4
         [Authorize(Roles = "Ride 4, Relief Ride 4")]
         [HttpGet]
-        public ActionResult AddRequest4On(int CustomerID)
+        public ActionResult AddRequest4On()
         {
-            var std = _ditchRiderRepo.Customers4().Where(s => s.CustomerID == CustomerID).FirstOrDefault();
-            return View(std);
-            //return View(new DitchRiderRequests());
+            DitchRiderRequests repo = new DitchRiderRequests();
+            var std = _ditchRiderRepo.Customers4().Where(s => s.Name == repo.CustomerName).FirstOrDefault();
+            var req = _ditchRiderRepo.Customers4().Where(s => s.StructureID == repo.Structure).FirstOrDefault();
+            var ght = _ditchRiderRepo.Customers4().Where(s => s.CustomerID == repo.CustomerID).FirstOrDefault();
+            
+            return View(new DitchRiderRequests());
+
             //Drop down works
             //DitchRiderRequests model = new DitchRiderRequests();
             //model.HorsleyStructures = new List<SelectListItem>()

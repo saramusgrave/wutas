@@ -71,10 +71,11 @@
                     @Html.HiddenFor(m => m.TimeStampCustomer1)
                    
                     <td>@Html.TextBoxFor(m => m.CustomerDate1, new { @type = "date" }) </td>
-                    <td>@Html.DisplayTextFor(m => m.CustomerID)</td>
-                    <td>@Html.DisplayTextFor(m => m.CustomerName)</td>
+                    <td>@Html.TextBoxFor(m => m.CustomerID)</td>
+                    <td>@Html.TextBoxFor(m => m.CustomerName)</td>
+                    <td>@Html.TextBoxFor(m => m.Structure)</td>
                     @*Drop down works*@
-                    <td>@*@Html.DropDownListFor(m => m.Structure, Model.HorsleyStructures)*@</td>
+                    @*<td>@Html.DropDownListFor(m => m.Structure, Model.HorsleyStructures)</td>*@
                     <td>@Html.TextBoxFor(m => m.CustomerCFS1, new { @type = "number" }) </td>
                     <td>@Html.TextBoxFor(m => m.CustomerComments1, new { @Value = "Made By " + User.Identity.Name })</td>
                     <td><button type="submit">Add</button></td>
@@ -82,5 +83,5 @@
             </tr>
         </table>
     </div>
-        @Html.Partial("_AddRequest4Off")
+        @*@Html.Partial("_AddRequest4Off")*@
 </body>

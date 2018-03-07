@@ -1,0 +1,12 @@
+﻿1>------ Rebuild All started: Project: KlamathIrrigationDistrict, Configuration: Release Any CPU ------
+1>C:\Program Files (x86)\MSBuild\Microsoft\VisualStudio\v14.0\Web\Microsoft.Web.Publishing.targets(3721,5): warning MSB3231: Unable to remove directory "obj\Release\Package\PackageTmp". The directory is not empty.
+1>C:\Program Files (x86)\MSBuild\Microsoft\VisualStudio\v14.0\Web\Microsoft.Web.Publishing.targets(3721,5): warning MSB3231: 
+1>C:\Program Files (x86)\MSBuild\Microsoft\VisualStudio\v14.0\Web\Microsoft.Web.Publishing.targets(3733,5): warning MSB3231: Unable to remove directory "obj\Release\CSAutoParameterize". The directory is not empty.
+1>C:\Program Files (x86)\MSBuild\Microsoft\VisualStudio\v14.0\Web\Microsoft.Web.Publishing.targets(3733,5): warning MSB3231: 
+1>C:\Program Files (x86)\MSBuild\Microsoft\VisualStudio\v14.0\Web\Microsoft.Web.Publishing.targets(3734,5): warning MSB3231: Unable to remove directory "obj\Release\TransformWebConfig". The directory is not empty.
+1>C:\Program Files (x86)\MSBuild\Microsoft\VisualStudio\v14.0\Web\Microsoft.Web.Publishing.targets(3734,5): warning MSB3231: 
+1>C:\Program Files (x86)\MSBuild\Microsoft\VisualStudio\v14.0\Web\Microsoft.Web.Publishing.targets(3735,5): warning MSB3231: Unable to remove directory "obj\Release\ProfileTransformWebConfig". The directory is not empty.
+1>C:\Program Files (x86)\MSBuild\Microsoft\VisualStudio\v14.0\Web\Microsoft.Web.Publishing.targets(3735,5): warning MSB3231: 
+1>C:\Users\smmus\OneDrive\Documents\KlamathIrrigationDistrict\KlamathIrrigationDistrict\KlamathIrrigationDistrict\Controllers\RoleController.cs(142,40,142,52): warning CS0169: The field 'RoleController._UserManager' is never used
+1>  KlamathIrrigationDistrict -> C:\Users\smmus\OneDrive\Documents\KlamathIrrigationDistrict\KlamathIrrigationDistrict\KlamathIrrigationDistrict\bin\KlamathIrrigationDistrict.dll
+========== Rebuild All: 1 succeeded, 0 failed, 0 skipped ==========
