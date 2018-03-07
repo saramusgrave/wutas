@@ -23,18 +23,17 @@ namespace KlamathIrrigationDistrict.Controllers
         [HttpGet]
         public ActionResult Index4(int? page)
         {
-            //int pageSize = 25;
-            //int pageIndex = 1;
-            //pageIndex = page.HasValue ? Convert.ToInt32(page) : 1;
-            //IPagedList<DitchRiderRequests> ditchRider = null;
-            //DitchRidersRepository repository = new DitchRidersRepository();
-            //DitchRiderRequests ditchriderrequests = new DitchRiderRequests();
-            //List<DitchRiderRequests> obditchriderlist = new List<DitchRiderRequests>();
-            //obditchriderlist = repository.ViewRequests4();
-            //ditchriderrequests.ditchriderrequests = obditchriderlist;
-            //ditchRider = obditchriderlist.ToPagedList(pageIndex, pageSize);
-            //return View(ditchRider);
-            return View("Index4");
+            int pageSize = 25;
+            int pageIndex = 1;
+            pageIndex = page.HasValue ? Convert.ToInt32(page) : 1;
+            IPagedList<DitchRiderRequests> ditchRider = null;
+            DitchRidersRepository repository = new DitchRidersRepository();
+            DitchRiderRequests ditchriderrequests = new DitchRiderRequests();
+            List<DitchRiderRequests> obditchriderlist = new List<DitchRiderRequests>();
+            obditchriderlist = repository.ViewActiveRequestOn4();
+            ditchriderrequests.ditchriderrequests = obditchriderlist;
+            ditchRider = obditchriderlist.ToPagedList(pageIndex, pageSize);
+            return View(ditchRider);
         }
         //Ditch Rider View Customer List on Ride 4
         [HttpGet]
@@ -56,17 +55,6 @@ namespace KlamathIrrigationDistrict.Controllers
         [Authorize (Roles = "Ride 4, Relief Ride 4")]
         public ActionResult _ActiveRequestsOn4()
         {
-            //int pageSize = 25;
-            //int pageIndex = 1;
-            //pageIndex = page.HasValue ? Convert.ToInt32(page) : 1;
-            //IPagedList<DitchRiderRequests> ditchRider = null;
-            //DitchRidersRepository repository = new DitchRidersRepository();
-            //DitchRiderRequests ditchriderrequests = new DitchRiderRequests();
-            //List<DitchRiderRequests> obditchriderlist = new List<DitchRiderRequests>();
-            //obditchriderlist = repository.ViewActiveRequestOn4();
-            //ditchriderrequests.ditchriderrequests = obditchriderlist;
-            //ditchRider = obditchriderlist.ToPagedList(pageIndex, pageSize);
-            //return View(ditchRider);
             var std = _ditchRiderRepo.ViewActiveRequestOn4();
             return View(std);
         }
@@ -74,17 +62,6 @@ namespace KlamathIrrigationDistrict.Controllers
         [Authorize (Roles = "Ride 4, Relief Ride 4")]
         public ActionResult _ActiveRequestsOff4()
         {
-            //int pageSize = 25;
-            //int pageIndex = 1;
-            //pageIndex = page.HasValue ? Convert.ToInt32(page) : 1;
-            //IPagedList<DitchRiderRequests> ditchRider = null;
-            //DitchRidersRepository repository = new DitchRidersRepository();
-            //DitchRiderRequests ditchriderrequests = new DitchRiderRequests();
-            //List<DitchRiderRequests> obditchriderlist = new List<DitchRiderRequests>();
-            //obditchriderlist = repository.ViewActiveRequestOff4();
-            //ditchriderrequests.ditchriderrequests = obditchriderlist;
-            //ditchRider = obditchriderlist.ToPagedList(pageIndex, pageSize);
-            //return View(ditchRider);
             var std = _ditchRiderRepo.ViewActiveRequestOff4();
             return View(std);
         }
@@ -150,40 +127,24 @@ namespace KlamathIrrigationDistrict.Controllers
         //Ditch Rider Add Request as if Customer Ride 4
         [Authorize(Roles = "Ride 4, Relief Ride 4")]
         [HttpGet]
-        public ActionResult AddRequest4On()
+        public ActionResult AddRequest4On(int CustomerID)
         {
+            var std = _ditchRiderRepo.Customers4().Where(s => s.CustomerID == CustomerID).FirstOrDefault();
+            return View(std);
+            //return View(new DitchRiderRequests());
             //Drop down works
-            //DropDownListModel model = new DropDownListModel();
-            DitchRiderRequests model = new DitchRiderRequests();
-            model.HorsleyStructures = new List<SelectListItem>()
-            {
-                new SelectListItem() { Text = "T4603", Value = "T4603"},
-                new SelectListItem() { Text = "T4604", Value = "T4604"},
-                new SelectListItem() { Text = "T4505", Value = "T4605"},
-                new SelectListItem() { Text = "T4607", Value = "T4607"},
-                new SelectListItem() { Text = "T4603", Value = "T4603"},
-                new SelectListItem() { Text = "P4609", Value = "P4609"},
-                new SelectListItem() { Text = "T4610", Value = "T4610"},
-            };
-            //model.RequestStatus_1 = new List<SelectListItem>()
+            //DitchRiderRequests model = new DitchRiderRequests();
+            //model.HorsleyStructures = new List<SelectListItem>()
             //{
-            //    new SelectListItem() { Text = "Pending", Value = "Pending" },
-            //    new SelectListItem() { Text = "Confirm", Value = "Confirm" },
-            //    new SelectListItem() { Text = "Rejected", Value = "Rejected" },
-            //    new SelectListItem() { Text = "Violation", Value = "Violation" },
-            //    new SelectListItem() { Text = "Contact Office", Value = "Contact Office" },
-            //    new SelectListItem() { Text = "Wait List", Value = "Wait List" },
+            //    new SelectListItem() { Text = "T4603", Value = "T4603"},
+            //    new SelectListItem() { Text = "T4604", Value = "T4604"},
+            //    new SelectListItem() { Text = "T4505", Value = "T4605"},
+            //    new SelectListItem() { Text = "T4607", Value = "T4607"},
+            //    new SelectListItem() { Text = "T4603", Value = "T4603"},
+            //    new SelectListItem() { Text = "P4609", Value = "P4609"},
+            //    new SelectListItem() { Text = "T4610", Value = "T4610"},
             //};
-            model.RequestStatus_2 = new List<SelectListItem>()
-            {
-                new SelectListItem() { Text = "Pending", Value = "Pending" },
-                new SelectListItem() { Text = "Confirm", Value = "Confirm" },
-                new SelectListItem() { Text = "Rejected", Value = "Rejected" },
-                new SelectListItem() { Text = "Violation", Value = "Violation" },
-                new SelectListItem() { Text = "Contact Office", Value = "Contact Office" },
-                new SelectListItem() { Text = "Wait List", Value = "Wait List" },
-            };
-            return View(model);
+            //return View(model);
 
             //return view without using drop down keep
             //return View(new DitchRiderRequests());
@@ -196,7 +157,7 @@ namespace KlamathIrrigationDistrict.Controllers
             {
                 return View(ditchriderrequests);
             }
-            _ditchRiderRepo.AddRequest4On(ditchriderrequests);
+            _ditchRiderRepo.AddRequest_4On(ditchriderrequests);
             return RedirectToAction("Index4");
         }
         //Ditch Rider Add Request as if Customer Ride 4
@@ -214,7 +175,7 @@ namespace KlamathIrrigationDistrict.Controllers
             {
                 return View(ditchriderrequests);
             }
-            _ditchRiderRepo.AddRequest4Off(ditchriderrequests);
+            _ditchRiderRepo.AddRequest_4Off(ditchriderrequests);
             return RedirectToAction("Index4");
         }
         [OutputCache(Duration = 300, VaryByParam = "id")]

@@ -21,9 +21,9 @@ namespace KlamathIrrigationDistrict.DataLayer.Interfaces
         //View completed Request List for Ride 4 
         List<DitchRiderRequests> ViewRequests4();
         //Add Requests as if customer Ride 4 on
-        void AddRequest4On(DitchRiderRequests ditchriderrequests);
+        void AddRequest_4On(DitchRiderRequests ditchriderrequests);
         //Add Requests as if customer off
-        void AddRequest4Off(DitchRiderRequests ditchriderrequests);
+        void AddRequest_4Off(DitchRiderRequests ditchriderrequests);
         //Edit a Requests as ditch Rider4On
         void EditRequest4On(DitchRiderRequests ditchriderrequests);
         //Edit a Requests as ditch Rider4 off

@@ -90,14 +90,14 @@ namespace KlamathIrrigationDistrict.DataLayer.Repositories
     }
     //View Request for all completed request ViewRequests4
     public List<DitchRiderRequests> ViewRequests4()
-        {
+    {
             List<DitchRiderRequests> RequestList = new List<DitchRiderRequests>();
             using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["KID"].ConnectionString))
             {
                 using (SqlCommand command = new SqlCommand())
                 {
                     command.Connection = connection;
-                    command.CommandText = "SELECT * FROM Requests WHERE Structure LIKE '_4%' ORDER BY CustomerDate1 ";
+                    command.CommandText = "SELECT * FROM Requests WHERE StaffCFS2 IS NOT NULL AND Structure LIKE '_4%'";
                     command.CommandType = CommandType.Text;
                     connection.Open();
                     using (SqlDataReader reader = command.ExecuteReader())
@@ -171,7 +171,7 @@ namespace KlamathIrrigationDistrict.DataLayer.Repositories
                 using (SqlCommand command = new SqlCommand())
                 {
                     command.Connection = connection;
-                    command.CommandText = "SELECT CustomerDate2, CustomerName, Structure, CustomerCFS2, CustomerComments2 FROM Requests WHERE Structure LIKE '_4%' AND StaffCFS2 IS NULL";
+                    command.CommandText = "SELECT CustomerDate2, CustomerName, Structure, CustomerCFS2, CustomerComments2 FROM Requests WHERE Structure LIKE '_4%' AND StaffCFS2 IS NULL AND CustomerCFS2 IS NOT NULL";
                     command.CommandType = CommandType.Text;
                     connection.Open();
                     using (SqlDataReader reader = command.ExecuteReader())
@@ -192,9 +192,8 @@ namespace KlamathIrrigationDistrict.DataLayer.Repositories
             return (RequestList);
         }
 
-
         //Ditch rider4 add request as if customer on
-        public virtual void AddRequest4On(DitchRiderRequests ditchriderrequests)
+        public virtual void AddRequest_4On(DitchRiderRequests ditchriderrequests)
         {
             using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["KID"].ConnectionString))
             {
@@ -204,7 +203,6 @@ namespace KlamathIrrigationDistrict.DataLayer.Repositories
                     command.CommandType = CommandType.StoredProcedure;
                     command.CommandText = "sp_DitchRider_AddRequests4On";
 
-                    
                     command.Parameters.AddWithValue("@TimeStampCustomer1", ditchriderrequests.TimeStampCustomer1);
                     command.Parameters.AddWithValue("@CustomerDate1", ditchriderrequests.CustomerDate1);
                     command.Parameters.AddWithValue("@CustomerID", ditchriderrequests.CustomerID);
@@ -217,8 +215,9 @@ namespace KlamathIrrigationDistrict.DataLayer.Repositories
                 }
             }
         }
+
         //Ditch rider4 add request as if customer off
-        public virtual void AddRequest4Off(DitchRiderRequests ditchriderrequests)
+        public virtual void AddRequest_4Off(DitchRiderRequests ditchriderrequests)
         {
             using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["KID"].ConnectionString))
             {

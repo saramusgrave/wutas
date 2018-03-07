@@ -25,6 +25,7 @@
             <div class="dropdownRequest" style="overflow-x: auto;">
                 <a href="./KIDDitchRiderRide4AppendingWaitlistHTML.html">Appending/Waitlist</a>
                 <a href="/DitchRiders/AddRequest" id="active">Call Requests</a>
+                <a href="/DitchRiders/CompletedRequests">Completed Requests</a>
             </div>
         </li>
         <li class="dropdown">
@@ -68,12 +69,12 @@
                 {
                     @Html.HiddenFor(m => m.RequestID)
                     @Html.HiddenFor(m => m.TimeStampCustomer1)
-                    @*@Html.HiddenFor(m => m.CustomerID, new { @Value = "3681" })*@
+                   
                     <td>@Html.TextBoxFor(m => m.CustomerDate1, new { @type = "date" }) </td>
-                    <td>@Html.TextBoxFor(m => m.CustomerID, new { @type = "number", @Value = "3681" }) </td>
-                    <td>@Html.TextBoxFor(m => m.CustomerName, new { @Value = "Horsley Luther J & Candace O" })</td>
+                    <td>@Html.DisplayTextFor(m => m.CustomerID)</td>
+                    <td>@Html.DisplayTextFor(m => m.CustomerName)</td>
                     @*Drop down works*@
-                    <td>@Html.DropDownListFor(m => m.Structure, Model.HorsleyStructures)</td>
+                    <td>@*@Html.DropDownListFor(m => m.Structure, Model.HorsleyStructures)*@</td>
                     <td>@Html.TextBoxFor(m => m.CustomerCFS1, new { @type = "number" }) </td>
                     <td>@Html.TextBoxFor(m => m.CustomerComments1, new { @Value = "Made By " + User.Identity.Name })</td>
                     <td><button type="submit">Add</button></td>
