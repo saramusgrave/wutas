@@ -58,12 +58,11 @@
                 <a href="./KIDDitchRiderRide4CanalsC4SHTML.html">C4S</a>
             </div>
         </li>
-        <a href="~/Account/Login"><button class="LogOutBtn">Log Out</button></a>
+        <li><a href="~/Account/Login">Log Out</a></li>
     </ul>
 </header>
 <body>
-    <a href="Index4" class="previous">&laquo; Previous</a><br />
-    Update Request
+    <a href="Index4" class="previous"><br />&laquo; Request</a>
     @using (Html.BeginForm())
     {
         @Html.HiddenFor(s => s.RequestID)
@@ -80,8 +79,9 @@
         </div>
         <div>
             @Html.Label("Status: ")
-            @Html.DropDownListFor(s => s.RequestStatus2, Model.RequestStatus_2)
-            @*@Html.TextBoxFor(s => s.RequestStatus2)*@
+            @Html.DropDownList("StatusList", "Select")
+            @Html.DropDownList("RequestStatus_2", Model.RequestStatus_2)
+            @Html.TextBoxFor(s => s.RequestStatus2)
         </div>
         <div>
             @Html.Label("CFS: ")

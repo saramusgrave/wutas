@@ -1,11 +1,13 @@
-﻿using System;
+﻿using KlamathIrrigationDistrict.DataLayer.DataModels;
+using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Web;
 using System.Web.Mvc;
 
-namespace KlamathIrrigationDistrict.DataLayer.DataModels
+namespace KlamathIrrigationDistrict.Models
 {
-    //Request tabel
-    public class DitchRiderRequests
+    public class DropDownListModel : Controller
     {
         public int RequestID { get; set; }
         public DateTime TimeStampCustomer1 { get { return _Getdate; } set { _Getdate = value; } }
@@ -15,7 +17,7 @@ namespace KlamathIrrigationDistrict.DataLayer.DataModels
         public string Structure { get; set; }
         public int CustomerCFS1 { get; set; }
         public string CustomerComments1 { get; set; }
-        public DateTime TimeStampStaff1 { get {return _Getdate; } set { _Getdate = value; }}
+        public DateTime TimeStampStaff1 { get { return _Getdate; } set { _Getdate = value; } }
         public string Staff1 { get; set; }
         public DateTime StaffDate1 { get; set; }
         public string RequestStatus1 { get; set; }
@@ -37,23 +39,6 @@ namespace KlamathIrrigationDistrict.DataLayer.DataModels
         public List<SelectListItem> RyanStructures { get; set; }
         public List<SelectListItem> RequestStatus_1 { get; set; }
         public List<SelectListItem> RequestStatus_2 { get; set; }
-    }
-    public class DitchRiderCustomers
-    {
-        public string StructureID { get; set; }
-        public int Ride { get; set; }
-        public int CustomerMTLHisID { get; set; }
-        public string Name { get; set; }
-        public int CustomerID { get; set; }
-        public string Lateral { get; set; }
-        public float TotalAllotment { get; set; }
-        public List<DitchRiderCustomers> ditchridercustomers { get; set; }
-    }
-    public class DitchRiderRequestStatus
-    {
-        public int RequestStatusID { get; set; }
-        public string RequestStatusName { get; set; }
-        public List<SelectListItem> Status { get; set; }
-        public List<DitchRiderRequestStatus> St { get; set; }
+
     }
 }

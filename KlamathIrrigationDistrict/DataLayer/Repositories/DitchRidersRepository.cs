@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
+using System.Web.Mvc;
 
 namespace KlamathIrrigationDistrict.DataLayer.Repositories
 {
@@ -19,8 +20,8 @@ namespace KlamathIrrigationDistrict.DataLayer.Repositories
                 using (SqlCommand command = new SqlCommand())
                 {
                     command.Connection = connection;
-                    command.CommandText = "SELECT * FORM Requests";
-                    command.CommandType = CommandType.Text;
+                    command.CommandText = "sp_DitchRider_Get";
+                    command.CommandType = CommandType.StoredProcedure;
 
                     connection.Open();
                     using (SqlDataReader reader = command.ExecuteReader())
@@ -96,7 +97,7 @@ namespace KlamathIrrigationDistrict.DataLayer.Repositories
                 using (SqlCommand command = new SqlCommand())
                 {
                     command.Connection = connection;
-                    command.CommandText = "SELECT * FROM Requests WHERE Structure LIKE '4%' ORDER BY CustomerDate1 ";
+                    command.CommandText = "SELECT * FROM Requests WHERE Structure LIKE '_4%' ORDER BY CustomerDate1 ";
                     command.CommandType = CommandType.Text;
                     connection.Open();
                     using (SqlDataReader reader = command.ExecuteReader())
@@ -112,7 +113,7 @@ namespace KlamathIrrigationDistrict.DataLayer.Repositories
                             p.Structure = reader["Structure"].ToString();
                             p.CustomerCFS1 = int.Parse(reader["CustomerCFS1"].ToString());
                             p.TimeStampStaff1 = DateTime.Parse(reader["TimeStampStaff1"].ToString());
-                            p.Staff1 = reader["Staff"].ToString();
+                            p.Staff1 = reader["Staff1"].ToString();
                             p.StaffDate1 = DateTime.Parse(reader["StaffDate1"].ToString());
                             p.RequestStatus1 = reader["RequestStatus1"].ToString();
                             p.StaffCFS1 = int.Parse(reader["StaffCFS1"].ToString());
@@ -141,7 +142,7 @@ namespace KlamathIrrigationDistrict.DataLayer.Repositories
                 using (SqlCommand command = new SqlCommand())
                 {
                     command.Connection = connection;
-                    command.CommandText = "SELECT CustomerDate1, CustomerName, Structure, CustomerCFS1, CustomerComments1 FROM Requests WHERE Structure LIKE '4%' ORDER BY CustomerDate1";
+                    command.CommandText = "SELECT CustomerDate1, CustomerName, Structure, CustomerCFS1, CustomerComments1 FROM Requests WHERE Structure LIKE '_4%' AND StaffCFS1 IS NULL";
                     command.CommandType = CommandType.Text;
                     connection.Open();
                     using (SqlDataReader reader = command.ExecuteReader())
@@ -170,7 +171,7 @@ namespace KlamathIrrigationDistrict.DataLayer.Repositories
                 using (SqlCommand command = new SqlCommand())
                 {
                     command.Connection = connection;
-                    command.CommandText = "SELECT CustomerDate2, CustomerName, Structure, CustomerCFS2, CustomerComments2 FROM Requests  WHERE Structure LIKE '4%' ORDER BY CustomerDate2";
+                    command.CommandText = "SELECT CustomerDate2, CustomerName, Structure, CustomerCFS2, CustomerComments2 FROM Requests WHERE Structure LIKE '_4%' AND StaffCFS2 IS NULL";
                     command.CommandType = CommandType.Text;
                     connection.Open();
                     using (SqlDataReader reader = command.ExecuteReader())
@@ -201,8 +202,9 @@ namespace KlamathIrrigationDistrict.DataLayer.Repositories
                 {
                     command.Connection = connection;
                     command.CommandType = CommandType.StoredProcedure;
-                    command.CommandText = "sp_DitchRider_AddRequests4";
+                    command.CommandText = "sp_DitchRider_AddRequests4On";
 
+                    
                     command.Parameters.AddWithValue("@TimeStampCustomer1", ditchriderrequests.TimeStampCustomer1);
                     command.Parameters.AddWithValue("@CustomerDate1", ditchriderrequests.CustomerDate1);
                     command.Parameters.AddWithValue("@CustomerID", ditchriderrequests.CustomerID);
@@ -224,7 +226,7 @@ namespace KlamathIrrigationDistrict.DataLayer.Repositories
                 {
                     command.Connection = connection;
                     command.CommandType = CommandType.StoredProcedure;
-                    command.CommandText = "sp_DitchRider_Add_Requests4";
+                    command.CommandText = "sp_DitchRider_AddRequests4Off";
 
                     command.Parameters.AddWithValue("@TimeStampCustomer2", ditchriderrequests.TimeStampCustomer2);
                     command.Parameters.AddWithValue("@CustomerDate2", ditchriderrequests.CustomerDate2);
@@ -235,7 +237,7 @@ namespace KlamathIrrigationDistrict.DataLayer.Repositories
                 }
             }
         }
-        //Edit a Requests as ditch Rider on 4
+        //Edit a Requests as Ditch Rider 4 On
         public virtual void EditRequest4On(DitchRiderRequests ditchriderrequests)
         {
             using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["KID"].ConnectionString))
@@ -244,7 +246,7 @@ namespace KlamathIrrigationDistrict.DataLayer.Repositories
                 {
                     command.Connection = connection;
                     command.CommandType = CommandType.StoredProcedure;
-                    command.CommandText = "sp_DitchRiderEditRequests4";
+                    command.CommandText = "sp_DitchRider_EditRequests4On";
 
                     command.Parameters.AddWithValue("@RequestID", ditchriderrequests.RequestID);
                     command.Parameters.AddWithValue("@TimeStampStaff1", ditchriderrequests.TimeStampCustomer1);
@@ -267,7 +269,7 @@ namespace KlamathIrrigationDistrict.DataLayer.Repositories
                 {
                     command.Connection = connection;
                     command.CommandType = CommandType.StoredProcedure;
-                    command.CommandText = "sp_DitchRider_EditRequests4";
+                    command.CommandText = "sp_DitchRider_EditRequests4Off";
                     command.Parameters.AddWithValue("@RequestID", ditchriderrequests.RequestID);
                     command.Parameters.AddWithValue("@TimeStampStaff2", ditchriderrequests.TimeStampCustomer2);
                     command.Parameters.AddWithValue("@Staff2", ditchriderrequests.Staff2);
@@ -280,6 +282,81 @@ namespace KlamathIrrigationDistrict.DataLayer.Repositories
                 }
             }
         }
+        public List<DitchRiderRequestStatus> Status()
+        {
+            List<DitchRiderRequestStatus> list = new List<DitchRiderRequestStatus>();
+            using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["KID"].ConnectionString))
+            {
+                using (SqlCommand command = new SqlCommand())
+                {
+                    command.Connection = connection;
+                    command.CommandText = "SELECT * FROM RequestStatusList";
+                    command.CommandType = CommandType.Text;
+                    connection.Open();
+                    using (SqlDataReader reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            DitchRiderRequestStatus r = new DitchRiderRequestStatus();
+                            r.RequestStatusID = int.Parse(reader["RequestStatusID"].ToString());
+                            r.RequestStatusName = reader["ResquestStatusName"].ToString();
+                            list.Add(r);
+                        }
+                    }
+                }
+            }
+            return (list);
+        }
+        public  List<SelectListItem> RequestStatus_2()
+        {
+            List<SelectListItem> status = new List<SelectListItem>();
+            string constr = ConfigurationManager.ConnectionStrings["KID"].ConnectionString;
+            using (SqlConnection con = new SqlConnection(constr))
+            {
+                string query = "SELECT RequestStatusName, RequestSatusID FROM RequestStatusList";
+                using (SqlCommand cmd = new SqlCommand(query))
+                {
+                    cmd.Connection = con;
+                    con.Open();
+                    using (SqlDataReader sdr = cmd.ExecuteReader())
+                    {
+                        while (sdr.Read())
+                        {
+                            status.Add(new SelectListItem { Text = sdr["RequestStatusName"].ToString(), Value = sdr["RequestStatusID"].ToString()});
+                        }
+                    }
+                    con.Close();
+                }
+            }
+            return status;
+                //using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["KID"].ConnectionString))
+                //{
+                //    using (SqlCommand command = new SqlCommand())
+                //    {
+                //        command.Connection = connection;
+                //        command.CommandText = "SELECT * FROM RequestStatusList";
+                //        command.CommandType = CommandType.Text;
+                //        connection.Open();
+                //        using (SqlDataReader reader = command.ExecuteReader())
+                //        {
+                //            while (reader.Read())
+                //            {
+                //                status.Add(new SelectListItem
+                //                {
+                //                    Text = reader["ResquestStatusName"].ToString(),
+                //                    Value = reader["RequestStatusID"].ToString()
+                //                });
+                //            }
+                //        }
+                //    }
+                //}
+                //return status;
+        }
+
+
+
+
+
 
 
 
@@ -330,7 +407,26 @@ namespace KlamathIrrigationDistrict.DataLayer.Repositories
             }
             return (RequestList);
         }
-        
+        //Ditch rider4 add request as if customer off
+        public virtual void AddRequest5Off(DitchRiderRequests ditchriderrequests)
+        {
+            using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["KID"].ConnectionString))
+            {
+                using (SqlCommand command = new SqlCommand())
+                {
+                    command.Connection = connection;
+                    command.CommandType = CommandType.StoredProcedure;
+                    command.CommandText = "sp_DitchRider_AddRequests5On";
+
+                    command.Parameters.AddWithValue("@TimeStampCustomer2", ditchriderrequests.TimeStampCustomer2);
+                    command.Parameters.AddWithValue("@CustomerDate2", ditchriderrequests.CustomerDate2);
+                    command.Parameters.AddWithValue("@CustomerCFS2", ditchriderrequests.CustomerCFS2);
+                    command.Parameters.AddWithValue("@CustomerComments2", ditchriderrequests.CustomerComments2);
+                    connection.Open();
+                    command.ExecuteNonQuery();
+                }
+            }
+        }
         //Ditch rider5 add request as if customer on
         public virtual void AddRequest5On(DitchRiderRequests ditchriderrequests)
         {
@@ -340,7 +436,7 @@ namespace KlamathIrrigationDistrict.DataLayer.Repositories
                 {
                     command.Connection = connection;
                     command.CommandType = CommandType.StoredProcedure;
-                    command.CommandText = "sp_DitchRider_AddRequests5";
+                    command.CommandText = "sp_DitchRider_AddRequests5On";
 
                     command.Parameters.AddWithValue("@TimeStampCustomer1", ditchriderrequests.TimeStampCustomer1);
                     command.Parameters.AddWithValue("@CustomerDate1", ditchriderrequests.CustomerDate1);
@@ -364,7 +460,7 @@ namespace KlamathIrrigationDistrict.DataLayer.Repositories
                 {
                     command.Connection = connection;
                     command.CommandType = CommandType.StoredProcedure;
-                    command.CommandText = "sp_DitchRiderEditRequests5";
+                    command.CommandText = "sp_DitchRider_EditRequests5On";
                     command.Parameters.AddWithValue("@RequestID", ditchriderrequests.RequestID);
                     command.Parameters.AddWithValue("@TimeStampStaff1", ditchriderrequests.TimeStampCustomer1);
                     command.Parameters.AddWithValue("@Staff1", ditchriderrequests.Staff1);
@@ -387,7 +483,7 @@ namespace KlamathIrrigationDistrict.DataLayer.Repositories
                 {
                     command.Connection = connection;
                     command.CommandType = CommandType.StoredProcedure;
-                    command.CommandText = "sp_DitchRider_EditRequests5";
+                    command.CommandText = "sp_DitchRider_EditRequests5Off";
                     command.Parameters.AddWithValue("@RequestID", ditchriderrequests.RequestID);
                     command.Parameters.AddWithValue("@TimeStampStaff2", ditchriderrequests.TimeStampCustomer2);
                     command.Parameters.AddWithValue("@Staff2", ditchriderrequests.Staff2);

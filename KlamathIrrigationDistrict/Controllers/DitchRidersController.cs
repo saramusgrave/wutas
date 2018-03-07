@@ -1,12 +1,10 @@
 ﻿using KlamathIrrigationDistrict.DataLayer.DataModels;
 using KlamathIrrigationDistrict.DataLayer.Interfaces;
 using KlamathIrrigationDistrict.DataLayer.Repositories;
-using KlamathIrrigationDistrict.Models;
 using PagedList;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 
 namespace KlamathIrrigationDistrict.Controllers
@@ -25,17 +23,18 @@ namespace KlamathIrrigationDistrict.Controllers
         [HttpGet]
         public ActionResult Index4(int? page)
         {
-            int pageSize = 25;
-            int pageIndex = 1;
-            pageIndex = page.HasValue ? Convert.ToInt32(page) : 1;
-            IPagedList<DitchRiderRequests> ditchRider = null;
-            DitchRidersRepository repository = new DitchRidersRepository();
-            DitchRiderRequests ditchriderrequests = new DitchRiderRequests();
-            List<DitchRiderRequests> obditchriderlist = new List<DitchRiderRequests>();
-            obditchriderlist = repository.ViewRequests4();
-            ditchriderrequests.ditchriderrequests = obditchriderlist;
-            ditchRider = obditchriderlist.ToPagedList(pageIndex, pageSize);
-            return View(ditchRider);
+            //int pageSize = 25;
+            //int pageIndex = 1;
+            //pageIndex = page.HasValue ? Convert.ToInt32(page) : 1;
+            //IPagedList<DitchRiderRequests> ditchRider = null;
+            //DitchRidersRepository repository = new DitchRidersRepository();
+            //DitchRiderRequests ditchriderrequests = new DitchRiderRequests();
+            //List<DitchRiderRequests> obditchriderlist = new List<DitchRiderRequests>();
+            //obditchriderlist = repository.ViewRequests4();
+            //ditchriderrequests.ditchriderrequests = obditchriderlist;
+            //ditchRider = obditchriderlist.ToPagedList(pageIndex, pageSize);
+            //return View(ditchRider);
+            return View("Index4");
         }
         //Ditch Rider View Customer List on Ride 4
         [HttpGet]
@@ -52,16 +51,22 @@ namespace KlamathIrrigationDistrict.Controllers
             ditchriderrequests.ditchridercustomers = obditchriderlist;
             ditchRider = obditchriderlist.ToPagedList(pageIndex, pageSize);
             return View(ditchRider);
-
-
-
-            //var std = _ditchRiderRepo.Customers4();
-            //return View(std);
         }
         //Ditch Rider View Active Requests Ride 4 On
         [Authorize (Roles = "Ride 4, Relief Ride 4")]
         public ActionResult _ActiveRequestsOn4()
         {
+            //int pageSize = 25;
+            //int pageIndex = 1;
+            //pageIndex = page.HasValue ? Convert.ToInt32(page) : 1;
+            //IPagedList<DitchRiderRequests> ditchRider = null;
+            //DitchRidersRepository repository = new DitchRidersRepository();
+            //DitchRiderRequests ditchriderrequests = new DitchRiderRequests();
+            //List<DitchRiderRequests> obditchriderlist = new List<DitchRiderRequests>();
+            //obditchriderlist = repository.ViewActiveRequestOn4();
+            //ditchriderrequests.ditchriderrequests = obditchriderlist;
+            //ditchRider = obditchriderlist.ToPagedList(pageIndex, pageSize);
+            //return View(ditchRider);
             var std = _ditchRiderRepo.ViewActiveRequestOn4();
             return View(std);
         }
@@ -69,12 +74,35 @@ namespace KlamathIrrigationDistrict.Controllers
         [Authorize (Roles = "Ride 4, Relief Ride 4")]
         public ActionResult _ActiveRequestsOff4()
         {
+            //int pageSize = 25;
+            //int pageIndex = 1;
+            //pageIndex = page.HasValue ? Convert.ToInt32(page) : 1;
+            //IPagedList<DitchRiderRequests> ditchRider = null;
+            //DitchRidersRepository repository = new DitchRidersRepository();
+            //DitchRiderRequests ditchriderrequests = new DitchRiderRequests();
+            //List<DitchRiderRequests> obditchriderlist = new List<DitchRiderRequests>();
+            //obditchriderlist = repository.ViewActiveRequestOff4();
+            //ditchriderrequests.ditchriderrequests = obditchriderlist;
+            //ditchRider = obditchriderlist.ToPagedList(pageIndex, pageSize);
+            //return View(ditchRider);
             var std = _ditchRiderRepo.ViewActiveRequestOff4();
             return View(std);
         }
         //Ditch Rider Edit Request Ride 4 On
         public ActionResult EditRequest4On(int RequestID)
         {
+            //This shit works!!!
+            DitchRiderRequests model = new DitchRiderRequests();
+            var list = model.RequestStatus_1 = new List<SelectListItem>()
+            {
+                new SelectListItem() { Text = "Pending", Value = "Pending" },
+                new SelectListItem() { Text = "Confirm", Value = "Confirm" },
+                new SelectListItem() { Text = "Rejected", Value = "Rejected" },
+                new SelectListItem() { Text = "Violation", Value = "Violation" },
+                new SelectListItem() { Text = "Contact Office", Value = "Contact Office" },
+                new SelectListItem() { Text = "Wait List", Value = "Wait List" },
+            };
+            ViewData["RequestStatus_1"] = list;
             var std = _ditchRiderRepo.ViewRequests4().Where(s => s.RequestID == RequestID).FirstOrDefault();
             return View(std);
         }
@@ -86,13 +114,25 @@ namespace KlamathIrrigationDistrict.Controllers
             DateTime StaffDate1 = std.StaffDate1;
             int StaffCFS1 = std.StaffCFS1;
             string StaffComments1 = std.StaffComments1;
+            string RequestStatus1 = std.RequestStatus1;
             _ditchRiderRepo.EditRequest4On(std);
-            return RedirectToAction("Index4");
+           return RedirectToAction("Index4");
         }
         //Ditch Rider Edit Request Ride 4 Off
         [Authorize(Roles = "Ride 4, Relief Ride 4")]
         public ActionResult EditRequest4Off(int RequestID)
         {
+            DitchRiderRequests model = new DitchRiderRequests();
+            var list = model.RequestStatus_2 = new List<SelectListItem>()
+            {
+                new SelectListItem() { Text = "Pending", Value = "Pending" },
+                new SelectListItem() { Text = "Confirm", Value = "Confirm" },
+                new SelectListItem() { Text = "Rejected", Value = "Rejected" },
+                new SelectListItem() { Text = "Violation", Value = "Violation" },
+                new SelectListItem() { Text = "Contact Office", Value = "Contact Office" },
+                new SelectListItem() { Text = "Wait List", Value = "Wait List" },
+            };
+            ViewData["RequestStatus_2"] = list;
             var std = _ditchRiderRepo.ViewRequests4().Where(s => s.RequestID == RequestID).FirstOrDefault();
             return View(std);
         }
@@ -113,6 +153,7 @@ namespace KlamathIrrigationDistrict.Controllers
         public ActionResult AddRequest4On()
         {
             //Drop down works
+            //DropDownListModel model = new DropDownListModel();
             DitchRiderRequests model = new DitchRiderRequests();
             model.HorsleyStructures = new List<SelectListItem>()
             {
@@ -124,15 +165,15 @@ namespace KlamathIrrigationDistrict.Controllers
                 new SelectListItem() { Text = "P4609", Value = "P4609"},
                 new SelectListItem() { Text = "T4610", Value = "T4610"},
             };
-            model.RequestStatus_1 = new List<SelectListItem>()
-            {
-                new SelectListItem() { Text = "Pending", Value = "Pending" },
-                new SelectListItem() { Text = "Confirm", Value = "Confirm" },
-                new SelectListItem() { Text = "Rejected", Value = "Rejected" },
-                new SelectListItem() { Text = "Violation", Value = "Violation" },
-                new SelectListItem() { Text = "Contact Office", Value = "Contact Office" },
-                new SelectListItem() { Text = "Wait List", Value = "Wait List" },
-            };
+            //model.RequestStatus_1 = new List<SelectListItem>()
+            //{
+            //    new SelectListItem() { Text = "Pending", Value = "Pending" },
+            //    new SelectListItem() { Text = "Confirm", Value = "Confirm" },
+            //    new SelectListItem() { Text = "Rejected", Value = "Rejected" },
+            //    new SelectListItem() { Text = "Violation", Value = "Violation" },
+            //    new SelectListItem() { Text = "Contact Office", Value = "Contact Office" },
+            //    new SelectListItem() { Text = "Wait List", Value = "Wait List" },
+            //};
             model.RequestStatus_2 = new List<SelectListItem>()
             {
                 new SelectListItem() { Text = "Pending", Value = "Pending" },
@@ -206,6 +247,22 @@ namespace KlamathIrrigationDistrict.Controllers
             };
             return ViewRequests4(RequestID);
         }
+        //View Completed on and off reuests
+        public ActionResult CompletedRequests(int ? page)
+        {
+            int pageSize = 25;
+            int pageIndex = 1;
+            pageIndex = page.HasValue ? Convert.ToInt32(page) : 1;
+            IPagedList<DitchRiderRequests> ditchRider = null;
+            DitchRidersRepository repository = new DitchRidersRepository();
+            DitchRiderRequests ditchriderrequests = new DitchRiderRequests();
+            List<DitchRiderRequests> obditchriderlist = new List<DitchRiderRequests>();
+            obditchriderlist = repository.ViewRequests4();
+            ditchriderrequests.ditchriderrequests = obditchriderlist;
+            ditchRider = obditchriderlist.ToPagedList(pageIndex, pageSize);
+            return View(ditchRider);
+        }
+
 
 
 

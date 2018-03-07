@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Web.Mvc;
 
 namespace KlamathIrrigationDistrict.DataLayer.Interfaces
 {
@@ -27,6 +28,9 @@ namespace KlamathIrrigationDistrict.DataLayer.Interfaces
         void EditRequest4On(DitchRiderRequests ditchriderrequests);
         //Edit a Requests as ditch Rider4 off
         void EditRequest4Off(DitchRiderRequests ditchriderrequests);
+
+        List<SelectListItem> RequestStatus_2();
+        List<DitchRiderRequestStatus> Status();
 
 
 

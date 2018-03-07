@@ -9,14 +9,12 @@
     <title>KID: Ditch Rider</title>
     <meta name="viewport" content="width=device-width" />
     <link rel="stylesheet" href="~/Styles/DitchRiders.css" />
-    <script src="~/Scripts/KIDDitchRidersJS.js"></script>
+    <link rel="stylesheet" href="~/Scripts/KIDDitchRidersJS.js" />
 </head>
 <!--List of Rides class=dropdownRide-->
 <header id="Header">
     <div id="RideCenter">
-        <li class="dropdown">
-            <a class="./KIDDitchRider4HTML.html">Ride 4</a>
-        </li>
+        <a class="dropdown">Ride 4</a>
     </div>
     <!--Log in Name, Customers, Requests, Canals, LogOUt id=Menu-->
     <ul id="Menu">
@@ -50,7 +48,7 @@
                 <a href="./KIDDitchRiderRide4CanalsC4SHTML.html">C4S</a>
             </div>
         </li>
-        <a href="~/Account/Login"><button class="LogOutBtn">Log Out</button></a>
+        <li><a href="~/Account/Login">Log Out</a></li>
     </ul>
 </header>
 <body>
@@ -79,6 +77,6 @@
     </div>
     <div class="pagination" style="margin-left: 20px;">
         Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber)
-        of @Model.PageCount @Html.PagedListPager(Model, page => Url.Action("Index4", new { page }))
-    </div>
+        of @Model.PageCount @Html.PagedListPager(Model, page => Url.Action("Customers4", new { page }))
+    </div><br />
 </body>

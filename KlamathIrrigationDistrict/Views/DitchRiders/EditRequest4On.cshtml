@@ -12,23 +12,11 @@
 <!--List of Rides class=dropdownRide-->
 <header id="Header">
     <div id="RideCenter">
-        <li class="dropdown">
-            <a class="./KIDDitchRider4HTML.html">Ride 4</a>
-            <div class="dropdownRide" style="overflow-x: auto;">
-                <a href="../Ride1/KIDDitchRider1HTML.html">1</a>
-                <a href="../Ride2/KIDDitchRider2HTML.html">2</a>
-                <a href="../Ride3/KIDDitchRider3HTML.html">3</a>
-                <a href="./KIDDitchRider4HTML.html" id="active">4</a>
-                <a href="../Ride5/KIDDitchRider5HTML.html">5</a>
-                <a href="../Ride6/KIDDitchRider6HTML.html">6</a>
-                <a href="../Ride7/KIDDitchRider7HTML.html">7</a>
-                <a href="../Ride8/KIDDitchRider8HTML.html">8</a>
-            </div>
-        </li>
+        <a class="dropdown">Ride 4</a>
     </div>
     <!--Log in Name, Customers, Requests, Canals, LogOUt id=Menu-->
     <ul id="Menu">
-        <li><label class="FirstLast">Scott.Linville</label></li>
+        <li><label class="FirstLast">@User.Identity.Name</label></li>
         <li><a href="./KIDDitchRiderRide4CustomersHTML.html">Customers</a></li>
         <li class="dropdown">
             <a class="RequestDropDown" href="./KIDDitchRider4HTML.html" id="active">Requests</a>
@@ -58,12 +46,11 @@
                 <a href="./KIDDitchRiderRide4CanalsC4SHTML.html">C4S</a>
             </div>
         </li>
-        <a href="~/Account/Login"><button class="LogOutBtn">Log Out</button></a>
+        <li><a href="~/Account/Login">Log Out</a></li>
     </ul>
 </header>
 <body>
-    <a href="Index4" class="previous">&laquo; Previous</a><br />
-    Update Request
+    <a href="Index4" class="previous"><br />&laquo; Request</a>
     @using (Html.BeginForm())
     {
         @Html.HiddenFor(s => s.RequestID)
@@ -72,7 +59,7 @@
 
         <div>
             @Html.Label("Customer Name: ")
-            @Html.TextBoxFor(s => s.CustomerName, new { @disabled = "diabled", @class = "CustomerName"})
+            @Html.DisplayTextFor(s => s.CustomerName)
         </div>
         <div>
             @Html.Label("Date: ")
@@ -80,7 +67,7 @@
         </div>
         <div>
             @Html.Label("Status: ")
-            @Html.TextBoxFor(s => s.RequestStatus1)
+            @Html.DropDownList("RequestStatus_1", Model.RequestStatus_1)
         </div>
         <div>
             @Html.Label("CFS: ")
