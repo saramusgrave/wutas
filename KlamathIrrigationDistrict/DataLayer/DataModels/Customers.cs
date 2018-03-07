@@ -15,6 +15,8 @@ namespace KlamathIrrigationDistrict.DataLayer.DataModels
 
         //-------------------------------------------------------------------------------------
         //Customers(int CustomerID, int TrackingID, String Name, Decimal TotalAllotment)
+        //public string Position { get; set { "Customer"}; }
+
         [Required]
         public int CustomerID { get; set; }
         [Required]
