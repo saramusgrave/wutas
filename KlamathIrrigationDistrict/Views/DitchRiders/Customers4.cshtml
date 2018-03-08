@@ -73,7 +73,7 @@
                     <td>@Model[i].Lateral</td>
                     <td>@Model[i].CustomerID</td>
                     <td>@Model[i].TotalAllotment</td>
-                    <td>@Html.ActionLink("Add Water", "AddRequest4On", new { @CustomerID = Model[i].CustomerID })</td>
+                    <td>@Html.ActionLink("Add Water", "AddRequest4On", new { @CustomerID = Model[i].CustomerID, @Name = Model[i].Name, @Structure = Model[i].StructureID})</td>
                 </tr>
             }
         </table>
