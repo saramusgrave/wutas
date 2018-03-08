@@ -110,7 +110,11 @@
                 </tr>
             }
         </table>
-    </div>    
+    </div>
+    @*<div class="pagination" style="margin-left: 20px;">
+            Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber)
+            of @Model.PageCount @Html.PagedListPager(Model, page => Url.Action("CustomerWaterHistory", new { page }))
+        </div>*@
 </body>
 
 @*<div style="overflow-x: auto;">

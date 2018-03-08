@@ -153,8 +153,8 @@ namespace KlamathIrrigationDistrict.DataLayer.Repositories
                             Customers s = new Customers();
                             s.CustomerID = int.Parse(reader["CustomerID"].ToString());
                             s.Name = reader["Name"].ToString();
-                            s.Address1 = reader["StreetName"].ToString();
-                            //s.Address2 = reader["Address2"].ToString();
+                            s.Address1 = reader["Address1"].ToString();
+                            s.Address2 = reader["Address2"].ToString();
                             s.City = reader["City"].ToString();
                             s.State = reader["State"].ToString();
                             s.Zip = int.Parse(reader["Zip"].ToString());
@@ -206,8 +206,10 @@ namespace KlamathIrrigationDistrict.DataLayer.Repositories
             List<Customers> RequestList = new List<Customers>();
             using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["KID"].ConnectionString))
             {
+                Customers p = new Customers();
                 using (SqlCommand command = new SqlCommand())
                 {
+                    
                     command.Connection = connection;
                     //command.CommandText = "SELECT * FROM Requests";
                     command.CommandText = "SELECT * FROM Requests WHERE CustomerID = @CustomerID";
@@ -218,7 +220,7 @@ namespace KlamathIrrigationDistrict.DataLayer.Repositories
                     {
                         while (reader.Read())
                         {
-                            Customers p = new Customers();
+                            //Customers p = new Customers();
                             p.RequestID = int.Parse(reader["RequestID"].ToString());
                             p.TimeStampCustomer1 = DateTime.Parse(reader["TimeStampCustomer1"].ToString());
                             p.CustomerDate1 = DateTime.Parse(reader["CustomerDate1"].ToString());
@@ -228,7 +230,8 @@ namespace KlamathIrrigationDistrict.DataLayer.Repositories
                             p.CustomerCFS_1 = int.Parse(reader["CustomerCFS1"].ToString());
                             p.CustomerComments_1 = reader["CustomerComments1"].ToString();
                             p.TimeStampStaff1 = DateTime.Parse(reader["TimeStampStaff1"].ToString());
-                            p.StaffName_1 = reader["Staff"].ToString();
+                            p.StaffName_1 = reader["Staff1"].ToString();
+                            //does not like "StaffDate1"
                             p.StaffDate1 = DateTime.Parse(reader["StaffDate1"].ToString());
                             p.RequestStatus1 = reader["RequestStatus1"].ToString();
                             p.StaffCFS1 = int.Parse(reader["StaffCFS1"].ToString());
@@ -248,29 +251,64 @@ namespace KlamathIrrigationDistrict.DataLayer.Repositories
                         }
                     }
                 }
+
+                //am i a madman for making two sql statements to be read????
+                using (SqlCommand command = new SqlCommand())
+                {
+                    command.Connection = connection;
+                    command.CommandText = "SELECT TotalAllotment FROM [Ride Customer List TotalAllotment] WHERE CustomerID = @CustomerID";
+                    command.Parameters.AddWithValue("@CustomerID", CustomerID);
+                    command.CommandType = CommandType.Text;
+                    //connection.Open();
+                    using (SqlDataReader reader = command.ExecuteReader())
+                    {
+                        if (reader.Read())
+                        {                            
+                            p.TotalAllotment = Decimal.Parse(reader["TotalAllotment"].ToString());
+                            RequestList.Add(p);
+                        }
+                    }
+                }
+
             }
             return (RequestList);
         }
 
-        //use the stored procedure to display the customer's water history
-        //parameter need to be customerID? Not customers?
-        //public virtual void ViewTotalAllotment (int CustomerID)
-        //{
-        //    //Customers C_CustomerID = CustomerID;
-        //    using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings[@"KlamathIrrigation_Test"].ConnectionString))
-        //    {
-        //        using (SqlCommand command = new SqlCommand())
-        //        {
-        //            command.Connection = connection;
-        //            command.CommandType = CommandType.StoredProcedure;
-        //            command.CommandText = "sp_TotalAllotment_Update";
-        //            command.Parameters.AddWithValue("@CustomerID", CustomerID);
-        //            connection.Open();
-        //            command.ExecuteNonQuery();
-        //        }
-        //    }
-        //    //return (CustomerID)
-        //}
+        //apply the view of the customers TotalAllotment, Ride, Lateral, Structure, Name, CustomerMTLHisID
+        public List<Customers> ViewCustomerAllotment(int CustomerID)
+        {
+            List<Customers> AllotmentList = new List<Customers>();
+            using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["KID"].ConnectionString))
+            {
+                using (SqlCommand command = new SqlCommand())
+                {
+                    command.Connection = connection;
+                    //command.CommandText = "SELECT * FROM Requests";
+                    command.CommandText = "SELECT StructureID, TotalAllotment, CustomerMTLHisID FROM [Ride Customer List TotalAllotment] WHERE CustomerID = @CustomerID";
+                    command.Parameters.AddWithValue("@CustomerID", CustomerID);
+                    command.CommandType = CommandType.Text;
+                    connection.Open();
+                    using (SqlDataReader reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            Customers p = new Customers();
+                            //p.Name = reader["CustomerName"].ToString();
+                            //p.CustomerID = int.Parse(reader["CustomerID"].ToString());
+                            p.Structure = reader["StructureID"].ToString();
+                            p.TotalAllotment = Decimal.Parse(reader["TotalAllotment"].ToString());
+                            //p.Ride = int.Parse(reader["Ride"].ToString());
+                            //p.Lateral = reader["Lateral"].ToString();
+                            p.CustomerMTLHisID = int.Parse(reader["CustomerMTLHisID"].ToString());
+
+                            //populate the 'AllotmentList' -> return to allow view
+                            AllotmentList.Add(p);
+                        }
+                    }
+                }
+            }
+            return (AllotmentList);
+        }
 
         //apply the stored procedure of updating or entering in new customer data
         public virtual void Save(Customers customers)
@@ -331,7 +369,51 @@ namespace KlamathIrrigationDistrict.DataLayer.Repositories
                 }
             }
         }
-        
+             
+        public virtual Decimal GetAllotment(int CustomerID)
+        {
+            Customers s = null;
 
+            using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["KID"].ConnectionString))
+            {
+                using (SqlCommand command = new SqlCommand())
+                {
+                    command.Connection = connection;
+                    command.CommandText = "SELECT TotalAllotment FROM [Ride Customer List TotalAllotment] WHERE CustomerID = @CustomerID";
+                    command.Parameters.AddWithValue("@CustomerID", CustomerID);
+                    command.CommandType = CommandType.Text;
+                    connection.Open();
+                    using (SqlDataReader reader = command.ExecuteReader())
+                    {
+                        if (reader.Read())
+                        {
+                            s.TotalAllotment = Decimal.Parse(reader["TotalAllotment"].ToString());
+                            //AllotmentList.Add(p); 
+                        }
+                    }                    
+                }
+            }
+            return (s.TotalAllotment);
+        }
+
+        //use the stored procedure to display the customer's water history
+        //parameter need to be customerID? Not customers?
+        //public virtual void ViewTotalAllotment (int CustomerID)
+        //{
+        //    //Customers C_CustomerID = CustomerID;
+        //    using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings[@"KlamathIrrigation_Test"].ConnectionString))
+        //    {
+        //        using (SqlCommand command = new SqlCommand())
+        //        {
+        //            command.Connection = connection;
+        //            command.CommandType = CommandType.StoredProcedure;
+        //            command.CommandText = "sp_TotalAllotment_Update";
+        //            command.Parameters.AddWithValue("@CustomerID", CustomerID);
+        //            connection.Open();
+        //            command.ExecuteNonQuery();
+        //        }
+        //    }
+        //    //return (CustomerID)
+        //}
     }
 }

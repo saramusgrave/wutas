@@ -64,20 +64,23 @@ namespace KlamathIrrigationDistrict.Controllers
 
         //CURRENTLY THIS DISPLAYS ALL PAGES REGARDING CUSTOMERS JOSH AND RYAN
         //RYAN IS DEFAULT!!
-        //----------------------------------------------------------------------------------------
+        //-------------------------------------------------------------------------------------------------------------------------------------
         /*Views for list of Customers*/
         [Authorize(Roles = "Office Specialist, Customer")]
         [HttpGet]
         public ActionResult Index(int? page)
         {
+
             //defualt of index is ryan
             int CustomerID;
+            //int TotalAllotment;
 
             int pageSize = 10;
             int pageIndex = 1;
             pageIndex = page.HasValue ? Convert.ToInt32(page) : 1;
 
             IPagedList<Customers> cstaff = null;
+            //IPagedList<Customers> cAllot = null;
             CustomerRepository customerrepository = new CustomerRepository();
             Customers CustomerStaff = new Customers();
             List<Customers> obCustomerList = new List<Customers>();
@@ -88,8 +91,10 @@ namespace KlamathIrrigationDistrict.Controllers
             if (User.Identity.Name.Equals("ryhayandgrain@gmail.com"))
             {
                 CustomerID = 760;
+                //CustomerStaff.TotalAllotment = _custRepo.GetAllotment(CustomerID);
+
                 obCustomerList = customerrepository.ViewCustomerRequests(CustomerID);
-                CustomerStaff.customers = obCustomerList;
+                CustomerStaff.customers = obCustomerList;               
                 cstaff = obCustomerList.ToPagedList(pageIndex, pageSize);
                 return View(cstaff);
             }
@@ -197,7 +202,7 @@ namespace KlamathIrrigationDistrict.Controllers
         {
             int CustomerID;
 
-            int pageSize = 10;
+            int pageSize = 20;
             int pageIndex = 1;
             pageIndex = page.HasValue ? Convert.ToInt32(page) : 1;
 
@@ -277,7 +282,7 @@ namespace KlamathIrrigationDistrict.Controllers
             return RedirectToAction("Index");
         }
 
-        //---------------------------------------------------------------------------------------
+        //-------------------------------------------------------------------------------------------------------------------------------------
         //functionality for specific people under the customer side
 
         //View for Staff to add a customer
@@ -288,8 +293,8 @@ namespace KlamathIrrigationDistrict.Controllers
             return View(new Customers());
         }
 
-        //used to add water order request
-        //[Authorize(Roles = "Customer")]
+        //Referenced by "CustomerAddRequest.cshtml" - functionality
+        //[Authorize(Roles = "Office Specialist, Customer")]
         //[HttpPost]
         public ActionResult AddCustomerRequest(Customers CustomersRequest)
         {
@@ -300,7 +305,7 @@ namespace KlamathIrrigationDistrict.Controllers
             //_custRepo.Save(customers);
             //reference CustomerRepository - AddWaterOrderRequest
             _custRepo.AddWaterOrderRequest(CustomersRequest);
-            return RedirectToAction("IndexCustomer");
+            return RedirectToAction("Index");
         }
 
         //View for Staff to Edit a customer
@@ -328,7 +333,40 @@ namespace KlamathIrrigationDistrict.Controllers
             return RedirectToAction("Index");
         }
 
+        public ActionResult ViewCustomerAllotment(int CustomerID)
+        {
+            CustomerRepository customerrepository = new CustomerRepository();
+            Customers CustomerAllotment = new Customers();
+            List<Customers> obCustomerAllotment = new List<Customers>();
 
+            if (User.Identity.Name.Equals("ryhayandgrain@gmail.com"))
+            {
+                CustomerID = 760;
+                //CustomerAllotment.TotalAllotment = _custRepo.ViewCustomerAllotment(CustomerID);
+                obCustomerAllotment = customerrepository.ViewCustomerAllotment(CustomerID);
+                CustomerAllotment.customers = obCustomerAllotment;
+
+                return View(CustomerAllotment.TotalAllotment);
+                //return View(obCustomerInfo);
+
+            }
+            else if (User.Identity.Name.Equals("josh@horsleyfarms.com"))
+            {
+                CustomerID = 3681;
+                //CustomerAllotment.TotalAllotment = _custRepo.ViewCustomerAllotment(CustomerID);
+                obCustomerAllotment = customerrepository.ViewCustomerAllotment(CustomerID);
+                CustomerAllotment.customers = obCustomerAllotment;
+
+                return View(CustomerAllotment.TotalAllotment);
+                //return View(obCustomerInfo);
+            }
+            else
+                CustomerID = 760;
+                obCustomerAllotment = customerrepository.ViewCustomerAllotment(CustomerID);
+                CustomerAllotment.customers = obCustomerAllotment;
+
+            return View(CustomerAllotment.TotalAllotment);
+        }
 
         //[OutputCache(Duration = 500, VaryByParam = "CustomerID")]
         //View 'CustomerWaterHistory' will use this function as reference
@@ -368,8 +406,8 @@ namespace KlamathIrrigationDistrict.Controllers
             return ViewCustomerWaterHistory(CustomerID);
         }
 
-        //----------------------------------------------------------------------------------------------------------------
-        
+        //-------------------------------------------------------------------------------------------------------------------------------------
+
         //referenced by the Customer in Submiting a Request
         //[HttpPost]
         //public ActionResult SubmitRequest(Customers std)
@@ -382,8 +420,7 @@ namespace KlamathIrrigationDistrict.Controllers
         //    return RedirectToAction("Index");
         //}
 
-        //----------------------------------------------------------------------------------------------------------------
-
+        //-------------------------------------------------------------------------------------------------------------------------------------
 
         //view the ICustomerRepositories
         //need to add the TrackingID from the MTL - ensure that it matches with Customer's Tracking ID
