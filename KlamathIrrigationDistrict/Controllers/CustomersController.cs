@@ -251,15 +251,6 @@ namespace KlamathIrrigationDistrict.Controllers
         //should read this fucntion when running CustomerAddRequest view
         //Referenced by "CustomerAddRequest.cshtml" - functionality
         //[Authorize(Roles = "Office Specialist, Customer")]
-        //public ActionResult CustomerAddRequest(int CustomerID)
-        //{
-        //    //CustomerID = 760;       //kyle customer id hardcoded
-
-        //    var std = _custRepo.ViewCustomerAllotment().Where(s=>s.CustomerID == CustomerID).FirstOrDefault();
-
-        //    return View(std);
-        //}
-
         //needs to pass in a new customer to allow for add in HttpPost -> CustomerAddRequest
         [HttpGet]
         public ActionResult CustomerAddRequest()
@@ -270,7 +261,6 @@ namespace KlamathIrrigationDistrict.Controllers
         //HttpPost will not allow for display of view, only get
         //referenced by the Customer in Submiting a Request
         //[Authorize(Roles = "Customer")]
-        //-------------------------------------WHY DOES THE VIEW ONLY READ THIS FUNCTION WHEN HttpPost IS COMMENTED OUT!!!!!!!!!!!!
         [HttpPost]
         public ActionResult CustomerAddRequest(Customers WaterRequest)
         {
