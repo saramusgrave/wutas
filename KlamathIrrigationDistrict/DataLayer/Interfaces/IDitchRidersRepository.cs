@@ -28,6 +28,19 @@ namespace KlamathIrrigationDistrict.DataLayer.Interfaces
         void EditRequest4On(DitchRiderRequests ditchriderrequests);
         //Edit a Requests as ditch Rider4 off
         void EditRequest4Off(DitchRiderRequests ditchriderrequests);
+        //View Requests with RequestStatus1 = Pending
+        List<DitchRiderRequests> ViewPending_4On();
+        //View Requests with RequestStatus2 = Pending
+        List<DitchRiderRequests> ViewPending_4Off();
+        //Edit RequestStatus1 
+        void EditRequestStatus1_On(DitchRiderRequests ditchriderrequests);
+        //Edit RequestStatus2
+        void EditRequestStatus2_Off(DitchRiderRequests ditchriderrequests);
+        //View Waitlist On
+        List<DitchRiderRequests> ViewWaitlist_4On();
+        //Waitlist Off
+        List<DitchRiderRequests> ViewWaitlist_4Off();
+
 
         List<SelectListItem> RequestStatus_2();
         List<DitchRiderRequestStatus> Status();

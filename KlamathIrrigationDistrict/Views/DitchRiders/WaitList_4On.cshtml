@@ -1,14 +1,11 @@
 ﻿@using KlamathIrrigationDistrict.DataLayer.DataModels
-@*@model KlamathIrrigationDistrict.Models.DropDownListModel*@
-@model DitchRiderRequests
-@{
-    ViewBag.Title = "KID D.R.: Call Requests";
-}
+@using PagedList.Mvc;
+@model PagedList.IPagedList<DitchRiderRequests>
 <head>
     <title>KID: Ditch Rider</title>
     <meta name="viewport" content="width=device-width" />
     <link rel="stylesheet" href="~/Styles/DitchRiders.css" />
-    <script src="~/Scripts/KIDDitchRidersJS.js"></script>
+    <link rel="stylesheet" href="~/Scripts/KIDDitchRidersJS.js" />
 </head>
 <!--List of Rides class=dropdownRide-->
 <header id="Header">
@@ -20,12 +17,15 @@
         <li><label class="FirstLast">@User.Identity.Name</label></li>
         <li><a href="/DitchRiders/Customers4">Customers</a></li>
         <li class="dropdown">
-            <a class="RequestDropDown" href="/DitchRiders/Index4">Requests</a>
+            <a class="RequestDropDown" href="Index4" id="active">Requests</a>
             <!--Requests drop down menu class=dropdownRequest-->
             <div class="dropdownRequest" style="overflow-x: auto;">
-                <a href="./KIDDitchRiderRide4AppendingWaitlistHTML.html">Appending/Waitlist</a>
-                <a href="/DitchRiders/AddRequest" id="active">Call Requests</a>
+                <a href="/DitchRiders/_ActiveRequestsOff4">Active Requests Off</a>
+                <a href="/DitchRiders/Appending_4On">Appending On</a>
+                <a href="/DitchRiders/Appending_4Off">Appending Off</a>
                 <a href="/DitchRiders/CompletedRequests">Completed Requests</a>
+                <a href="/DitchRiders/WaitList_4On">Waitlist On</a>
+                <a href="/DitchRiders/WaitList_4Off">Waitlist Off</a>
             </div>
         </li>
         <li class="dropdown">
@@ -51,35 +51,30 @@
         <li><a href="~/Account/Login">Log Out</a></li>
     </ul>
 </header>
-<a href="Customers4" class="previous"><br />&laquo; Customers</a>
-<div style="overflow-x: auto;">
-    <table class="ActiveRequests">
-        <caption>Add Request(off)</caption>
+<table class="ActiveRequests">
+    <caption>Waitlist Requests (On)</caption>
+    <tr>
+        @*<th>@Html.Label("Request ID")</th>*@
+        <th>@Html.Label("Date")</th>
+        <th>@Html.Label("Name")</th>
+        <th>@Html.Label("Turn Out")</th>
+        <th>@Html.Label("CFS")</th>
+        <th colspan="2">@Html.Label("Comments")</th>
+    </tr>
+    @for (int i = 0; i < Model.Count; i++)
+    {
         <tr>
-            <th>@Html.Label("Request ID")</th>
-            <th>@Html.Label("Request Date")</th>
-            @*<th>@Html.Label("Customer ID")</th>*@
-            @*<th>@Html.Label("Customer Name")</th>*@
-            <th>@Html.Label("Turn Out")</th>
-            <th>@Html.Label("CFS Requested")</th>
-            <th colspan="2">@Html.Label("Customer Comments")</th>
+            @*<td>@Model[i].RequestID</td>*@
+            <td>@Model[i].CustomerDate1.ToShortDateString()</td>
+            <td>@Model[i].CustomerName</td>
+            <td>@Model[i].Structure</td>
+            <td>@Model[i].CustomerCFS1</td>
+            <td>@Model[i].CustomerComments1</td>
+            <td>@Html.ActionLink("On", "EditRequest4On", new { @RequestID = Model[i].RequestID }) </td>
         </tr>
-        <tr>
-            @using (Html.BeginForm())
-            {
-                @*@Html.HiddenFor(m => m.RequestID)*@
-                @Html.HiddenFor(m => m.TimeStampCustomer2)
-                <td>@Html.TextBoxFor(m => m.RequestID, new { @type = "number" }) </td>
-                <td>@Html.TextBoxFor(m => m.CustomerDate2, new { @type = "date"})</td>
-                @*<td>@Html.TextBoxFor(m => m.CustomerID, new { @type = "number" })</td>*@
-                @*<td>@Html.TextBoxFor(m => m.CustomerName)</td>*@
-                @*<td>@Html.DropDownListFor(m => m.Structure, Model.HorsleyStructures)</td>*@
-                <td>@Html.TextBoxFor(m => m.Structure)</td>
-                <td>@Html.TextBoxFor(m => m.CustomerCFS2, new { @type = "number" })</td>
-                <td>@Html.TextBoxFor(m => m.CustomerComments2, new { @Value = "Made by " + User.Identity.Name })</td>
-                
-                <td><button type="submit">Add</button></td>
-            }
-        </tr>
-    </table>
+    }
+</table>
+<div class="pagination" style="margin-left: 20px;">
+    Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber)
+    of @Model.PageCount @Html.PagedListPager(Model, page => Url.Action("WaitList_4On", new { page }))
 </div>

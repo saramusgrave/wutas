@@ -54,7 +54,6 @@
 <body>
     <a href="Customers4" class="previous"><br />&laquo; Customers</a>
     <div style="overflow-x: auto;">
-        @*Alphabet List for ActiveRequests class=ActiveRequests*@
         <table class="ActiveRequests">
             <caption>Add Requests(On)</caption>
             <tr>
@@ -70,7 +69,7 @@
                 {
                     @Html.HiddenFor(m => m.RequestID)
                     @Html.HiddenFor(m => m.TimeStampCustomer1)
-                    @Html.HiddenFor(m => m.CustomerID)
+                    @*@Html.HiddenFor(m => m.CustomerID)*@
                     @*@Html.HiddenFor(m => m.CustomerName)*@
                     <td>@Html.TextBoxFor(m => m.CustomerDate1, new { @type = "date" }) </td>
                     <td>@Html.TextBoxFor(m => m.CustomerID)</td>
