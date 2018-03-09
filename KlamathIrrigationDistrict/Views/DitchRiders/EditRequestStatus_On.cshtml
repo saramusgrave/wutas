@@ -1,8 +1,7 @@
 ﻿@using KlamathIrrigationDistrict.DataLayer.DataModels
-@*@model KlamathIrrigationDistrict.Models.DropDownListModel*@
 @model DitchRiderRequests
 @{
-    ViewBag.Title = "KID D.R.: Call Requests";
+    ViewBag.Title = "KID D.R.: Turn On Water";
 }
 <head>
     <title>KID: Ditch Rider</title>
@@ -18,13 +17,13 @@
     <!--Log in Name, Customers, Requests, Canals, LogOUt id=Menu-->
     <ul id="Menu">
         <li><label class="FirstLast">@User.Identity.Name</label></li>
-        <li><a href="/DitchRiders/Customers4">Customers</a></li>
+        <li><a href="./KIDDitchRiderRide4CustomersHTML.html">Customers</a></li>
         <li class="dropdown">
-            <a class="RequestDropDown" href="/DitchRiders/Index4">Requests</a>
+            <a class="RequestDropDown" href="/Index4" id="active">Requests</a>
             <!--Requests drop down menu class=dropdownRequest-->
             <div class="dropdownRequest" style="overflow-x: auto;">
                 <a href="./KIDDitchRiderRide4AppendingWaitlistHTML.html">Appending/Waitlist</a>
-                <a href="/DitchRiders/AddRequest" id="active">Call Requests</a>
+                <a href="./KIDDitchRiderRide4CallRequestsHTML.html">Call Requests</a>
                 <a href="/DitchRiders/CompletedRequests">Completed Requests</a>
             </div>
         </li>
@@ -51,35 +50,28 @@
         <li><a href="~/Account/Login">Log Out</a></li>
     </ul>
 </header>
-<a href="Customers4" class="previous"><br />&laquo; Customers</a>
-<div style="overflow-x: auto;">
-    <table class="ActiveRequests">
-        <caption>Add Request(off)</caption>
-        <tr>
-            <th>@Html.Label("Request ID")</th>
-            <th>@Html.Label("Request Date")</th>
-            @*<th>@Html.Label("Customer ID")</th>*@
-            @*<th>@Html.Label("Customer Name")</th>*@
-            <th>@Html.Label("Turn Out")</th>
-            <th>@Html.Label("CFS Requested")</th>
-            <th colspan="2">@Html.Label("Customer Comments")</th>
-        </tr>
-        <tr>
-            @using (Html.BeginForm())
-            {
-                @*@Html.HiddenFor(m => m.RequestID)*@
-                @Html.HiddenFor(m => m.TimeStampCustomer2)
-                <td>@Html.TextBoxFor(m => m.RequestID, new { @type = "number" }) </td>
-                <td>@Html.TextBoxFor(m => m.CustomerDate2, new { @type = "date"})</td>
-                @*<td>@Html.TextBoxFor(m => m.CustomerID, new { @type = "number" })</td>*@
-                @*<td>@Html.TextBoxFor(m => m.CustomerName)</td>*@
-                @*<td>@Html.DropDownListFor(m => m.Structure, Model.HorsleyStructures)</td>*@
-                <td>@Html.TextBoxFor(m => m.Structure)</td>
-                <td>@Html.TextBoxFor(m => m.CustomerCFS2, new { @type = "number" })</td>
-                <td>@Html.TextBoxFor(m => m.CustomerComments2, new { @Value = "Made by " + User.Identity.Name })</td>
-                
-                <td><button type="submit">Add</button></td>
-            }
-        </tr>
-    </table>
-</div>
+<body>
+    <a href="Appending_4On" class="previous"><br />&laquo; Appending On</a>
+    @using (Html.BeginForm())
+    {
+        @Html.HiddenFor(s => s.RequestID)
+        @Html.HiddenFor(s => s.Staff1, new { @Value = User.Identity.Name })
+        @Html.HiddenFor(s => s.TimeStampStaff1, new { @Value = DateTime.Now })
+
+        <div>
+            @Html.Label("Customer Name: ")
+            @Html.DisplayTextFor(s => s.CustomerName)
+        </div>
+        <div>
+            @Html.Label("Status: ")
+            @Html.TextBoxFor(m => m.RequestStatus1)
+        </div>
+        <div>
+            @Html.Label("Comments: ")
+            @Html.TextAreaFor(s => s.StaffComments1)
+        </div>
+        <div>
+            <button type="submit">Submit</button>
+        </div>
+    }
+</body>

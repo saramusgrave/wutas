@@ -379,6 +379,12 @@
     <Content Include="Views\DitchRiders\Customers4.cshtml" />
     <Content Include="Views\DitchRiders\CompletedRequests.cshtml" />
     <Content Include="Views\Customers\View_SetDate_CustomerRequest.cshtml" />
+    <Content Include="Views\DitchRiders\Appending_4On.cshtml" />
+    <Content Include="Views\DitchRiders\Appending_4Off.cshtml" />
+    <Content Include="Views\DitchRiders\EditRequestStatus_On.cshtml" />
+    <Content Include="Views\DitchRiders\EditRequestStatus_Off.cshtml" />
+    <Content Include="Views\DitchRiders\WaitList_4On.cshtml" />
+    <Content Include="Views\DitchRiders\WaitList_4Off.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
