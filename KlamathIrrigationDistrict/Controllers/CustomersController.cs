@@ -10,15 +10,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
 using System.Web;
-using System.Data;
-
 
 namespace KlamathIrrigationDistrict.Controllers
 {
     public class CustomersController : Controller
     {
         //attain the login information
-
+        
         private ApplicationUserManager _userManager;
 
         public CustomersController(ApplicationUserManager userManager, ApplicationRoleManager userRole)
@@ -96,7 +94,7 @@ namespace KlamathIrrigationDistrict.Controllers
                 //CustomerStaff.TotalAllotment = _custRepo.GetAllotment(CustomerID);
 
                 obCustomerList = customerrepository.ActiveCustomerRequests(CustomerID);
-                CustomerStaff.customers = obCustomerList;
+                CustomerStaff.customers = obCustomerList;               
                 cstaff = obCustomerList.ToPagedList(pageIndex, pageSize);
                 return View(cstaff);
             }
@@ -261,6 +259,7 @@ namespace KlamathIrrigationDistrict.Controllers
         //HttpPost will not allow for display of view, only get
         //referenced by the Customer in Submiting a Request
         //[Authorize(Roles = "Customer")]
+        //-------------------------------------WHY DOES THE VIEW ONLY READ THIS FUNCTION WHEN HttpPost IS COMMENTED OUT!!!!!!!!!!!!
         [HttpPost]
         public ActionResult CustomerAddRequest(Customers WaterRequest)
         {
@@ -333,8 +332,6 @@ namespace KlamathIrrigationDistrict.Controllers
             DateRange.CustomerID = CustomerID;
             DateRange.StartDate = Convert.ToDateTime(StartDate);
             DateRange.EndDate = Convert.ToDateTime(EndDate);
-
-            List<Customers> obCustomerRangeList = new List<Customers>();
 
             //DateTime Input_StartDate = Convert.ToDateTime(StartDate);
             //DateTime Input_EndDate = Convert.ToDateTime(EndDate);

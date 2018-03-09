@@ -15,7 +15,15 @@
     <ul>
         <li><label class="FirstLast">@User.Identity.Name</label></li>
         <li><a href="./Index">Requests</a></li>
-        <li><a id="active" href="./CustomerWaterHistory">History</a></li>
+        <li><a id="active" href="Customers/CustomerWaterHistory">History</a></li>
+
+        @*<li class="dropdown">
+            <a class="RequestDropDown" id="active" href="Customers/CustomerWaterHistory">History</a>
+            <div class="dropdownRequest">
+                <a href="Customers/View_SetDate_CustomerRequest">Search Request Date</a>
+            </div>
+        </li>*@
+
         <li><a href="./ContactsPage">Contacts</a></li>
         <li><a href="./CustomerProfile">Profile</a></li>
         <!--edit account page needs work-->
@@ -50,67 +58,57 @@
     <p>
         Instructions: Enter the Date Range of history you would like to see.
     </p>
-
-    <a href="View_SetDate_CustomerRequest" class="next">Find Requests in Date Range &raquo;</a>
-
-
     @*    <div style="overflow-x: auto;">
-            <!--Select Data Range Class = Contacts-->
-            @*<table class="Contacts">
+        <!--Select Data Range Class = Contacts-->
+        @*<table class="Contacts">
+        <caption>Select Date Range</caption>
+        <tr>
+            <th>Starting Date</th>
+            <th>Ending Date</th>
+            <th></th>
+        </tr>
+        <tr>
+    @using (Html.BeginForm("View_SetDate_CustomerRequest", "CustomersController"))
+    {
+        <table class="Contacts">
             <caption>Select Date Range</caption>
             <tr>
                 <th>Starting Date</th>
                 <th>Ending Date</th>
                 <th></th>
             </tr>
-            <tr>
-        @using (Html.BeginForm("View_SetDate_CustomerRequest", "CustomersController"))
-        {
-            <table class="Contacts">
-                <caption>Select Date Range</caption>
-                <tr>
-                    <th>Starting Date</th>
-                    <th>Ending Date</th>
-                    <th></th>
-                </tr>
-                <input id="StartDate" type="date" name="StartDate" value="" />
-                <input id="EndDate" type="date" name="EndDate" value="" />
+            <input id="StartDate" type="date" name="StartDate" value="" />
+            <input id="EndDate" type="date" name="EndDate" value="" />
 
-                <button type="submit" id="SubmitDateRange" Name="DateRange" value="StartDate">Set Range</button>
-                </tr>
-            </table>
-        }
-
-        @*</tr>
-            </table>
-    *@
-
-
-    @*
-            @using (Html.BeginForm("View_SetDate_CustomerRequest", "CustomersController", new { area="Customers/View_SetDateCustomerRequest" }, FormMethod.Post))
-            {
-                <div style="overflow-x: auto;">
-                    <table class="Contacts">
-                        <div>
-
-                            @Html.Label("Start Date")
-                            <input name="Input_StartDate" type="date" id="StartDateRange" value="@DateTime.Today" />
-                        </div>
-                        <div>
-                            @Html.Label("End Date")
-                            <input name="Input_EndDate" type="date" id="EndDateRange" value="@DateTime.Today" />
-                        </div>
-
-                        <div>
-                            <input type="submit" id="SubmitDateRange" Name="DateRange" value="Submit Range">
-                        </div>
-                        <div>
-                                <button type="submit" id="SubmitDateRange" Name="DateRange" value="Date">Set Range</button>
-                            </div>
+            <button type="submit" id="SubmitDateRange" Name="DateRange" value="StartDate">Set Range</button>
+            </tr>
         </table>
-        </div>
-        }
+    }
+
+    @*</tr>
+        </table>
     *@
+
+    @using (Html.BeginForm("View_SetDate_CustomerRequest", "CustomersController", FormMethod.Post))
+    {
+        <div style="overflow-x: auto;">
+            <table class="Contacts">
+                <div>
+
+                    @Html.Label("Start Date")
+                    <input name="Input_StartDate" type="date" id="StartDateRange" value="@DateTime.Today" />
+                </div>
+                <div>
+                    @Html.Label("End Date")
+                    <input name="Input_EndDate" type="date" id="EndDateRange" value="@DateTime.Today" />
+                </div>
+
+                <div>
+                    <button type="submit" id="SubmitDateRange" Name="DateRange" value="submit">Set Range</button>
+                </div>
+            </table>
+        </div>
+    }
     <div style="overflow-x: auto;">
         <table class="Contacts">
             <caption>Complete Request (off)</caption>
@@ -142,7 +140,7 @@
                     <td>@Model[i].StaffComments2</td>
                     <td>@Model[i].RequestStatus2</td>
                     <td>@Model[i].StaffDate2</td>
-
+                   
                 </tr>
             }
         </table>
@@ -199,11 +197,11 @@
                 <td>@Model[i].CustomerCFS_2</td>
                 <td id="RBorder">@Model[i].CustomerComments_2</td>
                 @*<td>Scott Linville</td>*@
-@*<td>@Model[i].StaffName_2</td>
-                    <td>@Model[i].StaffDate2.ToShortDateString()</td>
-                    <td>@Model[i].StaffCFS2</td>
-                    <td>@Model[i].StaffComments2</td>
-                </tr>
-            }
-        </table>
-    </div>*@
+                @*<td>@Model[i].StaffName_2</td>
+                <td>@Model[i].StaffDate2.ToShortDateString()</td>
+                <td>@Model[i].StaffCFS2</td>
+                <td>@Model[i].StaffComments2</td>
+            </tr>
+        }
+    </table>
+</div>*@
