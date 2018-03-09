@@ -70,6 +70,10 @@
       <HintPath>..\packages\Microsoft.ApplicationInsights.WindowsServer.2.2.0\lib\net45\Microsoft.AI.WindowsServer.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Microsoft.AI.WindowsServer, Version=2.2.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ApplicationInsights.WindowsServer.2.2.0\lib\net45\Microsoft.AI.WindowsServer.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Microsoft.ApplicationInsights, Version=2.2.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.ApplicationInsights.2.2.0\lib\net46\Microsoft.ApplicationInsights.dll</HintPath>
       <Private>True</Private>
@@ -380,12 +384,7 @@
     <Content Include="Views\DitchRiders\Customers4.cshtml" />
     <Content Include="Views\DitchRiders\CompletedRequests.cshtml" />
     <Content Include="Views\Customers\View_SetDate_CustomerRequest.cshtml" />
-    <Content Include="Views\DitchRiders\Appending_4On.cshtml" />
-    <Content Include="Views\DitchRiders\Appending_4Off.cshtml" />
-    <Content Include="Views\DitchRiders\EditRequestStatus_On.cshtml" />
-    <Content Include="Views\DitchRiders\EditRequestStatus_Off.cshtml" />
-    <Content Include="Views\DitchRiders\WaitList_4On.cshtml" />
-    <Content Include="Views\DitchRiders\WaitList_4Off.cshtml" />
+    <Content Include="Views\Customers\CustomerAddRequest.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
