@@ -17,6 +17,11 @@ namespace KlamathIrrigationDistrict.DataLayer.DataModels
         //Customers(int CustomerID, int TrackingID, String Name, Decimal TotalAllotment)
         //public string Position { get; set { "Customer"}; }
 
+        //variables for setting Request Date View
+        public DateTime StartDate { get; set; }
+        public DateTime EndDate { get; set; }
+
+
         [Required]
         public int CustomerID { get; set; }
         [Required]

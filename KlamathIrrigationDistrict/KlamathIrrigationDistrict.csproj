@@ -378,6 +378,7 @@
     <Content Include="Views\DitchRiders\_ActiveRequestsOff4.cshtml" />
     <Content Include="Views\DitchRiders\Customers4.cshtml" />
     <Content Include="Views\DitchRiders\CompletedRequests.cshtml" />
+    <Content Include="Views\Customers\View_SetDate_CustomerRequest.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

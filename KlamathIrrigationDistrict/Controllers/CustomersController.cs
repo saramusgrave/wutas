@@ -93,7 +93,7 @@ namespace KlamathIrrigationDistrict.Controllers
                 CustomerID = 760;
                 //CustomerStaff.TotalAllotment = _custRepo.GetAllotment(CustomerID);
 
-                obCustomerList = customerrepository.ViewCustomerRequests(CustomerID);
+                obCustomerList = customerrepository.ActiveCustomerRequests(CustomerID);
                 CustomerStaff.customers = obCustomerList;               
                 cstaff = obCustomerList.ToPagedList(pageIndex, pageSize);
                 return View(cstaff);
@@ -102,14 +102,14 @@ namespace KlamathIrrigationDistrict.Controllers
             {
                 CustomerID = 3681;
 
-                obCustomerList = customerrepository.ViewCustomerRequests(CustomerID);
+                obCustomerList = customerrepository.ActiveCustomerRequests(CustomerID);
                 CustomerStaff.customers = obCustomerList;
                 cstaff = obCustomerList.ToPagedList(pageIndex, pageSize);
                 return View(cstaff);
             }
             else
                 CustomerID = 760;
-                obCustomerList = customerrepository.ViewCustomerRequests(CustomerID);
+                obCustomerList = customerrepository.ActiveCustomerRequests(CustomerID);
                 CustomerStaff.customers = obCustomerList;
                 cstaff = obCustomerList.ToPagedList(pageIndex, pageSize);
                 return View(cstaff);
@@ -215,7 +215,7 @@ namespace KlamathIrrigationDistrict.Controllers
             {
                 CustomerID = 760;
 
-                obCustomerWaterList = customerrepository.ViewCustomerRequests(CustomerID);
+                obCustomerWaterList = customerrepository.CompleteCustomerRequests(CustomerID);
                 CustomerHistory.customers = obCustomerWaterList;
                 cHistory = obCustomerWaterList.ToPagedList(pageIndex, pageSize);
                 return View(cHistory);
@@ -224,14 +224,14 @@ namespace KlamathIrrigationDistrict.Controllers
             {
                 CustomerID = 3681;
 
-                obCustomerWaterList = customerrepository.ViewCustomerRequests(CustomerID);
+                obCustomerWaterList = customerrepository.CompleteCustomerRequests(CustomerID);
                 CustomerHistory.customers = obCustomerWaterList;
                 cHistory = obCustomerWaterList.ToPagedList(pageIndex, pageSize);
                 return View(cHistory);                
             }
             else
                 CustomerID = 760;
-                obCustomerWaterList = customerrepository.ViewCustomerRequests(CustomerID);
+                obCustomerWaterList = customerrepository.CompleteCustomerRequests(CustomerID);
                 CustomerHistory.customers = obCustomerWaterList;
                 cHistory = obCustomerWaterList.ToPagedList(pageIndex, pageSize);
                 return View(cHistory);
@@ -239,7 +239,7 @@ namespace KlamathIrrigationDistrict.Controllers
 
         //referenced by the Customer in Submiting a Request
         //[Authorize(Roles = "Customer")]
-        [HttpGet]
+        [HttpPost]
         public ActionResult CustomerAddRequest(Customers WaterRequest)
         {
             if (!ModelState.IsValid)
@@ -281,6 +281,75 @@ namespace KlamathIrrigationDistrict.Controllers
             //Return home page
             return RedirectToAction("Index");
         }
+
+
+        [HttpGet]
+        //receive data input from 'HttpPost' and will then display it
+        public ActionResult View_SetDate_CustomerRequest(int? page,  DateTime Input_StartDate, DateTime Input_EndDate)
+        {
+            //hard coded Ryan's info
+            //int CustomerID = 760;
+            //DateTime Input_StartDate;
+            //DateTime Input_EndDate;
+            int CustomerID;
+            CustomerID = 760;
+
+            int pageSize = 20;
+            int pageIndex = 1;
+            pageIndex = page.HasValue ? Convert.ToInt32(page) : 1;
+
+            IPagedList<Customers> cDateHistory = null;
+            CustomerRepository customerrepository = new CustomerRepository();
+            Customers CustomerRangeHistory = new Customers();
+            List<Customers> obCustomerRangeList = new List<Customers>();
+
+            obCustomerRangeList = customerrepository.ViewRequestDates(CustomerID, Input_StartDate, Input_EndDate);
+            CustomerRangeHistory.customers = obCustomerRangeList;
+            cDateHistory = obCustomerRangeList.ToPagedList(pageIndex, pageSize);
+
+            return View(cDateHistory);
+        }
+
+
+        [HttpPost]
+        //user can set a date range and view requests within that period
+        //post will get the input from the user -> get will read input and apply
+        public ActionResult View_SetDate_CustomerRequest(Customers DateRange, FormCollection form)
+        {
+            int CustomerID = 760;
+
+            //reference input name from BeginForm
+            string StartDate = form["Input_StartDate"];
+            string EndDate = form["Input_EndDate"];
+
+            DateRange.StartDate = Convert.ToDateTime(StartDate);
+            DateRange.EndDate = Convert.ToDateTime(EndDate);
+
+            //DateTime Input_StartDate = Convert.ToDateTime(StartDate);
+            //DateTime Input_EndDate = Convert.ToDateTime(EndDate);
+            
+            _custRepo.ViewRequestDates(CustomerID, DateRange.StartDate, DateRange.EndDate);
+
+            //int pageSize = 20;
+            //int pageIndex = 1;
+            //pageIndex = page.HasValue ? Convert.ToInt32(page) : 1;
+
+            //IPagedList<Customers> cDateHistory = null;
+            //CustomerRepository customerrepository = new CustomerRepository();
+            //Customers CustomerRangeHistory = new Customers();
+            //List<Customers> obCustomerRangeList = new List<Customers>();
+
+            //obCustomerRangeList = customerrepository.ViewRequestDates(CustomerID, Input_startDate, Input_EndDate);
+            //CustomerRangeHistory.customers = obCustomerRangeList;
+            //cDateHistory = obCustomerRangeList.ToPagedList(pageIndex, pageSize);
+
+            //_custRepo.ViewRequestDates(CustomerID, input_StartDate, input_EndDate);
+
+            //return RedirectToAction("View_SetDate_CustomerRequest");
+            return View("View_SetDate_CustomerRequest");
+        }
+
+       
 
         //-------------------------------------------------------------------------------------------------------------------------------------
         //functionality for specific people under the customer side
