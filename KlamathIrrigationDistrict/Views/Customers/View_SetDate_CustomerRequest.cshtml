@@ -2,27 +2,26 @@
 @using PagedList.Mvc;
 @model PagedList.IPagedList<Customers>
 @{
-    ViewBag.Title = "Customers: Water History";
+    ViewBag.Title = "Customer: View Date Range of Request";
 }
 <head>
-    <title>KID: Customers</title>
+    <title>KID: Find Request with Date Range</title>
     <meta name="viewport" content="width=device-width" />
     <link rel="stylesheet" href="~/Styles/Customers.css" />
     <script src="~/Scripts/KIDDitchRidersJS.js"></script>
 </head>
-
 <header id="Menu">
     <ul>
         <li><label class="FirstLast">@User.Identity.Name</label></li>
         <li><a href="./Index">Requests</a></li>
-        <li><a id="active" href="Customers/CustomerWaterHistory">History</a></li>
+        @*<li><a href="./CustomerWaterHistory">History</a></li>*@
 
-        @*<li class="dropdown">
-            <a class="RequestDropDown" id="active" href="Customers/CustomerWaterHistory">History</a>
+        <!--testing out a drop down list for history, hover should show the search-->
+        <li class="dropdown">
+            <a class="RequestDropDown" href="./CustomerWaterHistory">History</a>
             <div class="dropdownRequest">
-                <a href="Customers/View_SetDate_CustomerRequest">Search Request Date</a>
+                <a id="active" href="Customers/View_SetDate_CustomerRequest.html">Search Request Date</a>
             </div>
-        </li>*@
 
         <li><a href="./ContactsPage">Contacts</a></li>
         <li><a href="./CustomerProfile">Profile</a></li>
@@ -55,60 +54,28 @@
     </ul>
 </header>
 <body>
-    <p>
-        Instructions: Enter the Date Range of history you would like to see.
-    </p>
-    @*    <div style="overflow-x: auto;">
-        <!--Select Data Range Class = Contacts-->
-        @*<table class="Contacts">
-        <caption>Select Date Range</caption>
-        <tr>
-            <th>Starting Date</th>
-            <th>Ending Date</th>
-            <th></th>
-        </tr>
-        <tr>
-    @using (Html.BeginForm("View_SetDate_CustomerRequest", "CustomersController"))
-    {
-        <table class="Contacts">
-            <caption>Select Date Range</caption>
-            <tr>
-                <th>Starting Date</th>
-                <th>Ending Date</th>
-                <th></th>
-            </tr>
-            <input id="StartDate" type="date" name="StartDate" value="" />
-            <input id="EndDate" type="date" name="EndDate" value="" />
+    <a href="CustomerWaterHistory" class="next">Previous &raquo;</a>
 
-            <button type="submit" id="SubmitDateRange" Name="DateRange" value="StartDate">Set Range</button>
-            </tr>
-        </table>
-    }
-
-    @*</tr>
-        </table>
-    *@
-
-    @using (Html.BeginForm("View_SetDate_CustomerRequest", "CustomersController", FormMethod.Post))
+    @*@using (Html.BeginForm("View_SetDate_CustomerRequest", "CustomersController", FormMethod.Post))
     {
         <div style="overflow-x: auto;">
             <table class="Contacts">
                 <div>
-
                     @Html.Label("Start Date")
-                    <input name="Input_StartDate" type="date" id="StartDateRange" value="@DateTime.Today" />
+                    <input name="StartDate" type="date" id="DateRange" value="GetDate()" />
                 </div>
                 <div>
                     @Html.Label("End Date")
-                    <input name="Input_EndDate" type="date" id="EndDateRange" value="@DateTime.Today" />
+                    <input name="EndDate" tpye="date" id="DateRange" value="input_EndDate" />
                 </div>
 
                 <div>
-                    <button type="submit" id="SubmitDateRange" Name="DateRange" value="submit">Set Range</button>
+                    <button type="submit" id="SubmitDateRange" Name="DateRange" value="Date">Set Range</button>
                 </div>
             </table>
+
         </div>
-    }
+    }*@
     <div style="overflow-x: auto;">
         <table class="Contacts">
             <caption>Complete Request (off)</caption>
@@ -140,7 +107,9 @@
                     <td>@Model[i].StaffComments2</td>
                     <td>@Model[i].RequestStatus2</td>
                     <td>@Model[i].StaffDate2</td>
-                   
+                    @*<td>
+                            @Html.ActionLink("Submit", "AddWaterOrderRequest", new { @RequestID = Model[i].RequestID })
+                        </td>*@
                 </tr>
             }
         </table>
@@ -149,59 +118,5 @@
             Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber)
             of @Model.PageCount @Html.PagedListPager(Model, page => Url.Action("CustomerWaterHistory", new { page }))
         </div>*@
+
 </body>
-
-@*<div style="overflow-x: auto;">
-        <!--Your Requests Table class=Contacts-->
-        <table class="Customers" style="float: left;">
-            <caption>Water Order History</caption>
-            <tr>
-                <th>@Html.Label("RequestID")</th>
-                <th>@Html.Label("CustomerID")</th>
-                <th>@Html.Label("TrackingID") </th>
-                <th>@Html.Label("Customer Name")</th>
-                <th>@Html.Label("MapTaxLot")</th>
-                <th>@Html.Label("Structure")</th>
-                <th>@Html.Label("Requested CFS")</th>
-                <th>@Html.Label("Given CFS")</th>
-                <th>@Html.Label("Customer Comments")</th>
-                <th>@Html.Label("DitchRider Comments")</th>
-                <th>@Html.Label("Request Date")</th>
-                <th>@Html.Label("Complete Date")</th>
-            </tr>
-            <!--should invoke the action from CustomerController-->
-            @Html.Action("ViewWaterHistory");
-        </table>
-    </div>*@
-
-@*<div style="overflow-x: auto;">
-    <table class="ActiveRequests">
-        <caption>Completed Requests (off)</caption>
-        <tr>
-            <th>@Html.Label("Date")</th>
-            <th>@Html.Label("Name")</th>
-            <th>@Html.Label("Turn Out")</th>
-            <th>@Html.Label("CFS")</th>
-            <th id="RBorder">@Html.Label("Comments")</th>
-            <th>@Html.Label("Ditch Rider")</th>
-            <th>@Html.Label("Date")</th>
-            <th>@Html.Label("CFS")</th>
-            <th colspan="2">@Html.Label("Comments")</th>
-        </tr>
-        @for (int i = 0; i < Model.Count; i++)
-        {
-            <tr>
-                <td>@Model[i].CustomerDate2.ToShortDateString()</td>
-                <td>@Model[i].Name</td>
-                <td>@Model[i].Structure</td>
-                <td>@Model[i].CustomerCFS_2</td>
-                <td id="RBorder">@Model[i].CustomerComments_2</td>
-                @*<td>Scott Linville</td>*@
-                @*<td>@Model[i].StaffName_2</td>
-                <td>@Model[i].StaffDate2.ToShortDateString()</td>
-                <td>@Model[i].StaffCFS2</td>
-                <td>@Model[i].StaffComments2</td>
-            </tr>
-        }
-    </table>
-</div>*@

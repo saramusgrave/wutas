@@ -24,8 +24,20 @@ namespace KlamathIrrigationDistrict.DataLayer.Interfaces
         //allow user to see staff contacts
         List<Customers> ViewStaff();
 
-        //list all of customers request
+        //list of customers request dependent on their CustomerID
         List<Customers> ViewCustomerRequests(int CustomerID);
+
+        //list of active customers requests that have yet to be completed
+        List<Customers> ActiveCustomerRequests(int CustomerID);
+
+        //list of complete request that would include staff input
+        List<Customers> CompleteCustomerRequests(int CustomerID);
+
+        //list of customer TotalAllotment, Ride, Lateral, Structure, Name, CustomerMTLHisID
+        List<Customers> ViewCustomerAllotment(int CustomerID);
+
+        //customer set date range of requests wanting to view
+        List<Customers> ViewRequestDates(int CustomerID, System.DateTime StartDate, System.DateTime EndDate);
 
         //save the customer information when updated
         //used by the staff or customer
@@ -33,6 +45,12 @@ namespace KlamathIrrigationDistrict.DataLayer.Interfaces
 
         //Does not use stored procedure, will only apply all that a customer can in request for
         void AddWaterOrderRequest(Customers NewWaterOrder);
+
+        //this funcitonality needs work - apply to display or add to 'customer'
+        decimal GetAllotment(int CustomerID);
+
+    
+
 
         //need to write a an update function that would update the AspNetUsers when customerID is updated
 

@@ -1,251 +1,277 @@
-﻿#Menu
-{
-	float: center;
-	list-style-type: none;
-	overflow: auto;
-	position: float;
-	top: 0;
-	dispaly: inline-block;
-	width: 100%;
-}
-#Menu li
-{
-	list-style-type: none;
-	float: left;
-	background-color: #08ccff;
-}
-#Menu li a
-{
-	display: block;
-	color: black;
-	text-align: center;
-	padding: 10px 20px;
-	text-decoration: none;
-	border: 1px solid black;
-	width: inherit;
+﻿#Menu {
+    float: center;
+    list-style-type: none;
+    overflow: auto;
+    position: float;
+    top: 0;
+    dispaly: inline-block;
+    width: 100%;
 }
 
-#Menu li a:hover:not(#active)
-{
-	background-color:#0066ff;
-}
-#Menu #active 
-{
-	background-color: #0000cc;
-	color: white;
-}
-#active
-{
-	background-color: #0000cc;
-	color: white;
-}
-.FirstLast
-{
-	padding: 11.2px 30px;
-	text-align: center;
-	display: inline-block;
-	font-size: 14px;
-	background-color: #08ccff;
-	border: 1px solid black;
+#Menu li {
+list-style-type: none;
+float: left;
+background-color: #08ccff;
 }
 
-.Contacts
-{	
-	padding: 200px;
-	border: 1px solid pink;
-	border-collapse: collapse;
-	box-sizing: border-box;
+#Menu li a {
+display: block;
+color: black;
+text-align: center;
+padding: 10px 20px;
+text-decoration: none;
+border: 1px solid black;
+width: inherit;
 }
 
-.Contacts th
-{
-	background: #3399ff;
-	vertical-align: bottom;
-	border: solid 1px #3399ff;
+#Menu li a:hover:not(#active) {
+    background-color: #0066ff;
 }
-.Contacts td
-{
-	padding: 5px;
-	border: 1px solid black;
-	border-collapse: collapse;
-	box-sizing: border-box;
-	text-align: left;
+
+#Menu #active {
+background-color: #0000cc;
+color: white;
 }
-.Contacts tr:nth-child(even)
-{
-	background-color: #f2f2f2
+
+#active {
+    background-color: #0000cc;
+    color: white;
 }
-caption
-{
-	text-align: left;
-	text: bold;
-	color: #08ccff;
-	font-size: 25px;
+/*----------------------------------------------------------------------------*/
+.dropdownRequest {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+    overflow: auto;
+}
+
+.dropdownRequest a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    text-align: center;
+}
+
+.dropdown:hover .dropdownRequest {
+    display: inline-block;
+}
+
+.dropdownRide a:hover .dropdownRequest a:hover {
+    background-color: #f1f1f1;
 }
 
 
-button 
-{
-	background-color: #08ccff;
-	color: black;
-	padding: 11.8px 15px;
-	border: 1px solid black;
-	width: auto;
+.dropdown:hover .dropdownRide {
+    display: inline-block;
 }
 
-button:hover
-{
-	opacity: .7;
-}
-input[type=CFS]
-{
-	max-width: 50px;
-}
-input[type=Allotment]
-{
-	max-width: 40px;
-	background-color: #08ccff;
-	border: none;
-}
-input[type=Comments]
-{
-	overflow: auto;
-}
-input[list=CustomersStructures]
-{
-	max-width: 100px;
-}
-input[type=tel]
-{
-	max-width: 100px;
-}
-input[type=city]
-{
-	max-width: 100px;
-}
-input[type=state]
-{
-	max-width: 25px;
-}
-input[type=zip]
-{
-	max-width: 50px;
-}
-input[type=MapTaxLot]
-{
-	max-width: 120px;
+.dropdown:hover .dropdownRequest {
+    display: inline-block;
 }
 
-#RBorder
-{
-	border-left: 1px solid #08ccff;
-}
-.LogOutBtn
-{
-	padding: 11.2px 30px;
-	text-align: enter;
-	display: inline-block;
-	font-size: 14px;
-	background-color: #08ccff;
-	border: 1px solid black;
+/*----------------------------------------------------------------------------*/
+.FirstLast {
+    padding: 11.2px 30px;
+    text-align: center;
+    display: inline-block;
+    font-size: 14px;
+    background-color: #08ccff;
+    border: 1px solid black;
 }
 
-#Logo
-{
-	padding: 10px;
-	display: block;
-	position: relative;	
-	bottom: 0px;
-	overflow: auto;
+
+.Contacts {
+    padding: 200px;
+    border: 1px solid pink;
+    border-collapse: collapse;
+    box-sizing: border-box;
 }
-#Logo .footer
-{
-	border-collapse: collapse;
-	width: fill;
-	height: fill;
+
+    .Contacts th {
+        background: #3399ff;
+        vertical-align: bottom;
+        border: solid 1px #3399ff;
+    }
+
+    .Contacts td {
+        padding: 5px;
+        border: 1px solid black;
+        border-collapse: collapse;
+        box-sizing: border-box;
+        text-align: left;
+    }
+
+    .Contacts tr:nth-child(even) {
+        background-color: #f2f2f2
+    }
+
+caption {
+    text-align: left;
+    text: bold;
+    color: #08ccff;
+    font-size: 25px;
 }
-#Logo img
-{
-	height: 85px;
-	width: 150px;
+
+
+button {
+    background-color: #08ccff;
+    color: black;
+    padding: 11.8px 15px;
+    border: 1px solid black;
+    width: auto;
 }
-#Logo .footer th
-{
-	vertical-align: bottom;
-	text-align: center;
-	background: #08ccff;
+
+    button:hover {
+        opacity: .7;
+    }
+
+input[type=CFS] {
+    max-width: 50px;
 }
-#Logo .footer td
-{
-	text-align: center;
-	vertical-align: center;
-	font-size: 17px;
-	border: 1px solid black;
+
+input[type=Allotment] {
+    max-width: 40px;
+    background-color: #08ccff;
+    border: none;
 }
+
+input[type=Comments] {
+    overflow: auto;
+}
+
+input[list=CustomersStructures] {
+    max-width: 100px;
+}
+
+input[type=tel] {
+    max-width: 100px;
+}
+
+input[type=city] {
+    max-width: 100px;
+}
+
+input[type=state] {
+    max-width: 25px;
+}
+
+input[type=zip] {
+    max-width: 50px;
+}
+
+input[type=MapTaxLot] {
+    max-width: 120px;
+}
+
+#RBorder {
+    border-left: 1px solid #08ccff;
+}
+
+.LogOutBtn {
+    padding: 11.2px 30px;
+    text-align: enter;
+    display: inline-block;
+    font-size: 14px;
+    background-color: #08ccff;
+    border: 1px solid black;
+}
+
+#Logo {
+    padding: 10px;
+    display: block;
+    position: relative;
+    bottom: 0px;
+    overflow: auto;
+}
+
+    #Logo .footer {
+        border-collapse: collapse;
+        width: fill;
+        height: fill;
+    }
+
+    #Logo img {
+        height: 85px;
+        width: 150px;
+    }
+
+    #Logo .footer th {
+        vertical-align: bottom;
+        text-align: center;
+        background: #08ccff;
+    }
+
+    #Logo .footer td {
+        text-align: center;
+        vertical-align: center;
+        font-size: 17px;
+        border: 1px solid black;
+    }
+
 ul.pagination {
     display: inline-block;
     padding: 0;
     margin: 0;
 }
 
-ul.pagination li {
-display: inline;
-}
+    ul.pagination li {
+        display: inline;
+    }
 
-ul.pagination li a {
-    color: black;
-    float: left;
-    padding: 8px 16px;
-    text-decoration: none;
-    transition: background-color .3s;
-    border: 1px solid black;
-}
+        ul.pagination li a {
+            color: black;
+            float: left;
+            padding: 8px 16px;
+            text-decoration: none;
+            transition: background-color .3s;
+            border: 1px solid black;
+        }
 
-ul.pagination li a.active {
-    background-color: #0000cc;
-    color: white;
-}
+            ul.pagination li a.active {
+                background-color: #0000cc;
+                color: white;
+            }
 
-ul.pagination li a:hover:not(.active) {
-    background-color: #0066ff;
-    color: white;
-}
+            ul.pagination li a:hover:not(.active) {
+                background-color: #0066ff;
+                color: white;
+            }
 
-@media screen and (min-width: 1082px)
-{
-	#Menu
-	{
-		width: 100%;
-		background: fill;
-		font-size: 20px;
-	}
-	#Menu #active
-	{
-		width:auto;
-	}
-	#Menu li a
-	{
-		text-align: center;
-	}
-	#Menu li
-	{	
-		list-style: none;
-	}
-	.FirstLast
-	{
-		font-size: 20px;
-	}
-	.LogOutBtn
-	{
-		font-size: 20px;
-	}
-	.LogOutBtn:hover
-	{
-		opacity: .6;
-	}
-	body
-	{
-		margin-left: 150px;
-	}
-		
+@media screen and (min-width: 1082px) {
+    #Menu {
+        width: 100%;
+        background: fill;
+        font-size: 20px;
+    }
+
+        #Menu #active {
+            width: auto;
+        }
+
+        #Menu li a {
+            text-align: center;
+        }
+
+        #Menu li {
+            list-style: none;
+        }
+
+    .FirstLast {
+        font-size: 20px;
+    }
+
+    .LogOutBtn {
+        font-size: 20px;
+    }
+
+        .LogOutBtn:hover {
+            opacity: .6;
+        }
+
+    body {
+        margin-left: 150px;
+    }
 }

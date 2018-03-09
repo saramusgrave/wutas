@@ -15,8 +15,17 @@
 <header id="Menu">
     <ul>
         <li><label class="FirstLast">@User.Identity.Name</label></li>
-        <li><a id="active" href="Customers/Index">Requests</a></li>
+        <li><a id="active" href="./Customers/Index">Requests</a></li>
         <li><a href="./CustomerWaterHistory">History</a></li>
+
+        <!--testing out a drop down list for history, hover should show the search-->
+        @*<li class="dropdown">
+            <a class="RequestDropDown" href="./CustomerWaterHistory">History</a>
+            <div class="dropdownRequest">
+                <a href="./View_SetDate_CustomerRequest.html">Search Request Date</a>
+            </div
+        </li>>*@
+
         <li><a href="./ContactsPage">Contacts</a></li>
         <li><a href="./CustomerProfile">Profile</a></li>
         <!--edit account page needs work-->
@@ -44,6 +53,11 @@
                 Allotment in AFPA
                 <input style="color: #ff0000; font-weight: bold;" type="Allotment" value="0" readonly>/200
             </b>
+
+            <!--testing the display for customer allotment-->
+            @*Allotment
+            <var>@Model[1].TotalAllotment</var>*@
+
         </li>
     </ul>
 </header>
@@ -60,56 +74,53 @@
                 <th>@Html.Label("CFS Requesting")</th>
                 <th>@Html.Label("Date")</th>
                 <th>@Html.Label("Comments")</th>
-                <th>@Html.Label("Status")</th>
-                @*<th>RequestID</th>
-                <th>Structure</th>
-                <th>Date</th>
-                <th>CFS</th>
-                <th>Comments</th>*@
+                @*<th>@Html.Label("Status")</th>*@
+
             </tr>
             @* Allow the user to input into 'Active Request' -> add a request *@
             @for (int i = 0; i < Model.Count; i++)
             {
-                <tr>
-                    <td>@Model[i].RequestID</td>
-                    <td>@Model[i].Structure</td>
-                    @*<td>@Html.TextBoxFor(Model => Model[i].CustomerCFS_1, new { @Type = "number" })</td>*@
-                    <td>@Model[i].CustomerCFS_1</td>
-                    <td>@Model[i].TimeStampCustomer1.ToShortDateString()</td>
-                    @*<td>@Html.TextAreaFor(Model => Model[i].CustomerComments_1)</td>*@
-                    <td>@Model[i].CustomerComments_1</td>
-                    <td>@Model[i].RequestStatus1</td>
-                    @*<td>
-                        @Html.ActionLink("Submit", "AddWaterOrderRequest", new { @RequestID = Model[i].RequestID })
-                    </td>*@
-                </tr>
+            <tr>
+                <td>@Model[i].RequestID</td>
+                <td>@Model[i].Structure</td>
+                @*<td>@Html.TextBoxFor(Model => Model[i].CustomerCFS_1, new { @Type = "number" })</td>*@
+                <td>@Model[i].CustomerCFS_1</td>
+                <td>@Model[i].TimeStampCustomer1.ToShortDateString()</td>
+                @*<td>@Html.TextAreaFor(Model => Model[i].CustomerComments_1)</td>*@
+                <td>@Model[i].CustomerComments_1</td>
+                @*<td>@Model[i].RequestStatus1</td>*@
+            </tr>
             }
         </table>
-        </div>        
-        <div style="overflow-x: auto;">
-            <!--Wait List class=Contacts-->
-            <table class="Contacts">
-                <caption>Wait List</caption>
-                <tr>
-                    <th>Number</th>
-                    <th>Structure</th>
-                    <th>Date</th>
-                    <th>CFS</th>
-                    <th>Comments</th>
-                    <th>Note</th>
-                </tr>
-                <tr>
-                    <td>1</td>
-                    <td>
-                        T5832
-                    </td>
-                    <td>08/12/17</td>
-                    <td><input type="CFS" value="4" disabled></td>
-                    <td>
-                        <input type="Comments" placeholder="Comments..." disabled>
-                    </td>
-                    <td>Ditch Rider will call when you are removed from wait list.</td>
-                </tr>
-            </table>
+    </div>
+    <div class="pagination" style="margin-left: 20px;">
+            Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber)
+            of @Model.PageCount @Html.PagedListPager(Model, page => Url.Action("Index", new { page }))
         </div>
+    <div style="overflow-x: auto;">
+        <!--Wait List class=Contacts-->
+        <table class="Contacts">
+            <caption>Wait List</caption>
+            <tr>
+                <th>Number</th>
+                <th>Structure</th>
+                <th>Date</th>
+                <th>CFS</th>
+                <th>Comments</th>
+                <th>Note</th>
+            </tr>
+            <tr>
+                <td>1</td>
+                <td>
+                    T5832
+                </td>
+                <td>08/12/17</td>
+                <td><input type="CFS" value="4" disabled></td>
+                <td>
+                    <input type="Comments" placeholder="Comments..." disabled>
+                </td>
+                <td>Ditch Rider will call when you are removed from wait list.</td>
+            </tr>
+        </table>
+    </div>
 </body>

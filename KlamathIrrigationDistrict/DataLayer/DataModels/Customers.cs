@@ -11,11 +11,16 @@ namespace KlamathIrrigationDistrict.DataLayer.DataModels
     public class Customers
     {
         //constuctor for Customers
-        public Customers() { }
+        //public Customers() { }
 
         //-------------------------------------------------------------------------------------
         //Customers(int CustomerID, int TrackingID, String Name, Decimal TotalAllotment)
         //public string Position { get; set { "Customer"}; }
+
+        //variables for setting Request Date View
+        public DateTime StartDate { get; set; }
+        public DateTime EndDate { get; set; }
+
 
         [Required]
         public int CustomerID { get; set; }
@@ -38,9 +43,18 @@ namespace KlamathIrrigationDistrict.DataLayer.DataModels
         [Required]
         [StringLength(2)]
         public string State { get; set; }
-        public int Zip { get; set; }
-        public decimal TotalAllotment { get; set; }
+        public int Zip { get; set; }        
         public List<Customers> customers { get; set; }
+
+        //-------------------------------------------------------------------------------------
+        //customer information regarding the ride, lateral, and MTL
+        public string Lateral { get; set; }
+
+        public decimal TotalAllotment { get; set; }
+
+        public int Ride { get; set; }
+
+        public int CustomerMTLHisID { get; set; }
 
         //-------------------------------------------------------------------------------------
         //info to obtain the staff info for contact
