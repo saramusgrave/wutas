@@ -36,6 +36,10 @@ namespace KlamathIrrigationDistrict.DataLayer.Interfaces
         //list of customer TotalAllotment, Ride, Lateral, Structure, Name, CustomerMTLHisID
         List<Customers> ViewCustomerAllotment(int CustomerID);
 
+        //takes no parameters
+        List<Customers> ViewCustomerAllotment();
+
+
         //customer set date range of requests wanting to view
         List<Customers> ViewRequestDates(int CustomerID, System.DateTime StartDate, System.DateTime EndDate);
 

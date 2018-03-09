@@ -1,10 +1,9 @@
 ﻿@using KlamathIrrigationDistrict.DataLayer.DataModels
 @using PagedList.Mvc;
 @model PagedList.IPagedList<Customers>
-@*@model Customers*@
-    @{ 
-        ViewBag.Title = "Customer: Home Page";
-    }
+@{ 
+    ViewBag.Title = "Customer: Home Page";
+}
 <head>
     <title>Customer: Home Page</title>
     <meta name="viewport" content="width=device-width" />
@@ -15,20 +14,11 @@
 <header id="Menu">
     <ul>
         <li><label class="FirstLast">@User.Identity.Name</label></li>
-        <li><a id="active" href="./Customers/Index">Requests</a></li>
+        <li><a id="active" href="./Index">Requests</a></li>
         <li><a href="./CustomerWaterHistory">History</a></li>
-
-        <!--testing out a drop down list for history, hover should show the search-->
-        @*<li class="dropdown">
-            <a class="RequestDropDown" href="./CustomerWaterHistory">History</a>
-            <div class="dropdownRequest">
-                <a href="./View_SetDate_CustomerRequest.html">Search Request Date</a>
-            </div
-        </li>>*@
-
         <li><a href="./ContactsPage">Contacts</a></li>
         <li><a href="./CustomerProfile">Profile</a></li>
-        <!--edit account page needs work-->
+
         <a href="../KIDLogInPageHTML.html"><button class="LogOutBtn">Log Out</button></a>
 
         <li>
@@ -83,8 +73,8 @@
             <tr>
                 <td>@Model[i].RequestID</td>
                 <td>@Model[i].Structure</td>
-                @*<td>@Html.TextBoxFor(Model => Model[i].CustomerCFS_1, new { @Type = "number" })</td>*@
-                <td>@Model[i].CustomerCFS_1</td>
+                @*<td>@Html.TextBoxFor(Model => Model[i].CustomerCFS1, new { @Type = "number" })</td>*@
+                <td>@Model[i].CustomerCFS1</td>
                 <td>@Model[i].TimeStampCustomer1.ToShortDateString()</td>
                 @*<td>@Html.TextAreaFor(Model => Model[i].CustomerComments_1)</td>*@
                 <td>@Model[i].CustomerComments_1</td>
