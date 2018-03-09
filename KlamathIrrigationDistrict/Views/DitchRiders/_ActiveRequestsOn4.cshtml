@@ -4,6 +4,7 @@
 <table class="ActiveRequests">
     <caption>Active Requests (On)</caption>
     <tr>
+        @*<th>@Html.Label("Request ID")</th>*@
         <th>@Html.Label("Date")</th>
         <th>@Html.Label("Name")</th>
         <th>@Html.Label("Turn Out")</th>
@@ -13,12 +14,13 @@
     @for (int i = 0; i < Model.Count; i++)
     {
         <tr>
+            @*<td>@Model[i].RequestID</td>*@
             <td>@Model[i].CustomerDate1.ToShortDateString()</td>
             <td>@Model[i].CustomerName</td>
             <td>@Model[i].Structure</td>
             <td>@Model[i].CustomerCFS1</td>
             <td>@Model[i].CustomerComments1</td>
-            <td>@Html.ActionLink("Edit Request", "EditRequest4On", new { @RequestID = Model[i].RequestID }) </td>
+            <td>@Html.ActionLink("On", "EditRequest4On", new { @RequestID = Model[i].RequestID }) </td>
         </tr>
     }
 </table>

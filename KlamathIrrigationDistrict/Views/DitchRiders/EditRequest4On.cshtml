@@ -1,7 +1,7 @@
 ﻿@using KlamathIrrigationDistrict.DataLayer.DataModels
 @model DitchRiderRequests
 @{
-    ViewBag.Title = "KID D.R.: Edit Request";
+    ViewBag.Title = "KID D.R.: Turn On Water";
 }
 <head>
     <title>KID: Ditch Rider</title>
@@ -19,7 +19,7 @@
         <li><label class="FirstLast">@User.Identity.Name</label></li>
         <li><a href="./KIDDitchRiderRide4CustomersHTML.html">Customers</a></li>
         <li class="dropdown">
-            <a class="RequestDropDown" href="./KIDDitchRider4HTML.html" id="active">Requests</a>
+            <a class="RequestDropDown" href="/Index4" id="active">Requests</a>
             <!--Requests drop down menu class=dropdownRequest-->
             <div class="dropdownRequest" style="overflow-x: auto;">
                 <a href="./KIDDitchRiderRide4AppendingWaitlistHTML.html">Appending/Waitlist</a>
@@ -55,7 +55,7 @@
     @using (Html.BeginForm())
     {
         @Html.HiddenFor(s => s.RequestID)
-        @Html.HiddenFor(s => s.Staff1)
+        @Html.HiddenFor(s => s.Staff1, new { @Value = User.Identity.Name })
         @Html.HiddenFor(s => s.TimeStampStaff1)
 
         <div>
@@ -68,7 +68,8 @@
         </div>
         <div>
             @Html.Label("Status: ")
-            @Html.DropDownList("RequestStatus_1", Model.RequestStatus_1)
+            @Html.TextBoxFor(m => m.RequestStatus1)
+            @*@Html.DropDownList("RequestStatus_1", Model.RequestStatus_1)*@
         </div>
         <div>
             @Html.Label("CFS: ")

@@ -59,11 +59,29 @@ namespace KlamathIrrigationDistrict.Controllers
             return View(std);
         }
         //Ditch Rider View Active Requests Ride 4 Off
-        [Authorize (Roles = "Ride 4, Relief Ride 4")]
-        public ActionResult _ActiveRequestsOff4()
+        [Authorize(Roles = "Ride 4, Relief Ride 4")]
+        //public ActionResult _ActiveRequestsOff4()
+        //{
+        //    var std = _ditchRiderRepo.ViewActiveRequestOff4();
+        //    return View(std);
+        //}
+        public ActionResult _ActiveRequestsOff4(int CustomerID, string Structure)
         {
-            var std = _ditchRiderRepo.ViewActiveRequestOff4();
-            return View(std);
+            var std = _ditchRiderRepo.Customers4().Where(s => s.CustomerID == CustomerID).FirstOrDefault();
+            var tsd = _ditchRiderRepo.Customers4().Where(s => s.StructureID == Structure).FirstOrDefault();
+            return View(std.CustomerID.ToString(), tsd.StructureID);
+        }
+        [Authorize(Roles = "Ride 4, Relief Ride 4")]
+        [HttpPost]
+        public ActionResult _ActiveRequestsOff4(DitchRiderRequests std)
+        {
+            int RequestID = std.RequestID;
+            DateTime CustomerDate2 = std.CustomerDate2;
+            string Structure = std.Structure;
+            int CustomerCFS2 = std.CustomerCFS2;
+            string CustomerComments2 = std.CustomerComments2;
+            _ditchRiderRepo.AddRequest_4Off(std);
+            return RedirectToAction("Index4");
         }
         //Ditch Rider Edit Request Ride 4 On
         public ActionResult EditRequest4On(int RequestID)
@@ -88,6 +106,7 @@ namespace KlamathIrrigationDistrict.Controllers
         public ActionResult EditRequest4On(DitchRiderRequests std)
         {
             int RequestID = std.RequestID;
+            string Staff1 = std.Staff1;
             DateTime StaffDate1 = std.StaffDate1;
             int StaffCFS1 = std.StaffCFS1;
             string StaffComments1 = std.StaffComments1;
@@ -126,45 +145,60 @@ namespace KlamathIrrigationDistrict.Controllers
         }
         //Ditch Rider Add Request as if Customer Ride 4
         [Authorize(Roles = "Ride 4, Relief Ride 4")]
-        [HttpGet]
-        public ActionResult AddRequest4On()
+        //[HttpGet]
+        //public ActionResult AddRequest4On()
+        //{
+
+        //    //DitchRiderRequests repo = new DitchRiderRequests();
+        //    //var std = _ditchRiderRepo.Customers4().Where(s => s.Name == repo.CustomerName).FirstOrDefault();
+        //    //var req = _ditchRiderRepo.Customers4().Where(s => s.StructureID == repo.Structure).FirstOrDefault();
+        //    //var ght = _ditchRiderRepo.Customers4().Where(s => s.CustomerID == CustomerID).FirstOrDefault();
+
+        //    //return View(ght);
+
+        //    //Drop down works
+        //    //DitchRiderRequests model = new DitchRiderRequests();
+        //    //model.HorsleyStructures = new List<SelectListItem>()
+        //    //{
+        //    //    new SelectListItem() { Text = "T4603", Value = "T4603"},
+        //    //    new SelectListItem() { Text = "T4604", Value = "T4604"},
+        //    //    new SelectListItem() { Text = "T4505", Value = "T4605"},
+        //    //    new SelectListItem() { Text = "T4607", Value = "T4607"},
+        //    //    new SelectListItem() { Text = "T4603", Value = "T4603"},
+        //    //    new SelectListItem() { Text = "P4609", Value = "P4609"},
+        //    //    new SelectListItem() { Text = "T4610", Value = "T4610"},
+        //    //};
+        //    //return View(model);
+
+        //    //return view without using drop down keep
+        //    return View(new DitchRiderRequests());
+        //}
+        public ActionResult AddRequest4On(int CustomerID)
         {
-            DitchRiderRequests repo = new DitchRiderRequests();
-            var std = _ditchRiderRepo.Customers4().Where(s => s.Name == repo.CustomerName).FirstOrDefault();
-            var req = _ditchRiderRepo.Customers4().Where(s => s.StructureID == repo.Structure).FirstOrDefault();
-            var ght = _ditchRiderRepo.Customers4().Where(s => s.CustomerID == repo.CustomerID).FirstOrDefault();
+            var std = _ditchRiderRepo.Customers4().Where(s => s.CustomerID == CustomerID).FirstOrDefault();
             
-            return View(new DitchRiderRequests());
-
-            //Drop down works
-            //DitchRiderRequests model = new DitchRiderRequests();
-            //model.HorsleyStructures = new List<SelectListItem>()
-            //{
-            //    new SelectListItem() { Text = "T4603", Value = "T4603"},
-            //    new SelectListItem() { Text = "T4604", Value = "T4604"},
-            //    new SelectListItem() { Text = "T4505", Value = "T4605"},
-            //    new SelectListItem() { Text = "T4607", Value = "T4607"},
-            //    new SelectListItem() { Text = "T4603", Value = "T4603"},
-            //    new SelectListItem() { Text = "P4609", Value = "P4609"},
-            //    new SelectListItem() { Text = "T4610", Value = "T4610"},
-            //};
-            //return View(model);
-
-            //return view without using drop down keep
-            //return View(new DitchRiderRequests());
+            return View(std);
         }
         [Authorize(Roles = "Ride 4, Relief Ride 4")]
         [HttpPost]
         public ActionResult AddRequest4On(DitchRiderRequests ditchriderrequests)
         {
-            if (!ModelState.IsValid)
-            {
-                return View(ditchriderrequests);
-            }
+            //keep
+            //if (!ModelState.IsValid)
+            //{
+            //    return View(ditchriderrequests);
+            //}
+            int RequestID = ditchriderrequests.RequestID;
+            int CustomerID = ditchriderrequests.CustomerID;
+            string structure = ditchriderrequests.Structure;
+            string Name = ditchriderrequests.CustomerName;
+            DateTime CustomerDate1 = ditchriderrequests.CustomerDate1;
+            int CustomerCFS1 = ditchriderrequests.CustomerCFS1;
+            string CustomerComments1 = ditchriderrequests.CustomerComments1;
             _ditchRiderRepo.AddRequest_4On(ditchriderrequests);
             return RedirectToAction("Index4");
         }
-        //Ditch Rider Add Request as if Customer Ride 4
+        //Ditch Rider Add Request as if Customer Ride 4 Off
         [Authorize(Roles = "Ride 4 ,Relief Ride 4")]
         [HttpGet]
         public ActionResult _AddRequest4Off()

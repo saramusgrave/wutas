@@ -1,7 +1,7 @@
 ﻿@using KlamathIrrigationDistrict.DataLayer.DataModels
 @model DitchRiderRequests
 @{
-    ViewBag.Title = "KID D.R.: Edit Request";
+    ViewBag.Title = "KID D.R.: Turn Off Water";
 }
 <head>
     <title>KID: Ditch Rider</title>
@@ -72,7 +72,7 @@
 
         <div>
             @Html.Label("Customer Name: ")
-            @Html.TextBoxFor(s => s.CustomerName, new { @disabled = "diabled", @class = "CustomerName" })
+            @Html.DisplayTextFor(s => s.CustomerName)
         </div>
         <div>
             @Html.Label("Date: ")
@@ -80,8 +80,7 @@
         </div>
         <div>
             @Html.Label("Status: ")
-            @Html.DropDownList("StatusList", "Select")
-            @Html.DropDownList("RequestStatus_2", Model.RequestStatus_2)
+            @*@Html.DropDownList("RequestStatus_2", Model.RequestStatus_2)*@
             @Html.TextBoxFor(s => s.RequestStatus2)
         </div>
         <div>

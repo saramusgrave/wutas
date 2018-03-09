@@ -97,7 +97,7 @@ namespace KlamathIrrigationDistrict.DataLayer.Repositories
                 using (SqlCommand command = new SqlCommand())
                 {
                     command.Connection = connection;
-                    command.CommandText = "SELECT * FROM Requests WHERE StaffCFS2 IS NOT NULL AND Structure LIKE '_4%'";
+                    command.CommandText = "SELECT * FROM Requests WHERE StaffCFS2 IS NOT NULL AND Structure LIKE '_4%' ORDER BY RequestID ASC";
                     command.CommandType = CommandType.Text;
                     connection.Open();
                     using (SqlDataReader reader = command.ExecuteReader())
@@ -133,7 +133,7 @@ namespace KlamathIrrigationDistrict.DataLayer.Repositories
             }
             return (RequestList);
         }
-        //View Active Requests on for Ride 4
+        //View Active Requests Ride 4 On
         public List<DitchRiderRequests> ViewActiveRequestOn4()
         {
             List<DitchRiderRequests> RequestList = new List<DitchRiderRequests>();
@@ -142,7 +142,7 @@ namespace KlamathIrrigationDistrict.DataLayer.Repositories
                 using (SqlCommand command = new SqlCommand())
                 {
                     command.Connection = connection;
-                    command.CommandText = "SELECT CustomerDate1, CustomerName, Structure, CustomerCFS1, CustomerComments1 FROM Requests WHERE Structure LIKE '_4%' AND StaffCFS1 IS NULL";
+                    command.CommandText = "SELECT * FROM Requests WHERE Structure LIKE '_4%' ";
                     command.CommandType = CommandType.Text;
                     connection.Open();
                     using (SqlDataReader reader = command.ExecuteReader())
@@ -150,9 +150,11 @@ namespace KlamathIrrigationDistrict.DataLayer.Repositories
                         while (reader.Read())
                         {
                             DitchRiderRequests p = new DitchRiderRequests();
+                            p.RequestID = int.Parse(reader["RequestID"].ToString());
                             p.CustomerDate1 = DateTime.Parse(reader["CustomerDate1"].ToString());
                             p.CustomerName = reader["CustomerName"].ToString();
                             p.Structure = reader["Structure"].ToString();
+                            p.RequestStatus1 = reader["RequestStatus1"].ToString();
                             p.CustomerCFS1 = int.Parse(reader["CustomerCFS1"].ToString());
                             p.CustomerComments1 = reader["CustomerComments1"].ToString();
                             RequestList.Add(p);
@@ -171,7 +173,7 @@ namespace KlamathIrrigationDistrict.DataLayer.Repositories
                 using (SqlCommand command = new SqlCommand())
                 {
                     command.Connection = connection;
-                    command.CommandText = "SELECT CustomerDate2, CustomerName, Structure, CustomerCFS2, CustomerComments2 FROM Requests WHERE Structure LIKE '_4%' AND StaffCFS2 IS NULL AND CustomerCFS2 IS NOT NULL";
+                    command.CommandText = "SELECT * FROM Requests WHERE Structure LIKE '_4%'";
                     command.CommandType = CommandType.Text;
                     connection.Open();
                     using (SqlDataReader reader = command.ExecuteReader())
@@ -179,8 +181,10 @@ namespace KlamathIrrigationDistrict.DataLayer.Repositories
                         while (reader.Read())
                         {
                             DitchRiderRequests p = new DitchRiderRequests();
+                            p.RequestID = int.Parse(reader["RequestID"].ToString());
                             p.CustomerDate2 = DateTime.Parse(reader["CustomerDate2"].ToString());
                             p.CustomerName = reader["CustomerName"].ToString();
+                            p.RequestStatus2= reader["RequestStatus2"].ToString();
                             p.Structure = reader["Structure"].ToString();
                             p.CustomerCFS2 = int.Parse(reader["CustomerCFS2"].ToString());
                             p.CustomerComments2 = reader["CustomerComments2"].ToString();
@@ -203,6 +207,7 @@ namespace KlamathIrrigationDistrict.DataLayer.Repositories
                     command.CommandType = CommandType.StoredProcedure;
                     command.CommandText = "sp_DitchRider_AddRequests4On";
 
+                    command.Parameters.AddWithValue("@RequestID", ditchriderrequests.RequestID);
                     command.Parameters.AddWithValue("@TimeStampCustomer1", ditchriderrequests.TimeStampCustomer1);
                     command.Parameters.AddWithValue("@CustomerDate1", ditchriderrequests.CustomerDate1);
                     command.Parameters.AddWithValue("@CustomerID", ditchriderrequests.CustomerID);
@@ -231,6 +236,9 @@ namespace KlamathIrrigationDistrict.DataLayer.Repositories
                     command.Parameters.AddWithValue("@CustomerDate2", ditchriderrequests.CustomerDate2);
                     command.Parameters.AddWithValue("@CustomerCFS2", ditchriderrequests.CustomerCFS2);
                     command.Parameters.AddWithValue("@CustomerComments2", ditchriderrequests.CustomerComments2);
+
+                    //added
+                    command.Parameters.AddWithValue("@RequestID", ditchriderrequests.RequestID);
                     connection.Open();
                     command.ExecuteNonQuery();
                 }
@@ -328,28 +336,6 @@ namespace KlamathIrrigationDistrict.DataLayer.Repositories
                 }
             }
             return status;
-                //using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["KID"].ConnectionString))
-                //{
-                //    using (SqlCommand command = new SqlCommand())
-                //    {
-                //        command.Connection = connection;
-                //        command.CommandText = "SELECT * FROM RequestStatusList";
-                //        command.CommandType = CommandType.Text;
-                //        connection.Open();
-                //        using (SqlDataReader reader = command.ExecuteReader())
-                //        {
-                //            while (reader.Read())
-                //            {
-                //                status.Add(new SelectListItem
-                //                {
-                //                    Text = reader["ResquestStatusName"].ToString(),
-                //                    Value = reader["RequestStatusID"].ToString()
-                //                });
-                //            }
-                //        }
-                //    }
-                //}
-                //return status;
         }
 
 
