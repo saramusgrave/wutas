@@ -177,7 +177,28 @@ namespace KlamathIrrigationDistrict.Controllers
             return View(ditchRider);
         }
 
-
+   
+        public ActionResult CanalWater()
+        {
+            //DitchRiderCustomers std = new DitchRiderCustomers();
+            //ViewBag.std = _ditchRiderRepo.WaterCFS_NextDayByCanal(std.Lateral);
+            return View();
+            
+        }
+        //View Water in next day canal
+        //ViewActiveRequestsOn4()
+        //Page: _ActiveRequstsOn4
+        //[Authorize(Roles = "Ride 4, Relief Ride 4")]
+        //[HttpPost]
+        //public ActionResult CanalWater(DitchRiderCustomers std)
+        //{
+        //    _ditchRiderRepo.WaterCFS_NextDayByCanal(std);
+        //    return View(std);
+        //}
+        public ActionResult _CanalCFS(int CFS)
+        {
+            return View(CFS);
+        }
 
 
 
@@ -280,6 +301,9 @@ namespace KlamathIrrigationDistrict.Controllers
         public ActionResult EditRequestStatus_On(int RequestID)
         {
             var std = _ditchRiderRepo.ViewPending_4On().Where(s => s.RequestID == RequestID).FirstOrDefault();
+            //Drop down pulling form SQL
+            ViewData["S"] = _ditchRiderRepo.Status().Select(s => new SelectListItem() { Text = s.RequestStatusName, Value = s.RequestStatusName }).ToList();
+            ViewData["StaffComments2"] = _ditchRiderRepo.Comments().Select(s => new SelectListItem() { Text = s.Comment, Value = s.Comment }).ToList();
             return View(std);
         }
 
@@ -337,6 +361,9 @@ namespace KlamathIrrigationDistrict.Controllers
         public ActionResult EditRequestStatus_Off(int RequestID)
         {
             var std = _ditchRiderRepo.ViewPending_4Off().Where(s => s.RequestID == RequestID).FirstOrDefault();
+            //Drop down pulling form SQL
+            ViewData["S"] = _ditchRiderRepo.Status().Select(s => new SelectListItem() { Text = s.RequestStatusName, Value = s.RequestStatusName }).ToList();
+            ViewData["StaffComments2"] = _ditchRiderRepo.Comments().Select(s => new SelectListItem() { Text = s.Comment, Value = s.Comment }).ToList();
             return View(std);
         }
 
@@ -489,9 +516,6 @@ namespace KlamathIrrigationDistrict.Controllers
         //}
         public ActionResult _AddRequest4Off()
         {
-            //var std = _ditchRiderRepo.Customers4().Where(s => s.CustomerID == CustomerID).FirstOrDefault();
-            //var tsd = _ditchRiderRepo.Customers4().Where(s => s.StructureID == StructureID).FirstOrDefault();
-            //return View(std);
             return View(new DitchRiderRequests());
         }
         //Turn Off Water as if Customer

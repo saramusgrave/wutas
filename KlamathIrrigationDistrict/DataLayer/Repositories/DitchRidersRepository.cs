@@ -410,6 +410,9 @@ namespace KlamathIrrigationDistrict.DataLayer.Repositories
 
                     //added
                     command.Parameters.AddWithValue("@RequestID", ditchriderrequests.RequestID);
+                    command.Parameters.AddWithValue("@CustomerID", ditchriderrequests.CustomerID);
+                    command.Parameters.AddWithValue("@Structure", ditchriderrequests.Structure);
+                    command.Parameters.AddWithValue("@CustomerName", ditchriderrequests.CustomerName);
                     connection.Open();
                     command.ExecuteNonQuery();
                 }
@@ -517,6 +520,27 @@ namespace KlamathIrrigationDistrict.DataLayer.Repositories
                 }
             }
         }
+        //Store procedure to view how much is in a canal.
+        public void  WaterCFS_NextDayByCanal(DitchRiderCustomers lateral)
+        {
+            using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["KID"].ConnectionString))
+            {
+                using (SqlCommand command = new SqlCommand())
+                {
+                    
+                    command.Connection = connection;
+                    command.CommandType = CommandType.StoredProcedure;
+                    command.CommandText = "dbo.WaterCFS_NextDayByCanal";
+                  
+                    command.Parameters.AddWithValue("@Lateral", lateral.Lateral);
+
+                    connection.Open();
+                    command.ExecuteNonQuery();
+                }
+            }
+        }
+
+        
 
 
 
@@ -524,10 +548,7 @@ namespace KlamathIrrigationDistrict.DataLayer.Repositories
 
 
 
-
-
-
-        //Poor attempt at getting drop down to work :(
+        //Use when getting Status in drop down 
         public List<DitchRiderRequestStatus> Status()
         {
             List<DitchRiderRequestStatus> list = new List<DitchRiderRequestStatus>();
@@ -545,7 +566,7 @@ namespace KlamathIrrigationDistrict.DataLayer.Repositories
                         {
                             DitchRiderRequestStatus r = new DitchRiderRequestStatus();
                             r.RequestStatusID = int.Parse(reader["RequestStatusID"].ToString());
-                            r.RequestStatusName = reader["ResquestStatusName"].ToString();
+                            r.RequestStatusName = reader["RequestStatusName"].ToString();
                             list.Add(r);
                         }
                     }
@@ -553,32 +574,32 @@ namespace KlamathIrrigationDistrict.DataLayer.Repositories
             }
             return (list);
         }
-
-        //Poor attempt at gettign drop down to wrok round 2 :(
-        public  List<SelectListItem> RequestStatus_2()
+        //Use when getting Ditch Rider Comments in drop down 
+        public List<DitchRiderComments> Comments()
         {
-            List<SelectListItem> status = new List<SelectListItem>();
-            string constr = ConfigurationManager.ConnectionStrings["KID"].ConnectionString;
-            using (SqlConnection con = new SqlConnection(constr))
+            List<DitchRiderComments> list = new List<DitchRiderComments>();
+            using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["KID"].ConnectionString))
             {
-                string query = "SELECT RequestStatusName, RequestSatusID FROM RequestStatusList";
-                using (SqlCommand cmd = new SqlCommand(query))
+                using (SqlCommand command = new SqlCommand())
                 {
-                    cmd.Connection = con;
-                    con.Open();
-                    using (SqlDataReader sdr = cmd.ExecuteReader())
+                    command.Connection = connection;
+                    command.CommandText = "SELECT * FROM Comments";
+                    command.CommandType = CommandType.Text;
+                    connection.Open();
+                    using (SqlDataReader reader = command.ExecuteReader())
                     {
-                        while (sdr.Read())
+                        while (reader.Read())
                         {
-                            status.Add(new SelectListItem { Text = sdr["RequestStatusName"].ToString(), Value = sdr["RequestStatusID"].ToString()});
+                            DitchRiderComments r = new DitchRiderComments();
+                            r.CommentID = int.Parse(reader["CommentID"].ToString());
+                            r.Comment = reader["Comment"].ToString();
+                            list.Add(r);
                         }
                     }
-                    con.Close();
                 }
             }
-            return status;
+            return (list);
         }
-
 
 
 

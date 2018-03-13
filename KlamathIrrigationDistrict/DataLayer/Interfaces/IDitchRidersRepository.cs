@@ -40,10 +40,17 @@ namespace KlamathIrrigationDistrict.DataLayer.Interfaces
         List<DitchRiderRequests> ViewWaitlist_4On();
         //Waitlist Off
         List<DitchRiderRequests> ViewWaitlist_4Off();
+        //Store procedure to view how much is in a canal.
+        void WaterCFS_NextDayByCanal(DitchRiderCustomers lateral);
+        
 
 
-        List<SelectListItem> RequestStatus_2();
+
+        //Drop downs
+        //Used to get Drop Down From SQL RequestStatus1 and RequestStatus2
         List<DitchRiderRequestStatus> Status();
+        //Used to get Drop Down From SQL Ditch Rider Comments
+        List<DitchRiderComments> Comments();
 
 
 

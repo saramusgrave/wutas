@@ -22,9 +22,13 @@
             <a class="RequestDropDown" href="/Index4" id="active">Requests</a>
             <!--Requests drop down menu class=dropdownRequest-->
             <div class="dropdownRequest" style="overflow-x: auto;">
-                <a href="./KIDDitchRiderRide4AppendingWaitlistHTML.html">Appending/Waitlist</a>
-                <a href="./KIDDitchRiderRide4CallRequestsHTML.html">Call Requests</a>
+                <a href="/DitchRiders/_ActiveREquestsOn4" >Active Requests On</a>
+                <a href="/DitchRiders/_ActiveRequestsOff4">Active Requests Off</a>
+                <a href="/DitchRiders/Appending_4On"id="active">Appending On</a>
+                <a href="/DitchRiders/Appending_4Off">Appending Off</a>
                 <a href="/DitchRiders/CompletedRequests">Completed Requests</a>
+                <a href="/DitchRiders/WaitList_4On">Waitlist On</a>
+                <a href="/DitchRiders/WaitList_4Off">Waitlist Off</a>
             </div>
         </li>
         <li class="dropdown">
@@ -64,11 +68,11 @@
         </div>
         <div>
             @Html.Label("Status: ")
-            @Html.TextBoxFor(m => m.RequestStatus1)
+            @Html.DropDownListFor(s => s.RequestStatus2, ViewData["S"] as IEnumerable<SelectListItem>, "Select")
         </div>
         <div>
             @Html.Label("Comments: ")
-            @Html.TextAreaFor(s => s.StaffComments1)
+            @Html.DropDownListFor(s => s.StaffComments2, ViewData["StaffComments2"] as IEnumerable<SelectListItem>, "Select")
         </div>
         <div>
             <button type="submit">Submit</button>

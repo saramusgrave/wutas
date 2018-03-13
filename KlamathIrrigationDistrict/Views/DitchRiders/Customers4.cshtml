@@ -24,9 +24,13 @@
             <a class="RequestDropDown" href="Index4">Requests</a>
             <!--Requests drop down menu class=dropdownRequest-->
             <div class="dropdownRequest" style="overflow-x: auto;">
-                <a href="./KIDDitchRiderRide4AppendingWaitlistHTML.html">Appending/Waitlist</a>
-                <a href="/DitchRiders/AddRequest4On">Call Requests</a>
+                <a href="/DitchRiders/_ActiveREquestsOn4" id="active">Active Requests On</a>
+                <a href="/DitchRiders/_ActiveRequestsOff4">Active Requests Off</a>
+                <a href="/DitchRiders/Appending_4On">Appending On</a>
+                <a href="/DitchRiders/Appending_4Off">Appending Off</a>
                 <a href="/DitchRiders/CompletedRequests">Completed Requests</a>
+                <a href="/DitchRiders/WaitList_4On">Waitlist On</a>
+                <a href="/DitchRiders/WaitList_4Off">Waitlist Off</a>
             </div>
         </li>
         <li class="dropdown">
@@ -74,7 +78,7 @@
                     <td>@Model[i].CustomerID</td>
                     <td>@Model[i].TotalAllotment</td>
                     <td>@Html.ActionLink("On", "AddRequest4On", new { @CustomerID = Model[i].CustomerID})</td>
-                    <td>@Html.ActionLink("Off", "_AddRequest4Off", new { @CustomerID = Model[i].CustomerID})</td>
+                    <td>@Html.ActionLink("Off", "_AddRequest4Off", new { @StructureID = Model[i].StructureID})</td>
                 </tr>
             }
         </table>
