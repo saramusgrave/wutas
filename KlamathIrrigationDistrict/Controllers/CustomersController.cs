@@ -177,26 +177,7 @@ namespace KlamathIrrigationDistrict.Controllers
             obCustomerInfo = customerrepository.ViewCustomers(CustomerID);
             CustomerInfo.customers = obCustomerInfo;
             cInfo = obCustomerInfo.ToPagedList(pageIndex, pageSize);
-            return View(cInfo);
-
-            //return CustomerProfile();
-
-            //Customers customers = _custRepo.Get(CustomerID);
-            //Customers customers = _custRepo.Get(CustomerID);
-            //Customers CustomerModel = new Customers()
-            //{
-            //    CustomerID = customers.CustomerID,
-            //    TrackingID = customers.TrackingID,
-            //    Name = customers.Name,
-            //    Address1 = customers.Address1,
-            //    Address2 = customers.Address2,
-            //    City = customers.City,
-            //    State = customers.State,
-            //    Zip = customers.Zip,
-            //    TotalAllotment = customers.TotalAllotment,
-            //};
-            ////return CustomerProfile(CustomerID);
-            //return CustomerProfile(CustomerID);
+            return View(cInfo);            
         }
 
         public ActionResult CustomerWaterHistory(int? page)
@@ -239,13 +220,6 @@ namespace KlamathIrrigationDistrict.Controllers
             return View(cHistory);
         }
 
-        //public ActionResult CustomerAddRequest(int CustomerID)
-        //{
-        //    var std = _custRepo.ViewCustomerAllotment(CustomerID).Where(s => s.CustomerID == CustomerID).FirstOrDefault();
-
-        //    return View(std);
-        //}
-
         //should read this fucntion when running CustomerAddRequest view
         //Referenced by "CustomerAddRequest.cshtml" - functionality
         //[Authorize(Roles = "Office Specialist, Customer")]
@@ -259,7 +233,6 @@ namespace KlamathIrrigationDistrict.Controllers
         //HttpPost will not allow for display of view, only get
         //referenced by the Customer in Submiting a Request
         //[Authorize(Roles = "Customer")]
-        //-------------------------------------WHY DOES THE VIEW ONLY READ THIS FUNCTION WHEN HttpPost IS COMMENTED OUT!!!!!!!!!!!!
         [HttpPost]
         public ActionResult CustomerAddRequest(Customers WaterRequest)
         {
@@ -273,7 +246,7 @@ namespace KlamathIrrigationDistrict.Controllers
             string structure = WaterRequest.Structure;
             string Name = WaterRequest.Name;
             DateTime CustomerDate1 = WaterRequest.CustomerDate1;
-            int CustomerCFS1 = WaterRequest.CustomerCFS1;
+            int CustomerCFS1 = WaterRequest.CustomerCFS_1;
             string CustomerComments1 = WaterRequest.CustomerComments_1;
 
             _custRepo.AddWaterOrderRequest(WaterRequest);
@@ -336,7 +309,7 @@ namespace KlamathIrrigationDistrict.Controllers
             //DateTime Input_StartDate = Convert.ToDateTime(StartDate);
             //DateTime Input_EndDate = Convert.ToDateTime(EndDate);
 
-            obCustomerRangeList = _custRepo.ViewRequestDates(CustomerID, DateRange.StartDate, DateRange.EndDate);
+            //obCustomerRangeList = _custRepo.ViewRequestDates(CustomerID, DateRange.StartDate, DateRange.EndDate);
 
 
 
@@ -375,6 +348,32 @@ namespace KlamathIrrigationDistrict.Controllers
         //-------------------------------------------------------------------------------------------------------------------------------------
         //functionality for specific people under the customer side
 
+        [HttpGet]
+        public ActionResult ViewAllotment(Customers cusAllotment)
+        {
+            int CustomerID;
+            decimal std;
+            if (User.Identity.Name.Equals("ryhayandgrain@gmail.com"))
+            {
+                CustomerID = 760;
+                std = _custRepo.GetAllotment(CustomerID);
+                return View(std);
+            }
+
+            else if (User.Identity.Name.Equals("josh@horsleyfarms.com"))
+            {
+                CustomerID = 3681;        //josh customerID
+                //CustomerID = 549;           //Webb Gene & Pamela 
+                std = _custRepo.GetAllotment(CustomerID);
+                return View(std);
+            }
+            else
+                CustomerID = 760;
+                std = _custRepo.GetAllotment(CustomerID);
+                return View(std);
+        }
+
+        
         //View for Staff to add a customer
         [Authorize(Roles = "Office Specialist")]
         [HttpGet]
@@ -382,9 +381,7 @@ namespace KlamathIrrigationDistrict.Controllers
         {
             return View(new Customers());
         }
-
         
-
         //View for Staff to Edit a customer
         [Authorize(Roles = "Office Specialist")]
         public ActionResult StaffEditCustomer(int CustomerID)
@@ -461,7 +458,7 @@ namespace KlamathIrrigationDistrict.Controllers
                 CustomerID = customers.CustomerID,
                 Name = customers.Name,
                 Structure = customers.Structure,
-                CustomerCFS1 = customers.CustomerCFS1,
+                CustomerCFS_1 = customers.CustomerCFS_1,
                 CustomerComments_1 = customers.CustomerComments_1,
                 TimeStampStaff1 = customers.TimeStampStaff1,
                 StaffName_1 = customers.StaffName_1,
@@ -502,18 +499,18 @@ namespace KlamathIrrigationDistrict.Controllers
         //view the ICustomerRepositories
         //need to add the TrackingID from the MTL - ensure that it matches with Customer's Tracking ID
         //Allow to sync with 
-        public ActionResult ViewWaterHistory(int CustomerID)
-        {
-            //do i need to specify how to get the customerID? (BELOW)
-            //Customers customers = _custRepo.Get(CustomerID);
-            //if(customers == null)
-            //{
-            //    return HttpNotFound();
-            //}
-            //return View(customers);
+        //public ActionResult ViewWaterHistory(int CustomerID)
+        //{
+        //    //do i need to specify how to get the customerID? (BELOW)
+        //    //Customers customers = _custRepo.Get(CustomerID);
+        //    //if(customers == null)
+        //    //{
+        //    //    return HttpNotFound();
+        //    //}
+        //    //return View(customers);
 
-            _custRepo.ViewCustomerRequests(CustomerID);
-            return RedirectToAction("CustomerWaterOrderHistory");
-        }
+        //    _custRepo.ViewCustomerRequests(CustomerID);
+        //    return RedirectToAction("CustomerWaterOrderHistory");
+        //}
     }
 }

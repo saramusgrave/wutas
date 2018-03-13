@@ -474,7 +474,7 @@ namespace KlamathIrrigationDistrict.DataLayer.Repositories
         }
              
         //functionality needs work
-        public virtual Decimal GetAllotment(int CustomerID)
+        public virtual decimal GetAllotment(int CustomerID)
         {
             Customers s = null;
 
