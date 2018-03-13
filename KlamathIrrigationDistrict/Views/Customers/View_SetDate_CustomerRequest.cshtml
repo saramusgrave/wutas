@@ -14,18 +14,10 @@
     <ul>
         <li><label class="FirstLast">@User.Identity.Name</label></li>
         <li><a href="./Index">Requests</a></li>
-        @*<li><a href="./CustomerWaterHistory">History</a></li>*@
-
-        <!--testing out a drop down list for history, hover should show the search-->
-        <li class="dropdown">
-            <a class="RequestDropDown" href="./CustomerWaterHistory">History</a>
-            <div class="dropdownRequest">
-                <a id="active" href="Customers/View_SetDate_CustomerRequest.html">Search Request Date</a>
-            </div>
-
+        <li><a href="./CustomerWaterHistory">History</a></li>
         <li><a href="./ContactsPage">Contacts</a></li>
         <li><a href="./CustomerProfile">Profile</a></li>
-        <!--edit account page needs work-->
+
         <a href="../KIDLogInPageHTML.html"><button class="LogOutBtn">Log Out</button></a>
 
         <li>
@@ -54,9 +46,9 @@
     </ul>
 </header>
 <body>
-    <a href="CustomerWaterHistory" class="next">Previous &raquo;</a>
+    <a href="CustomerWaterHistory" class="next">&laquo; Previous</a>
 
-    @*@using (Html.BeginForm("View_SetDate_CustomerRequest", "CustomersController", FormMethod.Post))
+    @using (Html.BeginForm("View_SetDate_CustomerRequest", "CustomersController", FormMethod.Post))
     {
         <div style="overflow-x: auto;">
             <table class="Contacts">
@@ -66,7 +58,7 @@
                 </div>
                 <div>
                     @Html.Label("End Date")
-                    <input name="EndDate" tpye="date" id="DateRange" value="input_EndDate" />
+                    <input name="EndDate" type="date" id="DateRange" value="input_EndDate" />
                 </div>
 
                 <div>
@@ -75,7 +67,8 @@
             </table>
 
         </div>
-    }*@
+    }
+
     <div style="overflow-x: auto;">
         <table class="Contacts">
             <caption>Complete Request (off)</caption>
