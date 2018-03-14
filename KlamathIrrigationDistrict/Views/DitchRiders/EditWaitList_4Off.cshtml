@@ -1,7 +1,7 @@
 ﻿@using KlamathIrrigationDistrict.DataLayer.DataModels
 @model DitchRiderRequests
 @{
-    ViewBag.Title = "KID D.R.: Turn On Water";
+    ViewBag.Title = "KID D.R.: Turn Off Water";
 }
 <head>
     <title>KID: Ditch Rider</title>
@@ -24,16 +24,16 @@
             </div>
         </li>
         <li class="dropdown">
-            <a class="RequestDropDown" href="/Index4" id="active">Requests</a>
+            <a class="RequestDropDown" href="./KIDDitchRider4HTML.html" id="active">Requests</a>
             <!--Requests drop down menu class=dropdownRequest-->
             <div class="dropdownRequest" style="overflow-x: auto;">
-                <a href="/DitchRiders/Index4" id="active">Active Requests On</a>
-                <a href="/DitchRiders/_ActiveRequestsOff4">Active Requests Off</a>
+                <a href="/DitchRiders/Index4">Active Requests On</a>
+                <a href="/DitchRiders/_ActiveRequestsOff4" >Active Requests Off</a>
                 <a href="/DitchRiders/Appending_4On">Appending On</a>
                 <a href="/DitchRiders/Appending_4Off">Appending Off</a>
                 <a href="/DitchRiders/CompletedRequests">Completed Requests</a>
                 <a href="/DitchRiders/WaitList_4On">Waitlist On</a>
-                <a href="/DitchRiders/WaitList_4Off">Waitlist Off</a>
+                <a href="/DitchRiders/WaitList_4Off"id="active">Waitlist Off</a>
             </div>
         </li>
         <li>
@@ -45,31 +45,46 @@
     </ul>
 </header>
 <body>
-    <a href="Index4" class="previous"><br />&laquo; Request</a>
+    <a href="WaitList_4Off" class="previous"><br />&laquo; Request</a>
     @using (Html.BeginForm())
     {
         @Html.HiddenFor(s => s.RequestID)
-        @Html.HiddenFor(s => s.Staff1, new { @Value = User.Identity.Name })
-        @Html.HiddenFor(s => s.TimeStampStaff1)
+        @Html.HiddenFor(s => s.TimeStampStaff2)
+        @Html.HiddenFor(s => s.Staff2, new { @Value = User.Identity.Name })        
         <table class="ActiveRequests">
-            <caption>Log Water</caption>
+            <caption>Waitlist Request Off</caption>
             <tr>
-                <th>@Html.Label("Customer Name")</th>
-                <th>@Html.Label("Date")</th>
+                <th>@Html.Label("Request Date")</th>
+                <th>@Html.Label("Name")</th>
+                <th>@Html.Label("Turn Out")</th>
+                <th>@Html.Label("CFS")</th>
                 <th>@Html.Label("Status")</th>
-                <th>@Html.Label("CFS Requested")</th>
-                <th>@Html.Label("CFS Given")</th>
                 <th>@Html.Label("Comments")</th>
             </tr>
             <tr>
+                <td>@Html.DisplayTextFor(s => s.CustomerDate2)</td>
                 <td>@Html.DisplayTextFor(s => s.CustomerName)</td>
-                <td>@Html.TextBoxFor(s => s.StaffDate1, new { @type = "date"})</td>
-                <td>@Html.DropDownListFor(s => s.RequestStatus1, ViewData["S"] as IEnumerable<SelectListItem>, "Select")</td>
-                <td>@Html.DisplayTextFor(s => s.CustomerCFS1)</td>
-                <td>@Html.TextBoxFor(s => s.StaffCFS1, new { @type = "number" })</td>
-                <td>@Html.DropDownListFor(s => s.StaffComments1, ViewData["StaffComments2"] as IEnumerable<SelectListItem>, "Select")</td>
+                <td>@Html.DisplayTextFor(s => s.Structure)</td>
+                <td>@Html.DisplayTextFor(s => s.CustomerCFS2)</td>
+                <td>@Html.DisplayTextFor(s => s.RequestStatus2)</td>
+                <td>@Html.DisplayTextFor(s => s.CustomerComments2)</td>
             </tr>
-        </table>        
+        </table>
+        <table class="ActiveRequests">
+            <caption>Turn Off Water</caption>
+            <tr>
+                <th>@Html.Label("Date")</th>
+                <th>@Html.Label("CFS")</th>
+                <th>@Html.Label("Status")</th>
+                <th>@Html.Label("Comments")</th>
+            </tr>
+            <tr>
+                <td>@Html.TextBoxFor(s => s.StaffDate2, new { @type = "date" })</td>
+                <td>@Html.TextBoxFor(s => s.StaffCFS2, new { @type = "number" })</td>
+                <td>@Html.DropDownListFor(s => s.RequestStatus2, ViewData["S"] as IEnumerable<SelectListItem>, "Select")</td>
+                <td>@Html.DropDownListFor(s => s.StaffComments2, ViewData["StaffComments2"] as IEnumerable<SelectListItem>, "Select")</td>
+            </tr>
+        </table>
         <div>
             <button type="submit">Submit</button>
         </div>

@@ -26,7 +26,7 @@ function SearchCustomersFn()
 	var input, filter, table, tr, td, i;
 	input = document.getElementById("SearchCustomers");
 	filter = input.value.toUpperCase();
-	table = document.getElementById("CustomerName");
+	table = document.getElementById("ActiveRequests");
 	tr = table.getElementsByTagName("tr");
 	for (i = 0; i < tr.length; i++) 
 	{

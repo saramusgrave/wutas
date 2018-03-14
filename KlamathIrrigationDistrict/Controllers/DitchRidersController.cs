@@ -16,12 +16,12 @@ namespace KlamathIrrigationDistrict.Controllers
         {
             _ditchRiderRepo = new DitchRidersRepository();
         }
-        // GET: DitchRiders
         /*-------------------------------------------
          --------RIDE 4----------------------------*/
-        //Index Ride 4
+         
+        //View Active Requests On
         //ViewActiveRequestsOn4()
-        //Page: _ActiveRequestsOn4.cshtml and _ActiveRequestsOff4.cshtml
+        //Page: _ActiveRequestsOn4.cshtml
         [Authorize(Roles = "Ride 4, Relief Ride 4")]
         [HttpGet]
         public ActionResult Index4(int? page)
@@ -38,29 +38,88 @@ namespace KlamathIrrigationDistrict.Controllers
             ditchRider = obditchriderlist.ToPagedList(pageIndex, pageSize);
             return View(ditchRider);
         }
-        
-        //Customer List on Ride 4
-        //Customers4()
-        //Page: Customers4()
+        //ViewActiveRequestsOn4()
+        [Authorize(Roles = "Ride 4, Relief Ride 4")]
+        public ActionResult _ActiveRequestsOn4()
+        {
+            var std = _ditchRiderRepo.ViewActiveRequestOn4();
+            return View(std);
+        }
+
+        //Turn On Water For an Active Request
+        //ViewActiveRequestOn4()
+        //Page: EditRequest4On
+        [Authorize(Roles = "Ride 4, Relief Ride 4")]
+        public ActionResult EditRequest4On(int RequestID)
+        {
+            ViewData["S"] = _ditchRiderRepo.Status().Select(s => new SelectListItem() { Text = s.RequestStatusName, Value = s.RequestStatusName }).ToList();
+            ViewData["StaffComments2"] = _ditchRiderRepo.Comments().Select(s => new SelectListItem() { Text = s.Comment, Value = s.Comment }).ToList();
+            var std = _ditchRiderRepo.ViewActiveRequestOn4().Where(s => s.RequestID == RequestID).FirstOrDefault();
+            return View(std);
+        }
+        //EditRequests4On
+        [Authorize(Roles = "Ride 4 ,Relief Ride 4")]
+        [HttpPost]
+        public ActionResult EditRequest4On(DitchRiderRequests std)
+        {
+            int RequestID = std.RequestID;
+            string Staff1 = std.Staff1;
+            DateTime StaffDate1 = std.StaffDate1;
+            int StaffCFS1 = std.StaffCFS1;
+            string StaffComments1 = std.StaffComments1;
+            string RequestStatus1 = std.RequestStatus1;
+            _ditchRiderRepo.EditRequest4On(std);
+            return RedirectToAction("Index4");
+        }
+
+        //View Active Requests Off
+        //ViewActiveRequestOff4()
+        //Page: _ActiveRequestsOff4
+        [Authorize(Roles = "Ride 4, Relief Ride 4")]
         [HttpGet]
-        public ActionResult Customers4(int? page)
+        public ActionResult _ActiveRequestsOff4(int? page)
         {
             int pageSize = 25;
             int pageIndex = 1;
             pageIndex = page.HasValue ? Convert.ToInt32(page) : 1;
-            IPagedList<DitchRiderCustomers> ditchRider = null;
+            IPagedList<DitchRiderRequests> ditchRider = null;
             DitchRidersRepository repository = new DitchRidersRepository();
-            DitchRiderCustomers ditchriderrequests = new DitchRiderCustomers();
-            List<DitchRiderCustomers> obditchriderlist = new List<DitchRiderCustomers>();
-            obditchriderlist = repository.Customers4();
-            ditchriderrequests.ditchridercustomers = obditchriderlist;
+            DitchRiderRequests ditchriderrequests = new DitchRiderRequests();
+            List<DitchRiderRequests> obditchriderlist = new List<DitchRiderRequests>();
+            obditchriderlist = repository.ViewActiveRequestOff4();
+            ditchriderrequests.ditchriderrequests = obditchriderlist;
             ditchRider = obditchriderlist.ToPagedList(pageIndex, pageSize);
             return View(ditchRider);
         }
 
-        //View Pending On Requests Ride 4
+        //Turn Off Water For an Active Off Request
+        //ViewActiveRequestOff4()
+        //Page: EditRequests4Off
+        [Authorize(Roles = "Ride 4, Relief Ride 4")]
+        public ActionResult EditRequest4Off(int RequestID)
+        {
+            var std = _ditchRiderRepo.ViewActiveRequestOff4().Where(s => s.RequestID == RequestID).FirstOrDefault();
+            ViewData["S"] = _ditchRiderRepo.Status().Select(s => new SelectListItem() { Text = s.RequestStatusName, Value = s.RequestStatusName }).ToList();
+            ViewData["StaffComments2"] = _ditchRiderRepo.Comments().Select(s => new SelectListItem() { Text = s.Comment, Value = s.Comment }).ToList();
+            return View(std);
+        }
+        //EditRequests4Off
+        [Authorize(Roles = "Ride 4, Relief Ride 4")]
+        [HttpPost]
+        public ActionResult EditRequest4Off(DitchRiderRequests std)
+        {
+            int RequestID = std.RequestID;
+            DateTime StaffDate2 = std.StaffDate2;
+            int StaffCFS2 = std.StaffCFS2;
+            string StaffComments2 = std.StaffComments2;
+            _ditchRiderRepo.EditRequest4Off(std);
+            return RedirectToAction("Index4");
+        }
+
+        //View Pending On Requests
         //ViewPending_4On()
         //Page: Appending_4On
+        [Authorize(Roles = "Ride 4, Relief Ride 4")]
         [HttpGet]
         public ActionResult Appending_4On(int? page)
         {
@@ -77,227 +136,10 @@ namespace KlamathIrrigationDistrict.Controllers
             return View(ditchRider);
         }
 
-        //View Pending Off Requests on Ride 4
-        //ViewPending_4Off()
-        //Page: Appending_4Off
-        [HttpGet]
-        public ActionResult Appending_4Off(int? page)
-        {
-            int pageSize = 25;
-            int pageIndex = 1;
-            pageIndex = page.HasValue ? Convert.ToInt32(page) : 1;
-            IPagedList<DitchRiderRequests> ditchRider = null;
-            DitchRidersRepository repository = new DitchRidersRepository();
-            DitchRiderRequests ditchriderrequests = new DitchRiderRequests();
-            List<DitchRiderRequests> obditchriderlist = new List<DitchRiderRequests>();
-            obditchriderlist = repository.ViewPending_4Off();
-            ditchriderrequests.ditchriderrequests = obditchriderlist;
-            ditchRider = obditchriderlist.ToPagedList(pageIndex, pageSize);
-            return View(ditchRider);
-        }
-
-        //View Active Requests On
-        //ViewActiveRequestsOn4()
-        //Page: _ActiveRequstsOn4
-        [Authorize (Roles = "Ride 4, Relief Ride 4")]
-        public ActionResult _ActiveRequestsOn4()
-        {
-            var std = _ditchRiderRepo.ViewActiveRequestOn4();
-            return View(std);
-
-        }
-
-
-        /*
-        public ActionResult _ActiveRequestsOff4()
-        {
-            var std = _ditchRiderRepo.ViewActiveRequestOff4();
-            return View(std);
-        }
-        */
-        //View Active Requests Off
-        //Customers4()
-        //Page: _ActiveRequestsOff4
+        //Edit Request Status On
+        //ViewPending_4On()
+        //Page: EditRequestStatus_On
         [Authorize(Roles = "Ride 4, Relief Ride 4")]
-        public ActionResult _ActiveRequestsOff4(int? page)
-        {
-            //var std = _ditchRiderRepo.Customers4().Where(s => s.CustomerID == CustomerID).FirstOrDefault();
-            //var tsd = _ditchRiderRepo.Customers4().Where(s => s.StructureID == Structure).FirstOrDefault();
-            //return View(std.CustomerID.ToString(), tsd.StructureID);
-            //var std = _ditchRiderRepo.ViewActiveRequestOff4();
-            //return View(std);
-            int pageSize = 25;
-            int pageIndex = 1;
-            pageIndex = page.HasValue ? Convert.ToInt32(page) : 1;
-            IPagedList<DitchRiderRequests> ditchRider = null;
-            DitchRidersRepository repository = new DitchRidersRepository();
-            DitchRiderRequests ditchriderrequests = new DitchRiderRequests();
-            List<DitchRiderRequests> obditchriderlist = new List<DitchRiderRequests>();
-            obditchriderlist = repository.ViewActiveRequestOff4();
-            ditchriderrequests.ditchriderrequests = obditchriderlist;
-            ditchRider = obditchriderlist.ToPagedList(pageIndex, pageSize);
-            return View(ditchRider);
-        }
-
-        //View WaitList 4 On
-        //Customers4()
-        //Page: _ActiveRequestsOff4
-        [Authorize(Roles = "Ride 4, Relief Ride 4")]
-        public ActionResult WaitList_4On(int? page)
-        {
-            int pageSize = 25;
-            int pageIndex = 1;
-            pageIndex = page.HasValue ? Convert.ToInt32(page) : 1;
-            IPagedList<DitchRiderRequests> ditchRider = null;
-            DitchRidersRepository repository = new DitchRidersRepository();
-            DitchRiderRequests ditchriderrequests = new DitchRiderRequests();
-            List<DitchRiderRequests> obditchriderlist = new List<DitchRiderRequests>();
-            obditchriderlist = repository.ViewWaitlist_4On();
-            ditchriderrequests.ditchriderrequests = obditchriderlist;
-            ditchRider = obditchriderlist.ToPagedList(pageIndex, pageSize);
-            return View(ditchRider);
-        }
-
-        //View WaitList 4 On
-        //Customers4()
-        //Page: _ActiveRequestsOff4
-        [Authorize(Roles = "Ride 4, Relief Ride 4")]
-        public ActionResult WaitList_4Off(int? page)
-        {
-            int pageSize = 25;
-            int pageIndex = 1;
-            pageIndex = page.HasValue ? Convert.ToInt32(page) : 1;
-            IPagedList<DitchRiderRequests> ditchRider = null;
-            DitchRidersRepository repository = new DitchRidersRepository();
-            DitchRiderRequests ditchriderrequests = new DitchRiderRequests();
-            List<DitchRiderRequests> obditchriderlist = new List<DitchRiderRequests>();
-            obditchriderlist = repository.ViewWaitlist_4Off();
-            ditchriderrequests.ditchriderrequests = obditchriderlist;
-            ditchRider = obditchriderlist.ToPagedList(pageIndex, pageSize);
-            return View(ditchRider);
-        }
-
-   
-        public ActionResult CanalWater()
-        {
-            //DitchRiderCustomers std = new DitchRiderCustomers();
-            //ViewBag.std = _ditchRiderRepo.WaterCFS_NextDayByCanal(std.Lateral);
-            return View();
-            
-        }
-        //View Water in next day canal
-        //ViewActiveRequestsOn4()
-        //Page: _ActiveRequstsOn4
-        //[Authorize(Roles = "Ride 4, Relief Ride 4")]
-        //[HttpPost]
-        //public ActionResult CanalWater(DitchRiderCustomers std)
-        //{
-        //    _ditchRiderRepo.WaterCFS_NextDayByCanal(std);
-        //    return View(std);
-        //}
-        public ActionResult _CanalCFS(int CFS)
-        {
-            return View(CFS);
-        }
-
-
-
-        //View Active Requests off 
-        //AddRequests_4Off
-        //Page: _ActiveRequestsOff4
-        //[Authorize(Roles = "Ride 4, Relief Ride 4")]
-        //[HttpPost]
-        //public ActionResult _ActiveRequestsOff4(DitchRiderRequests std)
-        //{
-        //    int RequestID = std.RequestID;
-        //    DateTime CustomerDate2 = std.CustomerDate2;
-        //    string Structure = std.Structure;
-        //    int CustomerCFS2 = std.CustomerCFS2;
-        //    string CustomerComments2 = std.CustomerComments2;
-        //    _ditchRiderRepo.AddRequest_4Off(std);
-        //    return RedirectToAction("Index4");
-        //}
-
-        //Turn On Water
-        //ViewRequests4
-        //Page: EditRequest4On
-        public ActionResult EditRequest4On(int RequestID)
-        {
-            //This shit works!!!
-            DitchRiderRequests model = new DitchRiderRequests();
-            var list = model.RequestStatus_1 = new List<SelectListItem>()
-            {
-                new SelectListItem() { Text = "Pending", Value = "Pending" },
-                new SelectListItem() { Text = "Confirm", Value = "Confirm" },
-                new SelectListItem() { Text = "Rejected", Value = "Rejected" },
-                new SelectListItem() { Text = "Violation", Value = "Violation" },
-                new SelectListItem() { Text = "Contact Office", Value = "Contact Office" },
-                new SelectListItem() { Text = "Wait List", Value = "Wait List" },
-            };
-            ViewData["RequestStatus_1"] = list;
-            var std = _ditchRiderRepo.ViewRequests4().Where(s => s.RequestID == RequestID).FirstOrDefault();
-            return View(std);
-        }
-
-        //Turn On Water
-        //EditRequests4On
-        //Page: EditRequests4On
-        [Authorize(Roles = "Ride 4 ,Relief Ride 4")]
-        [HttpPost]
-        public ActionResult EditRequest4On(DitchRiderRequests std)
-        {
-            int RequestID = std.RequestID;
-            string Staff1 = std.Staff1;
-            DateTime StaffDate1 = std.StaffDate1;
-            int StaffCFS1 = std.StaffCFS1;
-            string StaffComments1 = std.StaffComments1;
-            string RequestStatus1 = std.RequestStatus1;
-            _ditchRiderRepo.EditRequest4On(std);
-           return RedirectToAction("Index4");
-        }
-
-        //Turn Off Water
-        //ViewRequests4()
-        //Page: EditRequests4Off
-        [Authorize(Roles = "Ride 4, Relief Ride 4")]
-        public ActionResult EditRequest4Off(int RequestID)
-        {
-            DitchRiderRequests model = new DitchRiderRequests();
-            var list = model.RequestStatus_2 = new List<SelectListItem>()
-            {
-                new SelectListItem() { Text = "Pending", Value = "Pending" },
-                new SelectListItem() { Text = "Confirm", Value = "Confirm" },
-                new SelectListItem() { Text = "Rejected", Value = "Rejected" },
-                new SelectListItem() { Text = "Violation", Value = "Violation" },
-                new SelectListItem() { Text = "Contact Office", Value = "Contact Office" },
-                new SelectListItem() { Text = "Wait List", Value = "Wait List" },
-            };
-            ViewData["RequestStatus_2"] = list;
-            var std = _ditchRiderRepo.ViewRequests4().Where(s => s.RequestID == RequestID).FirstOrDefault();
-            return View(std);
-        }
-
-        //Turn Off Water
-        //EditREquests4Off
-        //Page: EditRequest4Off
-        [Authorize(Roles = "Ride 4, Relief Ride 4")]
-        [HttpPost]
-        public ActionResult EditRequest4Off(DitchRiderRequests std)
-        {
-            int RequestID = std.RequestID;
-            DateTime StaffDate2 = std.StaffDate2;
-            int StaffCFS2 = std.StaffCFS2;
-            string StaffComments2 = std.StaffComments2;
-            _ditchRiderRepo.EditRequest4Off(std);
-            return RedirectToAction("Index4");
-        }
-
-
-
-
-        //Edit Request Status1 On
-        //EditRequestStatus1_On
-        //Page: EditRequests4On
         public ActionResult EditRequestStatus_On(int RequestID)
         {
             var std = _ditchRiderRepo.ViewPending_4On().Where(s => s.RequestID == RequestID).FirstOrDefault();
@@ -306,11 +148,8 @@ namespace KlamathIrrigationDistrict.Controllers
             ViewData["StaffComments2"] = _ditchRiderRepo.Comments().Select(s => new SelectListItem() { Text = s.Comment, Value = s.Comment }).ToList();
             return View(std);
         }
-
-        //Edit Request Status1 On
         //EditRequestStatus1_On
-        //Page: EditRequests4On
-
+        [Authorize(Roles = "Ride 4, Relief Ride 4")]
         [HttpPost]
         public ActionResult EditRequestStatus_On(DitchRiderRequests std)
         {
@@ -354,23 +193,39 @@ namespace KlamathIrrigationDistrict.Controllers
             return RedirectToAction("Index");
         }
 
-        //Edit Request Status1 On
-        //ViewPending_4On
+        //View Pending Off Requests 
+        //ViewPending_4Off()
+        //Page: Appending_4Off
+        [Authorize(Roles = "Ride 4, Relief Ride 4")]
+        [HttpGet]
+        public ActionResult Appending_4Off(int? page)
+        {
+            int pageSize = 25;
+            int pageIndex = 1;
+            pageIndex = page.HasValue ? Convert.ToInt32(page) : 1;
+            IPagedList<DitchRiderRequests> ditchRider = null;
+            DitchRidersRepository repository = new DitchRidersRepository();
+            DitchRiderRequests ditchriderrequests = new DitchRiderRequests();
+            List<DitchRiderRequests> obditchriderlist = new List<DitchRiderRequests>();
+            obditchriderlist = repository.ViewPending_4Off();
+            ditchriderrequests.ditchriderrequests = obditchriderlist;
+            ditchRider = obditchriderlist.ToPagedList(pageIndex, pageSize);
+            return View(ditchRider);
+        }
+        
+        //Edit Request Status Off
+        //ViewPending_4Off()
         //Page: EditRequests4On
         [Authorize(Roles = "Ride 4, Relief Ride 4")]
         public ActionResult EditRequestStatus_Off(int RequestID)
         {
             var std = _ditchRiderRepo.ViewPending_4Off().Where(s => s.RequestID == RequestID).FirstOrDefault();
-            //Drop down pulling form SQL
             ViewData["S"] = _ditchRiderRepo.Status().Select(s => new SelectListItem() { Text = s.RequestStatusName, Value = s.RequestStatusName }).ToList();
             ViewData["StaffComments2"] = _ditchRiderRepo.Comments().Select(s => new SelectListItem() { Text = s.Comment, Value = s.Comment }).ToList();
             return View(std);
         }
-
-        //Turn Off Water
-        //EditREquests4Off
-        //Page: EditRequest4Off
- 
+        //EditRequestStatus2_Off()
+        [Authorize(Roles = "Ride 4, Relief Ride 4")]
         [HttpPost]
         public ActionResult EditRequestStatus_Off(DitchRiderRequests std)
         {
@@ -413,125 +268,190 @@ namespace KlamathIrrigationDistrict.Controllers
             }
             return RedirectToAction("Index");
         }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        /*
-                [HttpGet]
-                public ActionResult AddRequest4On()
-                {
-                    //DitchRiderRequests repo = new DitchRiderRequests();
-                    //var std = _ditchRiderRepo.Customers4().Where(s => s.Name == repo.CustomerName).FirstOrDefault();
-                    //var req = _ditchRiderRepo.Customers4().Where(s => s.StructureID == repo.Structure).FirstOrDefault();
-                    //var ght = _ditchRiderRepo.Customers4().Where(s => s.CustomerID == CustomerID).FirstOrDefault();
-                    //return View(ght);
-                    //Drop down works
-                    //DitchRiderRequests model = new DitchRiderRequests();
-                    //model.HorsleyStructures = new List<SelectListItem>()
-                    //{
-                    //    new SelectListItem() { Text = "T4603", Value = "T4603"},
-                    //    new SelectListItem() { Text = "T4604", Value = "T4604"},
-                    //    new SelectListItem() { Text = "T4505", Value = "T4605"},
-                    //    new SelectListItem() { Text = "T4607", Value = "T4607"},
-                    //    new SelectListItem() { Text = "T4603", Value = "T4603"},
-                    //    new SelectListItem() { Text = "P4609", Value = "P4609"},
-                    //    new SelectListItem() { Text = "T4610", Value = "T4610"},
-                    //};
-                    //return View(model);
-                    //return view without using drop down keep
-                    return View(new DitchRiderRequests());
-                }
-                */
-        //Turn On Water as if Customer
-        //Ditch Rider Add Request as if Customer Ride 4
-        //Customers4
-        //Page: AddRequest4On
+        
+        //View Completed On and Off Requests
+        //ViewRequests4()
+        //Page: CompletedRequests
         [Authorize(Roles = "Ride 4, Relief Ride 4")]
-        public ActionResult AddRequest4On()
+        public ActionResult CompletedRequests(int? page)
         {
-            return View(new DitchRiderRequests());
+            int pageSize = 25;
+            int pageIndex = 1;
+            pageIndex = page.HasValue ? Convert.ToInt32(page) : 1;
+            IPagedList<DitchRiderRequests> ditchRider = null;
+            DitchRidersRepository repository = new DitchRidersRepository();
+            DitchRiderRequests ditchriderrequests = new DitchRiderRequests();
+            List<DitchRiderRequests> obditchriderlist = new List<DitchRiderRequests>();
+            obditchriderlist = repository.ViewRequests4();
+            ditchriderrequests.ditchriderrequests = obditchriderlist;
+            ditchRider = obditchriderlist.ToPagedList(pageIndex, pageSize);
+            return View(ditchRider);
+        }
+
+        //View WaitList On
+        //ViewWaitlist_4On()
+        //Page: WaitList_4On
+        [Authorize(Roles = "Ride 4, Relief Ride 4")]
+        public ActionResult WaitList_4On(int? page)
+        {
+            int pageSize = 25;
+            int pageIndex = 1;
+            pageIndex = page.HasValue ? Convert.ToInt32(page) : 1;
+            IPagedList<DitchRiderRequests> ditchRider = null;
+            DitchRidersRepository repository = new DitchRidersRepository();
+            DitchRiderRequests ditchriderrequests = new DitchRiderRequests();
+            List<DitchRiderRequests> obditchriderlist = new List<DitchRiderRequests>();
+            obditchriderlist = repository.ViewWaitlist_4On();
+            ditchriderrequests.ditchriderrequests = obditchriderlist;
+            ditchRider = obditchriderlist.ToPagedList(pageIndex, pageSize);
+            return View(ditchRider);
+        }
+
+        //Turn On WaitList Water
+        //ViewWaitlist_4On()
+        //Page: EditRequest4On
+        [Authorize(Roles = "Ride 4, Relief Ride 4")]
+        public ActionResult EditWaitList_4On(int RequestID)
+        {
+            ViewData["S"] = _ditchRiderRepo.Status().Select(s => new SelectListItem() { Text = s.RequestStatusName, Value = s.RequestStatusName }).ToList();
+            ViewData["StaffComments2"] = _ditchRiderRepo.Comments().Select(s => new SelectListItem() { Text = s.Comment, Value = s.Comment }).ToList();
+            var std = _ditchRiderRepo.ViewWaitlist_4On().Where(s => s.RequestID == RequestID).FirstOrDefault();
+            return View(std);
+        }
+        //EditRequests4On
+        [Authorize(Roles = "Ride 4 ,Relief Ride 4")]
+        [HttpPost]
+        public ActionResult EditWaitList_4On(DitchRiderRequests std)
+        {
+            int RequestID = std.RequestID;
+            string Staff1 = std.Staff1;
+            DateTime StaffDate1 = std.StaffDate1;
+            int StaffCFS1 = std.StaffCFS1;
+            string StaffComments1 = std.StaffComments1;
+            string RequestStatus1 = std.RequestStatus1;
+            _ditchRiderRepo.EditRequest4On(std);
+            return RedirectToAction("Index4");
+        }
+
+        //View WaitList Off
+        //ViewWaitlist_4Off()
+        //Page: WaitList_4Off
+        [Authorize(Roles = "Ride 4, Relief Ride 4")]
+        public ActionResult WaitList_4Off(int? page)
+        {
+            int pageSize = 25;
+            int pageIndex = 1;
+            pageIndex = page.HasValue ? Convert.ToInt32(page) : 1;
+            IPagedList<DitchRiderRequests> ditchRider = null;
+            DitchRidersRepository repository = new DitchRidersRepository();
+            DitchRiderRequests ditchriderrequests = new DitchRiderRequests();
+            List<DitchRiderRequests> obditchriderlist = new List<DitchRiderRequests>();
+            obditchriderlist = repository.ViewWaitlist_4Off();
+            ditchriderrequests.ditchriderrequests = obditchriderlist;
+            ditchRider = obditchriderlist.ToPagedList(pageIndex, pageSize);
+            return View(ditchRider);
+        }
+
+        //Turn Off Waitlist Water
+        //ViewWaitlist_4Off()
+        //Page: EditRequests4Off
+        [Authorize(Roles = "Ride 4, Relief Ride 4")]
+        public ActionResult EditWaitList_4Off(int RequestID)
+        {
+            var std = _ditchRiderRepo.ViewWaitlist_4Off().Where(s => s.RequestID == RequestID).FirstOrDefault();
+            ViewData["S"] = _ditchRiderRepo.Status().Select(s => new SelectListItem() { Text = s.RequestStatusName, Value = s.RequestStatusName }).ToList();
+            ViewData["StaffComments2"] = _ditchRiderRepo.Comments().Select(s => new SelectListItem() { Text = s.Comment, Value = s.Comment }).ToList();
+            return View(std);
+        }
+        //EditRequests4Off
+        [Authorize(Roles = "Ride 4, Relief Ride 4")]
+        [HttpPost]
+        public ActionResult EditWaitList_4Off(DitchRiderRequests std)
+        {
+            int RequestID = std.RequestID;
+            DateTime StaffDate2 = std.StaffDate2;
+            int StaffCFS2 = std.StaffCFS2;
+            string StaffComments2 = std.StaffComments2;
+            _ditchRiderRepo.EditRequest4Off(std);
+            return RedirectToAction("Index4");
+        }
+        
+        //Customer List
+        //Customers4()
+        //Page: Customers4()
+        [Authorize(Roles = "Ride 4, Relief Ride 4")]
+        [HttpGet]
+        public ActionResult Customers4(int? page)
+        {
+            int pageSize = 25;
+            int pageIndex = 1;
+            pageIndex = page.HasValue ? Convert.ToInt32(page) : 1;
+            IPagedList<DitchRiderRequests> ditchRider = null;
+            DitchRidersRepository repository = new DitchRidersRepository();
+            DitchRiderRequests ditchriderrequests = new DitchRiderRequests();
+            List<DitchRiderRequests> obditchriderlist = new List<DitchRiderRequests>();
+            obditchriderlist = repository.Customers4();
+            ditchriderrequests.ditchriderrequests = obditchriderlist;
+            ditchRider = obditchriderlist.ToPagedList(pageIndex, pageSize);
+            return View(ditchRider);
         }
 
         //Turn On Water as if Customer
-        //AddREquest_4On
-        //Page: AddREquest4On
+        //Customers4
+        //Page: AddRequest4On
+        [Authorize(Roles = "Ride 4, Relief Ride 4")]
+        public ActionResult AddRequest4On(string Structure)
+        {
+            var std = _ditchRiderRepo.Customers4().Where(s => s.Structure == Structure).FirstOrDefault();
+            return View(std);
+        }
+        //AddRequest_4On()
         [Authorize(Roles = "Ride 4, Relief Ride 4")]
         [HttpPost]
         public ActionResult AddRequest4On(DitchRiderRequests ditchriderrequests)
         {
-            //keep
-            if (!ModelState.IsValid)
-            {
-                return View(ditchriderrequests);
-            }
-            //int RequestID = ditchriderrequests.RequestID;
-            //int CustomerID = ditchriderrequests.CustomerID;
-            //string structure = ditchriderrequests.Structure;
-            //string Name = ditchriderrequests.CustomerName;
-            //DateTime CustomerDate1 = ditchriderrequests.CustomerDate1;
-            //int CustomerCFS1 = ditchriderrequests.CustomerCFS1;
-            //string CustomerComments1 = ditchriderrequests.CustomerComments1;
+            int RequestID = ditchriderrequests.RequestID;
+            int CustomerID = ditchriderrequests.CustomerID;
+            string structure = ditchriderrequests.Structure;
+            string Name = ditchriderrequests.CustomerName;
+            DateTime CustomerDate1 = ditchriderrequests.CustomerDate1;
+            int CustomerCFS1 = ditchriderrequests.CustomerCFS1;
+            string CustomerComments1 = ditchriderrequests.CustomerComments1;
             _ditchRiderRepo.AddRequest_4On(ditchriderrequests);
             return RedirectToAction("Customers4");
         }
 
-
-        //Turn Off Water as if Customer
-        //new DitchRiderRequests
-        //Page: _AddREquest4Off
+        //Customers who currently have water on
+        //ViewCustomersWithWater_4On()
+        //Page: Customers_4On()
+        [Authorize(Roles = "Ride 4, Relief Ride 4")]
+        [HttpGet]
+        public ActionResult Customers_4On(int? page)
+        {
+            int pageSize = 25;
+            int pageIndex = 1;
+            pageIndex = page.HasValue ? Convert.ToInt32(page) : 1;
+            IPagedList<DitchRiderRequests> ditchRider = null;
+            DitchRidersRepository repository = new DitchRidersRepository();
+            DitchRiderRequests ditchriderrequests = new DitchRiderRequests();
+            List<DitchRiderRequests> obditchriderlist = new List<DitchRiderRequests>();
+            obditchriderlist = repository.ViewCustomersWithWater_4On();
+            ditchriderrequests.ditchriderrequests = obditchriderlist;
+            ditchRider = obditchriderlist.ToPagedList(pageIndex, pageSize);
+            return View(ditchRider);
+        }
+        
+        //Request Water Off as if Customer
+        //ViewCustomersWithWater_4On()
+        //Page: _AddRequest4Off
         [Authorize(Roles = "Ride 4 ,Relief Ride 4")]
         //[HttpGet]
-        //public ActionResult _AddRequest4Off()
-        //{
-        //    return View(new DitchRiderRequests());
-        //}
-        public ActionResult _AddRequest4Off()
+        public ActionResult _AddRequest4Off(int RequestID)
         {
-            return View(new DitchRiderRequests());
+            var std = _ditchRiderRepo.ViewCustomersWithWater_4On().Where(s => s.RequestID == RequestID).FirstOrDefault();
+            return View(std);
         }
-        //Turn Off Water as if Customer
-        //AddRequest_4Off
-        //Page: _AddRequests4Off
-        //[Authorize(Roles = "Ride 4, Relief Ride 4")]
-        //[HttpPost]
-        //public ActionResult _AddRequest4Off(DitchRiderRequests ditchriderrequests)
-        //{
-        //    if (!ModelState.IsValid)
-        //    {
-        //        return View(ditchriderrequests);
-        //    }
-        //    _ditchRiderRepo.AddRequest_4Off(ditchriderrequests);
-        //    return RedirectToAction("Index4");
-        //}
+        //AddRequest_4Off()
         [Authorize(Roles = "Ride 4, Relief Ride 4")]
         [HttpPost]
         public ActionResult _AddRequest4Off(DitchRiderRequests std)
@@ -544,10 +464,24 @@ namespace KlamathIrrigationDistrict.Controllers
             _ditchRiderRepo.AddRequest_4Off(std);
             return RedirectToAction("Customers4");
         }
-
-
+        
+        //View Water in Canal
+        //WaterCFS_NextDayByCanal()
+        //CanalWater.cshtml    
+        public ActionResult CanalWater()
+        {
+            return View();            
+        }
+        //View Water in next day canal
+        //ViewActiveRequestsOn4()
+        //Page: _ActiveRequstsOn4
+        public ActionResult _CanalCFS(int CFS)
+        {
+            return View(CFS);
+        }
+                
         //OutputCache 
-        //ViewRequests4
+        //ViewRequests4()
         [OutputCache(Duration = 300, VaryByParam = "id")]
         public ActionResult ViewRequests4(int RequestID)
         {
@@ -579,25 +513,8 @@ namespace KlamathIrrigationDistrict.Controllers
             return ViewRequests4(RequestID);
         }
 
-        //View Completed On and Off Requests
-        //ViewREquests4
-        //Page: CompletedREquests
-        public ActionResult CompletedRequests(int ? page)
-        {
-            int pageSize = 25;
-            int pageIndex = 1;
-            pageIndex = page.HasValue ? Convert.ToInt32(page) : 1;
-            IPagedList<DitchRiderRequests> ditchRider = null;
-            DitchRidersRepository repository = new DitchRidersRepository();
-            DitchRiderRequests ditchriderrequests = new DitchRiderRequests();
-            List<DitchRiderRequests> obditchriderlist = new List<DitchRiderRequests>();
-            obditchriderlist = repository.ViewRequests4();
-            ditchriderrequests.ditchriderrequests = obditchriderlist;
-            ditchRider = obditchriderlist.ToPagedList(pageIndex, pageSize);
-            return View(ditchRider);
-        }
 
-
+        
         /*---------------------------------------------------------------
           ------RIDE 5 ---------------------------------------------*/
         /*Ride 5*/
@@ -668,8 +585,7 @@ namespace KlamathIrrigationDistrict.Controllers
         {
             return View(new DitchRiderRequests());
         }
-
-
+        
         [Authorize(Roles = "Ride 5, Relief Ride 5")]
         [HttpPost]
         public ActionResult AddRequest5On(DitchRiderRequests ditchriderrequests)
@@ -682,7 +598,6 @@ namespace KlamathIrrigationDistrict.Controllers
             return RedirectToAction("Index5");
         }
         
-
         [OutputCache(Duration = 300, VaryByParam = "id")]
         public ActionResult ViewRequests5(int RequestID)
         {

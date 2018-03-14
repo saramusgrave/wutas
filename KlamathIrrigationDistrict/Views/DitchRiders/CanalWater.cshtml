@@ -1,7 +1,7 @@
 ﻿@using KlamathIrrigationDistrict.DataLayer.DataModels
-@model DitchRiderCustomers
+@model DitchRiderRequests
 @{
-    ViewBag.Title = "KID D.R.: Edit Request";
+    ViewBag.Title = "KID D.R.: Canals";
 }
 <head>
     <title>KID: Ditch Rider</title>
@@ -17,13 +17,18 @@
     <!--Log in Name, Customers, Requests, Canals, LogOUt id=Menu-->
     <ul id="Menu">
         <li><label class="FirstLast">@User.Identity.Name</label></li>
-        <li><a href="/DitchRiders/Customers4">Customers</a></li>
         <li class="dropdown">
-            <a class="RequestDropDown" href="Index4" id="active">Requests</a>
+            <a href="Customers4">Customers</a>
+            <div class="dropdownRequest" style="overflow-x: auto;">
+                <a href="/DitchRiders/Customers_4On">Customers With Water On</a>
+            </div>
+        </li>
+        <li class="dropdown">
+            <a class="RequestDropDown" href="Index4">Requests</a>
             <!--Requests drop down menu class=dropdownRequest-->
             <div class="dropdownRequest" style="overflow-x: auto;">
                 <a href="/DitchRiders/Index4">Active Requests On</a>
-                <a href="/DitchRiders/_ActiveRequestsOff4" id="active">Active Requests Off</a>
+                <a href="/DitchRiders/_ActiveRequestsOff4">Active Requests Off</a>
                 <a href="/DitchRiders/Appending_4On">Appending On</a>
                 <a href="/DitchRiders/Appending_4Off">Appending Off</a>
                 <a href="/DitchRiders/CompletedRequests">Completed Requests</a>
@@ -31,9 +36,12 @@
                 <a href="/DitchRiders/WaitList_4Off">Waitlist Off</a>
             </div>
         </li>
-        <li class="dropdown">
-            <a class="RequestDropDown" href="/DitchRiders/CanalWater">Canals</a>
-        <li><a href="~/Account/Login">Log Out</a></li>
+        <li>
+            <a href="/DitchRiders/CanalWater" id="active">Canals</a>
+        </li>
+        <li>
+            <a href="~/Account/Login">Log Out</a>
+        </li>
     </ul>
 </header>
 <body>

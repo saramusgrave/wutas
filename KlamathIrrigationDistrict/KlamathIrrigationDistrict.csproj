@@ -419,6 +419,9 @@
     <Content Include="Views\DitchRiders\WaitList_4Off.cshtml" />
     <Content Include="Views\DitchRiders\CanalWater.cshtml" />
     <Content Include="Views\DitchRiders\_CanalCFS.cshtml" />
+    <Content Include="Views\DitchRiders\Customers_4On.cshtml" />
+    <Content Include="Views\DitchRiders\EditWaitList_4On.cshtml" />
+    <Content Include="Views\DitchRiders\EditWaitList_4Off.cshtml" />
     <None Include="Web.klamathirrigation.net - Web Deploy.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

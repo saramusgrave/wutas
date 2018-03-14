@@ -2,7 +2,7 @@
 @*@model KlamathIrrigationDistrict.Models.DropDownListModel*@
 @model DitchRiderRequests
 @{
-    ViewBag.Title = "KID D.R.: Make Request";
+    ViewBag.Title = "KID D.R.: Request Water On";
 }
 <head>
     <title>KID: Ditch Rider</title>
@@ -18,12 +18,17 @@
     <!--Log in Name, Customers, Requests, Canals, LogOUt id=Menu-->
     <ul id="Menu">
         <li><label class="FirstLast">@User.Identity.Name</label></li>
-        <li><a href="/DitchRiders/Customers4" id="active">Customers</a></li>
+        <li class="dropdown">
+            <a href="Customers4" id="active">Customers</a>
+            <div class="dropdownRequest" style="overflow-x: auto;">
+                <a href="/DitchRiders/Customers_4On">Customers With Water On</a>
+            </div>
+        </li>
         <li class="dropdown">
             <a class="RequestDropDown" href="/DitchRiders/Index4">Requests</a>
             <!--Requests drop down menu class=dropdownRequest-->
             <div class="dropdownRequest" style="overflow-x: auto;">
-                <a href="/DitchRiders/_ActiveREquestsOn4">Active Requests On</a>
+                <a href="/DitchRiders/Index4">Active Requests On</a>
                 <a href="/DitchRiders/_ActiveRequestsOff4">Active Requests Off</a>
                 <a href="/DitchRiders/Appending_4On">Appending On</a>
                 <a href="/DitchRiders/Appending_4Off">Appending Off</a>
@@ -32,27 +37,12 @@
                 <a href="/DitchRiders/WaitList_4Off">Waitlist Off</a>
             </div>
         </li>
-        <li class="dropdown">
-            <a class="RequestDropDown" href="./KIDDitchRiderRide4CanalsHTML.html">Canals</a>
-            <!--List of Cananls on Ride class=dropdownRequest-->
-            <div class="dropdownRequest">
-                <a href="./KIDDitchRiderRide4CanalsAHTML.html">A</a>
-                <a href="./KIDDitchRiderRide4CanalsCHTML.html">C</a>
-                <a href="./KIDDitchRiderRide4CanalsC4HTML.html">C4</a>
-                <a href="./KIDDitchRiderRide4CanalsC4EHTML.html">C4E</a>
-                <a href="./KIDDitchRiderRide4CanalsC4E1HTML.html">C4E1</a>
-                <a href="./KIDDitchRiderRide4CanalsC4E1AHTML.html">C4E1A</a>
-                <a href="./KIDDitchRiderRide4CanalsC4JHTML.html">C3J</a>
-                <a href="./KIDDitchRiderRide4CanalsC4KHTML.html">C4K</a>
-                <a href="./KIDDitchRiderRide4CanalsC4LHTML.html">C4L</a>
-                <a href="./KIDDitchRiderRide4CanalsC4MHTML.html">C4M</a>
-                <a href="./KIDDitchRiderRide4CanalsC4NHTML.html">C4N</a>
-                <a href="./KIDDitchRiderRide4CanalsC4QHTML.html">C4Q</a>
-                <a href="./KIDDitchRiderRide4CanalsC4RHTML.html">C4R</a>
-                <a href="./KIDDitchRiderRide4CanalsC4SHTML.html">C4S</a>
-            </div>
+        <li>
+            <a href="/DitchRiders/CanalWater">Canals</a>
         </li>
-        <li><a href="~/Account/Login">Log Out</a></li>
+        <li>
+            <a href="~/Account/Login">Log Out</a>
+        </li>
     </ul>
 </header>
 <body>
@@ -62,7 +52,6 @@
             <caption>Add Requests(On)</caption>
             <tr>
                 <th>@Html.Label("Request Date")</th>
-                <th>@Html.Label("Customer ID")</th>
                 <th>@Html.Label("Customer Name")</th>
                 <th>@Html.Label("Turn Out")</th>
                 <th>@Html.Label("CFS Requested")</th>
@@ -73,14 +62,11 @@
                 {
                     @Html.HiddenFor(m => m.RequestID)
                     @Html.HiddenFor(m => m.TimeStampCustomer1)
-                    @*@Html.HiddenFor(m => m.CustomerID)*@
-                    @*@Html.HiddenFor(m => m.CustomerName)*@
+                    @Html.HiddenFor(m => m.CustomerID)
+                    @Html.HiddenFor(m => m.CustomerName)
                     <td>@Html.TextBoxFor(m => m.CustomerDate1, new { @type = "date" }) </td>
-                    <td>@Html.TextBoxFor(m => m.CustomerID)</td>
-                    <td>@Html.TextBoxFor(m => m.CustomerName)</td>
-                    <td>@Html.TextBoxFor(m => m.Structure)</td>
-                    @*Drop down works*@
-                    @*<td>@Html.DropDownListFor(m => m.Structure, Model.HorsleyStructures)</td>*@
+                    <td>@Html.DisplayTextFor(m => m.CustomerName)</td>
+                    <td>@Html.DisplayTextFor(m => m.Structure)</td>
                     <td>@Html.TextBoxFor(m => m.CustomerCFS1, new { @type = "number" }) </td>
                     <td>@Html.TextBoxFor(m => m.CustomerComments1, new { @Value = "Made By " + User.Identity.Name })</td>
                     <td><button type="submit">Add</button></td>
@@ -88,5 +74,4 @@
             </tr>
         </table>
     </div>
-        @*@Html.Partial("_AddRequest4Off")*@
 </body>

@@ -17,13 +17,18 @@
     <!--Log in Name, Customers, Requests, Canals, LogOUt id=Menu-->
     <ul id="Menu">
         <li><label class="FirstLast">@User.Identity.Name</label></li>
-        <li><a href="./KIDDitchRiderRide4CustomersHTML.html">Customers</a></li>
+        <li class="dropdown">
+            <a href="Customers4">Customers</a>
+            <div class="dropdownRequest" style="overflow-x: auto;">
+                <a href="/DitchRiders/Customers_4On">Customers With Water On</a>
+            </div>
+        </li>
         <li class="dropdown">
             <a class="RequestDropDown" href="./KIDDitchRider4HTML.html" id="active">Requests</a>
             <!--Requests drop down menu class=dropdownRequest-->
             <div class="dropdownRequest" style="overflow-x: auto;">
-                <a href="/DitchRiders/_ActiveREquestsOn4" >Active Requests On</a>
-                <a href="/DitchRiders/_ActiveRequestsOff4"id="active">Active Requests Off</a>
+                <a href="/DitchRiders/Index4">Active Requests On</a>
+                <a href="/DitchRiders/_ActiveRequestsOff4" id="active">Active Requests Off</a>
                 <a href="/DitchRiders/Appending_4On">Appending On</a>
                 <a href="/DitchRiders/Appending_4Off">Appending Off</a>
                 <a href="/DitchRiders/CompletedRequests">Completed Requests</a>
@@ -31,57 +36,40 @@
                 <a href="/DitchRiders/WaitList_4Off">Waitlist Off</a>
             </div>
         </li>
-        <li class="dropdown">
-            <a class="RequestDropDown" href="./KIDDitchRiderRide4CanalsHTML.html">Canals</a>
-            <!--List of Cananls on Ride class=dropdownRequest-->
-            <div class="dropdownRequest">
-                <a href="./KIDDitchRiderRide4CanalsAHTML.html">A</a>
-                <a href="./KIDDitchRiderRide4CanalsCHTML.html">C</a>
-                <a href="./KIDDitchRiderRide4CanalsC4HTML.html">C4</a>
-                <a href="./KIDDitchRiderRide4CanalsC4EHTML.html">C4E</a>
-                <a href="./KIDDitchRiderRide4CanalsC4E1HTML.html">C4E1</a>
-                <a href="./KIDDitchRiderRide4CanalsC4E1AHTML.html">C4E1A</a>
-                <a href="./KIDDitchRiderRide4CanalsC4JHTML.html">C3J</a>
-                <a href="./KIDDitchRiderRide4CanalsC4KHTML.html">C4K</a>
-                <a href="./KIDDitchRiderRide4CanalsC4LHTML.html">C4L</a>
-                <a href="./KIDDitchRiderRide4CanalsC4MHTML.html">C4M</a>
-                <a href="./KIDDitchRiderRide4CanalsC4NHTML.html">C4N</a>
-                <a href="./KIDDitchRiderRide4CanalsC4QHTML.html">C4Q</a>
-                <a href="./KIDDitchRiderRide4CanalsC4RHTML.html">C4R</a>
-                <a href="./KIDDitchRiderRide4CanalsC4SHTML.html">C4S</a>
-            </div>
+        <li>
+            <a href="/DitchRiders/CanalWater">Canals</a>
         </li>
-        <li><a href="~/Account/Login">Log Out</a></li>
+        <li>
+            <a href="~/Account/Login">Log Out</a>
+        </li>
     </ul>
 </header>
 <body>
-    <a href="Index4" class="previous"><br />&laquo; Request</a>
+    <a href="_ActiveRequestsOff4" class="previous"><br />&laquo; Request</a>
     @using (Html.BeginForm())
     {
         @Html.HiddenFor(s => s.RequestID)
+        @Html.HiddenFor(s => s.Staff2, new { @Value = User.Identity.Name })
         @Html.HiddenFor(s => s.TimeStampStaff2)
-        @Html.HiddenFor(s => s.Staff2, new { @Value = User.Identity.Name})
-
-        <div>
-            @Html.Label("Customer Name: ")
-            @Html.DisplayTextFor(s => s.CustomerName)
-        </div>
-        <div>
-            @Html.Label("Date: ")
-            @Html.TextBoxFor(s => s.StaffDate2, new { @type = "date" })
-        </div>
-        <div>
-            @Html.Label("Status: ")
-            @Html.TextBoxFor(s => s.RequestStatus2)
-        </div>
-        <div>
-            @Html.Label("CFS: ")
-            @Html.TextBoxFor(s => s.StaffCFS2, new { @type = "number" })
-        </div>
-        <div>
-            @Html.Label("Comments: ")
-            @Html.TextAreaFor(s => s.StaffComments2)
-        </div>
+        <table class="ActiveRequests">
+            <caption>Log Water</caption>
+            <tr>
+                <th>@Html.Label("Customer Name")</th>
+                <th>@Html.Label("Date")</th>
+                <th>@Html.Label("Status")</th>
+                <th>@Html.Label("CFS Requested")</th>
+                <th>@Html.Label("CFS Given")</th>
+                <th>@Html.Label("Comments")</th>
+            </tr>
+            <tr>
+                <td>@Html.DisplayTextFor(s => s.CustomerName)</td>
+                <td>@Html.TextBoxFor(s => s.StaffDate2, new { @type = "date" })</td>
+                <td>@Html.DropDownListFor(s => s.RequestStatus2, ViewData["S"] as IEnumerable<SelectListItem>, "Select")</td>
+                <td>@Html.DisplayTextFor(s => s.CustomerCFS2)</td>
+                <td>@Html.TextBoxFor(s => s.StaffCFS2, new { @type = "number" })</td>
+                <td>@Html.DropDownListFor(s => s.StaffComments2, ViewData["StaffComments2"] as IEnumerable<SelectListItem>, "Select")</td>
+            </tr>
+        </table>
         <div>
             <button type="submit">Submit</button>
         </div>
