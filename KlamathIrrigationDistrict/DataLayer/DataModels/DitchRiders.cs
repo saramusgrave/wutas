@@ -48,17 +48,4 @@ namespace KlamathIrrigationDistrict.DataLayer.DataModels
         public List<DitchRiderRequests> Status { get; set; }
         
     }
-    public class DitchRiderRequestStatus
-    {
-        public int RequestStatusID { get; set; }
-        public string RequestStatusName { get; set; }
-        public List<SelectListItem> Status { get; set; }
-        public List<DitchRiderRequestStatus> St { get; set; }
-    }
-    public class DitchRiderComments
-    {
-        public int CommentID { get; set; }
-        public string Comment { get; set; }
-        public List<SelectListItem> Comments { get; set; }
-    }
 }

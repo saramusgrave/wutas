@@ -196,7 +196,7 @@ button:hover
 caption
 {
 	text-align: left;
-	text: bold;
+	font-weight: bolder;
 	color: #08ccff;
 	font-size: 25px;	
 }
@@ -218,6 +218,8 @@ caption
 	border-collapse: collapse;
 	/*pale blue*/
 	background-color: #3399ff;
+    padding: 10px;
+    text-align: center;
 }
 
 .ActiveRequests tr:nth-child(even)
