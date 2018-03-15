@@ -18,11 +18,17 @@
     <!--Log in Name, Customers, Requests, Canals, LogOUt id=Menu-->
     <ul id="Menu">
         <li><label class="FirstLast">@User.Identity.Name</label></li>
-        <li><a href="/DitchRiders/Customers4">Customers</a></li>
+        <li class="dropdown">
+            <a href="Customers4">Customers</a>
+            <div class="dropdownRequest" style="overflow-x: auto;">
+                <a href="/DitchRiders/Customers_4On">Customers With Water On</a>
+            </div>
+        </li>
         <li class="dropdown">
             <a class="RequestDropDown" href="Index4" id="active">Requests</a>
             <!--Requests drop down menu class=dropdownRequest-->
             <div class="dropdownRequest" style="overflow-x: auto;">
+                <a href="/DitchRiders/Index4" id="active">Active Requests On</a>
                 <a href="/DitchRiders/_ActiveRequestsOff4">Active Requests Off</a>
                 <a href="/DitchRiders/Appending_4On">Appending On</a>
                 <a href="/DitchRiders/Appending_4Off">Appending Off</a>
@@ -31,30 +37,14 @@
                 <a href="/DitchRiders/WaitList_4Off">Waitlist Off</a>
             </div>
         </li>
-        <li class="dropdown">
-            <a class="RequestDropDown" href="./KIDDitchRiderRide4CanalsHTML.html">Canals</a>
-            <!--List of Cananls on Ride class=dropdownRequest-->
-            <div class="dropdownRequest">
-                <a href="./KIDDitchRiderRide4CanalsAHTML.html">A</a>
-                <a href="./KIDDitchRiderRide4CanalsCHTML.html">C</a>
-                <a href="./KIDDitchRiderRide4CanalsC4HTML.html">C4</a>
-                <a href="./KIDDitchRiderRide4CanalsC4EHTML.html">C4E</a>
-                <a href="./KIDDitchRiderRide4CanalsC4E1HTML.html">C4E1</a>
-                <a href="./KIDDitchRiderRide4CanalsC4E1AHTML.html">C4E1A</a>
-                <a href="./KIDDitchRiderRide4CanalsC4JHTML.html">C3J</a>
-                <a href="./KIDDitchRiderRide4CanalsC4KHTML.html">C4K</a>
-                <a href="./KIDDitchRiderRide4CanalsC4LHTML.html">C4L</a>
-                <a href="./KIDDitchRiderRide4CanalsC4MHTML.html">C4M</a>
-                <a href="./KIDDitchRiderRide4CanalsC4NHTML.html">C4N</a>
-                <a href="./KIDDitchRiderRide4CanalsC4QHTML.html">C4Q</a>
-                <a href="./KIDDitchRiderRide4CanalsC4RHTML.html">C4R</a>
-                <a href="./KIDDitchRiderRide4CanalsC4SHTML.html">C4S</a>
-            </div>
+        <li>
+            <a href="/DitchRiders/CanalWater">Canals</a>
         </li>
-        <li><a href="~/Account/Login">Log Out</a></li>
+        <li>
+            <a href="~/Account/Login">Log Out</a>
+        </li>
     </ul>
 </header>
 <body>
 @Html.Partial("_ActiveRequestsOn4")
-@*@Html.Partial("_ActiveRequestsOff4")*@
 </body>

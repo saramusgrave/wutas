@@ -1,0 +1,105 @@
+﻿@using KlamathIrrigationDistrict.DataLayer.DataModels
+@model DitchRiderRequests
+@{
+    ViewBag.Title = "KID D.R.: Canals";
+}
+<head>
+    <title>KID: Ditch Rider</title>
+    <meta name="viewport" content="width=device-width" />
+    <link rel="stylesheet" href="~/Styles/DitchRiders.css" />
+    <script src="~/Scripts/KIDDitchRidersJS.js"></script>
+</head>
+<!--List of Rides class=dropdownRide-->
+<header id="Header">
+    <div id="RideCenter">
+        <a class="dropdown">Ride 4</a>
+    </div>
+    <!--Log in Name, Customers, Requests, Canals, LogOUt id=Menu-->
+    <ul id="Menu">
+        <li><label class="FirstLast">@User.Identity.Name</label></li>
+        <li class="dropdown">
+            <a href="Customers4">Customers</a>
+            <div class="dropdownRequest" style="overflow-x: auto;">
+                <a href="/DitchRiders/Customers_4On">Customers With Water On</a>
+            </div>
+        </li>
+        <li class="dropdown">
+            <a class="RequestDropDown" href="Index4">Requests</a>
+            <!--Requests drop down menu class=dropdownRequest-->
+            <div class="dropdownRequest" style="overflow-x: auto;">
+                <a href="/DitchRiders/Index4">Active Requests On</a>
+                <a href="/DitchRiders/_ActiveRequestsOff4">Active Requests Off</a>
+                <a href="/DitchRiders/Appending_4On">Appending On</a>
+                <a href="/DitchRiders/Appending_4Off">Appending Off</a>
+                <a href="/DitchRiders/CompletedRequests">Completed Requests</a>
+                <a href="/DitchRiders/WaitList_4On">Waitlist On</a>
+                <a href="/DitchRiders/WaitList_4Off">Waitlist Off</a>
+            </div>
+        </li>
+        <li>
+            <a href="/DitchRiders/CanalWater" id="active">Canals</a>
+        </li>
+        <li>
+            <a href="~/Account/Login">Log Out</a>
+        </li>
+    </ul>
+</header>
+<body>
+    @using (Html.BeginForm())
+    {
+        <table class="ActiveRequests">
+            <caption>Yesterday Canal Levels</caption>
+            <tr>
+                <th>@Html.Label("Canal")</th>
+                <th>@Html.Label("CFS")</th>
+                <th>@Html.Label("Delivered to Laterals")</th>
+                <th>@Html.Label("Delivered to Farms")</th>
+            </tr>
+            <tr>
+                <th>@Html.TextBoxFor(s => s.Lateral)</th>
+                <th>@Html.TextBox("CFS")</th>
+                <th>@Html.TextBox("CFS")</th>
+                <th>@Html.TextBox("CFS")</th>
+            </tr>
+        </table>
+        <table class="ActiveRequests">
+            <caption>Today's Canal Levels</caption>
+            <tr>
+                <th>@Html.Label("Canal")</th>
+                <th>@Html.Label("CFS")</th>
+                <th>@Html.Label("Delivered to Laterals")</th>
+                <th>@Html.Label("Delivered to Farms")</th>
+            </tr>
+            <tr>
+                <th>@Html.TextBoxFor(s => s.Lateral)</th>
+                <th>@Html.TextBox("CFS")</th>
+                <th>@Html.TextBox("CFS")</th>
+                <th>@Html.TextBox("CFS")</th>
+            </tr>
+        </table>
+        <table class="ActiveRequests">
+            <caption>Tomorrow's Canal Levels</caption>
+            <tr>
+                <th>@Html.Label("Canal")</th>
+                <th>@Html.Label("CFS")</th>
+                <th>@Html.Label("Delivered to Laterals")</th>
+                <th>@Html.Label("Delivered to Farms")</th>
+            </tr>
+            <tr>
+                <th>@Html.TextBoxFor(s => s.Lateral)</th>
+                <th>@Html.TextBox("CFS")</th>
+                <th>@Html.TextBox("CFS")</th>
+                <th>@Html.TextBox("CFS")</th>
+            </tr>
+        </table>
+       @*@Html.Label("Enter Canal/Lateral: ")
+        @Html.TextBoxFor(m => m.Lateral)
+        <div>
+            <button type="submit">Submit</button>
+        </div>
+        <div>
+           
+        </div>*@
+    }
+    @*@Html.Partial("_CanalCFS");*@
+</body>

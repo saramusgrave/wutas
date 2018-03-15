@@ -34,27 +34,18 @@ namespace KlamathIrrigationDistrict.DataLayer.DataModels
         public string StaffComments2 { get; set; }
         public DateTime _Getdate = DateTime.Now;
         public List<DitchRiderRequests> ditchriderrequests { get; set; }
-        public List<SelectListItem> HorsleyStructures { get; set; }
-        public List<SelectListItem> RyanStructures { get; set; }
-        public List<SelectListItem> RequestStatus_1 { get; set; }
-        public List<SelectListItem> RequestStatus_2 { get; set; }
-    }
-    public class DitchRiderCustomers
-    {
-        public string StructureID { get; set; }
-        public int Ride { get; set; }
-        public int CustomerMTLHisID { get; set; }
-        public string Name { get; set; }
-        public int CustomerID { get; set; }
+        //adding 
         public string Lateral { get; set; }
+        public int Ride { get; set; }
         public float TotalAllotment { get; set; }
-        public List<DitchRiderCustomers> ditchridercustomers { get; set; }
-    }
-    public class DitchRiderRequestStatus
-    {
+        public int CustomerMTLHisID { get; set;}
+        public int CommentID { get; set; }
+        public string Comment { get; set; }
         public int RequestStatusID { get; set; }
         public string RequestStatusName { get; set; }
-        public List<SelectListItem> Status { get; set; }
-        public List<DitchRiderRequestStatus> St { get; set; }
+        //Lists
+        public List<DitchRiderRequests> Comments { get; set; }
+        public List<DitchRiderRequests> Status { get; set; }
+        
     }
 }
