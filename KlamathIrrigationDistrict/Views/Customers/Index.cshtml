@@ -58,7 +58,7 @@
 
     <div style="overflow-x: auto;">
         <table class="Contacts">
-            <caption>Active Requests (On)</caption>
+            <caption>Waiting Ditch Rider Activation</caption>
             <tr>
                 <th>@Html.Label("RequestID")</th>
                 <th>@Html.Label("Structure")</th>
@@ -71,24 +71,27 @@
             @* Allow the user to input into 'Active Request' -> add a request *@
             @for (int i = 0; i < Model.Count; i++)
             {
-            <tr>
-                <td>@Model[i].RequestID</td>
-                <td>@Model[i].Structure</td>
-                @*<td>@Html.TextBoxFor(Model => Model[i].CustomerCFS_1, new { @Type = "number" })</td>*@
-                <td>@Model[i].CustomerCFS_1</td>
-                <td>@Model[i].TimeStampCustomer1.ToShortDateString()</td>
-                @*<td>@Html.TextAreaFor(Model => Model[i].CustomerComments_1)</td>*@
-                <td>@Model[i].CustomerComments_1</td>
-                @*<td>@Model[i].RequestStatus1</td>*@
-            </tr>
+                <tr>
+                    <td>@Model[i].RequestID</td>
+                    <td>@Model[i].Structure</td>
+                    @*<td>@Html.TextBoxFor(Model => Model[i].CustomerCFS_1, new { @Type = "number" })</td>*@
+                    <td>@Model[i].CustomerCFS_1</td>
+                    <td>@Model[i].CustomerDate1.ToShortDateString()</td>
+                    @*<td>@Html.TextAreaFor(Model => Model[i].CustomerComments_1)</td>*@
+                    <td>@Model[i].CustomerComments_1</td>
+                    @*<td>@Model[i].RequestStatus1</td>*@
+                </tr>
             }
         </table>
     </div>
     <div class="pagination" style="margin-left: 20px;">
-            Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber)
-            of @Model.PageCount @Html.PagedListPager(Model, page => Url.Action("Index", new { page }))
-        </div>
-    <div style="overflow-x: auto;">
+        Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber)
+        of @Model.PageCount @Html.PagedListPager(Model, page => Url.Action("Index", new { page }))
+    </div>
+
+    @Html.Partial("_ActiveCustomerRequest")
+
+    @*<div style="overflow-x: auto;">
         <!--Wait List class=Contacts-->
         <table class="Contacts">
             <caption>Wait List</caption>
@@ -113,5 +116,5 @@
                 <td>Ditch Rider will call when you are removed from wait list.</td>
             </tr>
         </table>
-    </div>
+    </div>*@
 </body>

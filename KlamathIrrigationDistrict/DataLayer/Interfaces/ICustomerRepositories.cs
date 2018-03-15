@@ -27,7 +27,9 @@ namespace KlamathIrrigationDistrict.DataLayer.Interfaces
         //list of customers request dependent on their CustomerID
         List<Customers> ViewCustomerRequests(int CustomerID);
 
-        //list of active customers requests that have yet to be completed
+        //list of active customers requests that have yet to be acknowledged by ditch rider
+        List<Customers> RequestNeedActivation(int CustomerID);
+
         List<Customers> ActiveCustomerRequests(int CustomerID);
 
         //list of complete request that would include staff input
