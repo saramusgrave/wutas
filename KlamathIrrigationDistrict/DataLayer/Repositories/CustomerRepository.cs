@@ -237,7 +237,7 @@ namespace KlamathIrrigationDistrict.DataLayer.Repositories
                 using (SqlCommand command = new SqlCommand())
                 {
                     command.Connection = connection;
-                    command.CommandText = "SELECT RequestID, CustomerDate1, CustomerName, Structure, CustomerCFS1, CustomerComments1 FROM Requests WHERE StaffCFS1 IS NULL";
+                    command.CommandText = "SELECT RequestID, CustomerDate1, CustomerName, Structure, CustomerCFS1, CustomerComments1 FROM Requests WHERE StaffCFS1 IS NULL AND RequestStatus1 = 'Pending'";
                     command.Parameters.AddWithValue("@CustomerID", CustomerID);
                     command.CommandType = CommandType.Text;
                     connection.Open();
@@ -261,7 +261,7 @@ namespace KlamathIrrigationDistrict.DataLayer.Repositories
         }
 
         //this will go to waitlist of customer when Ditch Rider has confirmed the request
-        public List<Customers> ActiveCustomerRequests(int CustomerID)
+        public List<Customers> WaitListCustomerRequest(int CustomerID)
         {
             List<Customers> ActiveRequestList = new List<Customers>();
             using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["KID"].ConnectionString))
@@ -269,7 +269,43 @@ namespace KlamathIrrigationDistrict.DataLayer.Repositories
                 using (SqlCommand command = new SqlCommand())
                 {
                     command.Connection = connection;
-                    command.CommandText = "SELECT RequestID, CustomerDate1, CustomerName, Structure, CustomerCFS1, CustomerComments1, Staff1, StaffDate1, StaffComments1 FROM Requests WHERE StaffCFS1 IS NULL AND RequestStatus1 = 'Confirm'";
+                    command.CommandText = "SELECT RequestID, CustomerDate1, CustomerName, Structure, CustomerCFS1, CustomerComments1, Staff1, StaffDate1, StaffComments1 FROM Requests WHERE StaffCFS1 IS NULL AND RequestStatus1 = 'Wait List'";
+                    command.Parameters.AddWithValue("@CustomerID", CustomerID);
+                    command.CommandType = CommandType.Text;
+                    connection.Open();
+                    using (SqlDataReader reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            Customers p = new Customers();
+                            p.RequestID = int.Parse(reader["RequestID"].ToString());
+                            p.CustomerDate1 = DateTime.Parse(reader["CustomerDate1"].ToString());
+                            p.Name = reader["CustomerName"].ToString();
+                            p.Structure = reader["Structure"].ToString();
+                            p.CustomerCFS_1 = int.Parse(reader["CustomerCFS1"].ToString());
+                            p.CustomerComments_1 = reader["CustomerComments1"].ToString();
+                            p.StaffName_1 = reader["Staff1"].ToString();
+                            p.StaffDate1 = DateTime.Parse(reader["StaffDate1"].ToString());
+                            p.StaffComments1 = reader["StaffComments1"].ToString();
+                            ActiveRequestList.Add(p);
+                        }
+                    }
+                }
+            }
+            return (ActiveRequestList);
+        }
+
+        //ditch rider confirmed the activation of request
+        //does not put anything into the StaffCFS1
+        public List<Customers> ActiveRequest(int CustomerID)
+        {
+            List<Customers> ActiveRequestList = new List<Customers>();
+            using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["KID"].ConnectionString))
+            {
+                using (SqlCommand command = new SqlCommand())
+                {
+                    command.Connection = connection;
+                    command.CommandText = "SELECT RequestID, CustomerDate1, CustomerName, Structure, CustomerCFS1, CustomerComments1, Staff1, StaffDate1, StaffComments1 FROM Requests WHERE StaffCFS1 IS NULL AND RequestStatus1 = 'Confirmed'";
                     command.Parameters.AddWithValue("@CustomerID", CustomerID);
                     command.CommandType = CommandType.Text;
                     connection.Open();

@@ -9,13 +9,21 @@
     <title>Customer: Home Page</title>
     <meta name="viewport" content="width=device-width" />
     <link rel="stylesheet" href="~/Styles/Customers.css" />
-    <script src="~/Scripts/KIDDitchRidersJS.js"></script>
+    <link rel="stylesheet" href="~/Scripts/KIDDitchRidersJS.js" />
+    @*<script src="~/Scripts/KIDDitchRidersJS.js"></script>*@
 </head>
 <!--Menu-->
 <header id="Menu">
     <ul>
         <li><label class="FirstLast">@User.Identity.Name</label></li>
-        <li><a id="active" href="./Index">Requests</a></li>
+        <li class="dropdown">
+            <a id="active" href="./Index">Requests</a>
+            <div class="dropdownRequest" style="overflow-x: auto;">
+                <a href="./CustomerWaitList">Waitlist</a>
+            </div>
+        </li>
+
+        @*<li><a id="active" href="./Index">Requests</a></li>*@
         <li><a href="./CustomerWaterHistory">History</a></li>
         <li><a href="./ContactsPage">Contacts</a></li>
         <li><a href="./CustomerProfile">Profile</a></li>
@@ -58,7 +66,7 @@
 
     <div style="overflow-x: auto;">
         <table class="Contacts">
-            <caption>Waiting Ditch Rider Activation</caption>
+            <caption>Pending Request</caption>
             <tr>
                 <th>@Html.Label("RequestID")</th>
                 <th>@Html.Label("Structure")</th>
@@ -89,7 +97,7 @@
         of @Model.PageCount @Html.PagedListPager(Model, page => Url.Action("Index", new { page }))
     </div>
 
-    @Html.Partial("_ActiveCustomerRequest")
+    @*@Html.Partial("_ActiveCustomerRequest")*@
 
     @*<div style="overflow-x: auto;">
         <!--Wait List class=Contacts-->

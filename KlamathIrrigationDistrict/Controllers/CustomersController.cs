@@ -116,11 +116,8 @@ namespace KlamathIrrigationDistrict.Controllers
             return View(cstaff);
         }
 
-        //------------------------------------------------------WHY DOES THIS PARTIAL ONLY VIEW THAT OF THE 'INDEX - Request needing activation'
-        //will be a partial view of the Index
-        //display only when ditch rider (RequestStatus) of request is set to 'confirm'
-        //currently turned on by ditch rider, or allow customer to turn on themselves
-        public ActionResult _ActiveCustomerRequest (int? page)
+        //waitlist - customer request is on hold by ditch rider because not enough water
+        public ActionResult CustomerWaitList (int? page)
         {
             int CustomerID;
             //int TotalAllotment;
@@ -140,7 +137,7 @@ namespace KlamathIrrigationDistrict.Controllers
                 CustomerID = 760;
                 //CustomerStaff.TotalAllotment = _custRepo.GetAllotment(CustomerID);
 
-                obCustomerList = customerrepository.ActiveCustomerRequests(CustomerID);
+                obCustomerList = customerrepository.WaitListCustomerRequest(CustomerID);
                 CustomerStaff.customers = obCustomerList;
                 cstaff = obCustomerList.ToPagedList(pageIndex, pageSize);
                 return View(cstaff);
@@ -150,14 +147,14 @@ namespace KlamathIrrigationDistrict.Controllers
                 //CustomerID = 3681;        //josh customerID
                 CustomerID = 549;           //Webb Gene & Pamela 
 
-                obCustomerList = customerrepository.ActiveCustomerRequests(CustomerID);
+                obCustomerList = customerrepository.WaitListCustomerRequest(CustomerID);
                 CustomerStaff.customers = obCustomerList;
                 cstaff = obCustomerList.ToPagedList(pageIndex, pageSize);
                 return View(cstaff);
             }
             else
                 CustomerID = 760;
-                obCustomerList = customerrepository.ActiveCustomerRequests(CustomerID);
+                obCustomerList = customerrepository.WaitListCustomerRequest(CustomerID);
                 CustomerStaff.customers = obCustomerList;
                 cstaff = obCustomerList.ToPagedList(pageIndex, pageSize);
                 return View(cstaff);

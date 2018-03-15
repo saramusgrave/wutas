@@ -30,7 +30,9 @@ namespace KlamathIrrigationDistrict.DataLayer.Interfaces
         //list of active customers requests that have yet to be acknowledged by ditch rider
         List<Customers> RequestNeedActivation(int CustomerID);
 
-        List<Customers> ActiveCustomerRequests(int CustomerID);
+        List<Customers> WaitListCustomerRequest(int CustomerID);
+
+        List<Customers> ActiveRequests(int CustomerID);
 
         //list of complete request that would include staff input
         List<Customers> CompleteCustomerRequests(int CustomerID);
