@@ -46,54 +46,8 @@ namespace KlamathIrrigationDistrict.DataLayer.Repositories
             }
             return (s);
         }
-        //public virtual Customers GetRequestID(int RequestID)
-        //{
-        //    //List<Customers> RequestList = new List<Customers>();
-        //    Customers p = null;
-        //    using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["KID"].ConnectionString))
-        //    {
-        //        using (SqlCommand command = new SqlCommand())
-        //        {
-        //            command.Connection = connection;
-        //            //command.CommandText = "SELECT * FROM Requests";
-        //            command.CommandText = "SELECT * FROM Requests";
-        //            command.CommandType = CommandType.Text;
-        //            connection.Open();
-        //            using (SqlDataReader reader = command.ExecuteReader())
-        //            {
-        //                while (reader.Read())
-        //                {
-        //                    p.RequestID = int.Parse(reader["RequestID"].ToString());
-        //                    p.TimeStampCustomer1 = DateTime.Parse(reader["TimeStampCustomer1"].ToString());
-        //                    p.CustomerDate1 = DateTime.Parse(reader["CustomerDate1"].ToString());
-        //                    p.CustomerID = int.Parse(reader["CustomerID"].ToString());
-        //                    p.Name = reader["CustomerName"].ToString();
-        //                    p.Structure = reader["Structure"].ToString();
-        //                    p.CustomerCFS_1 = int.Parse(reader["CustomerCFS1"].ToString());
-        //                    p.CustomerComments_1 = reader["CustomerComments1"].ToString();
-        //                    p.TimeStampStaff1 = DateTime.Parse(reader["TimeStampStaff1"].ToString());
-        //                    p.StaffName_1 = reader["Staff1"].ToString();
-        //                    p.StaffDate1 = DateTime.Parse(reader["StaffDate1"].ToString());
-        //                    p.RequestStatus1 = reader["RequestStatus1"].ToString();
-        //                    p.StaffCFS1 = int.Parse(reader["StaffCFS1"].ToString());
-        //                    p.StaffComments1 = reader["StaffComments1"].ToString();
-        //                    p.TimeStampCustomer2 = DateTime.Parse(reader["TimeStampCustomer2"].ToString());
-        //                    p.CustomerDate2 = DateTime.Parse(reader["CustomerDate2"].ToString());
-        //                    p.CustomerCFS_2 = int.Parse(reader["CustomerCFS2"].ToString());
-        //                    p.CustomerComments_2 = reader["CustomerComments2"].ToString();
-        //                    p.TimeStampStaff2 = DateTime.Parse(reader["TimeStampStaff2"].ToString());
-        //                    p.StaffName_2 = reader["Staff2"].ToString();
-        //                    p.StaffDate2 = DateTime.Parse(reader["StaffDate2"].ToString());
-        //                    p.RequestStatus2 = reader["RequestStatus2"].ToString();
-        //                    p.StaffCFS2 = int.Parse(reader["StaffCFS2"].ToString());
-        //                    p.StaffComments2 = reader["StaffComments2"].ToString();
-        //                }
-        //            }
-        //        }
-        //    }
-        //    return (p);
+       
 
-        //}
 
         public virtual List<Customers> ViewCustomers()
         {
@@ -275,7 +229,7 @@ namespace KlamathIrrigationDistrict.DataLayer.Repositories
         }
 
         //show the customer request, check where Staff has not yet completed the request
-        public List<Customers> ActiveCustomerRequests(int CustomerID)
+        public List<Customers> RequestNeedActivation(int CustomerID)
         {
             List<Customers> ActiveRequestList = new List<Customers>();
             using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["KID"].ConnectionString))
@@ -283,7 +237,7 @@ namespace KlamathIrrigationDistrict.DataLayer.Repositories
                 using (SqlCommand command = new SqlCommand())
                 {
                     command.Connection = connection;
-                    command.CommandText = "SELECT RequestID, CustomerDate1, CustomerName, Structure, CustomerCFS1, CustomerComments1 FROM Requests WHERE StaffCFS1 IS NULL";
+                    command.CommandText = "SELECT RequestID, CustomerDate1, CustomerName, Structure, CustomerCFS1, CustomerComments1 FROM Requests WHERE StaffCFS1 IS NULL AND RequestStatus1 = 'Pending'";
                     command.Parameters.AddWithValue("@CustomerID", CustomerID);
                     command.CommandType = CommandType.Text;
                     connection.Open();
@@ -306,6 +260,78 @@ namespace KlamathIrrigationDistrict.DataLayer.Repositories
             return (ActiveRequestList);
         }
 
+        //this will go to waitlist of customer when Ditch Rider has confirmed the request
+        public List<Customers> WaitListCustomerRequest(int CustomerID)
+        {
+            List<Customers> ActiveRequestList = new List<Customers>();
+            using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["KID"].ConnectionString))
+            {
+                using (SqlCommand command = new SqlCommand())
+                {
+                    command.Connection = connection;
+                    command.CommandText = "SELECT RequestID, CustomerDate1, CustomerName, Structure, CustomerCFS1, CustomerComments1, Staff1, StaffDate1, StaffComments1 FROM Requests WHERE StaffCFS1 IS NULL AND RequestStatus1 = 'Wait List'";
+                    command.Parameters.AddWithValue("@CustomerID", CustomerID);
+                    command.CommandType = CommandType.Text;
+                    connection.Open();
+                    using (SqlDataReader reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            Customers p = new Customers();
+                            p.RequestID = int.Parse(reader["RequestID"].ToString());
+                            p.CustomerDate1 = DateTime.Parse(reader["CustomerDate1"].ToString());
+                            p.Name = reader["CustomerName"].ToString();
+                            p.Structure = reader["Structure"].ToString();
+                            p.CustomerCFS_1 = int.Parse(reader["CustomerCFS1"].ToString());
+                            p.CustomerComments_1 = reader["CustomerComments1"].ToString();
+                            p.StaffName_1 = reader["Staff1"].ToString();
+                            p.StaffDate1 = DateTime.Parse(reader["StaffDate1"].ToString());
+                            p.StaffComments1 = reader["StaffComments1"].ToString();
+                            ActiveRequestList.Add(p);
+                        }
+                    }
+                }
+            }
+            return (ActiveRequestList);
+        }
+
+        //ditch rider confirmed the activation of request
+        //does not put anything into the StaffCFS1
+        public List<Customers> ActiveRequest(int CustomerID)
+        {
+            List<Customers> ActiveRequestList = new List<Customers>();
+            using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["KID"].ConnectionString))
+            {
+                using (SqlCommand command = new SqlCommand())
+                {
+                    command.Connection = connection;
+                    command.CommandText = "SELECT RequestID, CustomerDate1, CustomerName, Structure, CustomerCFS1, CustomerComments1, Staff1, StaffDate1, StaffComments1 FROM Requests WHERE StaffCFS1 IS NULL AND RequestStatus1 = 'Confirmed'";
+                    command.Parameters.AddWithValue("@CustomerID", CustomerID);
+                    command.CommandType = CommandType.Text;
+                    connection.Open();
+                    using (SqlDataReader reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            Customers p = new Customers();
+                            p.RequestID = int.Parse(reader["RequestID"].ToString());
+                            p.CustomerDate1 = DateTime.Parse(reader["CustomerDate1"].ToString());
+                            p.Name = reader["CustomerName"].ToString();
+                            p.Structure = reader["Structure"].ToString();
+                            p.CustomerCFS_1 = int.Parse(reader["CustomerCFS1"].ToString());
+                            p.CustomerComments_1 = reader["CustomerComments1"].ToString();
+                            p.StaffName_1 = reader["Staff1"].ToString();
+                            p.StaffDate1 = DateTime.Parse(reader["StaffDate1"].ToString());
+                            p.StaffComments1 = reader["StaffComments1"].ToString();
+                            ActiveRequestList.Add(p);
+                        }
+                    }
+                }
+            }
+            return (ActiveRequestList);
+        }
+
+
         public List<Customers> CompleteCustomerRequests(int CustomerID)
         {
             List<Customers> CompleteRequestList = new List<Customers>();
@@ -314,7 +340,7 @@ namespace KlamathIrrigationDistrict.DataLayer.Repositories
                 using (SqlCommand command = new SqlCommand())
                 {
                     command.Connection = connection;
-                    command.CommandText =   "SELECT RequestID, CustomerDate2, CustomerName, Structure, CustomerCFS2, CustomerComments2, StaffDate2, Staff2, StaffCFS2, StaffComments2, RequestStatus2 " +
+                    command.CommandText =   "SELECT RequestID, CustomerDate1, CustomerName, Structure, CustomerCFS1, CustomerComments2, StaffDate1, StaffDate2, Staff2, StaffCFS1, StaffComments2, RequestStatus2 " +
                         "                   FROM Requests WHERE CustomerID = @CustomerID AND StaffCFS2 IS NOT NULL AND CustomerCFS2 IS NOT NULL";
                     command.Parameters.AddWithValue("@CustomerID", CustomerID);
                     command.CommandType = CommandType.Text;
@@ -325,10 +351,10 @@ namespace KlamathIrrigationDistrict.DataLayer.Repositories
                         {
                             Customers p = new Customers();
                             p.RequestID = int.Parse(reader["RequestID"].ToString());
-                            p.CustomerDate1 = DateTime.Parse(reader["CustomerDate2"].ToString());
+                            p.CustomerDate1 = DateTime.Parse(reader["CustomerDate1"].ToString());
                             p.Name = reader["CustomerName"].ToString();
                             p.Structure = reader["Structure"].ToString();
-                            p.CustomerCFS_2 = int.Parse(reader["CustomerCFS2"].ToString());
+                            p.CustomerCFS_1 = int.Parse(reader["CustomerCFS1"].ToString());
                             p.CustomerComments_2 = reader["CustomerComments2"].ToString();
                             //p.CustomerCFS_1 = int.Parse(reader["CustomerCFS1"].ToString());
                             //p.CustomerComments_1 = reader["CustomerComments1"].ToString();
@@ -338,9 +364,10 @@ namespace KlamathIrrigationDistrict.DataLayer.Repositories
 
                            
                             p.StaffName_2 = reader["Staff2"].ToString();
+                            p.StaffDate1 = DateTime.Parse(reader["StaffDate1"].ToString());
                             p.StaffDate2 = DateTime.Parse(reader["StaffDate2"].ToString());
                             p.RequestStatus2 = reader["RequestStatus2"].ToString();
-                            p.StaffCFS2 = int.Parse(reader["StaffCFS2"].ToString());
+                            p.StaffCFS1 = int.Parse(reader["StaffCFS1"].ToString());
                             p.StaffComments2 = reader["StaffComments2"].ToString();
 
                             CompleteRequestList.Add(p);

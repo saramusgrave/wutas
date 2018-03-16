@@ -14,7 +14,13 @@
 <header id="Menu">
     <ul>
         <li><label class="FirstLast">@User.Identity.Name</label></li>
-        <li><a href="./Index">Requests</a></li>
+        <li class="dropdown">
+            <a href="./Index">Requests</a>
+            <div class="dropdownRequest" style="overflow-x: auto;">
+                <a href="./CustomerWaitList">Waitlist</a>
+            </div>
+        </li>
+        @*<li><a href="./Index">Requests</a></li>*@
         <li><a id="active" href="./CustomerWaterHistory">History</a></li>
         <li><a href="./ContactsPage">Contacts</a></li>
         <li><a href="./CustomerProfile">Profile</a></li>
@@ -118,6 +124,7 @@
                 @*<th>@Html.Label("Ditch Rider Date")</th>*@
                 <th>@Html.Label("Comments")</th>
                 <th>@Html.Label("Status")</th>
+                <th>@Html.Label("Active Date")</th>
                 <th>@Html.Label("Complete Date")</th>
             </tr>
             @* Allow the user to input into 'Active Request' -> add a request *@
@@ -126,15 +133,16 @@
                 <tr>
                     <td>@Model[i].RequestID</td>
                     <td>@Model[i].Structure</td>
-                    <td>@Model[i].CustomerCFS_2</td>
-                    <td>@Model[i].CustomerDate2</td>
-                    <td id="RBorder">@Model[i].CustomerComments_2</td>
+                    <td>@Model[i].CustomerCFS_1</td>
+                    <td>@Model[i].CustomerDate1.ToShortDateString()</td>
+                    <td id="RBorder">@Model[i].CustomerComments_1</td>
                     @*<td>@Model[i].DitchRiderDate.ToShortDateString()</td>*@
-                    <td>@Model[i].StaffCFS2</td>
+                    <td>@Model[i].StaffCFS1</td>
                     <td>@Model[i].StaffName_2</td>
                     <td>@Model[i].StaffComments2</td>
                     <td>@Model[i].RequestStatus2</td>
-                    <td>@Model[i].StaffDate2</td>
+                    <td>@Model[i].StaffDate1.ToShortDateString()</td>
+                    <td>@Model[i].StaffDate2.ToShortDateString()</td>
 
                 </tr>
             }

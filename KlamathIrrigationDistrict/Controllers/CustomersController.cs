@@ -93,7 +93,7 @@ namespace KlamathIrrigationDistrict.Controllers
                 CustomerID = 760;
                 //CustomerStaff.TotalAllotment = _custRepo.GetAllotment(CustomerID);
 
-                obCustomerList = customerrepository.ActiveCustomerRequests(CustomerID);
+                obCustomerList = customerrepository.RequestNeedActivation(CustomerID);
                 CustomerStaff.customers = obCustomerList;               
                 cstaff = obCustomerList.ToPagedList(pageIndex, pageSize);
                 return View(cstaff);
@@ -103,17 +103,61 @@ namespace KlamathIrrigationDistrict.Controllers
                 //CustomerID = 3681;        //josh customerID
                 CustomerID = 549;           //Webb Gene & Pamela 
 
-                obCustomerList = customerrepository.ActiveCustomerRequests(CustomerID);
+                obCustomerList = customerrepository.RequestNeedActivation(CustomerID);
                 CustomerStaff.customers = obCustomerList;
                 cstaff = obCustomerList.ToPagedList(pageIndex, pageSize);
                 return View(cstaff);
             }
             else
                 CustomerID = 760;
-            obCustomerList = customerrepository.ActiveCustomerRequests(CustomerID);
+            obCustomerList = customerrepository.RequestNeedActivation(CustomerID);
             CustomerStaff.customers = obCustomerList;
             cstaff = obCustomerList.ToPagedList(pageIndex, pageSize);
             return View(cstaff);
+        }
+
+        //waitlist - customer request is on hold by ditch rider because not enough water
+        public ActionResult CustomerWaitList (int? page)
+        {
+            int CustomerID;
+            //int TotalAllotment;
+
+            int pageSize = 10;
+            int pageIndex = 1;
+            pageIndex = page.HasValue ? Convert.ToInt32(page) : 1;
+
+            IPagedList<Customers> cstaff = null;
+            //IPagedList<Customers> cAllot = null;
+            CustomerRepository customerrepository = new CustomerRepository();
+            Customers CustomerStaff = new Customers();
+            List<Customers> obCustomerList = new List<Customers>();
+
+            if (User.Identity.Name.Equals("ryhayandgrain@gmail.com"))
+            {
+                CustomerID = 760;
+                //CustomerStaff.TotalAllotment = _custRepo.GetAllotment(CustomerID);
+
+                obCustomerList = customerrepository.WaitListCustomerRequest(CustomerID);
+                CustomerStaff.customers = obCustomerList;
+                cstaff = obCustomerList.ToPagedList(pageIndex, pageSize);
+                return View(cstaff);
+            }
+            else if (User.Identity.Name.Equals("josh@horsleyfarms.com"))
+            {
+                //CustomerID = 3681;        //josh customerID
+                CustomerID = 549;           //Webb Gene & Pamela 
+
+                obCustomerList = customerrepository.WaitListCustomerRequest(CustomerID);
+                CustomerStaff.customers = obCustomerList;
+                cstaff = obCustomerList.ToPagedList(pageIndex, pageSize);
+                return View(cstaff);
+            }
+            else
+                CustomerID = 760;
+                obCustomerList = customerrepository.WaitListCustomerRequest(CustomerID);
+                CustomerStaff.customers = obCustomerList;
+                cstaff = obCustomerList.ToPagedList(pageIndex, pageSize);
+                return View(cstaff);
         }
 
         //only page in which everyone shares
@@ -214,10 +258,10 @@ namespace KlamathIrrigationDistrict.Controllers
             }
             else
                 CustomerID = 760;
-            obCustomerWaterList = customerrepository.CompleteCustomerRequests(CustomerID);
-            CustomerHistory.customers = obCustomerWaterList;
-            cHistory = obCustomerWaterList.ToPagedList(pageIndex, pageSize);
-            return View(cHistory);
+                obCustomerWaterList = customerrepository.CompleteCustomerRequests(CustomerID);
+                CustomerHistory.customers = obCustomerWaterList;
+                cHistory = obCustomerWaterList.ToPagedList(pageIndex, pageSize);
+                return View(cHistory);
         }
 
         //should read this fucntion when running CustomerAddRequest view
@@ -321,7 +365,7 @@ namespace KlamathIrrigationDistrict.Controllers
 
         [HttpGet]
         //receive data input from 'HttpPost' and will then display it
-        public ActionResult View_SetDate_CustomerRequest(int? page /* DateTime Input_StartDate, DateTime Input_EndDate*/)
+        public ActionResult View_SetDate_CustomerRequest(int? page)
         {
             //hard coded Ryan's info
             //int CustomerID = 760;
