@@ -297,7 +297,7 @@ namespace KlamathIrrigationDistrict.DataLayer.Repositories
 
         //ditch rider confirmed the activation of request
         //does not put anything into the StaffCFS1
-        public List<Customers> ActiveRequest(int CustomerID)
+        public List<Customers> ActiveRequests(int CustomerID)
         {
             List<Customers> ActiveRequestList = new List<Customers>();
             using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["KID"].ConnectionString))
