@@ -1,6 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props" Condition="Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" />
   <Import Project="..\packages\Microsoft.Net.Compilers.1.0.0\build\Microsoft.Net.Compilers.props" Condition="Exists('..\packages\Microsoft.Net.Compilers.1.0.0\build\Microsoft.Net.Compilers.props')" />
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
@@ -76,6 +75,7 @@
         </ObjectGroup>
       </Objects>
     </PublishDatabaseSettings>
+    <PublishDatabases>false</PublishDatabases>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.AI.Agent.Intercept, Version=2.0.6.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
@@ -108,10 +108,6 @@
     </Reference>
     <Reference Include="Microsoft.Azure.AppService.ApiApps.Service, Version=0.9.16.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Azure.AppService.ApiApps.Service.0.9.16\lib\net45\Microsoft.Azure.AppService.ApiApps.Service.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
@@ -315,6 +311,7 @@
     <Content Include="Attachments\Simple Flume Calculator Final.xlsx" />
     <Content Include="Metadata\deploymentTemplates\apiappconfig.azureresource.json" />
     <Content Include="apiapp.json" />
+    <None Include="Properties\PublishProfiles\klamathirrigation.net - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -373,7 +370,6 @@
     <Content Include="Smtp.config">
       <SubType>Designer</SubType>
     </Content>
-    <Content Include="Views\DitchRiders\Index4.cshtml" />
     <Content Include="Views\Shared\KIDLayout.cshtml" />
     <Content Include="Views\Customers\Index.cshtml" />
     <Content Include="Views\MapTaxLot\Index.cshtml" />
@@ -397,7 +393,6 @@
     <Content Include="Views\DitchRiders\AddRequest4On.cshtml" />
     <Content Include="Views\DitchRiders\_AddRequest4Off.cshtml" />
     <Content Include="Views\DitchRiders\EditRequest4Off.cshtml" />
-    <Content Include="Views\DitchRiders\Index5.cshtml" />
     <Content Include="Views\DitchRiders\AddRequest5On.cshtml" />
     <Content Include="Views\DitchRiders\_AddRequest5Off.cshtml" />
     <Content Include="Views\DitchRiders\EditRequest5On.cshtml" />
@@ -422,13 +417,14 @@
     <Content Include="Views\DitchRiders\Customers_4On.cshtml" />
     <Content Include="Views\DitchRiders\EditWaitList_4On.cshtml" />
     <Content Include="Views\DitchRiders\EditWaitList_4Off.cshtml" />
+    <Content Include="Views\Shared\DitchRidersMenue.cshtml" />
+    <Content Include="Views\DitchRiders\Unauthorized.cshtml" />
     <None Include="Web.klamathirrigation.net - Web Deploy.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Properties\PublishProfiles\" />
     <Folder Include="Views\StaffEditModel\" />
     <Folder Include="Views\WaterMaster\" />
   </ItemGroup>
@@ -476,7 +472,6 @@
       <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
     </PropertyGroup>
     <Error Condition="!Exists('..\packages\Microsoft.Net.Compilers.1.0.0\build\Microsoft.Net.Compilers.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.Net.Compilers.1.0.0\build\Microsoft.Net.Compilers.props'))" />
-    <Error Condition="!Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props'))" />
   </Target>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
        Other similar extension points exist, see Microsoft.Common.targets.

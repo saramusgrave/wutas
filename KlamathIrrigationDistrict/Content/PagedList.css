@@ -164,3 +164,28 @@
   cursor: not-allowed;
   background-color: #ffffff;
 }
+
+ul.pagination{    
+    display: inline-block;    
+    padding: 0;    
+    margin: 0;    
+}    
+ul.pagination li{    
+    display: inline;    
+}    
+ul.pagination li a{    
+    color: black;    
+    float: left;    
+    padding: 8px 16px;    
+    text-decoration: none;    
+    transition: background-color .3s; 
+    border: 1px solid black;   
+}  
+ul.pagination li a.active{    
+	background-color: #0000cc;
+	color: white;    
+}
+ul.pagination li a:hover:not(.active) {
+        background-color: #0066ff;
+        color: white;
+    }

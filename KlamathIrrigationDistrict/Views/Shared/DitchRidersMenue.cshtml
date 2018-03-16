@@ -1,0 +1,79 @@
+﻿<!DOCTYPE html>
+
+<header id="Header">
+    <div id="RideCenter">
+        <a class="dropdown">Ride @Url.RequestContext.RouteData.Values["id"]</a>
+    </div>
+    <ul id="Menu">
+        <li><label class="FirstLast">@User.Identity.Name</label></li>
+        <li class="dropdown">
+            <a href="@Url.Action("Customers4", "DitchRiders")/@Url.RequestContext.RouteData.Values["id"]">Customers</a>
+            <div class="dropdownRequest" style="overflow-x: auto;">
+                <a href="@Url.Action("Customers_4On", "DitchRiders")/@Url.RequestContext.RouteData.Values["id"]">Customers With Water On</a>
+            </div>
+        </li>
+        <li class="dropdown">
+            <a class="RequestDropDown" href="@Url.Action("_ActiveRequestsOn4", "DitchRiders")/@Url.RequestContext.RouteData.Values["id"]">Requests</a>
+            <div class="dropdownRequest" style="overflow-x: auto;">
+                <a href="@Url.Action("_ActiveRequestsOn4", "DitchRiders")/@Url.RequestContext.RouteData.Values["id"]">Active Requests On</a>
+                <a href="@Url.Action("_ActiveRequestsOff4", "DitchRiders")/@Url.RequestContext.RouteData.Values["id"]">Active Requests Off</a>
+                <a href="@Url.Action("Appending_4On", "DitchRiders")/@Url.RequestContext.RouteData.Values["id"]">Appending On</a>
+                <a href="@Url.Action("Appending_4Off", "DitchRiders")/@Url.RequestContext.RouteData.Values["id"]">Appending Off</a>
+                <a href="@Url.Action("CompletedRequests", "DitchRiders")/@Url.RequestContext.RouteData.Values["id"]">Completed Requests</a>
+                <a href="@Url.Action("WaitList_4On", "DitchRiders")/@Url.RequestContext.RouteData.Values["id"]">Waitlist On</a>
+                <a href="@Url.Action("WaitList_4Off", "DitchRiders")/@Url.RequestContext.RouteData.Values["id"]">Waitlist Off</a>
+            </div>
+        </li>
+        <li>
+            <a href="@Url.Action("CanalWater", "DitchRiders")/@Url.RequestContext.RouteData.Values["id"]">Canals</a>
+        </li>
+        <li>
+            @using (Html.BeginForm("LogOff", "Account"))
+            {
+                @Html.AntiForgeryToken()
+                <button type="submit" class="btn btn-link" id="LogOutBtn">Log Out</button>             
+            }
+        </li>
+    </ul>
+</header>
+<html>
+<head>
+    <title>@ViewBag.Title</title>
+    <meta name="viewport" content="width=device-width" />
+    <link rel="stylesheet" href="~/Styles/DitchRiders.css" />
+    <script src="~/Scripts/KIDDitchRidersJS.js"></script>
+    <link rel="icon" href="~/Attachments/KID.png" />
+    @RenderSection("PageHead", false)
+</head>
+<body>
+    @RenderBody()
+</body>
+</html>
+<footer>
+    <div id="Logo">
+        <table class="footer">
+            <tr>
+                <th>Contact KID</th>
+                <th>Main Office</th>
+                <th>Phone Num.</th>
+                <th>Hours</th>
+            </tr>
+            <tr>
+                <td>
+                    <img src="http://www.klamathirrigation.com/images/Old%20Hydro%201.jpg">
+                </td>
+                <td>
+                    6640 KID Lane,
+                    <br>Klamath Falls
+                    <br>OR 97603
+                </td>
+                <td>(541)882-661</td>
+                <td>
+                    8AM-4:30PM
+                    <br>Monday-Friday
+                </td>
+            </tr>
+        </table>
+    </div>
+</footer>
+

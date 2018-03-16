@@ -1,7 +1,4 @@
-﻿using System;
-using System.Globalization;
-using System.Linq;
-using System.Security.Claims;
+﻿using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
@@ -9,11 +6,7 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using KlamathIrrigationDistrict.Models;
-using System.Data.SqlClient;
-using System.Configuration;
 using System.Data;
-using KlamathIrrigationDistrict.DataLayer.DataModels;
-using System.Collections.Generic;
 
 namespace KlamathIrrigationDistrict.Controllers
 {
@@ -91,19 +84,21 @@ namespace KlamathIrrigationDistrict.Controllers
             switch (result)
             {
                 case SignInStatus.Success:
-                    if (User.IsInRole("Office Specialist"))
-                    {
-                        return RedirectToAction("Index", "OfficeStaff");
-                    }
-                    else if(User.IsInRole("Ride 4"))
-                    {
-                        return RedirectToAction("Index4", "DitchRiders");
-                    }
-                    else if(User.IsInRole("Customer"))
-                    {
-                        return RedirectToAction("Index", "Customers");
-                    }
+                    //if (User.IsInRole("Office Specialist"))
+                    //{
+                    //    return RedirectToAction("Index", "OfficeStaff");
+                    //}
+                    //else if(User.IsInRole("Ride 4"))
+                    //{
+                    //    return RedirectToAction("Index4", "DitchRiders");
+                    //}
+                    //else if(User.IsInRole("Customer"))
+                    //{
+                    //    return RedirectToAction("Index", "Customers");
+                    //}
                     return RedirectToLocal(returnUrl);
+
+                    break;
                 case SignInStatus.LockedOut:
                     return View("Lockout");
                 case SignInStatus.RequiresVerification:

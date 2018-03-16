@@ -1,75 +1,13 @@
 ﻿@using KlamathIrrigationDistrict.DataLayer.DataModels
 @using PagedList.Mvc;
 @model PagedList.IPagedList<DitchRiderRequests>
-@*@model List<DitchRiderRequests>*@
 @{ 
     ViewBag.Title = "KID D.R.: Customers";
+    Layout = "~/Views/Shared/DitchRidersMenue.cshtml";
 }
-<head>
-    <title>KID: Ditch Rider</title>
-    <meta name="viewport" content="width=device-width" />
-    <link rel="stylesheet" href="~/Styles/DitchRiders.css" />
-    <link rel="stylesheet" href="~/Scripts/KIDDitchRidersJS.js" />
-    <script>
-        function SearchCustomersFn() {
-            var input, filter, table, tr, td, i;
-            input = document.getElementById("SearchCustomers");
-            filter = input.value.toUpperCase();
-            table = document.getElementById("ActiveRequests");
-            tr = table.getElementsByTagName("tr");
-            for (i = 0; i < tr.length; i++) {
-                td = tr[i].getElementsByTagName("td")[0];
-                if (td) {
-                    if (td.innerHTML.toUpperCase().indexOf(filter) > -1) {
-                        tr[i].style.display = "";
-                    }
-                    else {
-                        tr[i].style.display = "none";
-                    }
-                }
-            }
-        }
-    </script>
-</head>
-<!--List of Rides class=dropdownRide-->
-<header id="Header">
-    <div id="RideCenter">
-        <a class="dropdown">Ride 4</a>
-    </div>
-    <!--Log in Name, Customers, Requests, Canals, LogOUt id=Menu-->
-    <ul id="Menu">
-        <li><label class="FirstLast">@User.Identity.Name</label></li>
-        <li class="dropdown">
-            <a href="Customers4" id="active">Customers</a>
-            <div class="dropdownRequest" style="overflow-x: auto;">
-                <a href="/DitchRiders/Customers_4On">Customers With Water On</a>
-            </div>
-        </li>
-        <li class="dropdown">
-            <a class="RequestDropDown" href="Index4">Requests</a>
-            <!--Requests drop down menu class=dropdownRequest-->
-            <div class="dropdownRequest" style="overflow-x: auto;">
-                <a href="/DitchRiders/Index4">Active Requests On</a>
-                <a href="/DitchRiders/_ActiveRequestsOff4">Active Requests Off</a>
-                <a href="/DitchRiders/Appending_4On">Appending On</a>
-                <a href="/DitchRiders/Appending_4Off">Appending Off</a>
-                <a href="/DitchRiders/CompletedRequests">Completed Requests</a>
-                <a href="/DitchRiders/WaitList_4On">Waitlist On</a>
-                <a href="/DitchRiders/WaitList_4Off">Waitlist Off</a>
-            </div>
-        </li>
-        <li>
-            <a href="/DitchRiders/CanalWater">Canals</a>
-        </li>
-        <li>
-            <a href="~/Account/Login">Log Out</a>
-        </li>
-    </ul>
-</header>
 <body>
     <input type="text" id="SearchCustomers" onkeyup="SearchCustomersFn()" placeholder="Search Customers by Name" title="Type in a name" />
     <div style="overflow-x: auto;">
-        <!--Completed Requests class=ActiveRequests-->
         <table class="ActiveRequests" id="ActiveRequests">
             <caption>Customers</caption>
             <tr>
