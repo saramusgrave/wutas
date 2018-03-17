@@ -4,15 +4,13 @@ using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
+using System.Data.Entity.Core.Objects;
 using System.Data.SqlClient;
 
 namespace KlamathIrrigationDistrict.DataLayer.Repositories
 {
     public class DitchRidersRepository : IDitchRidersRepository
     {
-        /*---------------------------------------------------------------------
-         ----------All Ditch Riders--------------------------------------------
-         -----------------------------------------------------------------------*/
 
         /*-------------------------Views ---------------------------------------------------*/
 
@@ -226,7 +224,7 @@ namespace KlamathIrrigationDistrict.DataLayer.Repositories
                 {
                     command.Parameters.AddWithValue("@RideNum", id);
                     command.Connection = connection;
-                                        
+
                     command.CommandText = "SELECT * FROM Requests WHERE StaffCFS2 IS NOT NULL AND Ride = @RideNum ORDER BY RequestID ASC";
                     command.CommandType = CommandType.Text;
                     connection.Open();
@@ -672,27 +670,46 @@ namespace KlamathIrrigationDistrict.DataLayer.Repositories
         //dbo.WaterCFS_NextDayByCanal
         //@Lateral
         //Use in ...
-        public int WaterCFS_NextDayByCanal(DitchRiderRequests lateral)
+        //public int WaterCFS_NextDayByCanal(DitchRiderRequests lateral)
+        public int WaterCFS_NextDayByCanal(DitchRiderRequests lateral, int cfs)
         {
             using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["KID"].ConnectionString))
             {
-                using (SqlCommand command = new SqlCommand())
-                {
-                    command.Connection = connection;
-                    command.CommandType = CommandType.StoredProcedure;
-                    command.CommandText = "dbo.WaterCFS_NextDayByCanal";
+                //    using (SqlCommand command = new SqlCommand())
+                //    {
+                //        command.Connection = connection;
+                //        command.CommandType = CommandType.StoredProcedure;
+                //        command.CommandText = "dbo.WaterCFS_NextDayByCanal";
 
-                    command.Parameters.AddWithValue("@Lateral", lateral.Lateral);
+                //        command.Parameters.AddWithValue("@Lateral", lateral.Lateral);
 
-                    connection.Open();
-                    object returnval = command.ExecuteScalar();
-                    if (returnval != null)
+                //        connection.Open();
+                //        object returnval = command.ExecuteScalar();
+                //        if (returnval != null)
+                //        {
+                //            return int.Parse(returnval.ToString());
+                //        }
+                //    }
+                //}
+                //return (-1);
+                    using (SqlCommand command = new SqlCommand("WaterCFS_NextDayByCanal", connection) { CommandType = CommandType.StoredProcedure })
+
                     {
-                        return int.Parse(returnval.ToString());
-                    }
-                }
+                        command.Parameters.AddWithValue("@Lateral", lateral.Lateral);
+                        connection.Open();
+                        object returnVal = command.ExecuteScalar();
+                        //int cfs;
+                        if (returnVal != null)
+                        {
+                            cfs = int.Parse(returnVal.ToString());
+                        }
+                        else
+                        {
+                            return (cfs = int.Parse(returnVal.ToString()));
+                        }                        
+                    }                
+                return (-1);
             }
-            return (-1);
         }
     }
 }

@@ -28,7 +28,7 @@
                 <td>@Model[i].CustomerCFS2</td>
                 <td>@Model[i].RequestStatus2</td>
                 <td>@Model[i].CustomerComments2</td>
-                <td>@Html.ActionLink("Status", "EditRequestStatus_Off", new { @RequestID = Model[i].RequestID }) </td>
+                <td>@Html.ActionLink("Status", "EditRequestStatus_Off", new { @RequestID = Model[i].RequestID, @id = Url.RequestContext.RouteData.Values["id"] }) </td>
             </tr>
         }
     </table>

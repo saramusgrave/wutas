@@ -58,10 +58,12 @@ namespace KlamathIrrigationDistrict.Controllers
         [Authorize]
         public ActionResult EditRequest4On(int id, int RequestID)
         {
+
             if (!User.IsInRole("Ride " + id.ToString()) && !User.IsInRole("Relief Ride " + id.ToString()))
             {
                 return View("Unauthorized");
             }
+
             ViewData["S"] = _ditchRiderRepo.Status().Select(s => new SelectListItem() { Text = s.RequestStatusName, Value = s.RequestStatusName }).ToList();
             ViewData["StaffComments2"] = _ditchRiderRepo.Comments().Select(s => new SelectListItem() { Text = s.Comment, Value = s.Comment }).ToList();
             var std = _ditchRiderRepo.ViewActiveRequestOn4(id).Where(s => s.RequestID == RequestID).FirstOrDefault();
@@ -79,7 +81,39 @@ namespace KlamathIrrigationDistrict.Controllers
             string StaffComments1 = std.StaffComments1;
             string RequestStatus1 = std.RequestStatus1;
             _ditchRiderRepo.EditRequest4On(std);
-            return RedirectToAction("_ActiveRequestsOn4");
+            if (User.IsInRole("Ride 1"))
+            {
+                return RedirectToAction("_ActiveRequestsOn4/1", "DitchRiders");
+            }
+            else if (User.IsInRole("Ride 2"))
+            {
+                return RedirectToAction("_ActiveRequestsOn4/2", "DitchRiders");
+            }
+            else if (User.IsInRole("Ride 3"))
+            {
+                return RedirectToAction("_ActiveRequestsOn4/3", "DitchRiders");
+            }
+            else if (User.IsInRole("Ride 4"))
+            {
+                return RedirectToAction("_ActiveRequestsOn4/4", "DitchRiders");
+            }
+            else if (User.IsInRole("Ride 5"))
+            {
+                return RedirectToAction("_ActiveRequestsOn4/5", "DitchRiders");
+            }
+            else if (User.IsInRole("Ride 6"))
+            {
+                return RedirectToAction("_ActiveRequestsOn4/6", "DitchRiders");
+            }
+            else if (User.IsInRole("Ride 7"))
+            {
+                return RedirectToAction("_ActiveRequestsOn4/7", "DitchRiders");
+            }
+            else if (User.IsInRole("Ride 8"))
+            {
+                return RedirectToAction("_ActiveRequestsOn4/8", "DitchRiders");
+            }
+            return View("Unauthorized");
         }
 
         //View Active Requests Off
@@ -536,21 +570,35 @@ namespace KlamathIrrigationDistrict.Controllers
             return RedirectToAction("Customers4");
         }
         
-        //View Water in Canal
-        //WaterCFS_NextDayByCanal()
-        //CanalWater.cshtml    
         public ActionResult CanalWater()
         {
-            return View();            
+            DitchRiderRequests std = new DitchRiderRequests();
+            string Structure = std.Lateral;
+            return View(std);
+        }
+        //View Water in Canal
+        //WaterCFS_NextDayByCanal()
+        //CanalWater.cshtml   
+        [HttpPost]
+        public ActionResult CanalWater(DitchRiderRequests lateral)
+        {
+            //ObjectParameter cfs = new ObjectParameter("CFS", typeof(int));
+            string Structure = lateral.Lateral;
+            //var std = _ditchRiderRepo.WaterCFS_NextDayByCanal(lateral, 1);
+            var std = _ditchRiderRepo.WaterCFS_NextDayByCanal(lateral, 1);
+            //ViewBag.CFS = Convert.ToInt32(cfs.Value);
+            return Content(std.ToString());
+            //return View();
         }
         //View Water in next day canal
         //ViewActiveRequestsOn4()
         //Page: _ActiveRequstsOn4
-        public ActionResult _CanalCFS(int CFS)
+        public ActionResult _CanalCFS(DitchRiderRequests lateral)
         {
-            return View(CFS);
+            var std = _ditchRiderRepo.WaterCFS_NextDayByCanal(lateral, 1);
+            return Content(std.ToString());
         }
-                
+
         //OutputCache 
         //ViewRequests4()
         [OutputCache(Duration = 300, VaryByParam = "id")]

@@ -7,7 +7,7 @@
 <body>
     @using (Html.BeginForm())
     {
-        <table class="ActiveRequests">
+        @*<table class="ActiveRequests">
             <caption>Yesterday Canal Levels</caption>
             <tr>
                 <th>@Html.Label("Canal")</th>
@@ -36,8 +36,24 @@
                 <th>@Html.TextBox("CFS")</th>
                 <th>@Html.TextBox("CFS")</th>
             </tr>
-        </table>
+        </table>*@
         <table class="ActiveRequests">
+            <caption>Tomorrow's Canal Levels</caption>
+            <tr>
+                <th>@Html.Label("Canal")</th>
+            </tr>
+            <tr>
+                <th>@Html.TextBoxFor(s => s.Lateral)</th>
+            </tr>
+        </table>
+        <div>
+            <button type="submit">Submit</button>
+        </div>
+        <div>
+            Result: @ViewBag.CFS
+        </div>
+
+        @*<table class="ActiveRequests">
             <caption>Tomorrow's Canal Levels</caption>
             <tr>
                 <th>@Html.Label("Canal")</th>
@@ -51,7 +67,10 @@
                 <th>@Html.TextBox("CFS")</th>
                 <th>@Html.TextBox("CFS")</th>
             </tr>
-        </table>
+        </table>*@
+        @*<div>
+            <button type="submit">Submit</button>
+        </div>*@
        @*@Html.Label("Enter Canal/Lateral: ")
         @Html.TextBoxFor(m => m.Lateral)
         <div>
@@ -62,4 +81,5 @@
         </div>*@
     }
     @*@Html.Partial("_CanalCFS");*@
+    
 </body>

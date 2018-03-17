@@ -4,7 +4,6 @@
 @{
     ViewBag.Title = "KID D.R.: Wait List Water Off";
     Layout = "~/Views/Shared/DitchRidersMenue.cshtml";
-
 }
 <body>
     <div style="overflow-x: auto;">
@@ -30,7 +29,7 @@
                     <td>@Model[i].CustomerCFS2</td>
                     <td>@Model[i].RequestStatus2</td>
                     <td>@Model[i].CustomerComments2</td>
-                    <td>@Html.ActionLink("Off", "EditWaitList_4Off", new { @RequestID = Model[i].RequestID }) </td>
+                    <td>@Html.ActionLink("Off", "EditWaitList_4Off", new { @RequestID = Model[i].RequestID, @id = Url.RequestContext.RouteData.Values["id"] })</td>
                 </tr>
             }
         </table>

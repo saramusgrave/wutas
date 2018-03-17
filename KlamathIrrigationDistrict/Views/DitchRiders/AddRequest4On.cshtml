@@ -7,7 +7,8 @@
 
 }
 <body>
-    <a href="Customers4" class="previous"><br />&laquo; Customers</a>
+    <a href="@Url.Action("Customers4", "DitchRiders")/@Url.RequestContext.RouteData.Values["id"]" class="previous"><br />&laquo; Customers</a>
+    @*<a href="Customers4" class="previous"><br />&laquo; Customers</a>*@
     <div style="overflow-x: auto;">
         <table class="ActiveRequests">
             <caption>Add Requests(On)</caption>

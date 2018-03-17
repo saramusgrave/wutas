@@ -31,8 +31,7 @@
                     <td>@Model[i].TotalAllotment</td>
                     <td>@Model[i].StaffCFS1</td>
                     <td>@Model[i].StaffDate1.ToShortDateString()</td>
-                   <td><a href="@Url.Action("_AddRequest4Off", "DitchRiders")/@Url.RequestContext.RouteData.Values["id"]" onclick="">Off</a></td>
-                    @*<td>@Html.ActionLink("Off", "_AddRequest4Off", new { @RequestID = Model[i].RequestID })</td>*@
+                    <td>@Html.ActionLink("Off", "_AddRequest4Off", new { @RequestID = Model[i].RequestID, @id = Url.RequestContext.RouteData.Values["id"] })</td>
                 </tr>
             }
         </table>

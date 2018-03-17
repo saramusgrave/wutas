@@ -6,7 +6,9 @@
 
 }
 <body>
-    <a href="WaitList_4On" class="previous"><br />&laquo; Request</a>
+    <a href="@Url.Action("WaitList_4On", "DitchRiders")/@Url.RequestContext.RouteData.Values["id"]" class="previous"><br />&laquo; Request</a>
+
+    @*<a href="WaitList_4On" class="previous"><br />&laquo; Request</a>*@
     @using (Html.BeginForm())
     {
         @Html.HiddenFor(s => s.RequestID)

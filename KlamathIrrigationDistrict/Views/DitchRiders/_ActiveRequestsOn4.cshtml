@@ -23,7 +23,7 @@
                 <td>@Model[i].Structure</td>
                 <td>@Model[i].CustomerCFS1</td>
                 <td>@Model[i].CustomerComments1</td>
-                <td>@Html.ActionLink("On", "EditRequest4On", new { @RequestID = Model[i].RequestID }) </td>
+                <td>@Html.ActionLink("On", "EditRequest4On", new { @RequestID = Model[i].RequestID, @id = Url.RequestContext.RouteData.Values["id"] }) </td>
             </tr>
         }
     </table>

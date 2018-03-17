@@ -393,10 +393,6 @@
     <Content Include="Views\DitchRiders\AddRequest4On.cshtml" />
     <Content Include="Views\DitchRiders\_AddRequest4Off.cshtml" />
     <Content Include="Views\DitchRiders\EditRequest4Off.cshtml" />
-    <Content Include="Views\DitchRiders\AddRequest5On.cshtml" />
-    <Content Include="Views\DitchRiders\_AddRequest5Off.cshtml" />
-    <Content Include="Views\DitchRiders\EditRequest5On.cshtml" />
-    <Content Include="Views\DitchRiders\EditRequest5Off.cshtml" />
     <Content Include="Views\Customers\ContactsPage.cshtml" />
     <Content Include="Views\Customers\CustomerWaterHistory.cshtml" />
     <Content Include="Views\Customers\CustomerProfile.cshtml" />
