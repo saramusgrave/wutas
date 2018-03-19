@@ -7,38 +7,8 @@
 <body>
     @using (Html.BeginForm())
     {
-        @*<table class="ActiveRequests">
-            <caption>Yesterday Canal Levels</caption>
-            <tr>
-                <th>@Html.Label("Canal")</th>
-                <th>@Html.Label("CFS")</th>
-                <th>@Html.Label("Delivered to Laterals")</th>
-                <th>@Html.Label("Delivered to Farms")</th>
-            </tr>
-            <tr>
-                <th>@Html.TextBoxFor(s => s.Lateral)</th>
-                <th>@Html.TextBox("CFS")</th>
-                <th>@Html.TextBox("CFS")</th>
-                <th>@Html.TextBox("CFS")</th>
-            </tr>
-        </table>
         <table class="ActiveRequests">
-            <caption>Today's Canal Levels</caption>
-            <tr>
-                <th>@Html.Label("Canal")</th>
-                <th>@Html.Label("CFS")</th>
-                <th>@Html.Label("Delivered to Laterals")</th>
-                <th>@Html.Label("Delivered to Farms")</th>
-            </tr>
-            <tr>
-                <th>@Html.TextBoxFor(s => s.Lateral)</th>
-                <th>@Html.TextBox("CFS")</th>
-                <th>@Html.TextBox("CFS")</th>
-                <th>@Html.TextBox("CFS")</th>
-            </tr>
-        </table>*@
-        <table class="ActiveRequests">
-            <caption>Tomorrow's Canal Levels</caption>
+            <caption>Enter Canal</caption>
             <tr>
                 <th>@Html.Label("Canal")</th>
             </tr>
@@ -48,38 +18,9 @@
         </table>
         <div>
             <button type="submit">Submit</button>
-        </div>
-        @*<div>
-            Result: @ViewBag.CFS
-        </div>*@
-
-        @*<table class="ActiveRequests">
-            <caption>Tomorrow's Canal Levels</caption>
-            <tr>
-                <th>@Html.Label("Canal")</th>
-                <th>@Html.Label("CFS")</th>
-                <th>@Html.Label("Delivered to Laterals")</th>
-                <th>@Html.Label("Delivered to Farms")</th>
-            </tr>
-            <tr>
-                <th>@Html.TextBoxFor(s => s.Lateral)</th>
-                <th>@Html.TextBox("CFS")</th>
-                <th>@Html.TextBox("CFS")</th>
-                <th>@Html.TextBox("CFS")</th>
-            </tr>
-        </table>*@
-        @*<div>
-            <button type="submit">Submit</button>
-        </div>*@
-       @*@Html.Label("Enter Canal/Lateral: ")
-        @Html.TextBoxFor(m => m.Lateral)
-        <div>
-            <button type="submit">Submit</button>
-        </div>
-        <div>
-           
-        </div>*@
+        </div>        
     }
-    @Html.Partial("_CanalCFS")
+        <p>CFS in Tomorrow's Canal is: @Model.CustomerCFS1</p>
+    <p>CFS in Today's Canal is: @Model.CustomerCFS2</p>
     
 </body>

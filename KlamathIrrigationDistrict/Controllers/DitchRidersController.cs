@@ -474,41 +474,43 @@ namespace KlamathIrrigationDistrict.Controllers
             _ditchRiderRepo.AddRequest_4Off(std);
             return new RedirectResult(Url.Action("Customers_4On/" + Url.RequestContext.RouteData.Values["id"]));
         }
-
+        [HttpGet]
         public ActionResult CanalWater(int id)
+        {
+            if (!User.IsInRole("Ride " + id.ToString()) && !User.IsInRole("Relief Ride " + id.ToString()))
+            {
+                return View("Unauthorized");
+            }
+            DitchRiderRequests r = new DitchRiderRequests();
+            return View(r);
+        }
+        [HttpPost]
+        public ActionResult CanalWater(int id, string lateral)
         {
             if(!User.IsInRole("Ride " + id.ToString()) && !User.IsInRole("Relief Ride " + id.ToString()))
             {
                 return View("Unauthorized");
             }
-            DitchRiderRequests std = new DitchRiderRequests();
-            string Structure = std.Lateral;
-            return View(std);
+            int data = _ditchRiderRepo.WaterCFS_NextDayByCanal(lateral);
+            //Added
+            int tomorrow = _ditchRiderRepo.WaterCFS_TodayByCanal(lateral);
+            //keep
+            DitchRiderRequests r = new DitchRiderRequests();
+            r.Lateral = lateral;
+            r.CustomerCFS1 = data;
+            r.CustomerCFS2 = tomorrow;
+            return View(r);
         }
-        //View Water in Canal
-        //WaterCFS_NextDayByCanal()
-        //CanalWater.cshtml   
 
-        //public ActionResult CanalWater(DitchRiderRequests lateral)
+        //public ActionResult _CanalCFS(DitchRiderRequests lateral)
         //{
+        //    //var std = _ditchRiderRepo.WaterCFS_NextDayByCanal(lateral);
+        //    //return Content(std.ToString());
         //    ObjectParameter cfs = new ObjectParameter("CFS", typeof(int));
         //    var std = _ditchRiderRepo.WaterCFS_NextDayByCanal(lateral);
         //    ViewBag.CFS = Convert.ToInt32(cfs.Value);
         //    return Content(std.ToString());
-        //    //return View();
         //}
-        //View Water in next day canal
-        //ViewActiveRequestsOn4()
-        //Page: _ActiveRequstsOn4
-        public ActionResult _CanalCFS(DitchRiderRequests lateral)
-        {
-            //var std = _ditchRiderRepo.WaterCFS_NextDayByCanal(lateral);
-            //return Content(std.ToString());
-            ObjectParameter cfs = new ObjectParameter("CFS", typeof(int));
-            var std = _ditchRiderRepo.WaterCFS_NextDayByCanal(lateral);
-            ViewBag.CFS = Convert.ToInt32(cfs.Value);
-            return Content(std.ToString());
-        }
 
         //OutputCache 
         //ViewRequests4()

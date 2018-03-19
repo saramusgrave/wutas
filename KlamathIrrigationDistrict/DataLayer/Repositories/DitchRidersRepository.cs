@@ -768,45 +768,61 @@ namespace KlamathIrrigationDistrict.DataLayer.Repositories
         //@Lateral
         //Use in ...
         //public int WaterCFS_NextDayByCanal(DitchRiderRequests lateral)
-        public int WaterCFS_NextDayByCanal(DitchRiderRequests lateral)
+        public int WaterCFS_NextDayByCanal(string lateral)
         {
             using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["KID"].ConnectionString))
             {
-                //    using (SqlCommand command = new SqlCommand())
-                //    {
-                //        command.Connection = connection;
-                //        command.CommandType = CommandType.StoredProcedure;
-                //        command.CommandText = "dbo.WaterCFS_NextDayByCanal";
+                using (SqlCommand command = new SqlCommand())
+                {
+                    command.Connection = connection;
+                    command.CommandType = CommandType.StoredProcedure;
+                    command.CommandText = "dbo.WaterCFS_NextDayByCanal";
 
-                //        command.Parameters.AddWithValue("@Lateral", lateral.Lateral);
+                    command.Parameters.AddWithValue("@Lateral", lateral);
 
-                //        connection.Open();
-                //        object returnval = command.ExecuteScalar();
-                //        if (returnval != null)
-                //        {
-                //            return int.Parse(returnval.ToString());
-                //        }
-                //    }
-                //}
-                //return (-1);
-                    using (SqlCommand command = new SqlCommand("WaterCFS_NextDayByCanal", connection) { CommandType = CommandType.StoredProcedure })
-
+                    connection.Open();
+                    object returnval = command.ExecuteScalar();
+                    int cfs;
+                    if (returnval != null)
                     {
-                        command.Parameters.AddWithValue("@Lateral", lateral.Lateral);
-                        connection.Open();
-                        object returnVal = command.ExecuteScalar();
-                        int cfs;
-                        if (returnVal != null)
-                        {
-                            cfs = int.Parse(returnVal.ToString());
-                        }
-                        else
-                        {
-                            return (cfs = int.Parse(returnVal.ToString()));
-                        }                        
-                    }                
-                return (-1);
+                        cfs = int.Parse(returnval.ToString());
+                    }
+                    else
+                    {
+                        return (cfs = int.Parse(returnval.ToString()));
+                    }
+                    return (cfs);
+                }                           
             }
+            //return (-1);
+        }
+        public int WaterCFS_TodayByCanal(string lateral)
+        {
+            using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["KID"].ConnectionString))
+            {
+                using (SqlCommand command = new SqlCommand())
+                {
+                    command.Connection = connection;
+                    command.CommandType = CommandType.StoredProcedure;
+                    command.CommandText = "dbo.WaterCFS_TodayByCanal";
+
+                    command.Parameters.AddWithValue("@Lateral", lateral);
+
+                    connection.Open();
+                    object returnval = command.ExecuteScalar();
+                    int cfs;
+                    if (returnval != null)
+                    {
+                        cfs = int.Parse(returnval.ToString());
+                    }
+                    else
+                    {
+                        return (cfs = int.Parse(returnval.ToString()));
+                    }
+                    return (cfs);
+                }
+            }
+            //return (cfs);
         }
     }
 }

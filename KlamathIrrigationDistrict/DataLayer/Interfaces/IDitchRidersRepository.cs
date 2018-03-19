@@ -53,8 +53,9 @@ namespace KlamathIrrigationDistrict.DataLayer.Interfaces
         void EditRequestStatus1_On(DitchRiderRequests ditchriderrequests);
         //Edit RequestStatus2
         void EditRequestStatus2_Off(DitchRiderRequests ditchriderrequests);
-        //Store procedure to view how much is in a canal.
-        //int WaterCFS_NextDayByCanal(DitchRiderRequests lateral);
-        int WaterCFS_NextDayByCanal(DitchRiderRequests lateral);
+        //Store procedure to view how much is in a canal for tomorrow
+        int WaterCFS_NextDayByCanal(string lateral);
+        //Stored procedure to view how much CFS is in canal for today
+        int WaterCFS_TodayByCanal(string lateral);
     }
 }
