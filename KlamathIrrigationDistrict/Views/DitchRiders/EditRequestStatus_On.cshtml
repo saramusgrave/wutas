@@ -3,15 +3,14 @@
 @{
     ViewBag.Title = "KID D.R.: Turn On Water";
     Layout = "~/Views/Shared/DitchRidersMenue.cshtml";
-
 }
 <body>
     <a href="@Url.Action("Appending_4On", "DitchRiders")/@Url.RequestContext.RouteData.Values["id"]" class="previous"><br />&laquo; Appending On</a>
     @using (Html.BeginForm())
     {
         @Html.HiddenFor(s => s.RequestID)
-        @Html.HiddenFor(s => s.TimeStampStaff2, new { @Value = DateTime.Now })
-        @Html.HiddenFor(s => s.Staff2, new { @Value = User.Identity.Name })
+        @Html.HiddenFor(s => s.TimeStampStaff1, new { @Value = DateTime.Now })
+        @Html.HiddenFor(s => s.Staff1, new { @Value = User.Identity.Name })
         <table class="ActiveRequests">
             <caption>Request Status</caption>
             <tr>

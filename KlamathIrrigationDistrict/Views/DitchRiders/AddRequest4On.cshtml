@@ -1,14 +1,11 @@
 ﻿@using KlamathIrrigationDistrict.DataLayer.DataModels
-@*@model KlamathIrrigationDistrict.Models.DropDownListModel*@
 @model DitchRiderRequests
 @{
     ViewBag.Title = "KID D.R.: Request Water On";
     Layout = "~/Views/Shared/DitchRidersMenue.cshtml";
-
 }
 <body>
     <a href="@Url.Action("Customers4", "DitchRiders")/@Url.RequestContext.RouteData.Values["id"]" class="previous"><br />&laquo; Customers</a>
-    @*<a href="Customers4" class="previous"><br />&laquo; Customers</a>*@
     <div style="overflow-x: auto;">
         <table class="ActiveRequests">
             <caption>Add Requests(On)</caption>
@@ -26,6 +23,8 @@
                     @Html.HiddenFor(m => m.TimeStampCustomer1)
                     @Html.HiddenFor(m => m.CustomerID)
                     @Html.HiddenFor(m => m.CustomerName)
+                    @Html.HiddenFor(m => m.RequestStatus1, new { @Value = "Pending"})
+                    @Html.HiddenFor(m => m.Ride, new { @Value = Url.RequestContext.RouteData.Values["id"]})
                     <td>@Html.TextBoxFor(m => m.CustomerDate1, new { @type = "date" }) </td>
                     <td>@Html.DisplayTextFor(m => m.CustomerName)</td>
                     <td>@Html.DisplayTextFor(m => m.Structure)</td>

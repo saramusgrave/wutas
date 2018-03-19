@@ -85,6 +85,31 @@ namespace KlamathIrrigationDistrict.DataLayer.Repositories
             }
             return (StaffList);
         }
+        public List<KIDStaff> ViewPositions()
+        {
+            List<KIDStaff> StaffList = new List<KIDStaff>();
+            using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["KID"].ConnectionString))
+            {
+                using (SqlCommand command = new SqlCommand())
+                {
+                    command.Connection = connection;
+                    command.CommandText = "SELECT * FROM AspNetRoles";
+                    command.CommandType = CommandType.Text;
+
+                    connection.Open();
+                    using (SqlDataReader reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            KIDStaff Staff = new KIDStaff();
+                            Staff.RoleName = reader["Name"].ToString();
+                            StaffList.Add(Staff);
+                        }
+                    }
+                }
+            }
+            return (StaffList);
+        }
         //From Allen
         //public KIDStaff StaffMember()
         //{

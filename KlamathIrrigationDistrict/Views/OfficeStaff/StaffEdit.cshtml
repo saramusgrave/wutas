@@ -28,9 +28,7 @@
         
         <div>
             @Html.Label("Position:")
-            @*@Html.DropDownList("Position", new SelectList(Enum.GetValues(typeof(SelectPosition))))*@
-           
-            @Html.TextBoxFor(m => m.Position)
+            @Html.DropDownListFor(s => s.Position, ViewData["RoleName"] as IEnumerable<SelectListItem>, "Select")
             @Html.ValidationMessageFor(s => s.Position)
         </div>
         <div>

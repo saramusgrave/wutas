@@ -1,5 +1,12 @@
 ﻿<!DOCTYPE html>
-
+<head>
+    <title>@ViewBag.Title</title>
+    <meta name="viewport" content="width=device-width" />
+    <link rel="stylesheet" href="~/Styles/DitchRiders.css" />
+    <link rel="icon" href="http://www.klamathirrigation.com/images/Old%20Hydro%201.jpg" />
+    @*<script src="~/Scripts/KIDDitchRidersJS.js"></script>*@
+    @RenderSection("PageHead", false)
+</head>
 <header id="Header">
     <div id="RideCenter">
         <a class="dropdown">Ride @Url.RequestContext.RouteData.Values["id"]</a>
@@ -37,16 +44,11 @@
     </ul>
 </header>
 <html>
-<head>
-    <title>@ViewBag.Title</title>
-    <meta name="viewport" content="width=device-width" />
-    <link rel="stylesheet" href="~/Styles/DitchRiders.css" />
-    <script src="~/Scripts/KIDDitchRidersJS.js"></script>
-    <link rel="icon" href="~/Attachments/KID.png" />
-    @RenderSection("PageHead", false)
-</head>
+
 <body>
     @RenderBody()
+    <script src="~/Scripts/KIDDitchRidersJS.js"></script>
+    @RenderSection("Scripts", false)
 </body>
 </html>
 <footer>
@@ -62,10 +64,11 @@
                 <td>
                     <img src="http://www.klamathirrigation.com/images/Old%20Hydro%201.jpg">
                 </td>
-                <td>
+                <td><address>
                     6640 KID Lane,
                     <br>Klamath Falls
                     <br>OR 97603
+                    </address>
                 </td>
                 <td>(541)882-661</td>
                 <td>

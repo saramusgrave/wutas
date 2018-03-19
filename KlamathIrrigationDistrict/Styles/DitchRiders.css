@@ -1,15 +1,11 @@
 ﻿/*Ditch Rider Pages*/
 #Header 
 {
-	/*float: center;*/
 	list-style-type: none;
-	/*margin-left: 75px;
-	margin-right: 75px;*/
 	overflow: auto;
-	/*position: float;*/
 	top: 0;
 	display: inline-block;
-	width: 600px;
+	width: 700px;
 }
 
 #RideCenter
@@ -17,14 +13,14 @@
 	background-color: #08ccff;
 }
 
-#RideCenter li a
+/*#RideCenter li a
 {
 	display: block;
 	text-align: center;
 	padding: 14px 16px;
 	text-decoration: none;
 	border: 1px solid black;
-}
+}*/
 
 #RideCenter a
 {
@@ -36,7 +32,7 @@
 }
 
 #Menu
-{
+{    
 	float: left;
 	margin: 0 0 1em 0;
    	padding: 0;
@@ -64,11 +60,11 @@
 	background-color: #0066ff;
 }
 
-#Header #active
+/*#Header #active
 {
 	background-color: #0000cc;
 	color: white;
-}
+}*/
 
 #active 
 {
@@ -76,7 +72,7 @@
 	color: white;
 }
 
-.dropdownRide
+/*.dropdownRide
 {
 	display: none;
 	position: absolute;
@@ -84,7 +80,7 @@
 	box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
 	z-index: 1;
 	width: 15%;
-}
+}*/
 
 .dropdownRequest
 {
@@ -96,25 +92,24 @@
 	overflow: auto;
 }
 
-.dropdownRide a 
+/*.dropdownRide a 
 {
 	color: black;
 	padding: 12px 16px;
 	text-decoration: none;
 	display: block;
 	text-align: center;
-}
+}*/
 
-.dropdownRequest a 
-{
-	color: black;
+/*.dropdownRequest a 
+{	
 	padding: 12px 16px;
 	text-decoration: none;
 	display: block;
 	text-align: center;
-}
+}*/
 
-.dropdownRide a:hover .dropdownRequest a:hover
+.dropdownRequest a:hover
 {
 	background-color: #f1f1f1;
 }
@@ -338,7 +333,6 @@ ul.pagination li a:hover:not(.active) {
 
 
 
-
 .FirstLast
 {
 	padding: 11.2px 30px;
@@ -350,35 +344,34 @@ ul.pagination li a:hover:not(.active) {
 
 #LogOutBtn
 {
-	padding: 11.2px 30px;
+    padding: 12px 30px;
 	text-align: center;
-	display: inline-block;
-	font-size: 14px;
+	display: inline-table;
 	background-color: #08ccff;
 	border: 1px solid black;
 }
 
-button 
+/*button 
 {
 	background-color: #08ccff;
 	color: black;
 	padding: 11.2px 13.5px;
 	border: 1px solid black;
 	font-size: 14px;
-}
+}*/
 
 button:hover
 {
 	opacity: .7;
 }
 
-.Customers th
+/*.Customers th
 {
 	border: 2px solid black;
 	background-color: #08ccff;
 	list-style-type: none;
 	padding: 5px;
-}
+}*/
 
 caption
 {
@@ -387,13 +380,13 @@ caption
 	color: #08ccff;
 	font-size: 25px;	
 }
-.CanalsList th
+/*.CanalsList th
 {
 	border: 2px solid black;
 	background-color: #08ccff;
 	list-style-type: none;
 	padding: 5px;
-}	
+}*/	
 .ActiveRequests
 {
 	border-collapse: collapse;
@@ -405,7 +398,8 @@ caption
 	border-collapse: collapse;
 	/*pale blue*/
 	background-color: #3399ff;
-    padding: 10px;
+    padding-left: 5px;
+    padding-right: 5px;
     text-align: center;
 }
 
@@ -418,11 +412,13 @@ caption
 {
 	border: 1px solid black;
 	text-align: center;
-	padding: 1px;
+	padding-bottom: 2px;
+    padding-left: 2px;
+    padding-right: 2px;
 	overflow: auto;
 }
 
-.Appending
+/*.Appending
 {
 	border-collapse: collapse;
 	overflow: auto;
@@ -431,7 +427,7 @@ caption
 .Appending th
 {
 	border-collapse: collapse;
-	/*pale blue*/
+	/*pale blue
 	background-color: #3399ff;
 }
 
@@ -444,7 +440,7 @@ caption
 {
 	text-align: center;
 	border: 1px solid black;
-}
+}*/
 
 input[type=number]
 {
@@ -467,19 +463,19 @@ input[type=TrackingID]
 {
 	border-right: 1px solid #08ccff;
 }
+a:visited
+{
+    color: blue;
+}
+/*Logo*/
 #Logo 
 {
 	display: block;
-	/*postition: relative;*/
-	bottom: 0px;
-	overflow: auto;
-	padding: 10px;
+    padding: 10px;
 }
 #Logo .footer
 {
 	border-collapse: collapse;
-	/*width: fill;
-	height: fill;*/
 }
 #Logo img
 {
@@ -495,10 +491,11 @@ input[type=TrackingID]
 #Logo .footer td
 {
 	text-align: center;
-	/*vertical-align: center;*/
 	font-size: 17px;
 	border: 1px solid black;
 }
+
+/*View for Computer Screan*/
 @media screen and (min-width: 1082px)
 {
 	#Header
@@ -506,7 +503,6 @@ input[type=TrackingID]
 		width: 90%;
 		font-size: 20px;
 	}
-
 	#Menu li a
 	{
 		text-align: center;
@@ -526,25 +522,40 @@ input[type=TrackingID]
 		max-height: 400px;
 	}
 	.FirstLast
-	{
+	{        
 		font-size: 20px;
+        line-height: 23px;
 	}
 	body
 	{
-		margin-left: 20px;
+        font-size: 20px;
+		margin-left: 100px;
 	}
 	#LogOutBtn
 	{
 		font-size: 20px;
+        display: inline-block;
+        width: 150px;
+        padding: 0px;
+        position: relative;
+        height: 47px;        
 	}
 	#LogOutBtn:hover
 	{
 		opacity: .6;
 	}
+    .footer
+    {
+        margin-left: 300px;
+    }
+    a:visited
+    {
+        color: blue;
+    }
 }
 
 /*Log In Page*/
-.LogInPage
+/*.LogInPage
 {
 	text-align: center;
 	font-weight: bold;
@@ -556,7 +567,7 @@ input[type=TrackingID]
 	background-color: #f1f1f1;
 	padding: 20px;
 	text-align: left;
-}
+}*/
 
 /*input[type=text], input[type=password], input[type=email]
 {
@@ -568,7 +579,7 @@ input[type=TrackingID]
 	box-sizing: border-box;
 }*/
 
-button 
+/*button 
 {
 	background-color: #08ccff;
 	color: black;
@@ -677,4 +688,4 @@ a:visited
 	{
 		margin-left: 300px;
 	}
-}
+}*/

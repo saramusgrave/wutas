@@ -210,6 +210,103 @@ namespace KlamathIrrigationDistrict.DataLayer.Repositories
             }
             return (CustomerList);
         }
+        
+        //View Customer History
+        //SELECT * FROM [Customer History] WHERE Ride = @RideNum AND CustomerID = @CustomerID
+        //CustomerID, 
+        //Used for CustomerHistory.cshtml
+        public List<DitchRiderRequests> ViewCustomersHistory(int id)
+        {
+            List<DitchRiderRequests> HistoryList = new List<DitchRiderRequests>();
+            using (SqlConnection conneciton = new SqlConnection(ConfigurationManager.ConnectionStrings["KID"].ConnectionString))
+            {
+                using (SqlCommand command = new SqlCommand())
+                {
+                    command.Parameters.AddWithValue("@RideNum", id);
+                    command.Connection = conneciton;
+
+                    command.CommandText = "SELECT * FROM [Customer History] WHERE Ride = @RideNum ORDER BY StaffDate1 ASC";
+                    command.CommandType = CommandType.Text;
+                    conneciton.Open();
+                    using (SqlDataReader reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            DitchRiderRequests p = new DitchRiderRequests();
+                            p.CustomerID = int.Parse(reader["CustomerID"].ToString());
+                            p.CustomerName = reader["CustomerName"].ToString();
+                            p.Structure = reader["Structure"].ToString();
+                            p.CustomerDate1 = DateTime.Parse(reader["CustomerDate1"].ToString());
+                            p.CustomerCFS1 = int.Parse(reader["CustomerCFS1"].ToString());
+                            p.RequestStatus1 = reader["RequestStatus1"].ToString();
+                            p.Staff1 = reader["Staff1"].ToString();
+                            p.StaffDate1 = DateTime.Parse(reader["StaffDate1"].ToString());
+                            p.StaffCFS1 = int.Parse(reader["StaffCFS1"].ToString());
+                            p.StaffComments1 = reader["StaffComments1"].ToString();
+                            p.CustomerDate2 = DateTime.Parse(reader["CustomerDate2"].ToString());
+                            p.CustomerCFS2 = int.Parse(reader["CustomerCFS2"].ToString());
+                            p.CustomerComments2 = reader["CustomerComments2"].ToString();
+                            p.RequestStatus2 = reader["RequestStatus2"].ToString();
+                            p.Staff2 = reader["Staff2"].ToString();
+                            p.StaffDate2 = DateTime.Parse(reader["StaffDate2"].ToString());
+                            p.StaffCFS2 = int.Parse(reader["StaffCFS2"].ToString());
+                            p.StaffComments2 = reader["StaffComments2"].ToString();
+                            p.Ride = int.Parse(reader["Ride"].ToString());
+
+                            HistoryList.Add(p);                         
+                        }
+                    }
+                    
+                }
+            }
+            return (HistoryList);
+        }
+        public List<DitchRiderRequests> ViewCustomersRecentHistory(int id)
+        {
+            List<DitchRiderRequests> HistoryList = new List<DitchRiderRequests>();
+            using (SqlConnection conneciton = new SqlConnection(ConfigurationManager.ConnectionStrings["KID"].ConnectionString))
+            {
+                using (SqlCommand command = new SqlCommand())
+                {
+                    command.Parameters.AddWithValue("@RideNum", id);
+                    command.Connection = conneciton;
+
+                    command.CommandText = "SELECT * FROM [Customer Recent History] WHERE Ride = @RideNum ORDER BY StaffDate1 ASC";
+                    command.CommandType = CommandType.Text;
+                    conneciton.Open();
+                    using (SqlDataReader reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            DitchRiderRequests p = new DitchRiderRequests();
+                            p.CustomerID = int.Parse(reader["CustomerID"].ToString());
+                            p.CustomerName = reader["CustomerName"].ToString();
+                            p.Structure = reader["Structure"].ToString();
+                            p.CustomerDate1 = DateTime.Parse(reader["CustomerDate1"].ToString());
+                            p.CustomerCFS1 = int.Parse(reader["CustomerCFS1"].ToString());
+                            p.RequestStatus1 = reader["RequestStatus1"].ToString();
+                            p.Staff1 = reader["Staff1"].ToString();
+                            p.StaffDate1 = DateTime.Parse(reader["StaffDate1"].ToString());
+                            p.StaffCFS1 = int.Parse(reader["StaffCFS1"].ToString());
+                            p.StaffComments1 = reader["StaffComments1"].ToString();
+                            p.CustomerDate2 = DateTime.Parse(reader["CustomerDate2"].ToString());
+                            p.CustomerCFS2 = int.Parse(reader["CustomerCFS2"].ToString());
+                            p.CustomerComments2 = reader["CustomerComments2"].ToString();
+                            p.RequestStatus2 = reader["RequestStatus2"].ToString();
+                            p.Staff2 = reader["Staff2"].ToString();
+                            p.StaffDate2 = DateTime.Parse(reader["StaffDate2"].ToString());
+                            p.StaffCFS2 = int.Parse(reader["StaffCFS2"].ToString());
+                            p.StaffComments2 = reader["StaffComments2"].ToString();
+                            p.Ride = int.Parse(reader["Ride"].ToString());
+
+                            HistoryList.Add(p);
+                        }
+                    }
+
+                }
+            }
+            return (HistoryList);
+        }
 
         //View Requests for all completed Requests ViewRequests4
         //SELECT * FROM Requests WHERE StaffCFS2 IS NOT NULL AND Structure LIKE '_4%' ORDER BY RequestID ASC
@@ -359,7 +456,7 @@ namespace KlamathIrrigationDistrict.DataLayer.Repositories
                 {
                     command.Parameters.AddWithValue("@RideNum", id);
                     command.Connection = connection;
-                    command.CommandText = "SELECT * FROM Requests WHERE RequestStatus1 = 'Pending' AND Ride = @RideNum ";
+                    command.CommandText = "SELECT * FROM Requests WHERE RequestStatus1 = 'Pending' AND Ride = @RideNum ORDER BY CustomerDate1 ";
                     command.CommandType = CommandType.Text;
                     connection.Open();
                     using (SqlDataReader reader = command.ExecuteReader())
@@ -398,7 +495,7 @@ namespace KlamathIrrigationDistrict.DataLayer.Repositories
                 {
                     command.Parameters.AddWithValue("@RideNum", id);
                     command.Connection = connection;
-                    command.CommandText = "SELECT * FROM Requests WHERE RequestStatus2 = 'Pending' AND Ride = @RideNum ";
+                    command.CommandText = "SELECT * FROM Requests WHERE Ride = '4' AND RequestStatus2 != 'Confirm' AND RequestStatus2 != 'Wait List' AND Ride = @RideNum ORDER BY CustomerDate2 ";
                     command.CommandType = CommandType.Text;
                     connection.Open();
                     using (SqlDataReader reader = command.ExecuteReader())
@@ -466,7 +563,6 @@ namespace KlamathIrrigationDistrict.DataLayer.Repositories
         //SELECT * FROM Requests WHERE RequestStatus2 = 'Wait list' AND Structure LIKE '_4%'
         //RequestID, CustomerDate2, CustomerName, Structure, RequestStatus2, CustomerCFS2, CustomerComments2
         //Use in WaitList_4Off.cshtml, EditWaitList_4Off.cshtml
-        //@RideNum% works?
         public List<DitchRiderRequests> ViewWaitlist_4Off(int id)
         {
             List<DitchRiderRequests> RequestList = new List<DitchRiderRequests>();
@@ -501,6 +597,7 @@ namespace KlamathIrrigationDistrict.DataLayer.Repositories
             return (RequestList);
         }
 
+
         /*-------------------------Stored Procedures---------------------------------------*/
 
         //Add Request as if Customer On For Ride 4
@@ -516,8 +613,7 @@ namespace KlamathIrrigationDistrict.DataLayer.Repositories
                     command.Connection = connection;
                     command.CommandType = CommandType.StoredProcedure;
                     command.CommandText = "sp_DitchRider_AddRequests4On";
-
-                    command.Parameters.AddWithValue("@RequestID", ditchriderrequests.RequestID);
+                   
                     command.Parameters.AddWithValue("@TimeStampCustomer1", ditchriderrequests.TimeStampCustomer1);
                     command.Parameters.AddWithValue("@CustomerDate1", ditchriderrequests.CustomerDate1);
                     command.Parameters.AddWithValue("@CustomerID", ditchriderrequests.CustomerID);
@@ -525,6 +621,7 @@ namespace KlamathIrrigationDistrict.DataLayer.Repositories
                     command.Parameters.AddWithValue("@Structure", ditchriderrequests.Structure);
                     command.Parameters.AddWithValue("@CustomerCFS1", ditchriderrequests.CustomerCFS1);
                     command.Parameters.AddWithValue("@CustomerComments1", ditchriderrequests.CustomerComments1);
+                    command.Parameters.AddWithValue("@Ride", ditchriderrequests.Ride);
 
                     connection.Open();
                     command.ExecuteNonQuery();
@@ -671,7 +768,7 @@ namespace KlamathIrrigationDistrict.DataLayer.Repositories
         //@Lateral
         //Use in ...
         //public int WaterCFS_NextDayByCanal(DitchRiderRequests lateral)
-        public int WaterCFS_NextDayByCanal(DitchRiderRequests lateral, int cfs)
+        public int WaterCFS_NextDayByCanal(DitchRiderRequests lateral)
         {
             using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["KID"].ConnectionString))
             {
@@ -698,7 +795,7 @@ namespace KlamathIrrigationDistrict.DataLayer.Repositories
                         command.Parameters.AddWithValue("@Lateral", lateral.Lateral);
                         connection.Open();
                         object returnVal = command.ExecuteScalar();
-                        //int cfs;
+                        int cfs;
                         if (returnVal != null)
                         {
                             cfs = int.Parse(returnVal.ToString());

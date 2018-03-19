@@ -59,7 +59,7 @@ namespace KlamathIrrigationDistrict.Controllers
 
         /*Views for Home page of Office Staff*/
         //Home page office staff will display list of all staff
-        [Authorize(Roles = "Office Specialist")]
+        //[Authorize(Roles = "Office Specialist")]
         [HttpGet]
         public ActionResult Index(int? page)
         {
@@ -96,13 +96,17 @@ namespace KlamathIrrigationDistrict.Controllers
             var list = _stafRepo.ViewStaff();
             foreach (var kidstaff in list)
             {
-                var user = new ApplicationUser { UserName = kidstaff.Email, Email = kidstaff.Email };
+                var user = new ApplicationUser { UserName = kidstaff.Email, Email = kidstaff.Email};
                 var result = this.UserManager.Create(user, kidstaff.Password);
                 if (result.Succeeded)
                 {
                     //UserManager.AddToRole(user.Id, positions.Where(p => p.PositionID == kidstaff.Position).FirstOrDefault()?.Position);
+                    //was AddToRole
                     UserManager.AddToRole(user.Id, positions.Where(p => p.Position == kidstaff.Position).FirstOrDefault()?.Position);
+                    
                 }
+                //added
+               
             }
             return (RedirectToAction("Index"));
         }
@@ -115,6 +119,7 @@ namespace KlamathIrrigationDistrict.Controllers
             //model.StaffMember = _stafRepo.ViewStaff().Where(s => s.StaffID == StaffID).FirstOrDefault();
             //model.PositionID = new List<SelectListItem>();
             //return View(model);
+            ViewData["RoleName"] = _stafRepo.ViewPositions().Select(s => new SelectListItem() { Text = s.RoleName, Value = s.RoleName }).ToList();
 
 
             //Original
@@ -139,6 +144,13 @@ namespace KlamathIrrigationDistrict.Controllers
             DateTime ModifiedDateTime = DateTime.Now;
             //string ModifiedUser = std.ModifiedUser;
             string ModifiedUser = User.Identity.Name;
+            //asp
+            //UserManager.RemoveFromRole(Email, Position);
+            
+            
+           
+            //keep
+
             _stafRepo.EditStaff(std);
             return RedirectToAction("Index");
         }
@@ -149,6 +161,8 @@ namespace KlamathIrrigationDistrict.Controllers
         [HttpGet]
         public ActionResult Add()
         {
+            ViewData["RoleName"] = _stafRepo.ViewPositions().Select(s => new SelectListItem() { Text = s.RoleName, Value = s.RoleName }).ToList();
+
             return View(new KIDStaff());
         }
         [Authorize(Roles = "Office Specialist")]
@@ -162,22 +176,15 @@ namespace KlamathIrrigationDistrict.Controllers
                 return View(kidstaff);
             }
             //Adds user to ASP side of things...ASP = SQL, ASP = SQL
-            //modified date time = get now
-            //modifed user = get current user login
             var user = new ApplicationUser { UserName = kidstaff.Email, Email = kidstaff.Email};
             var result = this.UserManager.Create(user, kidstaff.Password);
             if (result.Succeeded)
             {
-                UserManager.AddToRole(user.Id, kidstaff.Position.ToString());
-
-                //UserManager.AddToRole(user.Id, "Project Worker");
+                UserManager.AddToRole(user.Id, kidstaff.Position.ToString());                
                 var role = this.RoleManager.FindByName("");
-                //role.Users.Add();
-                //this.UserManager.AddToRole(user.Id, kidstaff.UserRoles);
             }
             //SQL Statement to add to KIDStaff
             _stafRepo.AddStaff(kidstaff);
-            //Return home page
             return RedirectToAction("Index");
         }
         [Authorize(Roles = "Office Specialist")]

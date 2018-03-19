@@ -5,8 +5,6 @@ namespace KlamathIrrigationDistrict.DataLayer.Interfaces
 {
     public interface IDitchRidersRepository
     {
-        /*-----------------------------------------------------
-         -----All Ditch Riders--------------------------------*/
 
         //Views
 
@@ -32,6 +30,12 @@ namespace KlamathIrrigationDistrict.DataLayer.Interfaces
         List<DitchRiderRequests> ViewWaitlist_4Off(int id);
         //View Customers on Ride  who currently have water running
         List<DitchRiderRequests> ViewCustomersWithWater_4On(int id);
+        //View Customer History
+        List<DitchRiderRequests> ViewCustomersHistory(int id);
+        //View Customer History Past 3 days
+        List<DitchRiderRequests> ViewCustomersRecentHistory(int id);
+
+
         
         //Stored Procedures
 
@@ -51,7 +55,6 @@ namespace KlamathIrrigationDistrict.DataLayer.Interfaces
         void EditRequestStatus2_Off(DitchRiderRequests ditchriderrequests);
         //Store procedure to view how much is in a canal.
         //int WaterCFS_NextDayByCanal(DitchRiderRequests lateral);
-        int WaterCFS_NextDayByCanal(DitchRiderRequests lateral, int cfs);
-
+        int WaterCFS_NextDayByCanal(DitchRiderRequests lateral);
     }
 }

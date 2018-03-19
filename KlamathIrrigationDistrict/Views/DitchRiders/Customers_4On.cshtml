@@ -1,16 +1,13 @@
 ﻿@using KlamathIrrigationDistrict.DataLayer.DataModels
 @using PagedList.Mvc;
 @model PagedList.IPagedList<DitchRiderRequests>
-@*@model List<DitchRiderCustomers>*@
 @{
     ViewBag.Title = "KID D.R.: Customers With Water On";
     Layout = "~/Views/Shared/DitchRidersMenue.cshtml";
 }
 <body>
     <input type="text" id="SearchCustomers" onkeyup="SearchCustomersFn()" placeholder="Search Customers by Name" title="Type in a name" />
-
     <div style="overflow-x: auto;">
-        <!--Completed Requests class=ActiveRequests-->
         <table class="ActiveRequests" id="ActiveRequests">
             <caption>Customers who are currently running water</caption>
             <tr>

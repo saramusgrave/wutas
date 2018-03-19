@@ -6,9 +6,10 @@
     Layout = "~/Views/Shared/DitchRidersMenue.cshtml";
 }
 <body>
+    <a href="@Url.Action("Customers4", "DitchRiders")/@Url.RequestContext.RouteData.Values["id"]" class="previous"><br />&laquo; Customers</a>
     <div style="overflow-x: auto;">
         <table class="ActiveRequests">
-            <caption>Completed Requests (On)</caption>
+            <caption>Customer History (On)</caption>
             <tr>
                 <th>@Html.Label("Date")</th>
                 <th>@Html.Label("Name")</th>
@@ -38,10 +39,10 @@
     </div>
     <div class="pagination" style="margin-left: 20px;">
         Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber)
-        of @Model.PageCount @Html.PagedListPager(Model, page => Url.Action("CompletedRequests", new { page }))
+        of @Model.PageCount @Html.PagedListPager(Model, page => Url.Action("CustomerHistory", new { page }))
     </div>
     <table class="ActiveRequests" style="overflow-x: auto;">
-        <caption>Completed Requests (off)</caption>
+        <caption>Customer History (off)</caption>
         <tr>
             <th>@Html.Label("Date")</th>
             <th>@Html.Label("Name")</th>
@@ -70,6 +71,6 @@
     </table>
     <div class="pagination" style="margin-left: 20px;">
         Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber)
-        of @Model.PageCount @Html.PagedListPager(Model, page => Url.Action("CompletedRequests", new { page }))
+        of @Model.PageCount @Html.PagedListPager(Model, page => Url.Action("CustomerHistory", new { page }))
     </div>
 </body>

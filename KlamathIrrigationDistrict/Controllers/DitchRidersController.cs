@@ -4,6 +4,7 @@ using KlamathIrrigationDistrict.DataLayer.Repositories;
 using PagedList;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity.Core.Objects;
 using System.Linq;
 using System.Web.Mvc;
 
@@ -81,39 +82,7 @@ namespace KlamathIrrigationDistrict.Controllers
             string StaffComments1 = std.StaffComments1;
             string RequestStatus1 = std.RequestStatus1;
             _ditchRiderRepo.EditRequest4On(std);
-            if (User.IsInRole("Ride 1"))
-            {
-                return RedirectToAction("_ActiveRequestsOn4/1", "DitchRiders");
-            }
-            else if (User.IsInRole("Ride 2"))
-            {
-                return RedirectToAction("_ActiveRequestsOn4/2", "DitchRiders");
-            }
-            else if (User.IsInRole("Ride 3"))
-            {
-                return RedirectToAction("_ActiveRequestsOn4/3", "DitchRiders");
-            }
-            else if (User.IsInRole("Ride 4"))
-            {
-                return RedirectToAction("_ActiveRequestsOn4/4", "DitchRiders");
-            }
-            else if (User.IsInRole("Ride 5"))
-            {
-                return RedirectToAction("_ActiveRequestsOn4/5", "DitchRiders");
-            }
-            else if (User.IsInRole("Ride 6"))
-            {
-                return RedirectToAction("_ActiveRequestsOn4/6", "DitchRiders");
-            }
-            else if (User.IsInRole("Ride 7"))
-            {
-                return RedirectToAction("_ActiveRequestsOn4/7", "DitchRiders");
-            }
-            else if (User.IsInRole("Ride 8"))
-            {
-                return RedirectToAction("_ActiveRequestsOn4/8", "DitchRiders");
-            }
-            return View("Unauthorized");
+            return new RedirectResult(Url.Action("_ActiveRequestsOn4/" + Url.RequestContext.RouteData.Values["id"]));
         }
 
         //View Active Requests Off
@@ -165,8 +134,7 @@ namespace KlamathIrrigationDistrict.Controllers
             int StaffCFS2 = std.StaffCFS2;
             string StaffComments2 = std.StaffComments2;
             _ditchRiderRepo.EditRequest4Off(std);
-         //   href = "@Url.Action("Index", "DitchRiders")/@Url.RequestContext.RouteData.Values["id"]"
-            return RedirectToAction("_ActiveRequestsOn4");
+            return new RedirectResult(Url.Action("_ActiveRequestsOff4/" + Url.RequestContext.RouteData.Values["id"]));
         }
 
         //View Pending On Requests
@@ -219,39 +187,7 @@ namespace KlamathIrrigationDistrict.Controllers
             string StaffComments1 = std.StaffComments1;
             string RequestStatus1 = std.RequestStatus1;
             _ditchRiderRepo.EditRequestStatus1_On(std);
-            if (User.IsInRole("Ride 1, Relief Ride 1"))
-            {
-                return RedirectToAction("Index1");
-            }
-            else if (User.IsInRole("Ride 2, Relief Ride 2"))
-            {
-                return RedirectToAction("Index2");
-            }
-            else if (User.IsInRole("Ride 3, Relief Ride 3"))
-            {
-                return RedirectToAction("Index3");
-            }
-            else if (User.IsInRole("Ride 4, Relief Ride 4"))
-            {
-                return RedirectToAction("Index4");
-            }
-            else if (User.IsInRole("Ride 5, Relief Ride 5"))
-            {
-                return RedirectToAction("Index5");
-            }
-            else if (User.IsInRole("Ride 6, Relief Ride 6"))
-            {
-                return RedirectToAction("Index6");
-            }
-            else if (User.IsInRole("Ride 7, Relief Ride 7"))
-            {
-                return RedirectToAction("Index7");
-            }
-            else if (User.IsInRole("Ride 8, Relief Ride 8"))
-            {
-                return RedirectToAction("Index8");
-            }
-            return RedirectToAction("Index");
+            return new RedirectResult(Url.Action("Appending_4On/" + Url.RequestContext.RouteData.Values["id"]));
         }
 
         //View Pending Off Requests 
@@ -303,39 +239,7 @@ namespace KlamathIrrigationDistrict.Controllers
             string StaffComments2 = std.StaffComments2;
             string RequestStatus2 = std.RequestStatus2;
             _ditchRiderRepo.EditRequestStatus2_Off(std);
-            if (User.IsInRole("Ride 1"))
-            {
-                return RedirectToAction("Index1");
-            }
-            else if (User.IsInRole("Ride 2"))
-            {
-                return RedirectToAction("Index2");
-            }
-            else if (User.IsInRole("Ride 3"))
-            {
-                return RedirectToAction("Index3");
-            }
-            else if (User.IsInRole("Ride 4"))
-            {
-                return RedirectToAction("Index4");
-            }
-            else if (User.IsInRole("Ride 5"))
-            {
-                return RedirectToAction("Index5");
-            }
-            else if (User.IsInRole("Ride 6"))
-            {
-                return RedirectToAction("Index6");
-            }
-            else if (User.IsInRole("Ride 7"))
-            {
-                return RedirectToAction("Index7");
-            }
-            else if (User.IsInRole("Ride 8"))
-            {
-                return RedirectToAction("Index8");
-            }
-            return RedirectToAction("Index");
+            return new RedirectResult(Url.Action("Appending_4Off/"+ Url.RequestContext.RouteData.Values["id"]));
         }
         
         //View Completed On and Off Requests
@@ -411,7 +315,7 @@ namespace KlamathIrrigationDistrict.Controllers
             string StaffComments1 = std.StaffComments1;
             string RequestStatus1 = std.RequestStatus1;
             _ditchRiderRepo.EditRequest4On(std);
-            return RedirectToAction("Index4");
+            return new RedirectResult(Url.Action("WaitList_4On/" + Url.RequestContext.RouteData.Values["id"]));
         }
 
         //View WaitList Off
@@ -462,7 +366,7 @@ namespace KlamathIrrigationDistrict.Controllers
             int StaffCFS2 = std.StaffCFS2;
             string StaffComments2 = std.StaffComments2;
             _ditchRiderRepo.EditRequest4Off(std);
-            return RedirectToAction("Index4");
+            return new RedirectResult(Url.Action("WaitList_4Off/" + Url.RequestContext.RouteData.Values["id"]));
         }
         
         //Customer List
@@ -514,8 +418,9 @@ namespace KlamathIrrigationDistrict.Controllers
             DateTime CustomerDate1 = ditchriderrequests.CustomerDate1;
             int CustomerCFS1 = ditchriderrequests.CustomerCFS1;
             string CustomerComments1 = ditchriderrequests.CustomerComments1;
+            int Ride = ditchriderrequests.Ride;
             _ditchRiderRepo.AddRequest_4On(ditchriderrequests);
-            return RedirectToAction("Customers4");
+            return new RedirectResult(Url.Action("Customers4/" + Url.RequestContext.RouteData.Values["id"]));
         }
 
         //Customers who currently have water on
@@ -567,11 +472,15 @@ namespace KlamathIrrigationDistrict.Controllers
             int CustomerCFS2 = std.CustomerCFS2;
             string CustomerComments2 = std.CustomerComments2;
             _ditchRiderRepo.AddRequest_4Off(std);
-            return RedirectToAction("Customers4");
+            return new RedirectResult(Url.Action("Customers_4On/" + Url.RequestContext.RouteData.Values["id"]));
         }
-        
-        public ActionResult CanalWater()
+
+        public ActionResult CanalWater(int id)
         {
+            if(!User.IsInRole("Ride " + id.ToString()) && !User.IsInRole("Relief Ride " + id.ToString()))
+            {
+                return View("Unauthorized");
+            }
             DitchRiderRequests std = new DitchRiderRequests();
             string Structure = std.Lateral;
             return View(std);
@@ -579,23 +488,25 @@ namespace KlamathIrrigationDistrict.Controllers
         //View Water in Canal
         //WaterCFS_NextDayByCanal()
         //CanalWater.cshtml   
-        [HttpPost]
-        public ActionResult CanalWater(DitchRiderRequests lateral)
-        {
-            //ObjectParameter cfs = new ObjectParameter("CFS", typeof(int));
-            string Structure = lateral.Lateral;
-            //var std = _ditchRiderRepo.WaterCFS_NextDayByCanal(lateral, 1);
-            var std = _ditchRiderRepo.WaterCFS_NextDayByCanal(lateral, 1);
-            //ViewBag.CFS = Convert.ToInt32(cfs.Value);
-            return Content(std.ToString());
-            //return View();
-        }
+
+        //public ActionResult CanalWater(DitchRiderRequests lateral)
+        //{
+        //    ObjectParameter cfs = new ObjectParameter("CFS", typeof(int));
+        //    var std = _ditchRiderRepo.WaterCFS_NextDayByCanal(lateral);
+        //    ViewBag.CFS = Convert.ToInt32(cfs.Value);
+        //    return Content(std.ToString());
+        //    //return View();
+        //}
         //View Water in next day canal
         //ViewActiveRequestsOn4()
         //Page: _ActiveRequstsOn4
         public ActionResult _CanalCFS(DitchRiderRequests lateral)
         {
-            var std = _ditchRiderRepo.WaterCFS_NextDayByCanal(lateral, 1);
+            //var std = _ditchRiderRepo.WaterCFS_NextDayByCanal(lateral);
+            //return Content(std.ToString());
+            ObjectParameter cfs = new ObjectParameter("CFS", typeof(int));
+            var std = _ditchRiderRepo.WaterCFS_NextDayByCanal(lateral);
+            ViewBag.CFS = Convert.ToInt32(cfs.Value);
             return Content(std.ToString());
         }
 
@@ -636,6 +547,53 @@ namespace KlamathIrrigationDistrict.Controllers
         public ActionResult Unauthorized()
         {
             return View();
+        }
+
+        //Customer History
+        //ViewCustomersHistory()
+        //CustomerHistory
+        [Authorize]
+        [HttpGet]
+        public ActionResult CustomerHistory(int id, int CustomerID, int? page)
+        {
+            if(!User.IsInRole("Ride " + id.ToString()) && !User.IsInRole("Relief Ride " + id.ToString()))
+            {
+                return View("Unauthorized");
+            }
+            int pageSize = 25;
+            int pageIndex = 1;
+            pageIndex = page.HasValue ? Convert.ToInt32(page) : 1;
+            IPagedList<DitchRiderRequests> ditchRider = null;
+            DitchRidersRepository repository = new DitchRidersRepository();
+            DitchRiderRequests ditchriderrequests = new DitchRiderRequests();
+            List<DitchRiderRequests> obditchriderlist = new List<DitchRiderRequests>();
+            obditchriderlist = repository.ViewCustomersHistory(id);
+            ditchriderrequests.ditchriderrequests = obditchriderlist;
+            ditchRider = obditchriderlist.Where(s => s.CustomerID == CustomerID).ToPagedList(pageIndex, pageSize);
+            return View(ditchRider);
+        }
+        //Customer Recent History
+        //ViewCustomersRecentHistory
+        //CustomerRHistory
+        [Authorize]
+        [HttpGet]
+        public ActionResult CustomerRHistory(int id, int CustomerID, int? page)
+        {
+            if(!User.IsInRole("Ride " + id.ToString()) && !User.IsInRole("Relief Ride " + id.ToString()))
+            {
+                return View("Unauthorized");
+            }
+            int pageSize = 25;
+            int pageIndex = 1;
+            pageIndex = page.HasValue ? Convert.ToInt32(page) : 1;
+            IPagedList<DitchRiderRequests> ditchRider = null;
+            DitchRidersRepository repository = new DitchRidersRepository();
+            DitchRiderRequests ditchriderrequests = new DitchRiderRequests();
+            List<DitchRiderRequests> obditchriderlist = new List<DitchRiderRequests>();
+            obditchriderlist = repository.ViewCustomersRecentHistory(id);
+            ditchriderrequests.ditchriderrequests = obditchriderlist;
+            ditchRider = obditchriderlist.Where(s => s.CustomerID == CustomerID).ToPagedList(pageIndex, pageSize);
+            return View(ditchRider);
         }
     }
 }

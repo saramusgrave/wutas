@@ -42,5 +42,6 @@ namespace KlamathIrrigationDistrict.DataLayer.DataModels
         public List<KIDStaff> kidstaff { get; set; }
         //public List<SelectListItem> PositionTypes { get; set; }
         public List<SelectListItem> GetPositionList { get; set; }
+        public string RoleName { get; set; }
     }
 }
