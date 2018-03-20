@@ -18,7 +18,9 @@
         <li class="dropdown">
             <a href="./Index">Requests</a>
             <div class="dropdownRequest" style="overflow-x: auto;">
+                <a href="./CustomerAddRequest">Add Request</a>
                 <a href="./CustomerWaitList">Waitlist</a>
+
             </div>
         </li>
         @*<li><a  href="./Index">Requests</a></li>*@
@@ -65,6 +67,7 @@
                 <th>@Html.Label("City")</th>
                 <th>@Html.Label("State")</th>
                 <th>@Html.Label("ZipCode")</th>
+                <th>@Html.Label("Total Allotment")</th>
             </tr>
            
             @for (int i = 0; i < Model.Count; i++)
@@ -76,6 +79,7 @@
                     <td>@Model[i].City</td>
                     <td>@Model[i].State</td>
                     <td>@Model[i].Zip</td>
+                    <td>@Model[i].TotalAllotment</td>
                 </tr>
             }
 

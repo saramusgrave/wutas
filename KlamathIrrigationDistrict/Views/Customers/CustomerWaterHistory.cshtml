@@ -17,6 +17,7 @@
         <li class="dropdown">
             <a href="./Index">Requests</a>
             <div class="dropdownRequest" style="overflow-x: auto;">
+                <a href="./CustomerAddRequest">Add Request</a>
                 <a href="./CustomerWaitList">Waitlist</a>
             </div>
         </li>
@@ -53,6 +54,7 @@
     </ul>
 </header>
 <body>
+    
     <p>
         Instructions: Enter the Date Range of history you would like to see.
     </p>
@@ -143,15 +145,14 @@
                     <td>@Model[i].RequestStatus2</td>
                     <td>@Model[i].StaffDate1.ToShortDateString()</td>
                     <td>@Model[i].StaffDate2.ToShortDateString()</td>
-
                 </tr>
             }
         </table>
     </div>
-    @*<div class="pagination" style="margin-left: 20px;">
+    <div class="pagination" style="margin-left: 20px;">
             Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber)
             of @Model.PageCount @Html.PagedListPager(Model, page => Url.Action("CustomerWaterHistory", new { page }))
-        </div>*@
+        </div>
 </body>
 
 @*<div style="overflow-x: auto;">

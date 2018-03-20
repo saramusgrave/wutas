@@ -92,6 +92,7 @@ namespace KlamathIrrigationDistrict.DataLayer.Repositories
             List<Customers> vc = new List<Customers>();
             using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings[@"KID"].ConnectionString))
             {
+                Customers s = new Customers();
                 using (SqlCommand command = new SqlCommand())
                 {
                     command.Connection = connection;
@@ -104,7 +105,7 @@ namespace KlamathIrrigationDistrict.DataLayer.Repositories
                     {
                         while (reader.Read())
                         {
-                            Customers s = new Customers();
+                            
                             s.CustomerID = int.Parse(reader["CustomerID"].ToString());
                             s.Name = reader["Name"].ToString();
                             s.Address1 = reader["Address1"].ToString();
@@ -117,6 +118,24 @@ namespace KlamathIrrigationDistrict.DataLayer.Repositories
                         }
                     }
                 }
+
+                //using (SqlCommand command = new SqlCommand())
+                //{
+                //    command.Connection = connection;
+                //    command.CommandText = "SELECT TotalAllotment FROM [Ride Customer List TotalAllotment] WHERE CustomerID = @CustomerID";
+                //    command.Parameters.AddWithValue("@CustomerID", CustomerID);
+                //    command.CommandType = CommandType.Text;
+                //    //connection.Open();
+                //    using (SqlDataReader reader = command.ExecuteReader())
+                //    {
+                //        if (reader.Read())
+                //        {
+                //            s.TotalAllotment = Decimal.Parse(reader["TotalAllotment"].ToString());
+                //            vc.Add(s);
+                //        }
+                //    }
+                //}
+
             }
             return (vc);
         }
@@ -206,6 +225,25 @@ namespace KlamathIrrigationDistrict.DataLayer.Repositories
                     }
                 }
 
+                //will display the actual change of allotment based on requests
+                using (SqlCommand command = new SqlCommand())
+                {
+                    command.Connection = connection;
+                    command.CommandText = "SELECT TotalAllotment FROM CustomerInfo WHERE CustomerID = @CustomerID";
+                    command.Parameters.AddWithValue("@CustomerID", CustomerID);
+                    command.CommandType = CommandType.Text;
+                    //connection.Open();
+                    using (SqlDataReader reader = command.ExecuteReader())
+                    {
+                        if (reader.Read())
+                        {
+                            p.CurrentAllotment = Decimal.Parse(reader["TotalAllotment"].ToString());
+                            RequestList.Add(p);
+                        }
+                    }
+                }
+
+                //This displays the entirety of the the customer's allotment
                 //am i a madman for making two sql statements to be read????
                 using (SqlCommand command = new SqlCommand())
                 {
@@ -234,6 +272,7 @@ namespace KlamathIrrigationDistrict.DataLayer.Repositories
             List<Customers> ActiveRequestList = new List<Customers>();
             using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["KID"].ConnectionString))
             {
+                Customers p = new Customers();
                 using (SqlCommand command = new SqlCommand())
                 {
                     command.Connection = connection;
@@ -245,7 +284,7 @@ namespace KlamathIrrigationDistrict.DataLayer.Repositories
                     {
                         while (reader.Read())
                         {
-                            Customers p = new Customers();
+                            //Customers p = new Customers();
                             p.RequestID = int.Parse(reader["RequestID"].ToString());
                             p.CustomerDate1 = DateTime.Parse(reader["CustomerDate1"].ToString());
                             p.Name = reader["CustomerName"].ToString();
@@ -253,6 +292,22 @@ namespace KlamathIrrigationDistrict.DataLayer.Repositories
                             p.CustomerCFS_1 = int.Parse(reader["CustomerCFS1"].ToString());
                             p.CustomerComments_1 = reader["CustomerComments1"].ToString();
                             ActiveRequestList.Add(p);
+                        }
+                    }
+                }
+
+                using (SqlCommand command = new SqlCommand())
+                {
+                    command.Connection = connection;
+                    command.CommandText = "SELECT TotalAllotment FROM [Ride Customer List TotalAllotment] WHERE CustomerID = @CustomerID";
+                    command.Parameters.AddWithValue("@CustomerID", CustomerID);
+                    command.CommandType = CommandType.Text;
+                    using (SqlDataReader reader = command.ExecuteReader())
+                    {
+                        if (reader.Read())
+                        {
+                            p.TotalAllotment = Decimal.Parse(reader["TotalAllotment"].ToString());
+                            //AllotmentList.Add(p); 
                         }
                     }
                 }
@@ -485,6 +540,7 @@ namespace KlamathIrrigationDistrict.DataLayer.Repositories
                     command.Connection = connection;
                     command.CommandType = CommandType.StoredProcedure;
                     command.CommandText = "sp_Customer_AddRequest";
+                    connection.Open();
 
                     command.Parameters.AddWithValue("@CustomerID", NewWaterOrder.CustomerID);
                     command.Parameters.AddWithValue("@CustomerName", NewWaterOrder.Name);
@@ -494,7 +550,8 @@ namespace KlamathIrrigationDistrict.DataLayer.Repositories
                     command.Parameters.AddWithValue("@CustomerDate1", NewWaterOrder._GetCustomerDate);
                     command.Parameters.AddWithValue("@CustomerCFS1", NewWaterOrder.CustomerCFS_1);
                     command.Parameters.AddWithValue("@CustomerComments1", NewWaterOrder.CustomerComments_1);
-                    connection.Open();
+
+                    //connection.Open();
                     command.ExecuteNonQuery();
                 }
             }
