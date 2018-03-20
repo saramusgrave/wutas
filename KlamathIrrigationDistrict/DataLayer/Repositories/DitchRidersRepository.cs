@@ -56,7 +56,7 @@ namespace KlamathIrrigationDistrict.DataLayer.Repositories
                 using (SqlCommand command = new SqlCommand())
                 {
                     command.Connection = connection;
-                    command.CommandText = "SELECT * FROM Comments";
+                    command.CommandText = "SELECT * FROM Comments ORDER BY CommentID";
                     command.CommandType = CommandType.Text;
                     connection.Open();
                     using (SqlDataReader reader = command.ExecuteReader())
@@ -123,14 +123,8 @@ namespace KlamathIrrigationDistrict.DataLayer.Repositories
                 }
             }
             return (p);
-        }
-
-
-        /*-----------------------------------------------------------------------------------
-         --------------RIDE 4--------------------------------------------------------------
-         -----------------------------------------------------------------------------------*/
-
-
+        } 
+        
         /*-------------------------Views ---------------------------------------------------*/
 
         //View Customers on Ride 4
@@ -146,7 +140,7 @@ namespace KlamathIrrigationDistrict.DataLayer.Repositories
                 {
                     command.Parameters.AddWithValue("@RideNum", id);
                     command.Connection = connection;
-                    command.CommandText = "SELECT * FROM [Ride Customer List TotalAllotment] WHERE Ride = @RideNum ORDER BY Lateral ASC";
+                    command.CommandText = "SELECT * FROM [CustomerCurrentAllotment] WHERE RidesListID = @RideNum ORDER BY Lateral ASC";
                     command.CommandType = CommandType.Text;
                     connection.Open();
                     using (SqlDataReader reader = command.ExecuteReader())
@@ -157,11 +151,12 @@ namespace KlamathIrrigationDistrict.DataLayer.Repositories
 
                             c.Structure = reader["StructureID"].ToString();
                             c.Lateral = reader["Lateral"].ToString();
-                            c.Ride = int.Parse(reader["Ride"].ToString());
-                            c.CustomerMTLHisID = int.Parse(reader["CustomerMTLHisID"].ToString());
+                            c.Ride = int.Parse(reader["RidesListID"].ToString());
+                            //c.CustomerMTLHisID = int.Parse(reader["CustomerMTLHisID"].ToString());
                             c.CustomerName = reader["Name"].ToString();
                             c.CustomerID = int.Parse(reader["CustomerID"].ToString());
                             c.TotalAllotment = float.Parse(reader["TotalAllotment"].ToString());
+                            c.CurrentAllotment = float.Parse(reader["CurrentAllotment"].ToString());
 
                             CustomerList.Add(c);
                         }
@@ -261,6 +256,8 @@ namespace KlamathIrrigationDistrict.DataLayer.Repositories
             }
             return (HistoryList);
         }
+
+        //View Customer Recent History
         public List<DitchRiderRequests> ViewCustomersRecentHistory(int id)
         {
             List<DitchRiderRequests> HistoryList = new List<DitchRiderRequests>();
@@ -322,7 +319,7 @@ namespace KlamathIrrigationDistrict.DataLayer.Repositories
                     command.Parameters.AddWithValue("@RideNum", id);
                     command.Connection = connection;
 
-                    command.CommandText = "SELECT * FROM Requests WHERE StaffCFS2 IS NOT NULL AND Ride = @RideNum ORDER BY RequestID ASC";
+                    command.CommandText = "SELECT * FROM Requests WHERE StaffCFS2 IS NOT NULL AND Ride = @RideNum ORDER BY CustomerDate1 DESC";
                     command.CommandType = CommandType.Text;
                     connection.Open();
                     using (SqlDataReader reader = command.ExecuteReader())
@@ -378,7 +375,7 @@ namespace KlamathIrrigationDistrict.DataLayer.Repositories
                 {
                     command.Parameters.AddWithValue("@RideNum", id);
                     command.Connection = connection;
-                    command.CommandText = "SELECT * FROM Requests WHERE Ride = @RideNum AND StaffCFS1 IS NULL ";
+                    command.CommandText = "SELECT * FROM Requests WHERE Ride = @RideNum AND StaffCFS1 IS NULL AND CustomerDate1 IS NOT NULL AND RequestStatus1 = 'Confirm' ";
                     command.CommandType = CommandType.Text;
                     connection.Open();
                     using (SqlDataReader reader = command.ExecuteReader())
@@ -456,7 +453,7 @@ namespace KlamathIrrigationDistrict.DataLayer.Repositories
                 {
                     command.Parameters.AddWithValue("@RideNum", id);
                     command.Connection = connection;
-                    command.CommandText = "SELECT * FROM Requests WHERE RequestStatus1 = 'Pending' AND Ride = @RideNum ORDER BY CustomerDate1 ";
+                    command.CommandText = "SELECT * FROM Requests WHERE RequestStatus1 != 'Confirm' AND RequestStatus1 != 'Wait List' AND Ride = @RideNum ORDER BY CustomerDate1 ";
                     command.CommandType = CommandType.Text;
                     connection.Open();
                     using (SqlDataReader reader = command.ExecuteReader())
@@ -495,7 +492,7 @@ namespace KlamathIrrigationDistrict.DataLayer.Repositories
                 {
                     command.Parameters.AddWithValue("@RideNum", id);
                     command.Connection = connection;
-                    command.CommandText = "SELECT * FROM Requests WHERE Ride = '4' AND RequestStatus2 != 'Confirm' AND RequestStatus2 != 'Wait List' AND Ride = @RideNum ORDER BY CustomerDate2 ";
+                    command.CommandText = "SELECT * FROM Requests WHERE Ride = @RideNum AND RequestStatus2 != 'Confirm' AND RequestStatus2 != 'Wait List' ORDER BY CustomerDate2 ";
                     command.CommandType = CommandType.Text;
                     connection.Open();
                     using (SqlDataReader reader = command.ExecuteReader())
@@ -524,7 +521,6 @@ namespace KlamathIrrigationDistrict.DataLayer.Repositories
         //SELECT * FROM Requests WHERE RequestStatus1 = 'Wait list' AND Structure LIKE '_4%'
         //RequestID, CustomerDate1, CustomerName, Structure, RequestStatus1, CustomerCFS1, CustomerComments1
         //Use for WaitList_4On.cshtml, EditWaitList_4On.cshtml
-        //@RideNum% works?
         public List<DitchRiderRequests> ViewWaitlist_4On(int id)
         {
             List<DitchRiderRequests> RequestList = new List<DitchRiderRequests>();
@@ -785,7 +781,7 @@ namespace KlamathIrrigationDistrict.DataLayer.Repositories
                     int cfs;
                     if (returnval != null)
                     {
-                        cfs = int.Parse(returnval.ToString());
+                        cfs = int.Parse(returnval.ToString());                                               
                     }
                     else
                     {

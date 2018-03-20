@@ -14,6 +14,7 @@
                 <th>@Html.Label("Name")</th>
                 <th>@Html.Label("Structure")</th>
                 <th>@Html.Label("Lateral")</th>
+                <th>@Html.Label("Current Allotment")</th>
                 <th>@Html.Label("Total Allotment")</th>
                 <th>@Html.Label("Log Water")</th>
                 <th colspan="2">@Html.Label("Activity")</th>
@@ -24,7 +25,8 @@
                     <td>@Model[i].CustomerName</td>
                     <td>@Model[i].Structure</td>
                     <td>@Model[i].Lateral</td>
-                    <td>@Model[i].TotalAllotment</td>
+                    <td>@Model[i].CurrentAllotment</td>
+                    <td>@Model[i].TotalAllotment</td>                    
                     <td>@Html.ActionLink("On", "AddRequest4On", new { @Structure = Model[i].Structure, @id = Url.RequestContext.RouteData.Values["id"] })</td>
                     <td>@Html.ActionLink("History", "CustomerHistory", new { @CustomerID = Model[i].CustomerID, @id = Url.RequestContext.RouteData.Values["id"] })</td>
                     <td>@Html.ActionLink("Recent" , "CustomerRHistory", new { @CustomerID = Model[i].CustomerID, @id = Url.RequestContext.RouteData.Values["id"] })</td>

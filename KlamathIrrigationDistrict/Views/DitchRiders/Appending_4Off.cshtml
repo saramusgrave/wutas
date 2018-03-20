@@ -6,11 +6,12 @@
     Layout = "~/Views/Shared/DitchRidersMenue.cshtml";
 }
 <body>
-    <table class="ActiveRequests">
+    <input type="text" id="SearchCustomers" onkeyup="SearchCustomers2Fn()" placeholder="Search Customers by Name" title="Type in a name" />
+    <table class="ActiveRequests" id="ActiveRequests">
         <caption>Pending Requests (Off)</caption>
-        <tr>
+        <tr>            
             <th>@Html.Label("Date")</th>
-            <th>@Html.Label("Name")</th>
+            <th>@Html.Label("Name")</th>            
             <th>@Html.Label("Turn Out")</th>
             <th>@Html.Label("CFS")</th>
             <th>@Html.Label("Status")</th>
@@ -26,11 +27,12 @@
                 <td>@Model[i].RequestStatus2</td>
                 <td>@Model[i].CustomerComments2</td>
                 <td>@Html.ActionLink("Status", "EditRequestStatus_Off", new { @RequestID = Model[i].RequestID, @id = Url.RequestContext.RouteData.Values["id"] }) </td>
-            </tr>
+            </tr>            
         }
     </table>
     <div class="pagination" style="margin-left: 20px;">
         Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber)
         of @Model.PageCount @Html.PagedListPager(Model, page => Url.Action("Appending_4Off", new { page }))
-    </div><br />
+    </div>
+    <br />
 </body>

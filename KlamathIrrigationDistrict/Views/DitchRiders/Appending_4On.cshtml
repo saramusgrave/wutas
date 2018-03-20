@@ -6,7 +6,8 @@
     Layout = "~/Views/Shared/DitchRidersMenue.cshtml";
 }
 <body>
-    <table class="ActiveRequests">
+    <input type="text" id="SearchCustomers" onkeyup="SearchCustomers2Fn()" placeholder="Search Customers by Name" title="Type in a name" />
+    <table class="ActiveRequests" id="ActiveRequests">
         <caption>Pending Requests (On)</caption>
         <tr>
             <th>@Html.Label("Date")</th>

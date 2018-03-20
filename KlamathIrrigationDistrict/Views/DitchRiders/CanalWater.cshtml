@@ -11,16 +11,18 @@
             <caption>Enter Canal</caption>
             <tr>
                 <th>@Html.Label("Canal")</th>
+                <th>@Html.Label("Today's CFS")</th>
+                <th>@Html.Label("Tomoorow's CFS")</th>
             </tr>
             <tr>
-                <th>@Html.TextBoxFor(s => s.Lateral)</th>
+                <td>@Html.TextBoxFor(s => s.Lateral)</td>
+                <td>@Model.CustomerCFS2</td>
+                <td>@Model.CustomerCFS1</td>
             </tr>
         </table>
+        
         <div>
             <button type="submit">Submit</button>
         </div>        
-    }
-        <p>CFS in Tomorrow's Canal is: @Model.CustomerCFS1</p>
-    <p>CFS in Today's Canal is: @Model.CustomerCFS2</p>
-    
+    }    
 </body>

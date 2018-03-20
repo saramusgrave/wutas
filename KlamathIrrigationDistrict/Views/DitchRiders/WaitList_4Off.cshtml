@@ -7,10 +7,10 @@
 }
 <body>
     <div style="overflow-x: auto;">
-        <table class="ActiveRequests">
+        <input type="text" id="SearchCustomers" onkeyup="SearchCustomers2Fn()" placeholder="Search Customers by Name" title="Type in a name" />
+        <table class="ActiveRequests" id="ActiveRequests">
             <caption>Waitlist Requests Off</caption>
             <tr>
-                <th>@Html.Label("Request ID")</th>
                 <th>@Html.Label("Date")</th>
                 <th>@Html.Label("Name")</th>
                 <th>@Html.Label("Turn Out")</th>
@@ -22,7 +22,6 @@
             @for (int i = 0; i < Model.Count; i++)
             {
                 <tr>
-                    <td>@Model[i].RequestID</td>
                     <td>@Model[i].CustomerDate2.ToShortDateString()</td>
                     <td>@Model[i].CustomerName</td>
                     <td>@Model[i].Structure</td>

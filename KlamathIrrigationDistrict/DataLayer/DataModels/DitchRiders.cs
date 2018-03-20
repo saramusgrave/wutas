@@ -43,6 +43,7 @@ namespace KlamathIrrigationDistrict.DataLayer.DataModels
         public string Comment { get; set; }
         public int RequestStatusID { get; set; }
         public string RequestStatusName { get; set; }
+        public float CurrentAllotment { get; set; }
         //Lists
         public List<DitchRiderRequests> Comments { get; set; }
         public List<DitchRiderRequests> Status { get; set; }

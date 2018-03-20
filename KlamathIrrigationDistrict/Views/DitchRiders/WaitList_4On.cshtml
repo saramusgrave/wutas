@@ -5,7 +5,8 @@
     ViewBag.Title = "KID D.R.: Wait List Water On";
     Layout = "~/Views/Shared/DitchRidersMenue.cshtml";
 }
-<table class="ActiveRequests">
+<input type="text" id="SearchCustomers" onkeyup="SearchCustomers2Fn()" placeholder="Search Customers by Name" title="Type in a name" />
+<table class="ActiveRequests" id="ActiveRequests">
     <caption>Waitlist Requests (On)</caption>
     <tr>
         <th>@Html.Label("Date")</th>

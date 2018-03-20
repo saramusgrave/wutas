@@ -225,8 +225,8 @@ namespace KlamathIrrigationDistrict.Controllers
                 return View("Unauthorized");
             }
             var std = _ditchRiderRepo.ViewPending_4Off(id).Where(s => s.RequestID == RequestID).FirstOrDefault();
-            ViewData["S"] = _ditchRiderRepo.Status().Select(s => new SelectListItem() { Text = s.RequestStatusName, Value = s.RequestStatusName }).ToList();
-            ViewData["StaffComments2"] = _ditchRiderRepo.Comments().Select(s => new SelectListItem() { Text = s.Comment, Value = s.Comment }).ToList();
+            ViewData["Status"] = _ditchRiderRepo.Status().Select(s => new SelectListItem() { Text = s.RequestStatusName, Value = s.RequestStatusName }).ToList();
+            ViewData["Comments"] = _ditchRiderRepo.Comments().Select(s => new SelectListItem() { Text = s.Comment, Value = s.Comment }).ToList();
             return View(std);
         }
         //EditRequestStatus2_Off()

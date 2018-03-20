@@ -7,14 +7,14 @@
 }
 <body>
     <div style="overflow-x: auto;">
-        <table class="ActiveRequests">
+        <input type="text" id="SearchCustomers" onkeyup="SearchCustomers2Fn()" placeholder="Search Customers by Name" title="Type in a name" />
+        <table class="ActiveRequests" id="ActiveRequests">
             <caption>Active Requests (off)</caption>
             <tr>
                 <th>@Html.Label("Date")</th>
                 <th>@Html.Label("Name")</th>
                 <th>@Html.Label("Turn Out")</th>
                 <th>@Html.Label("CFS")</th>
-                <th>@Html.Label("Status")</th>
                 <th>@Html.Label("Comments")</th>
                 <th>@Html.Label("Log Water")</th>
             </tr>
@@ -25,7 +25,6 @@
                     <td>@Model[i].CustomerName</td>
                     <td>@Model[i].Structure</td>
                     <td>@Model[i].CustomerCFS2</td>
-                    <td>@Model[i].RequestStatus2</td>
                     <td>@Model[i].CustomerComments2</td>
                     <td>@Html.ActionLink("Off", "EditRequest4Off", new { @RequestID = Model[i].RequestID, @id = Url.RequestContext.RouteData.Values["id"] }) </td>
                 </tr>
