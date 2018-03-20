@@ -110,10 +110,10 @@ namespace KlamathIrrigationDistrict.Controllers
             }
             else
                 CustomerID = 760;
-            obCustomerList = customerrepository.RequestNeedActivation(CustomerID);
-            CustomerStaff.customers = obCustomerList;
-            cstaff = obCustomerList.ToPagedList(pageIndex, pageSize);
-            return View(cstaff);
+                obCustomerList = customerrepository.RequestNeedActivation(CustomerID);
+                CustomerStaff.customers = obCustomerList;
+                cstaff = obCustomerList.ToPagedList(pageIndex, pageSize);
+                return View(cstaff);
         }
 
         //waitlist - customer request is on hold by ditch rider because not enough water

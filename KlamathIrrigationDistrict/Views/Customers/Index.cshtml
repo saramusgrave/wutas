@@ -19,6 +19,7 @@
         <li class="dropdown">
             <a id="active" href="./Index">Requests</a>
             <div class="dropdownRequest" style="overflow-x: auto;">
+                <a href="./CustomerAddRequest">Add Request</a>
                 <a href="./CustomerWaitList">Waitlist</a>
             </div>
         </li>
@@ -31,28 +32,18 @@
         <a href="../KIDLogInPageHTML.html"><button class="LogOutBtn">Log Out</button></a>
         @*<li><label class="Total Allotment"></label></li>*@
         <li>
-            <b>
-                Allotment in AFPA
-                <!--Dark Green #005e00 for Full Allotment!-->
-                <input style="color: #005e00; font-weight: bold;" type="Allotment" value="200" readonly>/200
-                <br>
-                <!--Lime Green #0cfc29 for Alotment 75% GONE!-->
-                Allotment in AFPA
-                <input style="color: #0cfc29; font-weight: bold;" type="Allotment" value="150" readonly>/200
-                <br>
-                <!--Orange  #ed7d30for Alotment 50% GONE!-->
-                Allotment in AFPA
-                <input style="color: #ed7d30; font-weight: bold;" type="Allotment" value="100" readonly>/200
-                <br>
-                <!--Gold #e4be00 for Alotment 25% GONE!-->
-                Allotment in AFPA
-                <input style="color: #e4be00; font-weight: bold;" type="Allotment" value="50" readonly>/200
-                <br>
-                <!--Red #ff0000 for NO Alotment Left!-->
-                Allotment in AFPA
-                <input style="color: #ff0000; font-weight: bold;" type="Allotment" value="0" readonly>/200
-            </b>
-
+            <div style="overflow-x: auto;">
+                <table class="Contacts">
+                    <tr>
+                        <th>@Html.Label("Current Allotment")</th>
+                        <th colspan="2">@Html.Label("Total Allotment")</th>
+                    </tr>
+                    <tr>
+                        <th>@Model[1].CurrentAllotment</th>
+                        <th>@Model[1].TotalAllotment</th>
+                    </tr>
+                </table>
+            </div>
             <!--testing the display for customer allotment-->
             @*Allotment
             <var>@Model[1].TotalAllotment</var>*@
@@ -62,7 +53,9 @@
 </header>
 <body>
     @* AddRequest will allow use to apply for water request *@
-    <a href="CustomerAddRequest" class="next">Add Water Request &raquo;</a>
+
+    
+
 
     <div style="overflow-x: auto;">
         <table class="Contacts">
@@ -100,29 +93,29 @@
     @*@Html.Partial("_ActiveCustomerRequest")*@
 
     @*<div style="overflow-x: auto;">
-        <!--Wait List class=Contacts-->
-        <table class="Contacts">
-            <caption>Wait List</caption>
-            <tr>
-                <th>Number</th>
-                <th>Structure</th>
-                <th>Date</th>
-                <th>CFS</th>
-                <th>Comments</th>
-                <th>Note</th>
-            </tr>
-            <tr>
-                <td>1</td>
-                <td>
-                    T5832
-                </td>
-                <td>08/12/17</td>
-                <td><input type="CFS" value="4" disabled></td>
-                <td>
-                    <input type="Comments" placeholder="Comments..." disabled>
-                </td>
-                <td>Ditch Rider will call when you are removed from wait list.</td>
-            </tr>
-        </table>
-    </div>*@
+            <!--Wait List class=Contacts-->
+            <table class="Contacts">
+                <caption>Wait List</caption>
+                <tr>
+                    <th>Number</th>
+                    <th>Structure</th>
+                    <th>Date</th>
+                    <th>CFS</th>
+                    <th>Comments</th>
+                    <th>Note</th>
+                </tr>
+                <tr>
+                    <td>1</td>
+                    <td>
+                        T5832
+                    </td>
+                    <td>08/12/17</td>
+                    <td><input type="CFS" value="4" disabled></td>
+                    <td>
+                        <input type="Comments" placeholder="Comments..." disabled>
+                    </td>
+                    <td>Ditch Rider will call when you are removed from wait list.</td>
+                </tr>
+            </table>
+        </div>*@
 </body>

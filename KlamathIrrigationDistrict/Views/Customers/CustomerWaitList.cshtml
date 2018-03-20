@@ -19,6 +19,7 @@
         <li class="dropdown">
             <a id ="active" href="./Index">Requests</a>
             <div class="dropdownRequest" style="overflow-x: auto;">
+                <a href="./CustomerAddRequest">Add Request</a>
                 <a href="./CustomerWaitList">Waitlist</a>
             </div>
         </li>
@@ -90,11 +91,11 @@
                 <th>@Model[i].StaffComments1</th>
             </tr>
         }
-        @*
+       
             <div class="pagination" style="margin-left: 20px;">
                 Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber)
-                of @Model.PageCount @Html.PagedListPager(Model, page => Url.Action("Index", new { page }))
-            </div>*@
+                of @Model.PageCount @Html.PagedListPager(Model, page => Url.Action("CustomerWaitList", new { page }))
+            </div>
     </table>
 </body>
 

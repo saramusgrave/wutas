@@ -50,7 +50,11 @@ namespace KlamathIrrigationDistrict.DataLayer.DataModels
         //customer information regarding the ride, lateral, and MTL
         public string Lateral { get; set; }
 
+        //this number holds the entirety of allotment
         public decimal TotalAllotment { get; set; }
+
+        //this number will change given the user's request
+        public decimal CurrentAllotment { get; set; }
 
         public int Ride { get; set; }
 
