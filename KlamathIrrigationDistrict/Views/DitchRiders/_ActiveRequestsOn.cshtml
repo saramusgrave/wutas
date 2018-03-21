@@ -1,6 +1,5 @@
 ﻿@using KlamathIrrigationDistrict.DataLayer.DataModels
-@using PagedList.Mvc;
-@model PagedList.IPagedList<DitchRiderRequests>
+@model List<DitchRiderRequests>
 @{
     ViewBag.Title = "KID D.R.: Home Page";
     Layout = "~/Views/Shared/DitchRidersMenue.cshtml";
@@ -19,17 +18,13 @@
         @for (int i = 0; i < Model.Count; i++)
         {
             <tr>
-                <td>@Model[i].CustomerDate1.ToShortDateString()</td>
+                <td>@Model[i].CustomerDate1.ToString("MM/dd/yyyy hh:mm tt")</td>
                 <td>@Model[i].CustomerName</td>
                 <td>@Model[i].Structure</td>
                 <td>@Model[i].CustomerCFS1</td>
                 <td>@Model[i].CustomerComments1</td>
-                <td>@Html.ActionLink("On", "EditRequest4On", new { @RequestID = Model[i].RequestID, @id = Url.RequestContext.RouteData.Values["id"] }) </td>
+                <td>@Html.ActionLink("On", "EditRequestOn", new { @RequestID = Model[i].RequestID, @id = Url.RequestContext.RouteData.Values["id"] }) </td>
             </tr>
         }
     </table>
-    <div class="pagination" style="margin-left: 20px;">
-        Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber)
-        of @Model.PageCount @Html.PagedListPager(Model, page => Url.Action("_ActiveRequestsOn4", new { page }))
-    </div>
 </body>

@@ -5,7 +5,7 @@
     Layout = "~/Views/Shared/DitchRidersMenue.cshtml";
 }
 <body>
-    <a href="@Url.Action("Customers4", "DitchRiders")/@Url.RequestContext.RouteData.Values["id"]" class="previous"><br />&laquo; Customers</a>
+    <a href="@Url.Action("Customers", "DitchRiders")/@Url.RequestContext.RouteData.Values["id"]" class="previous"><br />&laquo; Customers</a>
     <div style="overflow-x: auto;">
         <table class="ActiveRequests">
             <caption>Add Requests(On)</caption>
@@ -14,7 +14,8 @@
                 <th>@Html.Label("Customer Name")</th>
                 <th>@Html.Label("Turn Out")</th>
                 <th>@Html.Label("CFS Requested")</th>
-                <th colspan="2">@Html.Label("Customer Comments")</th>
+                <th colspan="2">@Html.Label("Status")</th>
+                @*<th colspan="2">@Html.Label("Customer Comments")</th>*@
             </tr>
             <tr>
                 @using (Html.BeginForm())
@@ -23,13 +24,14 @@
                     @Html.HiddenFor(m => m.TimeStampCustomer1)
                     @Html.HiddenFor(m => m.CustomerID)
                     @Html.HiddenFor(m => m.CustomerName)
-                    @Html.HiddenFor(m => m.RequestStatus1, new { @Value = "Pending"})
                     @Html.HiddenFor(m => m.Ride, new { @Value = Url.RequestContext.RouteData.Values["id"]})
-                    <td>@Html.TextBoxFor(m => m.CustomerDate1, new { @type = "date" }) </td>
+                    @Html.HiddenFor(m => m.CustomerComments1, new { @Value = "Made By" + User.Identity.Name})
+                    <td>@Html.TextBoxFor(m => m.CustomerDate1, new { @type = "datetime-local" })</td>
                     <td>@Html.DisplayTextFor(m => m.CustomerName)</td>
                     <td>@Html.DisplayTextFor(m => m.Structure)</td>
-                    <td>@Html.TextBoxFor(m => m.CustomerCFS1, new { @type = "number" }) </td>
-                    <td>@Html.TextBoxFor(m => m.CustomerComments1, new { @Value = "Made By " + User.Identity.Name })</td>
+                    <td>@Html.TextBoxFor(m => m.CustomerCFS1, new { @type = "number" })</td>
+                    <td>@Html.DropDownListFor(m => m.RequestStatus1, ViewData["S"] as IEnumerable<SelectListItem>, "--Select--") </td>
+                    @*<td>@Html.TextBoxFor(m => m.CustomerComments1, new { @Value = "Made By " + User.Identity.Name })</td>*@
                     <td><button type="submit">Add</button></td>
                 }
             </tr>

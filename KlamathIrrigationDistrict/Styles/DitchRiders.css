@@ -390,6 +390,7 @@ caption
 .ActiveRequests
 {
 	border-collapse: collapse;
+    width: 1000px;
 	overflow: auto;
 }
 .ActiveRequests th
@@ -508,12 +509,16 @@ a:visited
 {
 	#Header
 	{
-		width: 90%;
+		/*width: 90%;*/
+        width: 100%;
 		font-size: 20px;
+        padding: 0px;
+        float: left;
 	}
 	#Menu li a
 	{
 		text-align: center;
+        width: inherit;
 	}
 	#Menu li
 	{
@@ -543,8 +548,8 @@ a:visited
 	{
 		font-size: 20px;
         display: inline-block;
-        width: 150px;
-        padding: 0px;
+        width: 104px;
+        padding: 5px;
         position: relative;
         height: 47px;        
 	}

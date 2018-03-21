@@ -13,35 +13,35 @@ namespace KlamathIrrigationDistrict.Controllers
             }
             else if (User.IsInRole("Ride 1") || User.IsInRole("Relief Ride 1"))
             {
-                return RedirectToAction("_ActiveRequestsOn4/1", "DitchRiders");
+                return RedirectToAction("_ActiveRequestsOn/1", "DitchRiders");
             }
             else if (User.IsInRole("Ride 2") || User.IsInRole("Relief Ride 2"))
             {
-                return RedirectToAction("_ActiveRequestsOn4/2", "DitchRiders");
+                return RedirectToAction("_ActiveRequestsOn/2", "DitchRiders");
             }
             else if (User.IsInRole("Ride 3") || User.IsInRole("Relief Ride 3"))
             {
-                return RedirectToAction("_ActiveRequestsOn4/3", "DitchRiders");
+                return RedirectToAction("_ActiveRequestsOn/3", "DitchRiders");
             }
             else if (User.IsInRole("Ride 4") || User.IsInRole("Relief Ride 4"))
             {
-                return RedirectToAction("_ActiveRequestsOn4/4", "DitchRiders");
+                return RedirectToAction("_ActiveRequestsOn/4", "DitchRiders");
             }
             else if (User.IsInRole("Ride 5") || User.IsInRole("Relief Ride 5"))
             {
-                return RedirectToAction("_ActiveRequestsOn4/5", "DitchRiders");
+                return RedirectToAction("_ActiveRequestsOn/5", "DitchRiders");
             }
             else if (User.IsInRole("Ride 6") || User.IsInRole("Relief Ride 6"))
             {
-                return RedirectToAction("_ActiveRequestsOn4/6", "DitchRiders");
+                return RedirectToAction("_ActiveRequestsOn/6", "DitchRiders");
             }
             else if (User.IsInRole("Ride 7") || User.IsInRole("Relief Ride 7"))
             {
-                return RedirectToAction("_ActiveRequestsOn4/7", "DitchRiders");
+                return RedirectToAction("_ActiveRequestsOn/7", "DitchRiders");
             }
             else if (User.IsInRole("Ride 8") || User.IsInRole("Relief Ride 8"))
             {
-                return RedirectToAction("_ActiveRequestsOn4/8", "DitchRiders");
+                return RedirectToAction("_ActiveRequestsOn/8", "DitchRiders");
             }
             else if (User.IsInRole("Customer"))
             {

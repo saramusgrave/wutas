@@ -21,35 +21,36 @@ namespace KlamathIrrigationDistrict.Controllers
         //View Active Requests On
         //ViewActiveRequestsOn4()
         //Page: _ActiveRequestsOn4.cshtml
-        [Authorize]
-        [HttpGet]
-        public ActionResult _ActiveRequestsOn4(int id, int? page)
-        {
-            if (!User.IsInRole("Ride " + id.ToString()) && !User.IsInRole("Relief Ride " + id.ToString()))
-            {
-                return View("Unauthorized");
-            }
-            int pageSize = 25;
-            int pageIndex = 1;
-            pageIndex = page.HasValue ? Convert.ToInt32(page) : 1;
-            IPagedList<DitchRiderRequests> ditchRider = null;
-            DitchRidersRepository repository = new DitchRidersRepository();
-            DitchRiderRequests ditchriderrequests = new DitchRiderRequests();
-            List<DitchRiderRequests> obditchriderlist = new List<DitchRiderRequests>();
-            obditchriderlist = repository.ViewActiveRequestOn4(id);
-            ditchriderrequests.ditchriderrequests = obditchriderlist;
-            ditchRider = obditchriderlist.ToPagedList(pageIndex, pageSize);
-            return View(ditchRider);
-        }
+        //[Authorize]
+        //[HttpGet]
+        //public ActionResult _ActiveRequestsOn(int id, int? page)
+        //{
+        //    if (!User.IsInRole("Ride " + id.ToString()) && !User.IsInRole("Relief Ride " + id.ToString()))
+        //    {
+        //        return View("Unauthorized");
+        //    }
+        //    int pageSize = 25;
+        //    int pageIndex = 1;
+        //    pageIndex = page.HasValue ? Convert.ToInt32(page) : 1;
+        //    IPagedList<DitchRiderRequests> ditchRider = null;
+        //    DitchRidersRepository repository = new DitchRidersRepository();
+        //    DitchRiderRequests ditchriderrequests = new DitchRiderRequests();
+        //    List<DitchRiderRequests> obditchriderlist = new List<DitchRiderRequests>();
+        //    obditchriderlist = repository.ViewActiveRequestOn(id);
+        //    ditchriderrequests.ditchriderrequests = obditchriderlist;
+        //    ditchRider = obditchriderlist.ToPagedList(pageIndex, pageSize);
+        //    var std = _ditchRiderRepo.ViewActiveRequestOn(id);
+        //    return View(ditchRider);
+        //}
         //ViewActiveRequestsOn4()
         [Authorize]
-        public ActionResult _ActiveRequestsOn4(int id)
+        public ActionResult _ActiveRequestsOn(int id)
         {
             if (!User.IsInRole("Ride " + id.ToString()) && !User.IsInRole("Relief Ride " + id.ToString()))
             {
                 return View("Unauthorized");
             }
-            var std = _ditchRiderRepo.ViewActiveRequestOn4(id);
+            var std = _ditchRiderRepo.ViewActiveRequestOn(id);
             return View(std);
         }
 
@@ -57,7 +58,7 @@ namespace KlamathIrrigationDistrict.Controllers
         //ViewActiveRequestOn4()
         //Page: EditRequest4On
         [Authorize]
-        public ActionResult EditRequest4On(int id, int RequestID)
+        public ActionResult EditRequestOn(int id, int RequestID)
         {
 
             if (!User.IsInRole("Ride " + id.ToString()) && !User.IsInRole("Relief Ride " + id.ToString()))
@@ -67,13 +68,13 @@ namespace KlamathIrrigationDistrict.Controllers
 
             ViewData["S"] = _ditchRiderRepo.Status().Select(s => new SelectListItem() { Text = s.RequestStatusName, Value = s.RequestStatusName }).ToList();
             ViewData["StaffComments2"] = _ditchRiderRepo.Comments().Select(s => new SelectListItem() { Text = s.Comment, Value = s.Comment }).ToList();
-            var std = _ditchRiderRepo.ViewActiveRequestOn4(id).Where(s => s.RequestID == RequestID).FirstOrDefault();
+            var std = _ditchRiderRepo.ViewActiveRequestOn(id).Where(s => s.RequestID == RequestID).FirstOrDefault();
             return View(std);
         }
         //EditRequests4On
         [Authorize]
         [HttpPost]
-        public ActionResult EditRequest4On(DitchRiderRequests std)
+        public ActionResult EditRequestOn(DitchRiderRequests std)
         {
             int RequestID = std.RequestID;
             string Staff1 = std.Staff1;
@@ -81,45 +82,55 @@ namespace KlamathIrrigationDistrict.Controllers
             int StaffCFS1 = std.StaffCFS1;
             string StaffComments1 = std.StaffComments1;
             string RequestStatus1 = std.RequestStatus1;
-            _ditchRiderRepo.EditRequest4On(std);
-            return new RedirectResult(Url.Action("_ActiveRequestsOn4/" + Url.RequestContext.RouteData.Values["id"]));
+            _ditchRiderRepo.EditRequestOn(std);
+            return new RedirectResult(Url.Action("_ActiveRequestsOn/" + Url.RequestContext.RouteData.Values["id"]));
         }
 
         //View Active Requests Off
         //ViewActiveRequestOff4()
         //Page: _ActiveRequestsOff4
+        //[Authorize]
+        //[HttpGet]
+        //public ActionResult _ActiveRequestsOff(int id, int? page)
+        //{
+        //    if (!User.IsInRole("Ride " + id.ToString()) && !User.IsInRole("Relief Ride " + id.ToString()))
+        //    {
+        //        return View("Unauthorized");
+        //    }
+        //    int pageSize = 25;
+        //    int pageIndex = 1;
+        //    pageIndex = page.HasValue ? Convert.ToInt32(page) : 1;
+        //    IPagedList<DitchRiderRequests> ditchRider = null;
+        //    DitchRidersRepository repository = new DitchRidersRepository();
+        //    DitchRiderRequests ditchriderrequests = new DitchRiderRequests();
+        //    List<DitchRiderRequests> obditchriderlist = new List<DitchRiderRequests>();
+        //    obditchriderlist = repository.ViewActiveRequestOff(id);
+        //    ditchriderrequests.ditchriderrequests = obditchriderlist;
+        //    ditchRider = obditchriderlist.ToPagedList(pageIndex, pageSize);
+        //    return View(ditchRider);
+        //}
         [Authorize]
         [HttpGet]
-        public ActionResult _ActiveRequestsOff4(int id, int? page)
+        public ActionResult _ActiveRequestsOff(int id)
         {
             if (!User.IsInRole("Ride " + id.ToString()) && !User.IsInRole("Relief Ride " + id.ToString()))
             {
                 return View("Unauthorized");
             }
-            int pageSize = 25;
-            int pageIndex = 1;
-            pageIndex = page.HasValue ? Convert.ToInt32(page) : 1;
-            IPagedList<DitchRiderRequests> ditchRider = null;
-            DitchRidersRepository repository = new DitchRidersRepository();
-            DitchRiderRequests ditchriderrequests = new DitchRiderRequests();
-            List<DitchRiderRequests> obditchriderlist = new List<DitchRiderRequests>();
-            obditchriderlist = repository.ViewActiveRequestOff4(id);
-            ditchriderrequests.ditchriderrequests = obditchriderlist;
-            ditchRider = obditchriderlist.ToPagedList(pageIndex, pageSize);
-            return View(ditchRider);
+            var std = _ditchRiderRepo.ViewActiveRequestOff(id);
+            return View(std);
         }
-
         //Turn Off Water For an Active Off Request
         //ViewActiveRequestOff4()
         //Page: EditRequests4Off
         [Authorize]
-        public ActionResult EditRequest4Off(int id, int RequestID)
+        public ActionResult EditRequestOff(int id, int RequestID)
         {
             if (!User.IsInRole("Ride " + id.ToString()) && !User.IsInRole("Relief Ride " + id.ToString()))
             {
                 return View("Unauthorized");
             }
-            var std = _ditchRiderRepo.ViewActiveRequestOff4(id).Where(s => s.RequestID == RequestID).FirstOrDefault();
+            var std = _ditchRiderRepo.ViewActiveRequestOff(id).Where(s => s.RequestID == RequestID).FirstOrDefault();
             ViewData["S"] = _ditchRiderRepo.Status().Select(s => new SelectListItem() { Text = s.RequestStatusName, Value = s.RequestStatusName }).ToList();
             ViewData["StaffComments2"] = _ditchRiderRepo.Comments().Select(s => new SelectListItem() { Text = s.Comment, Value = s.Comment }).ToList();
             return View(std);
@@ -127,14 +138,14 @@ namespace KlamathIrrigationDistrict.Controllers
         //EditRequests4Off
         [Authorize]
         [HttpPost]
-        public ActionResult EditRequest4Off(DitchRiderRequests std)
+        public ActionResult EditRequestOff(DitchRiderRequests std)
         {
             int RequestID = std.RequestID;
             DateTime StaffDate2 = std.StaffDate2;
             int StaffCFS2 = std.StaffCFS2;
             string StaffComments2 = std.StaffComments2;
-            _ditchRiderRepo.EditRequest4Off(std);
-            return new RedirectResult(Url.Action("_ActiveRequestsOff4/" + Url.RequestContext.RouteData.Values["id"]));
+            _ditchRiderRepo.EditRequestOff(std);
+            return new RedirectResult(Url.Action("_ActiveRequestsOff/" + Url.RequestContext.RouteData.Values["id"]));
         }
 
         //View Pending On Requests
@@ -142,23 +153,32 @@ namespace KlamathIrrigationDistrict.Controllers
         //Page: Appending_4On
         [Authorize]
         [HttpGet]
-        public ActionResult Appending_4On(int id, int? page)
+        //public ActionResult Appending_On(int id, int? page)
+        //{
+        //    if (!User.IsInRole("Ride " + id.ToString()) && !User.IsInRole("Relief Ride " + id.ToString()))
+        //    {
+        //        return View("Unauthorized");
+        //    }
+        //    int pageSize = 25;
+        //    int pageIndex = 1;
+        //    pageIndex = page.HasValue ? Convert.ToInt32(page) : 1;
+        //    IPagedList<DitchRiderRequests> ditchRider = null;
+        //    DitchRidersRepository repository = new DitchRidersRepository();
+        //    DitchRiderRequests ditchriderrequests = new DitchRiderRequests();
+        //    List<DitchRiderRequests> obditchriderlist = new List<DitchRiderRequests>();
+        //    obditchriderlist = repository.ViewPending_On(id);
+        //    ditchriderrequests.ditchriderrequests = obditchriderlist;
+        //    ditchRider = obditchriderlist.ToPagedList(pageIndex, pageSize);
+        //    return View(ditchRider);
+        //}
+        public ActionResult Appending_On(int id)
         {
             if (!User.IsInRole("Ride " + id.ToString()) && !User.IsInRole("Relief Ride " + id.ToString()))
             {
                 return View("Unauthorized");
             }
-            int pageSize = 25;
-            int pageIndex = 1;
-            pageIndex = page.HasValue ? Convert.ToInt32(page) : 1;
-            IPagedList<DitchRiderRequests> ditchRider = null;
-            DitchRidersRepository repository = new DitchRidersRepository();
-            DitchRiderRequests ditchriderrequests = new DitchRiderRequests();
-            List<DitchRiderRequests> obditchriderlist = new List<DitchRiderRequests>();
-            obditchriderlist = repository.ViewPending_4On(id);
-            ditchriderrequests.ditchriderrequests = obditchriderlist;
-            ditchRider = obditchriderlist.ToPagedList(pageIndex, pageSize);
-            return View(ditchRider);
+            var std = _ditchRiderRepo.ViewPending_On(id);
+            return View(std);
         }
 
         //Edit Request Status On
@@ -171,7 +191,7 @@ namespace KlamathIrrigationDistrict.Controllers
             {
                 return View("Unauthorized");
             }
-            var std = _ditchRiderRepo.ViewPending_4On(id).Where(s => s.RequestID == RequestID).FirstOrDefault();
+            var std = _ditchRiderRepo.ViewPending_On(id).Where(s => s.RequestID == RequestID).FirstOrDefault();
             //Drop down pulling form SQL
             ViewData["S"] = _ditchRiderRepo.Status().Select(s => new SelectListItem() { Text = s.RequestStatusName, Value = s.RequestStatusName }).ToList();
             ViewData["StaffComments2"] = _ditchRiderRepo.Comments().Select(s => new SelectListItem() { Text = s.Comment, Value = s.Comment }).ToList();
@@ -187,7 +207,7 @@ namespace KlamathIrrigationDistrict.Controllers
             string StaffComments1 = std.StaffComments1;
             string RequestStatus1 = std.RequestStatus1;
             _ditchRiderRepo.EditRequestStatus1_On(std);
-            return new RedirectResult(Url.Action("Appending_4On/" + Url.RequestContext.RouteData.Values["id"]));
+            return new RedirectResult(Url.Action("Appending_On/" + Url.RequestContext.RouteData.Values["id"]));
         }
 
         //View Pending Off Requests 
@@ -195,25 +215,34 @@ namespace KlamathIrrigationDistrict.Controllers
         //Page: Appending_4Off
         [Authorize]
         [HttpGet]
-        public ActionResult Appending_4Off(int id, int? page)
+        //public ActionResult Appending_Off(int id, int? page)
+        //{
+        //    if (!User.IsInRole("Ride " + id.ToString()) && !User.IsInRole("Relief Ride " + id.ToString()))
+        //    {
+        //        return View("Unauthorized");
+        //    }
+        //    int pageSize = 25;
+        //    int pageIndex = 1;
+        //    pageIndex = page.HasValue ? Convert.ToInt32(page) : 1;
+        //    IPagedList<DitchRiderRequests> ditchRider = null;
+        //    DitchRidersRepository repository = new DitchRidersRepository();
+        //    DitchRiderRequests ditchriderrequests = new DitchRiderRequests();
+        //    List<DitchRiderRequests> obditchriderlist = new List<DitchRiderRequests>();
+        //    obditchriderlist = repository.ViewPending_Off(id);
+        //    ditchriderrequests.ditchriderrequests = obditchriderlist;
+        //    ditchRider = obditchriderlist.ToPagedList(pageIndex, pageSize);
+        //    return View(ditchRider);
+        //}
+        public ActionResult Appending_Off(int id)
         {
             if (!User.IsInRole("Ride " + id.ToString()) && !User.IsInRole("Relief Ride " + id.ToString()))
             {
                 return View("Unauthorized");
             }
-            int pageSize = 25;
-            int pageIndex = 1;
-            pageIndex = page.HasValue ? Convert.ToInt32(page) : 1;
-            IPagedList<DitchRiderRequests> ditchRider = null;
-            DitchRidersRepository repository = new DitchRidersRepository();
-            DitchRiderRequests ditchriderrequests = new DitchRiderRequests();
-            List<DitchRiderRequests> obditchriderlist = new List<DitchRiderRequests>();
-            obditchriderlist = repository.ViewPending_4Off(id);
-            ditchriderrequests.ditchriderrequests = obditchriderlist;
-            ditchRider = obditchriderlist.ToPagedList(pageIndex, pageSize);
-            return View(ditchRider);
+            var std = _ditchRiderRepo.ViewPending_Off(id);
+            return View(std);
         }
-        
+
         //Edit Request Status Off
         //ViewPending_4Off()
         //Page: EditRequests4On
@@ -224,7 +253,7 @@ namespace KlamathIrrigationDistrict.Controllers
             {
                 return View("Unauthorized");
             }
-            var std = _ditchRiderRepo.ViewPending_4Off(id).Where(s => s.RequestID == RequestID).FirstOrDefault();
+            var std = _ditchRiderRepo.ViewPending_Off(id).Where(s => s.RequestID == RequestID).FirstOrDefault();
             ViewData["Status"] = _ditchRiderRepo.Status().Select(s => new SelectListItem() { Text = s.RequestStatusName, Value = s.RequestStatusName }).ToList();
             ViewData["Comments"] = _ditchRiderRepo.Comments().Select(s => new SelectListItem() { Text = s.Comment, Value = s.Comment }).ToList();
             return View(std);
@@ -239,60 +268,78 @@ namespace KlamathIrrigationDistrict.Controllers
             string StaffComments2 = std.StaffComments2;
             string RequestStatus2 = std.RequestStatus2;
             _ditchRiderRepo.EditRequestStatus2_Off(std);
-            return new RedirectResult(Url.Action("Appending_4Off/"+ Url.RequestContext.RouteData.Values["id"]));
+            return new RedirectResult(Url.Action("Appending_Off/"+ Url.RequestContext.RouteData.Values["id"]));
         }
         
         //View Completed On and Off Requests
         //ViewRequests4()
         //Page: CompletedRequests
         [Authorize]
-        public ActionResult CompletedRequests(int id, int? page)
+        //public ActionResult CompletedRequests(int id, int? page)
+        //{
+        //    if (!User.IsInRole("Ride " + id.ToString()) && !User.IsInRole("Relief Ride " + id.ToString()))
+        //    {
+        //        return View("Unauthorized");
+        //    }
+        //    int pageSize = 25;
+        //    int pageIndex = 1;
+        //    pageIndex = page.HasValue ? Convert.ToInt32(page) : 1;
+        //    IPagedList<DitchRiderRequests> ditchRider = null;
+        //    DitchRidersRepository repository = new DitchRidersRepository();
+        //    DitchRiderRequests ditchriderrequests = new DitchRiderRequests();
+        //    List<DitchRiderRequests> obditchriderlist = new List<DitchRiderRequests>();
+        //    obditchriderlist = repository.ViewRequests(id);
+        //    ditchriderrequests.ditchriderrequests = obditchriderlist;
+        //    ditchRider = obditchriderlist.ToPagedList(pageIndex, pageSize);
+        //    return View(ditchRider);
+        //}
+        public ActionResult CompletedRequests(int id)
         {
             if (!User.IsInRole("Ride " + id.ToString()) && !User.IsInRole("Relief Ride " + id.ToString()))
             {
                 return View("Unauthorized");
             }
-            int pageSize = 25;
-            int pageIndex = 1;
-            pageIndex = page.HasValue ? Convert.ToInt32(page) : 1;
-            IPagedList<DitchRiderRequests> ditchRider = null;
-            DitchRidersRepository repository = new DitchRidersRepository();
-            DitchRiderRequests ditchriderrequests = new DitchRiderRequests();
-            List<DitchRiderRequests> obditchriderlist = new List<DitchRiderRequests>();
-            obditchriderlist = repository.ViewRequests4(id);
-            ditchriderrequests.ditchriderrequests = obditchriderlist;
-            ditchRider = obditchriderlist.ToPagedList(pageIndex, pageSize);
-            return View(ditchRider);
+            var std = _ditchRiderRepo.ViewRequests(id);
+            return View(std);
         }
 
         //View WaitList On
         //ViewWaitlist_4On()
         //Page: WaitList_4On
         [Authorize]
-        public ActionResult WaitList_4On(int id, int? page)
+        //public ActionResult WaitList_On(int id, int? page)
+        //{
+        //    if (!User.IsInRole("Ride " + id.ToString()) && !User.IsInRole("Relief Ride " + id.ToString()))
+        //    {
+        //        return View("Unauthorized");
+        //    }
+        //    int pageSize = 25;
+        //    int pageIndex = 1;
+        //    pageIndex = page.HasValue ? Convert.ToInt32(page) : 1;
+        //    IPagedList<DitchRiderRequests> ditchRider = null;
+        //    DitchRidersRepository repository = new DitchRidersRepository();
+        //    DitchRiderRequests ditchriderrequests = new DitchRiderRequests();
+        //    List<DitchRiderRequests> obditchriderlist = new List<DitchRiderRequests>();
+        //    obditchriderlist = repository.ViewWaitlist_On(id);
+        //    ditchriderrequests.ditchriderrequests = obditchriderlist;
+        //    ditchRider = obditchriderlist.ToPagedList(pageIndex, pageSize);
+        //    return View(ditchRider);
+        //}
+        public ActionResult WaitList_On(int id)
         {
             if (!User.IsInRole("Ride " + id.ToString()) && !User.IsInRole("Relief Ride " + id.ToString()))
             {
                 return View("Unauthorized");
             }
-            int pageSize = 25;
-            int pageIndex = 1;
-            pageIndex = page.HasValue ? Convert.ToInt32(page) : 1;
-            IPagedList<DitchRiderRequests> ditchRider = null;
-            DitchRidersRepository repository = new DitchRidersRepository();
-            DitchRiderRequests ditchriderrequests = new DitchRiderRequests();
-            List<DitchRiderRequests> obditchriderlist = new List<DitchRiderRequests>();
-            obditchriderlist = repository.ViewWaitlist_4On(id);
-            ditchriderrequests.ditchriderrequests = obditchriderlist;
-            ditchRider = obditchriderlist.ToPagedList(pageIndex, pageSize);
-            return View(ditchRider);
+            var std = _ditchRiderRepo.ViewWaitlist_On(id);
+            return View(std);
         }
 
         //Turn On WaitList Water
         //ViewWaitlist_4On()
         //Page: EditRequest4On
         [Authorize]
-        public ActionResult EditWaitList_4On(int id, int RequestID)
+        public ActionResult EditWaitList_On(int id, int RequestID)
         {
             if (!User.IsInRole("Ride " + id.ToString()) && !User.IsInRole("Relief Ride " + id.ToString()))
             {
@@ -300,13 +347,13 @@ namespace KlamathIrrigationDistrict.Controllers
             }
             ViewData["S"] = _ditchRiderRepo.Status().Select(s => new SelectListItem() { Text = s.RequestStatusName, Value = s.RequestStatusName }).ToList();
             ViewData["StaffComments2"] = _ditchRiderRepo.Comments().Select(s => new SelectListItem() { Text = s.Comment, Value = s.Comment }).ToList();
-            var std = _ditchRiderRepo.ViewWaitlist_4On(id).Where(s => s.RequestID == RequestID).FirstOrDefault();
+            var std = _ditchRiderRepo.ViewWaitlist_On(id).Where(s => s.RequestID == RequestID).FirstOrDefault();
             return View(std);
         }
         //EditRequests4On
         [Authorize]
         [HttpPost]
-        public ActionResult EditWaitList_4On(DitchRiderRequests std)
+        public ActionResult EditWaitList_On(DitchRiderRequests std)
         {
             int RequestID = std.RequestID;
             string Staff1 = std.Staff1;
@@ -314,44 +361,53 @@ namespace KlamathIrrigationDistrict.Controllers
             int StaffCFS1 = std.StaffCFS1;
             string StaffComments1 = std.StaffComments1;
             string RequestStatus1 = std.RequestStatus1;
-            _ditchRiderRepo.EditRequest4On(std);
-            return new RedirectResult(Url.Action("WaitList_4On/" + Url.RequestContext.RouteData.Values["id"]));
+            _ditchRiderRepo.EditRequestOn(std);
+            return new RedirectResult(Url.Action("WaitList_On/" + Url.RequestContext.RouteData.Values["id"]));
         }
 
         //View WaitList Off
         //ViewWaitlist_4Off()
         //Page: WaitList_4Off
         [Authorize]
-        public ActionResult WaitList_4Off(int id, int? page)
+        //public ActionResult WaitList_Off(int id, int? page)
+        //{
+        //    if (!User.IsInRole("Ride " + id.ToString()) && !User.IsInRole("Relief Ride " + id.ToString()))
+        //    {
+        //        return View("Unauthorized");
+        //    }
+        //    int pageSize = 25;
+        //    int pageIndex = 1;
+        //    pageIndex = page.HasValue ? Convert.ToInt32(page) : 1;
+        //    IPagedList<DitchRiderRequests> ditchRider = null;
+        //    DitchRidersRepository repository = new DitchRidersRepository();
+        //    DitchRiderRequests ditchriderrequests = new DitchRiderRequests();
+        //    List<DitchRiderRequests> obditchriderlist = new List<DitchRiderRequests>();
+        //    obditchriderlist = repository.ViewWaitlist_Off(id);
+        //    ditchriderrequests.ditchriderrequests = obditchriderlist;
+        //    ditchRider = obditchriderlist.ToPagedList(pageIndex, pageSize);
+        //    return View(ditchRider);
+        //}
+        public ActionResult WaitList_Off(int id)
         {
             if (!User.IsInRole("Ride " + id.ToString()) && !User.IsInRole("Relief Ride " + id.ToString()))
             {
                 return View("Unauthorized");
             }
-            int pageSize = 25;
-            int pageIndex = 1;
-            pageIndex = page.HasValue ? Convert.ToInt32(page) : 1;
-            IPagedList<DitchRiderRequests> ditchRider = null;
-            DitchRidersRepository repository = new DitchRidersRepository();
-            DitchRiderRequests ditchriderrequests = new DitchRiderRequests();
-            List<DitchRiderRequests> obditchriderlist = new List<DitchRiderRequests>();
-            obditchriderlist = repository.ViewWaitlist_4Off(id);
-            ditchriderrequests.ditchriderrequests = obditchriderlist;
-            ditchRider = obditchriderlist.ToPagedList(pageIndex, pageSize);
-            return View(ditchRider);
+            var std = _ditchRiderRepo.ViewWaitlist_Off(id);
+            return View(std);
         }
 
         //Turn Off Waitlist Water
         //ViewWaitlist_4Off()
         //Page: EditRequests4Off
         [Authorize]
-        public ActionResult EditWaitList_4Off(int id, int RequestID)
+        public ActionResult EditWaitList_Off(int id, int RequestID)
         {
             if (!User.IsInRole("Ride " + id.ToString()) && !User.IsInRole("Relief Ride " + id.ToString()))
             {
                 return View("Unauthorized");
             }
-            var std = _ditchRiderRepo.ViewWaitlist_4Off(id).Where(s => s.RequestID == RequestID).FirstOrDefault();
+            var std = _ditchRiderRepo.ViewWaitlist_Off(id).Where(s => s.RequestID == RequestID).FirstOrDefault();
             ViewData["S"] = _ditchRiderRepo.Status().Select(s => new SelectListItem() { Text = s.RequestStatusName, Value = s.RequestStatusName }).ToList();
             ViewData["StaffComments2"] = _ditchRiderRepo.Comments().Select(s => new SelectListItem() { Text = s.Comment, Value = s.Comment }).ToList();
             return View(std);
@@ -359,68 +415,82 @@ namespace KlamathIrrigationDistrict.Controllers
         //EditRequests4Off
         [Authorize]
         [HttpPost]
-        public ActionResult EditWaitList_4Off(DitchRiderRequests std)
+        public ActionResult EditWaitList_Off(DitchRiderRequests std)
         {
             int RequestID = std.RequestID;
             DateTime StaffDate2 = std.StaffDate2;
             int StaffCFS2 = std.StaffCFS2;
             string StaffComments2 = std.StaffComments2;
-            _ditchRiderRepo.EditRequest4Off(std);
-            return new RedirectResult(Url.Action("WaitList_4Off/" + Url.RequestContext.RouteData.Values["id"]));
+            _ditchRiderRepo.EditRequestOff(std);
+            return new RedirectResult(Url.Action("WaitList_Off/" + Url.RequestContext.RouteData.Values["id"]));
         }
-        
+
         //Customer List
         //Customers4()
         //Page: Customers4()
+        //[Authorize]
+        //[HttpGet]
+        //public ActionResult Customers4(int id, int? page)
+        //{
+        //    if(!User.IsInRole("Ride " + id.ToString()) && !User.IsInRole("Relief Ride " + id.ToString()))
+        //    {
+        //        return View("Unauthorized");
+        //    }
+        //    int pageSize = 25;
+        //    int pageIndex = 1;
+        //    pageIndex = page.HasValue ? Convert.ToInt32(page) : 1;
+        //    IPagedList<DitchRiderRequests> ditchRider = null;
+        //    DitchRidersRepository repository = new DitchRidersRepository();
+        //    DitchRiderRequests ditchriderrequests = new DitchRiderRequests();
+        //    List<DitchRiderRequests> obditchriderlist = new List<DitchRiderRequests>();
+        //    obditchriderlist = repository.Customers4(id);
+        //    ditchriderrequests.ditchriderrequests = obditchriderlist;
+        //    ditchRider = obditchriderlist.ToPagedList(pageIndex, pageSize);
+        //    return View(ditchRider);
+        //}
         [Authorize]
         [HttpGet]
-        public ActionResult Customers4(int id, int? page)
+        public ActionResult Customers(int id)
         {
-            if(!User.IsInRole("Ride " + id.ToString()) && !User.IsInRole("Relief Ride " + id.ToString()))
+            if (!User.IsInRole("Ride " + id.ToString()) && !User.IsInRole("Relief Ride " + id.ToString()))
             {
                 return View("Unauthorized");
             }
-            int pageSize = 25;
-            int pageIndex = 1;
-            pageIndex = page.HasValue ? Convert.ToInt32(page) : 1;
-            IPagedList<DitchRiderRequests> ditchRider = null;
-            DitchRidersRepository repository = new DitchRidersRepository();
-            DitchRiderRequests ditchriderrequests = new DitchRiderRequests();
-            List<DitchRiderRequests> obditchriderlist = new List<DitchRiderRequests>();
-            obditchriderlist = repository.Customers4(id);
-            ditchriderrequests.ditchriderrequests = obditchriderlist;
-            ditchRider = obditchriderlist.ToPagedList(pageIndex, pageSize);
-            return View(ditchRider);
+            var std = _ditchRiderRepo.Customers(id);
+            
+            return View(std);
         }
 
         //Turn On Water as if Customer
         //Customers4
         //Page: AddRequest4On
         [Authorize]
-        public ActionResult AddRequest4On(int id, string Structure)
+        public ActionResult AddRequestOn(int id, string Structure)
         {
             if (!User.IsInRole("Ride " + id.ToString()) && !User.IsInRole("Relief Ride " + id.ToString()))
             {
                 return View("Unauthorized");
             }
-            var std = _ditchRiderRepo.Customers4(id).Where(s => s.Structure == Structure).FirstOrDefault();
+            ViewData["S"] = _ditchRiderRepo.Status().Select(s => new SelectListItem() { Text = s.RequestStatusName, Value = s.RequestStatusName }).ToList();
+            var std = _ditchRiderRepo.Customers(id).Where(s => s.Structure == Structure).FirstOrDefault();
             return View(std);
         }
         //AddRequest_4On()
         [Authorize]
         [HttpPost]
-        public ActionResult AddRequest4On(DitchRiderRequests ditchriderrequests)
+        public ActionResult AddRequestOn(DitchRiderRequests ditchriderrequests)
         {
             int RequestID = ditchriderrequests.RequestID;
             int CustomerID = ditchriderrequests.CustomerID;
             string structure = ditchriderrequests.Structure;
-            string Name = ditchriderrequests.CustomerName;
+            string Name = ditchriderrequests.CustomerName;            
             DateTime CustomerDate1 = ditchriderrequests.CustomerDate1;
             int CustomerCFS1 = ditchriderrequests.CustomerCFS1;
             string CustomerComments1 = ditchriderrequests.CustomerComments1;
             int Ride = ditchriderrequests.Ride;
-            _ditchRiderRepo.AddRequest_4On(ditchriderrequests);
-            return new RedirectResult(Url.Action("Customers4/" + Url.RequestContext.RouteData.Values["id"]));
+            string RequestStatus1 = ditchriderrequests.RequestStatus1;
+            _ditchRiderRepo.AddRequest_On(ditchriderrequests);
+            return new RedirectResult(Url.Action("Customers/" + Url.RequestContext.RouteData.Values["id"]));
         }
 
         //Customers who currently have water on
@@ -428,51 +498,61 @@ namespace KlamathIrrigationDistrict.Controllers
         //Page: Customers_4On()
         [Authorize]
         [HttpGet]
-        public ActionResult Customers_4On(int id, int? page)
+        //public ActionResult Customers_On(int id, int? page)
+        //{
+        //    if (!User.IsInRole("Ride " + id.ToString()) && !User.IsInRole("Relief Ride " + id.ToString()))
+        //    {
+        //        return View("Unauthorized");
+        //    }
+        //    int pageSize = 25;
+        //    int pageIndex = 1;
+        //    pageIndex = page.HasValue ? Convert.ToInt32(page) : 1;
+        //    IPagedList<DitchRiderRequests> ditchRider = null;
+        //    DitchRidersRepository repository = new DitchRidersRepository();
+        //    DitchRiderRequests ditchriderrequests = new DitchRiderRequests();
+        //    List<DitchRiderRequests> obditchriderlist = new List<DitchRiderRequests>();
+        //    obditchriderlist = repository.ViewCustomersWithWater_On(id);
+        //    ditchriderrequests.ditchriderrequests = obditchriderlist;
+        //    ditchRider = obditchriderlist.ToPagedList(pageIndex, pageSize);
+        //    return View(ditchRider);
+        //}
+        public ActionResult Customers_On(int id)
         {
             if (!User.IsInRole("Ride " + id.ToString()) && !User.IsInRole("Relief Ride " + id.ToString()))
             {
                 return View("Unauthorized");
             }
-            int pageSize = 25;
-            int pageIndex = 1;
-            pageIndex = page.HasValue ? Convert.ToInt32(page) : 1;
-            IPagedList<DitchRiderRequests> ditchRider = null;
-            DitchRidersRepository repository = new DitchRidersRepository();
-            DitchRiderRequests ditchriderrequests = new DitchRiderRequests();
-            List<DitchRiderRequests> obditchriderlist = new List<DitchRiderRequests>();
-            obditchriderlist = repository.ViewCustomersWithWater_4On(id);
-            ditchriderrequests.ditchriderrequests = obditchriderlist;
-            ditchRider = obditchriderlist.ToPagedList(pageIndex, pageSize);
-            return View(ditchRider);
+            var std = _ditchRiderRepo.ViewCustomersWithWater_On(id);
+            return View(std);
         }
-        
+
         //Request Water Off as if Customer
         //ViewCustomersWithWater_4On()
         //Page: _AddRequest4Off
         [Authorize]
         //[HttpGet]
-        public ActionResult _AddRequest4Off(int id, int RequestID)
+        public ActionResult _AddRequestOff(int id, int RequestID)
         {
             if (!User.IsInRole("Ride " + id.ToString()) && !User.IsInRole("Relief Ride " + id.ToString()))
             {
                 return View("Unauthorized");
             }
-            var std = _ditchRiderRepo.ViewCustomersWithWater_4On(id).Where(s => s.RequestID == RequestID).FirstOrDefault();
+            ViewData["S"] = _ditchRiderRepo.Status().Select(s => new SelectListItem() { Text = s.RequestStatusName, Value = s.RequestStatusName }).ToList();
+            var std = _ditchRiderRepo.ViewCustomersWithWater_On(id).Where(s => s.RequestID == RequestID).FirstOrDefault();
             return View(std);
         }
         //AddRequest_4Off()
         [Authorize]
         [HttpPost]
-        public ActionResult _AddRequest4Off(DitchRiderRequests std)
+        public ActionResult _AddRequestOff(DitchRiderRequests std)
         {
             int RequestID = std.RequestID;
             DateTime CustomerDate2 = std.CustomerDate2;
             string Structure = std.Structure;
             int CustomerCFS2 = std.CustomerCFS2;
             string CustomerComments2 = std.CustomerComments2;
-            _ditchRiderRepo.AddRequest_4Off(std);
-            return new RedirectResult(Url.Action("Customers_4On/" + Url.RequestContext.RouteData.Values["id"]));
+            _ditchRiderRepo.AddRequest_Off(std);
+            return new RedirectResult(Url.Action("Customers_On/" + Url.RequestContext.RouteData.Values["id"]));
         }
         [HttpGet]
         public ActionResult CanalWater(int id)
@@ -500,22 +580,12 @@ namespace KlamathIrrigationDistrict.Controllers
             r.CustomerCFS1 = data;
             r.CustomerCFS2 = tomorrow;
             return View(r);
-        }
-
-        //public ActionResult _CanalCFS(DitchRiderRequests lateral)
-        //{
-        //    //var std = _ditchRiderRepo.WaterCFS_NextDayByCanal(lateral);
-        //    //return Content(std.ToString());
-        //    ObjectParameter cfs = new ObjectParameter("CFS", typeof(int));
-        //    var std = _ditchRiderRepo.WaterCFS_NextDayByCanal(lateral);
-        //    ViewBag.CFS = Convert.ToInt32(cfs.Value);
-        //    return Content(std.ToString());
-        //}
+        }            
 
         //OutputCache 
         //ViewRequests4()
         [OutputCache(Duration = 300, VaryByParam = "id")]
-        public ActionResult ViewRequests4(int RequestID)
+        public ActionResult ViewRequests(int RequestID)
         {
             DitchRiderRequests ditchriderrequests = _ditchRiderRepo.Get(RequestID);
             DitchRiderRequests DitchRiderModel = new DitchRiderRequests()
@@ -542,7 +612,7 @@ namespace KlamathIrrigationDistrict.Controllers
                 StaffCFS2 = ditchriderrequests.StaffCFS2,
                 StaffComments2 = ditchriderrequests.StaffComments2,
             };
-            return ViewRequests4(RequestID);
+            return ViewRequests(RequestID);
         }
 
         //Unauthorized View
@@ -556,46 +626,64 @@ namespace KlamathIrrigationDistrict.Controllers
         //CustomerHistory
         [Authorize]
         [HttpGet]
-        public ActionResult CustomerHistory(int id, int CustomerID, int? page)
+        //public ActionResult CustomerHistory(int id, int CustomerID, int? page)
+        //{
+        //    if(!User.IsInRole("Ride " + id.ToString()) && !User.IsInRole("Relief Ride " + id.ToString()))
+        //    {
+        //        return View("Unauthorized");
+        //    }
+        //    int pageSize = 25;
+        //    int pageIndex = 1;
+        //    pageIndex = page.HasValue ? Convert.ToInt32(page) : 1;
+        //    IPagedList<DitchRiderRequests> ditchRider = null;
+        //    DitchRidersRepository repository = new DitchRidersRepository();
+        //    DitchRiderRequests ditchriderrequests = new DitchRiderRequests();
+        //    List<DitchRiderRequests> obditchriderlist = new List<DitchRiderRequests>();
+        //    obditchriderlist = repository.ViewCustomersHistory(id);
+        //    ditchriderrequests.ditchriderrequests = obditchriderlist;
+        //    ditchRider = obditchriderlist.Where(s => s.CustomerID == CustomerID).ToPagedList(pageIndex, pageSize);
+        //    return View(ditchRider);
+        //}
+        public ActionResult CustomerHistory(int id, int CustomerID)
         {
-            if(!User.IsInRole("Ride " + id.ToString()) && !User.IsInRole("Relief Ride " + id.ToString()))
+            if (!User.IsInRole("Ride " + id.ToString()) && !User.IsInRole("Relief Ride " + id.ToString()))
             {
                 return View("Unauthorized");
             }
-            int pageSize = 25;
-            int pageIndex = 1;
-            pageIndex = page.HasValue ? Convert.ToInt32(page) : 1;
-            IPagedList<DitchRiderRequests> ditchRider = null;
-            DitchRidersRepository repository = new DitchRidersRepository();
-            DitchRiderRequests ditchriderrequests = new DitchRiderRequests();
-            List<DitchRiderRequests> obditchriderlist = new List<DitchRiderRequests>();
-            obditchriderlist = repository.ViewCustomersHistory(id);
-            ditchriderrequests.ditchriderrequests = obditchriderlist;
-            ditchRider = obditchriderlist.Where(s => s.CustomerID == CustomerID).ToPagedList(pageIndex, pageSize);
-            return View(ditchRider);
+            var std = _ditchRiderRepo.ViewCustomersHistory(id).Where(s => s.CustomerID == CustomerID).FirstOrDefault();
+            return View(std);
         }
         //Customer Recent History
         //ViewCustomersRecentHistory
         //CustomerRHistory
         [Authorize]
         [HttpGet]
-        public ActionResult CustomerRHistory(int id, int CustomerID, int? page)
+        //public ActionResult CustomerRHistory(int id, int CustomerID, int? page)
+        //{
+        //    if(!User.IsInRole("Ride " + id.ToString()) && !User.IsInRole("Relief Ride " + id.ToString()))
+        //    {
+        //        return View("Unauthorized");
+        //    }
+        //    int pageSize = 25;
+        //    int pageIndex = 1;
+        //    pageIndex = page.HasValue ? Convert.ToInt32(page) : 1;
+        //    IPagedList<DitchRiderRequests> ditchRider = null;
+        //    DitchRidersRepository repository = new DitchRidersRepository();
+        //    DitchRiderRequests ditchriderrequests = new DitchRiderRequests();
+        //    List<DitchRiderRequests> obditchriderlist = new List<DitchRiderRequests>();
+        //    obditchriderlist = repository.ViewCustomersRecentHistory(id);
+        //    ditchriderrequests.ditchriderrequests = obditchriderlist;
+        //    ditchRider = obditchriderlist.Where(s => s.CustomerID == CustomerID).ToPagedList(pageIndex, pageSize);
+        //    return View(ditchRider);
+        //}
+        public ActionResult CustomerRHistory(int id, int CustomerID)
         {
-            if(!User.IsInRole("Ride " + id.ToString()) && !User.IsInRole("Relief Ride " + id.ToString()))
+            if (!User.IsInRole("Ride " + id.ToString()) && !User.IsInRole("Relief Ride " + id.ToString()))
             {
                 return View("Unauthorized");
             }
-            int pageSize = 25;
-            int pageIndex = 1;
-            pageIndex = page.HasValue ? Convert.ToInt32(page) : 1;
-            IPagedList<DitchRiderRequests> ditchRider = null;
-            DitchRidersRepository repository = new DitchRidersRepository();
-            DitchRiderRequests ditchriderrequests = new DitchRiderRequests();
-            List<DitchRiderRequests> obditchriderlist = new List<DitchRiderRequests>();
-            obditchriderlist = repository.ViewCustomersRecentHistory(id);
-            ditchriderrequests.ditchriderrequests = obditchriderlist;
-            ditchRider = obditchriderlist.Where(s => s.CustomerID == CustomerID).ToPagedList(pageIndex, pageSize);
-            return View(ditchRider);
+            var std = _ditchRiderRepo.ViewCustomersRecentHistory(id).Where(s => s.CustomerID == CustomerID).FirstOrDefault();
+            return View(std);
         }
     }
 }

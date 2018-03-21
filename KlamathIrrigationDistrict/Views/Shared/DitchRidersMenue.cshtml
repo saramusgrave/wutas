@@ -9,40 +9,68 @@
 </head>
 <header id="Header">
     <div id="RideCenter">
-        <a class="dropdown">Ride @Url.RequestContext.RouteData.Values["id"]</a>
+        <a class="dropdown">@User.Identity.Name: Ride @Url.RequestContext.RouteData.Values["id"]</a>        
     </div>
     <nav id="Menue">
-    <ul id="Menu">
-        <li><label class="FirstLast">@User.Identity.Name</label></li>
-        <li class="dropdown">
-            <a href="@Url.Action("Customers4", "DitchRiders")/@Url.RequestContext.RouteData.Values["id"]">Customers</a>
-            <div class="dropdownRequest" style="overflow-x: auto;">
-                <a href="@Url.Action("Customers_4On", "DitchRiders")/@Url.RequestContext.RouteData.Values["id"]">Customers With Water On</a>
-            </div>
-        </li>
-        <li class="dropdown">
-            <a class="RequestDropDown" href="@Url.Action("_ActiveRequestsOn4", "DitchRiders")/@Url.RequestContext.RouteData.Values["id"]">Requests</a>
-            <div class="dropdownRequest" style="overflow-x: auto;">
-                <a href="@Url.Action("_ActiveRequestsOn4", "DitchRiders")/@Url.RequestContext.RouteData.Values["id"]">Active Requests On</a>
-                <a href="@Url.Action("_ActiveRequestsOff4", "DitchRiders")/@Url.RequestContext.RouteData.Values["id"]">Active Requests Off</a>
-                <a href="@Url.Action("Appending_4On", "DitchRiders")/@Url.RequestContext.RouteData.Values["id"]">Appending On</a>
-                <a href="@Url.Action("Appending_4Off", "DitchRiders")/@Url.RequestContext.RouteData.Values["id"]">Appending Off</a>
+        <ul id="Menu">
+            <li class="dropdown">
+                <a href="@Url.Action("Customers", "DitchRiders")/@Url.RequestContext.RouteData.Values["id"]">Customers</a>
+                <div class="dropdownRequest" style="overflow-x: auto;">
+                    <a href="@Url.Action("Customers_On", "DitchRiders")/@Url.RequestContext.RouteData.Values["id"]">Customers With Water On</a>
+                </div>
+            </li>
+            <li class="dropdown">
+                <a href="@Url.Action("Appending_On", "DitchRiders")/@Url.RequestContext.RouteData.Values["id"]">Appending On</a>
+                <div class="dropdownRequest" style="overflow-x: auto;">
+                    <a href="@Url.Action("Appending_Off", "DitchRiders")/@Url.RequestContext.RouteData.Values["id"]">Appending Off</a>
+                </div>
+            </li>
+            <li class="dropdown">
+                <a href="@Url.Action("_ActiveRequestsOn", "DitchRiders")/@Url.RequestContext.RouteData.Values["id"]">Active Requests On</a>
+                <div class="dropdownRequest" style="overflow-x: auto;">
+                    <a href="@Url.Action("_ActiveRequestsOff", "DitchRiders")/@Url.RequestContext.RouteData.Values["id"]">Active Requests Off</a>
+                </div>
+            </li>
+            <li class="dropdown">
+                <a href="@Url.Action("WaitList_On", "DitchRiders")/@Url.RequestContext.RouteData.Values["id"]">Waitlist On</a>
+                <div class="dropdownRequest" style="overflow-x: auto;">
+                    <a href="@Url.Action("WaitList_Off", "DitchRiders")/@Url.RequestContext.RouteData.Values["id"]">Waitlist Off</a>
+                </div>
+            </li>
+            @*<li>
                 <a href="@Url.Action("CompletedRequests", "DitchRiders")/@Url.RequestContext.RouteData.Values["id"]">Completed Requests</a>
-                <a href="@Url.Action("WaitList_4On", "DitchRiders")/@Url.RequestContext.RouteData.Values["id"]">Waitlist On</a>
-                <a href="@Url.Action("WaitList_4Off", "DitchRiders")/@Url.RequestContext.RouteData.Values["id"]">Waitlist Off</a>
-            </div>
-        </li>
-        <li>
-            <a href="@Url.Action("CanalWater", "DitchRiders")/@Url.RequestContext.RouteData.Values["id"]">Canals</a>
-        </li>
-        <li>
-            @using (Html.BeginForm("LogOff", "Account"))
+            </li>*@
+            <li>
+                <a href="@Url.Action("CanalWater", "DitchRiders")/@Url.RequestContext.RouteData.Values["id"]">Canals</a>           
+            <li>
+                @using (Html.BeginForm("LogOff", "Account"))
+                {
+                    @Html.AntiForgeryToken()
+                    <button type="submit" class="btn btn-link" id="LogOutBtn">Log Out</button>
+                }
+            </li>
+            @*<a class="RequestDropDown" href="@Url.Action("_ActiveRequestsOn4", "DitchRiders")/@Url.RequestContext.RouteData.Values["id"]">Requests</a>*@
+            @*<div class="dropdownRequest" style="overflow-x: auto;">*@
+            @*<a href="@Url.Action("_ActiveRequestsOn4", "DitchRiders")/@Url.RequestContext.RouteData.Values["id"]">Active Requests On</a>*@
+            @*<a href="@Url.Action("_ActiveRequestsOff4", "DitchRiders")/@Url.RequestContext.RouteData.Values["id"]">Active Requests Off</a>*@
+            @*<a href="@Url.Action("Appending_4On", "DitchRiders")/@Url.RequestContext.RouteData.Values["id"]">Appending On</a>
+            <a href="@Url.Action("Appending_4Off", "DitchRiders")/@Url.RequestContext.RouteData.Values["id"]">Appending Off</a>*@
+            @*<a href="@Url.Action("CompletedRequests", "DitchRiders")/@Url.RequestContext.RouteData.Values["id"]">Completed Requests</a>*@
+            @*<a href="@Url.Action("WaitList_4On", "DitchRiders")/@Url.RequestContext.RouteData.Values["id"]">Waitlist On</a>
+            <a href="@Url.Action("WaitList_4Off", "DitchRiders")/@Url.RequestContext.RouteData.Values["id"]">Waitlist Off</a>*@
+            @*</div>
+            </li>*@
+            @*<li>
+                <a href="@Url.Action("CanalWater", "DitchRiders")/@Url.RequestContext.RouteData.Values["id"]">Canals</a>
+            </li>*@
+            @*<li>
+                @using (Html.BeginForm("LogOff", "Account"))
             {
-                @Html.AntiForgeryToken()
-                <button type="submit" class="btn btn-link" id="LogOutBtn">Log Out</button>             
-            }
-        </li>
-    </ul>
+                    @Html.AntiForgeryToken()
+                    <button type="submit" class="btn btn-link" id="LogOutBtn">Log Out</button>
+                }
+            </li>*@
+        </ul>
         </nav>
 </header>
 <html>

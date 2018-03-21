@@ -5,7 +5,7 @@
     Layout = "~/Views/Shared/DitchRidersMenue.cshtml";
 }
 <body>
-    <a href="@Url.Action("Appending_4On", "DitchRiders")/@Url.RequestContext.RouteData.Values["id"]" class="previous"><br />&laquo; Appending On</a>
+    <a href="@Url.Action("Appending_On", "DitchRiders")/@Url.RequestContext.RouteData.Values["id"]" class="previous"><br />&laquo; Appending On</a>
     @using (Html.BeginForm())
     {
         @Html.HiddenFor(s => s.RequestID)

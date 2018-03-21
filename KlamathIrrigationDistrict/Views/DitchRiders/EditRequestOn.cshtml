@@ -5,7 +5,7 @@
     Layout = "~/Views/Shared/DitchRidersMenue.cshtml";
 }
 <body>
-    <a href="@Url.Action("_ActiveRequestsOn4", "DitchRiders")/@Url.RequestContext.RouteData.Values["id"]" class="previous"><br />&laquo; Request</a>
+    <a href="@Url.Action("_ActiveRequestsOn", "DitchRiders")/@Url.RequestContext.RouteData.Values["id"]" class="previous"><br />&laquo; Request</a>
     @using (Html.BeginForm())
     {
         @Html.HiddenFor(s => s.RequestID)
@@ -23,7 +23,7 @@
             </tr>
             <tr>
                 <td>@Html.DisplayTextFor(s => s.CustomerName)</td>
-                <td>@Html.TextBoxFor(s => s.StaffDate1, new { @type = "date"})</td>
+                <td>@Html.TextBoxFor(s => s.StaffDate1, new { @type = "datetime-local"})</td>
                 <td>@Html.DropDownListFor(s => s.RequestStatus1, ViewData["S"] as IEnumerable<SelectListItem>, "Select")</td>
                 <td>@Html.DisplayTextFor(s => s.CustomerCFS1)</td>
                 <td>@Html.TextBoxFor(s => s.StaffCFS1, new { @type = "number" })</td>
