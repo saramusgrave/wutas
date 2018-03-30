@@ -15,6 +15,7 @@
         <th>@Html.Label("Date")</th>
         <th>@Html.Label("Name")</th>
         <th>@Html.Label("Turn Out")</th>
+        <th>@Html.Label("Lateral")</th>
         <th>@Html.Label("CFS")</th>
         <th colspan="2">@Html.Label("Comments")</th>
     </tr>
@@ -24,9 +25,10 @@
             <td>@Model[i].CustomerDate1.ToShortDateString()</td>
             <td>@Model[i].CustomerName</td>
             <td>@Model[i].Structure</td>
+            <td>@Model[i].Lateral</td>
             <td>@Model[i].CustomerCFS1</td>
             <td>@Model[i].CustomerComments1</td>
-            <td>@Html.ActionLink("On", "EditWaitList_On", new { @RequestID = Model[i].RequestID, @id = Url.RequestContext.RouteData.Values["id"] }) </td>
+            <td>@Html.ActionLink("On", "EditWaitList_On", new { @RequestID = Model[i].RequestID, @id = Url.RequestContext.RouteData.Values["id"], @Lateral = Model[i].Lateral }) </td>
         </tr>
     }
 </table>

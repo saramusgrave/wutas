@@ -53,21 +53,37 @@ namespace KlamathIrrigationDistrict.Controllers
             var std = _ditchRiderRepo.ViewActiveRequestOn(id);
             return View(std);
         }
-
+        //drop down for violations bassed off of drop down for Comments
+        public JsonResult Violations(string Comments)
+        {
+            ViewData["Comments"] = _ditchRiderRepo.Comments().Select(s => new SelectListItem() { Text = s.Comment, Value = s.Comment }).ToList();
+            if(ViewData["Comments"].Equals("Other"))
+            {
+                ViewData["Violations"] = _ditchRiderRepo.Violations().Select(s => new SelectListItem() { Text = s.Violation, Value = s.Violation }).ToList();
+            }
+            else
+            {
+                ViewData["Comments"] = _ditchRiderRepo.Comments().Select(s => new SelectListItem() { Text = s.Comment, Value = s.Comment }).ToList();
+            }
+            return Json(ViewData);
+        }
         //Turn On Water For an Active Request
         //ViewActiveRequestOn4()
         //Page: EditRequest4On
         [Authorize]
-        public ActionResult EditRequestOn(int id, int RequestID)
+        public ActionResult EditRequestOn(int id, int RequestID, string Other, string lateral)
         {
 
             if (!User.IsInRole("Ride " + id.ToString()) && !User.IsInRole("Relief Ride " + id.ToString()))
             {
                 return View("Unauthorized");
             }
+            ViewData["Status"] = _ditchRiderRepo.Status().Select(s => new SelectListItem() { Text = s.RequestStatusName, Value = s.RequestStatusName }).ToList();
+            ViewData["Comments"] = _ditchRiderRepo.Comments().Select(s => new SelectListItem() { Text = s.Comment, Value = s.Comment }).ToList();
+            ViewData["Violations"] = _ditchRiderRepo.Violations().Select(s => new SelectListItem() { Text = s.Violation, Value = s.Violation }).ToList();
+            ViewData["Today"] = _ditchRiderRepo.WaterCFS_TodayByCanal(lateral);
+            ViewData["Tomorrow"] = _ditchRiderRepo.WaterCFS_NextDayByCanal(lateral);
 
-            ViewData["S"] = _ditchRiderRepo.Status().Select(s => new SelectListItem() { Text = s.RequestStatusName, Value = s.RequestStatusName }).ToList();
-            ViewData["StaffComments2"] = _ditchRiderRepo.Comments().Select(s => new SelectListItem() { Text = s.Comment, Value = s.Comment }).ToList();
             var std = _ditchRiderRepo.ViewActiveRequestOn(id).Where(s => s.RequestID == RequestID).FirstOrDefault();
             return View(std);
         }
@@ -124,15 +140,18 @@ namespace KlamathIrrigationDistrict.Controllers
         //ViewActiveRequestOff4()
         //Page: EditRequests4Off
         [Authorize]
-        public ActionResult EditRequestOff(int id, int RequestID)
+        public ActionResult EditRequestOff(int id, int RequestID, string lateral)
         {
             if (!User.IsInRole("Ride " + id.ToString()) && !User.IsInRole("Relief Ride " + id.ToString()))
             {
                 return View("Unauthorized");
             }
             var std = _ditchRiderRepo.ViewActiveRequestOff(id).Where(s => s.RequestID == RequestID).FirstOrDefault();
-            ViewData["S"] = _ditchRiderRepo.Status().Select(s => new SelectListItem() { Text = s.RequestStatusName, Value = s.RequestStatusName }).ToList();
-            ViewData["StaffComments2"] = _ditchRiderRepo.Comments().Select(s => new SelectListItem() { Text = s.Comment, Value = s.Comment }).ToList();
+            ViewData["Status"] = _ditchRiderRepo.Status().Select(s => new SelectListItem() { Text = s.RequestStatusName, Value = s.RequestStatusName }).ToList();
+            ViewData["Comments"] = _ditchRiderRepo.Comments().Select(s => new SelectListItem() { Text = s.Comment, Value = s.Comment }).ToList();
+            ViewData["Today"] = _ditchRiderRepo.WaterCFS_TodayByCanal(lateral);
+            ViewData["Tomorrow"] = _ditchRiderRepo.WaterCFS_NextDayByCanal(lateral);
+
             return View(std);
         }
         //EditRequests4Off
@@ -185,7 +204,7 @@ namespace KlamathIrrigationDistrict.Controllers
         //ViewPending_4On()
         //Page: EditRequestStatus_On
         [Authorize]
-        public ActionResult EditRequestStatus_On(int id, int RequestID)
+        public ActionResult EditRequestStatus_On(int id, int RequestID, string lateral)
         {
             if (!User.IsInRole("Ride " + id.ToString()) && !User.IsInRole("Relief Ride " + id.ToString()))
             {
@@ -193,8 +212,11 @@ namespace KlamathIrrigationDistrict.Controllers
             }
             var std = _ditchRiderRepo.ViewPending_On(id).Where(s => s.RequestID == RequestID).FirstOrDefault();
             //Drop down pulling form SQL
-            ViewData["S"] = _ditchRiderRepo.Status().Select(s => new SelectListItem() { Text = s.RequestStatusName, Value = s.RequestStatusName }).ToList();
-            ViewData["StaffComments2"] = _ditchRiderRepo.Comments().Select(s => new SelectListItem() { Text = s.Comment, Value = s.Comment }).ToList();
+            ViewData["Status"] = _ditchRiderRepo.Status().Select(s => new SelectListItem() { Text = s.RequestStatusName, Value = s.RequestStatusName }).ToList();
+            ViewData["Comments"] = _ditchRiderRepo.Comments().Select(s => new SelectListItem() { Text = s.Comment, Value = s.Comment }).ToList();
+            ViewData["Today"] = _ditchRiderRepo.WaterCFS_TodayByCanal(lateral);
+            ViewData["Tomorrow"] = _ditchRiderRepo.WaterCFS_NextDayByCanal(lateral);
+
             return View(std);
         }
         //EditRequestStatus1_On
@@ -247,7 +269,7 @@ namespace KlamathIrrigationDistrict.Controllers
         //ViewPending_4Off()
         //Page: EditRequests4On
         [Authorize]
-        public ActionResult EditRequestStatus_Off(int id, int RequestID)
+        public ActionResult EditRequestStatus_Off(int id, int RequestID, string lateral)
         {
             if (!User.IsInRole("Ride " + id.ToString()) && !User.IsInRole("Relief Ride " + id.ToString()))
             {
@@ -256,6 +278,9 @@ namespace KlamathIrrigationDistrict.Controllers
             var std = _ditchRiderRepo.ViewPending_Off(id).Where(s => s.RequestID == RequestID).FirstOrDefault();
             ViewData["Status"] = _ditchRiderRepo.Status().Select(s => new SelectListItem() { Text = s.RequestStatusName, Value = s.RequestStatusName }).ToList();
             ViewData["Comments"] = _ditchRiderRepo.Comments().Select(s => new SelectListItem() { Text = s.Comment, Value = s.Comment }).ToList();
+            ViewData["Today"] = _ditchRiderRepo.WaterCFS_TodayByCanal(lateral);
+            ViewData["Tomorrow"] = _ditchRiderRepo.WaterCFS_NextDayByCanal(lateral);
+
             return View(std);
         }
         //EditRequestStatus2_Off()
@@ -339,14 +364,17 @@ namespace KlamathIrrigationDistrict.Controllers
         //ViewWaitlist_4On()
         //Page: EditRequest4On
         [Authorize]
-        public ActionResult EditWaitList_On(int id, int RequestID)
+        public ActionResult EditWaitList_On(int id, int RequestID, string lateral)
         {
             if (!User.IsInRole("Ride " + id.ToString()) && !User.IsInRole("Relief Ride " + id.ToString()))
             {
                 return View("Unauthorized");
             }
-            ViewData["S"] = _ditchRiderRepo.Status().Select(s => new SelectListItem() { Text = s.RequestStatusName, Value = s.RequestStatusName }).ToList();
-            ViewData["StaffComments2"] = _ditchRiderRepo.Comments().Select(s => new SelectListItem() { Text = s.Comment, Value = s.Comment }).ToList();
+            ViewData["Status"] = _ditchRiderRepo.Status().Select(s => new SelectListItem() { Text = s.RequestStatusName, Value = s.RequestStatusName }).ToList();
+            ViewData["Comments"] = _ditchRiderRepo.Comments().Select(s => new SelectListItem() { Text = s.Comment, Value = s.Comment }).ToList();
+            ViewData["Today"] = _ditchRiderRepo.WaterCFS_TodayByCanal(lateral);
+            ViewData["Tomorrow"] = _ditchRiderRepo.WaterCFS_NextDayByCanal(lateral);
+
             var std = _ditchRiderRepo.ViewWaitlist_On(id).Where(s => s.RequestID == RequestID).FirstOrDefault();
             return View(std);
         }
@@ -401,15 +429,18 @@ namespace KlamathIrrigationDistrict.Controllers
         //ViewWaitlist_4Off()
         //Page: EditRequests4Off
         [Authorize]
-        public ActionResult EditWaitList_Off(int id, int RequestID)
+        public ActionResult EditWaitList_Off(int id, int RequestID, string lateral)
         {
             if (!User.IsInRole("Ride " + id.ToString()) && !User.IsInRole("Relief Ride " + id.ToString()))
             {
                 return View("Unauthorized");
             }
             var std = _ditchRiderRepo.ViewWaitlist_Off(id).Where(s => s.RequestID == RequestID).FirstOrDefault();
-            ViewData["S"] = _ditchRiderRepo.Status().Select(s => new SelectListItem() { Text = s.RequestStatusName, Value = s.RequestStatusName }).ToList();
-            ViewData["StaffComments2"] = _ditchRiderRepo.Comments().Select(s => new SelectListItem() { Text = s.Comment, Value = s.Comment }).ToList();
+            ViewData["Status"] = _ditchRiderRepo.Status().Select(s => new SelectListItem() { Text = s.RequestStatusName, Value = s.RequestStatusName }).ToList();
+            ViewData["Comments"] = _ditchRiderRepo.Comments().Select(s => new SelectListItem() { Text = s.Comment, Value = s.Comment }).ToList();
+            ViewData["Today"] = _ditchRiderRepo.WaterCFS_TodayByCanal(lateral);
+            ViewData["Tomorrow"] = _ditchRiderRepo.WaterCFS_NextDayByCanal(lateral);
+
             return View(std);
         }
         //EditRequests4Off
@@ -457,7 +488,6 @@ namespace KlamathIrrigationDistrict.Controllers
                 return View("Unauthorized");
             }
             var std = _ditchRiderRepo.Customers(id);
-            
             return View(std);
         }
 
@@ -465,14 +495,28 @@ namespace KlamathIrrigationDistrict.Controllers
         //Customers4
         //Page: AddRequest4On
         [Authorize]
-        public ActionResult AddRequestOn(int id, string Structure)
+        //public ActionResult AddRequestOn(int id, string Structure)
+        //{
+        //    if (!User.IsInRole("Ride " + id.ToString()) && !User.IsInRole("Relief Ride " + id.ToString()))
+        //    {
+        //        return View("Unauthorized");
+        //    }
+        //    ViewData["Status"] = _ditchRiderRepo.Status().Select(s => new SelectListItem() { Text = s.RequestStatusName, Value = s.RequestStatusName }).ToList();
+        //    var std = _ditchRiderRepo.Customers(id).Where(s => s.Structure == Structure).FirstOrDefault();
+
+        //    return View(std);
+        //}
+        public ActionResult AddRequestOn(int id, string Structure, string lateral)
         {
             if (!User.IsInRole("Ride " + id.ToString()) && !User.IsInRole("Relief Ride " + id.ToString()))
             {
                 return View("Unauthorized");
             }
-            ViewData["S"] = _ditchRiderRepo.Status().Select(s => new SelectListItem() { Text = s.RequestStatusName, Value = s.RequestStatusName }).ToList();
-            var std = _ditchRiderRepo.Customers(id).Where(s => s.Structure == Structure).FirstOrDefault();
+            ViewData["Status"] = _ditchRiderRepo.Status().Select(s => new SelectListItem() { Text = s.RequestStatusName, Value = s.RequestStatusName }).ToList();       
+            ViewData["Today"] = _ditchRiderRepo.WaterCFS_TodayByCanal(lateral);
+            ViewData["Tomorrow"] = _ditchRiderRepo.WaterCFS_NextDayByCanal(lateral);
+            var std = _ditchRiderRepo.Customers(id).Where(s => s.Structure == Structure).FirstOrDefault();              
+            
             return View(std);
         }
         //AddRequest_4On()
@@ -487,6 +531,7 @@ namespace KlamathIrrigationDistrict.Controllers
             DateTime CustomerDate1 = ditchriderrequests.CustomerDate1;
             int CustomerCFS1 = ditchriderrequests.CustomerCFS1;
             string CustomerComments1 = ditchriderrequests.CustomerComments1;
+            //string Ride = ditchriderrequests.Ride;
             int Ride = ditchriderrequests.Ride;
             string RequestStatus1 = ditchriderrequests.RequestStatus1;
             _ditchRiderRepo.AddRequest_On(ditchriderrequests);
@@ -531,13 +576,15 @@ namespace KlamathIrrigationDistrict.Controllers
         //Page: _AddRequest4Off
         [Authorize]
         //[HttpGet]
-        public ActionResult _AddRequestOff(int id, int RequestID)
+        public ActionResult _AddRequestOff(int id, int RequestID, string lateral)
         {
             if (!User.IsInRole("Ride " + id.ToString()) && !User.IsInRole("Relief Ride " + id.ToString()))
             {
                 return View("Unauthorized");
             }
-            ViewData["S"] = _ditchRiderRepo.Status().Select(s => new SelectListItem() { Text = s.RequestStatusName, Value = s.RequestStatusName }).ToList();
+            ViewData["Status"] = _ditchRiderRepo.Status().Select(s => new SelectListItem() { Text = s.RequestStatusName, Value = s.RequestStatusName }).ToList();
+            ViewData["Today"] = _ditchRiderRepo.WaterCFS_TodayByCanal(lateral);
+            ViewData["Tomorrow"] = _ditchRiderRepo.WaterCFS_NextDayByCanal(lateral);
             var std = _ditchRiderRepo.ViewCustomersWithWater_On(id).Where(s => s.RequestID == RequestID).FirstOrDefault();
             return View(std);
         }
@@ -571,16 +618,29 @@ namespace KlamathIrrigationDistrict.Controllers
             {
                 return View("Unauthorized");
             }
-            int data = _ditchRiderRepo.WaterCFS_NextDayByCanal(lateral);
-            //Added
-            int tomorrow = _ditchRiderRepo.WaterCFS_TodayByCanal(lateral);
-            //keep
+            int Today = _ditchRiderRepo.WaterCFS_TodayByCanal(lateral);
+            int Tomorrow = _ditchRiderRepo.WaterCFS_NextDayByCanal(lateral);
             DitchRiderRequests r = new DitchRiderRequests();
             r.Lateral = lateral;
-            r.CustomerCFS1 = data;
-            r.CustomerCFS2 = tomorrow;
+            r.TodayCFS = Today;
+            r.TomorrowCFS = Tomorrow;
             return View(r);
-        }            
+        }
+        //Partial View for Ditch Riders to see what is in a canal when adding water
+        [HttpGet]
+        public ActionResult _CanalWater(int id)
+        {
+            if (!User.IsInRole("Ride " + id.ToString()) && !User.IsInRole("Relief Ride " + id.ToString()))
+            {
+                return View("Unauthorized");
+            }
+            DitchRiderRequests r = new DitchRiderRequests();
+            return View(r);
+        }
+
+
+
+
 
         //OutputCache 
         //ViewRequests4()
@@ -614,6 +674,11 @@ namespace KlamathIrrigationDistrict.Controllers
             };
             return ViewRequests(RequestID);
         }
+        
+        
+
+
+
 
         //Unauthorized View
         public ActionResult Unauthorized()
@@ -626,64 +691,65 @@ namespace KlamathIrrigationDistrict.Controllers
         //CustomerHistory
         [Authorize]
         [HttpGet]
-        //public ActionResult CustomerHistory(int id, int CustomerID, int? page)
-        //{
-        //    if(!User.IsInRole("Ride " + id.ToString()) && !User.IsInRole("Relief Ride " + id.ToString()))
-        //    {
-        //        return View("Unauthorized");
-        //    }
-        //    int pageSize = 25;
-        //    int pageIndex = 1;
-        //    pageIndex = page.HasValue ? Convert.ToInt32(page) : 1;
-        //    IPagedList<DitchRiderRequests> ditchRider = null;
-        //    DitchRidersRepository repository = new DitchRidersRepository();
-        //    DitchRiderRequests ditchriderrequests = new DitchRiderRequests();
-        //    List<DitchRiderRequests> obditchriderlist = new List<DitchRiderRequests>();
-        //    obditchriderlist = repository.ViewCustomersHistory(id);
-        //    ditchriderrequests.ditchriderrequests = obditchriderlist;
-        //    ditchRider = obditchriderlist.Where(s => s.CustomerID == CustomerID).ToPagedList(pageIndex, pageSize);
-        //    return View(ditchRider);
-        //}
-        public ActionResult CustomerHistory(int id, int CustomerID)
+        public ActionResult CustomerHistory(int id, int CustomerID, int? page)
         {
             if (!User.IsInRole("Ride " + id.ToString()) && !User.IsInRole("Relief Ride " + id.ToString()))
             {
                 return View("Unauthorized");
             }
-            var std = _ditchRiderRepo.ViewCustomersHistory(id).Where(s => s.CustomerID == CustomerID).FirstOrDefault();
-            return View(std);
+            int pageSize = 15;
+            int pageIndex = 1;
+            pageIndex = page.HasValue ? Convert.ToInt32(page) : 1;
+            IPagedList<DitchRiderRequests> ditchRider = null;
+            DitchRidersRepository repository = new DitchRidersRepository();
+            DitchRiderRequests ditchriderrequests = new DitchRiderRequests();
+            List<DitchRiderRequests> obditchriderlist = new List<DitchRiderRequests>();
+            obditchriderlist = repository.ViewCustomersHistory(id);
+            ditchriderrequests.ditchriderrequests = obditchriderlist;
+            ditchRider = obditchriderlist.Where(s => s.CustomerID == CustomerID).ToPagedList(pageIndex, pageSize);
+            return View(ditchRider);
         }
+        //public ActionResult CustomerHistory(int id, int CustomerID)
+        //{
+        //    if (!User.IsInRole("Ride " + id.ToString()) && !User.IsInRole("Relief Ride " + id.ToString()))
+        //    {
+        //        return View("Unauthorized");
+        //    }
+        //    var std = _ditchRiderRepo.ViewCustomersHistory(id).Where(s => s.CustomerID == CustomerID).FirstOrDefault();
+        //    return View(std);
+        //}
         //Customer Recent History
         //ViewCustomersRecentHistory
         //CustomerRHistory
         [Authorize]
         [HttpGet]
-        //public ActionResult CustomerRHistory(int id, int CustomerID, int? page)
-        //{
-        //    if(!User.IsInRole("Ride " + id.ToString()) && !User.IsInRole("Relief Ride " + id.ToString()))
-        //    {
-        //        return View("Unauthorized");
-        //    }
-        //    int pageSize = 25;
-        //    int pageIndex = 1;
-        //    pageIndex = page.HasValue ? Convert.ToInt32(page) : 1;
-        //    IPagedList<DitchRiderRequests> ditchRider = null;
-        //    DitchRidersRepository repository = new DitchRidersRepository();
-        //    DitchRiderRequests ditchriderrequests = new DitchRiderRequests();
-        //    List<DitchRiderRequests> obditchriderlist = new List<DitchRiderRequests>();
-        //    obditchriderlist = repository.ViewCustomersRecentHistory(id);
-        //    ditchriderrequests.ditchriderrequests = obditchriderlist;
-        //    ditchRider = obditchriderlist.Where(s => s.CustomerID == CustomerID).ToPagedList(pageIndex, pageSize);
-        //    return View(ditchRider);
-        //}
-        public ActionResult CustomerRHistory(int id, int CustomerID)
+        public ActionResult CustomerRHistory(int id, int CustomerID, int? page)
         {
             if (!User.IsInRole("Ride " + id.ToString()) && !User.IsInRole("Relief Ride " + id.ToString()))
             {
                 return View("Unauthorized");
             }
-            var std = _ditchRiderRepo.ViewCustomersRecentHistory(id).Where(s => s.CustomerID == CustomerID).FirstOrDefault();
-            return View(std);
+            int pageSize = 15;
+            int pageIndex = 1;
+            pageIndex = page.HasValue ? Convert.ToInt32(page) : 1;
+            IPagedList<DitchRiderRequests> ditchRider = null;
+            DitchRidersRepository repository = new DitchRidersRepository();
+            DitchRiderRequests ditchriderrequests = new DitchRiderRequests();
+            List<DitchRiderRequests> obditchriderlist = new List<DitchRiderRequests>();
+            obditchriderlist = repository.ViewCustomersRecentHistory(id);
+            ditchriderrequests.ditchriderrequests = obditchriderlist;
+            ditchRider = obditchriderlist.Where(s => s.CustomerID == CustomerID).ToPagedList(pageIndex, pageSize);
+            return View(ditchRider);
         }
+        //public ActionResult CustomerRHistory(int id, int CustomerID)
+        //{
+        //    if (!User.IsInRole("Ride " + id.ToString()) && !User.IsInRole("Relief Ride " + id.ToString()))
+        //    {
+        //        return View("Unauthorized");
+        //    }            
+        //    var std = _ditchRiderRepo.ViewCustomersRecentHistory(id).Where(s => s.CustomerID == CustomerID).FirstOrDefault();          
+            
+        //    return View(std);
+        //}
     }
 }

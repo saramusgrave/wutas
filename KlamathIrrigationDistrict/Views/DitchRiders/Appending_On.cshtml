@@ -2,7 +2,6 @@
 @*@using PagedList.Mvc;
 @model PagedList.IPagedList<DitchRiderRequests>*@
 @model List<DitchRiderRequests>
-
 @{
     ViewBag.Title = "KID D.R.: Appending Request Water On";
     Layout = "~/Views/Shared/DitchRidersMenue.cshtml";
@@ -15,6 +14,7 @@
             <th>@Html.Label("Date")</th>
             <th>@Html.Label("Name")</th>
             <th>@Html.Label("Turn Out")</th>
+            <th>@Html.Label("Lateral")</th>
             <th>@Html.Label("CFS")</th>
             <th>@Html.Label("Status")</th>
             <th colspan="2">@Html.Label("Comments")</th>
@@ -22,13 +22,14 @@
         @for (int i = 0; i < Model.Count; i++)
         {
             <tr>
-                <td>@Model[i].CustomerDate1.ToShortDateString()</td>
+                <td>@Model[i].CustomerDate1</td>
                 <td>@Model[i].CustomerName</td>
                 <td>@Model[i].Structure</td>
+                <td>@Model[i].Lateral</td>
                 <td>@Model[i].CustomerCFS1</td>
                 <td>@Model[i].RequestStatus1</td>
                 <td>@Model[i].CustomerComments1</td>
-                <td>@Html.ActionLink("Status", "EditRequestStatus_On", new { @RequestID = Model[i].RequestID, @id = Url.RequestContext.RouteData.Values["id"] }) </td>
+                <td>@Html.ActionLink("Status", "EditRequestStatus_On", new { @RequestID = Model[i].RequestID, @id = Url.RequestContext.RouteData.Values["id"], @Lateral = Model[i].Lateral }) </td>
             </tr>
         }
     </table>

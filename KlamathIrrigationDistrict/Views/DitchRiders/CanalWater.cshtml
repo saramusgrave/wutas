@@ -8,19 +8,18 @@
     @using (Html.BeginForm())
     {
         <table class="ActiveRequests">
-            <caption>Enter Canal</caption>
+            <caption>Canal CFS Level</caption>
             <tr>
                 <th>@Html.Label("Canal")</th>
                 <th>@Html.Label("Today's CFS")</th>
-                <th>@Html.Label("Tomoorow's CFS")</th>
+                <th>@Html.Label("Tomorrow's CFS")</th>
             </tr>
             <tr>
                 <td>@Html.TextBoxFor(s => s.Lateral)</td>
-                <td>@Model.CustomerCFS2</td>
-                <td>@Model.CustomerCFS1</td>
+                <td>@Model.TodayCFS</td>
+                <td>@Model.TomorrowCFS</td>
             </tr>
-        </table>
-        
+        </table>        
         <div>
             <button type="submit">Submit</button>
         </div>        

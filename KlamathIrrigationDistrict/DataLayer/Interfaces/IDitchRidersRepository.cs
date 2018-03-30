@@ -12,6 +12,8 @@ namespace KlamathIrrigationDistrict.DataLayer.Interfaces
         List<DitchRiderRequests> Status();
         //Used to get Drop Down From SQL Ditch Rider Comments
         List<DitchRiderRequests> Comments();
+        //Used to get Drop Down From SQL Violations
+        List<DitchRiderRequests> Violations();
         //View Customers on Ride 
         List<DitchRiderRequests> Customers(int id);
         //View Active Requests on for Ride 

@@ -44,7 +44,8 @@ function SearchCustomersFn()
 		}     		
 	}
 }
-function SearchCustomers2Fn() {
+function SearchCustomers2Fn()
+{
     var input, filter, table, tr, td, i;
     input = document.getElementById("SearchCustomers");
     filter = input.value.toUpperCase();
@@ -87,3 +88,19 @@ function SearchCustomers2Fn() {
 //        }
 //    }
 //}
+
+//Attentp at drop down box to text box
+////$(document).ready(function OtherFn()
+////{
+////    $('#Comments').change(function OtherFn()
+////    {
+////        if($('#Comments').val() == 'Other')
+////        {
+////            $('#Other').show();
+////        }
+////        else 
+////        {
+////            $('#Other').hide();
+////        }
+////    });
+////})

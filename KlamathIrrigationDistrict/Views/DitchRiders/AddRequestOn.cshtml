@@ -6,35 +6,35 @@
 }
 <body>
     <a href="@Url.Action("Customers", "DitchRiders")/@Url.RequestContext.RouteData.Values["id"]" class="previous"><br />&laquo; Customers</a>
-    <div style="overflow-x: auto;">
-        <table class="ActiveRequests">
+@using (Html.BeginForm())
+{
+       <table class="ActiveRequests">
             <caption>Add Requests(On)</caption>
             <tr>
-                <th>@Html.Label("Request Date")</th>
-                <th>@Html.Label("Customer Name")</th>
-                <th>@Html.Label("Turn Out")</th>
-                <th>@Html.Label("CFS Requested")</th>
-                <th colspan="2">@Html.Label("Status")</th>
-                @*<th colspan="2">@Html.Label("Customer Comments")</th>*@
+                <th>@Html.Label("Name")</th>
+                <th>@Html.Label("Date")</th>
+                <th>@Html.Label("CFS")</th>
+                <th>@Html.Label("Turnout")</th>
+                <th>@Html.Label("Comments")</th>
+                <th>@Html.Label("Status")</th>
             </tr>
-            <tr>
-                @using (Html.BeginForm())
-                {
-                    @Html.HiddenFor(m => m.RequestID)
-                    @Html.HiddenFor(m => m.TimeStampCustomer1)
-                    @Html.HiddenFor(m => m.CustomerID)
-                    @Html.HiddenFor(m => m.CustomerName)
-                    @Html.HiddenFor(m => m.Ride, new { @Value = Url.RequestContext.RouteData.Values["id"]})
-                    @Html.HiddenFor(m => m.CustomerComments1, new { @Value = "Made By" + User.Identity.Name})
-                    <td>@Html.TextBoxFor(m => m.CustomerDate1, new { @type = "datetime-local" })</td>
-                    <td>@Html.DisplayTextFor(m => m.CustomerName)</td>
-                    <td>@Html.DisplayTextFor(m => m.Structure)</td>
-                    <td>@Html.TextBoxFor(m => m.CustomerCFS1, new { @type = "number" })</td>
-                    <td>@Html.DropDownListFor(m => m.RequestStatus1, ViewData["S"] as IEnumerable<SelectListItem>, "--Select--") </td>
-                    @*<td>@Html.TextBoxFor(m => m.CustomerComments1, new { @Value = "Made By " + User.Identity.Name })</td>*@
-                    <td><button type="submit">Add</button></td>
-                }
+            <tr>               
+                @Html.HiddenFor(m => m.RequestID)
+                @Html.HiddenFor(m => m.TimeStampCustomer1)
+                @Html.HiddenFor(m => m.CustomerID)
+                @Html.HiddenFor(m => m.CustomerName)
+                @Html.HiddenFor(m => m.Ride, new { @Value = Url.RequestContext.RouteData.Values["id"] })
+                <td>@Html.DisplayTextFor(m => m.CustomerName)</td>
+                <td>@Html.TextBoxFor(m => m.CustomerDate1, new { @type = "datetime-local" })</td>
+                <td>@Html.TextBoxFor(m => m.CustomerCFS1, new { @type = "number" })</td>
+                <td>@Html.DisplayTextFor(m => m.Structure)</td>
+                <td>@Html.TextBoxFor(m => m.CustomerComments1, new { @Value = "Made By" + User.Identity.Name })</td>
+                <td>@Html.DropDownListFor(m => m.RequestStatus1, ViewData["Status"] as IEnumerable<SelectListItem>, "--Select--") </td>    
             </tr>
         </table>
-    </div>
+        <div>
+            <button type="submit">Add</button>
+        </div>
+}
+    @Html.Partial("_CanalWater")
 </body>

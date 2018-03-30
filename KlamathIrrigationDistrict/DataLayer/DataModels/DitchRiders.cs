@@ -32,11 +32,9 @@ namespace KlamathIrrigationDistrict.DataLayer.DataModels
         public string RequestStatus2 { get; set; }
         public int StaffCFS2 { get; set; }
         public string StaffComments2 { get; set; }
-        public DateTime _Getdate = DateTime.Now;
-        public List<DitchRiderRequests> ditchriderrequests { get; set; }
-        //adding 
         public string Lateral { get; set; }
         public int Ride { get; set; }
+        //public string Ride {get;set;}
         public float TotalAllotment { get; set; }
         public int CustomerMTLHisID { get; set;}
         public int CommentID { get; set; }
@@ -44,9 +42,18 @@ namespace KlamathIrrigationDistrict.DataLayer.DataModels
         public int RequestStatusID { get; set; }
         public string RequestStatusName { get; set; }
         public float CurrentAllotment { get; set; }
+        public int AcresFeet { get; set; }
+        public int ViolationID { get; set; }
+        public string Violation { get; set; }
+        public int TomorrowCFS { get; set; }
+        public int TodayCFS { get; set; }
+        public string X { get; set; }
         //Lists
         public List<DitchRiderRequests> Comments { get; set; }
         public List<DitchRiderRequests> Status { get; set; }
-        
+        public List<DitchRiderRequests> ditchriderrequests { get; set; }
+
+        //Actions
+        public DateTime _Getdate = DateTime.Now;
     }
 }

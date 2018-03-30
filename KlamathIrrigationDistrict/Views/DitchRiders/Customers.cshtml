@@ -8,7 +8,6 @@
 }
 <body>
     <input type="search" id="SearchCustomers" onkeyup="SearchCustomersFn()" placeholder="Search Customers by Name" title="Type in a name" />
-    <div style="overflow-x: auto;">
         <table class="ActiveRequests" id="ActiveRequests">
             <caption>Customers</caption>
             <tr>                
@@ -27,18 +26,17 @@
                     <td>@Model[i].CustomerName</td>
                     <td>@Model[i].Structure</td>
                     <td>@Model[i].Lateral</td>
-                    <td>@Model[i].CurrentAllotment</td>
-                    @*<td>@Model[i].TotalAllotment</td>*@                                       
-                    <td>@Html.ActionLink("On", "AddRequestOn", new { @Structure = Model[i].Structure, @id = Url.RequestContext.RouteData.Values["id"] })</td>
+                    @*<td>@Model[i].AcresFeet</td>*@
+                    <td>@Model[i].TotalAllotment</td>                                       
+                    <td>@Html.ActionLink("On", "AddRequestOn", new { @Structure = Model[i].Structure, @id = Url.RequestContext.RouteData.Values["id"], @Lateral = Model[i].Lateral})</td>
                     <td>@Html.ActionLink("History", "CustomerHistory", new { @CustomerID = Model[i].CustomerID, @id = Url.RequestContext.RouteData.Values["id"] })</td>
                     <td>@Html.ActionLink("Recent" , "CustomerRHistory", new { @CustomerID = Model[i].CustomerID, @id = Url.RequestContext.RouteData.Values["id"] })</td>
                     <td>1</td>
                 </tr>
             }
         </table>
-    </div>
     @*<div class="pagination" style="margin-left: 20px;">
         Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber)
-        of @Model.PageCount @Html.PagedListPager(Model, page => Url.Action("Customers4", new { page }))
+        of @Model.PageCount @Html.PagedListPager(Model, page => Url.Action("Customers", new { page }))
     </div><br />*@
 </body>

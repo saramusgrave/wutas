@@ -4,6 +4,11 @@
     ViewBag.Title = "KID D.R.: Turn On Water";
     Layout = "~/Views/Shared/DitchRidersMenue.cshtml";
 }
+<script>
+    function Comments(val) {
+        alert("The input value has changed. The new value is: " + val);
+    }
+</script>
 <body>
     <a href="@Url.Action("_ActiveRequestsOn", "DitchRiders")/@Url.RequestContext.RouteData.Values["id"]" class="previous"><br />&laquo; Request</a>
     @using (Html.BeginForm())
@@ -14,24 +19,33 @@
         <table class="ActiveRequests">
             <caption>Log Water</caption>
             <tr>
-                <th>@Html.Label("Customer Name")</th>
+                <th>@Html.Label("Name")</th>
                 <th>@Html.Label("Date")</th>
-                <th>@Html.Label("Status")</th>
-                <th>@Html.Label("CFS Requested")</th>
-                <th>@Html.Label("CFS Given")</th>
+                <th>@Html.Label("CFS")</th>
+                <th>@Html.Label("Turnout")</th>
                 <th>@Html.Label("Comments")</th>
+                <th>@Html.Label("Status")</th>
             </tr>
             <tr>
                 <td>@Html.DisplayTextFor(s => s.CustomerName)</td>
-                <td>@Html.TextBoxFor(s => s.StaffDate1, new { @type = "datetime-local"})</td>
-                <td>@Html.DropDownListFor(s => s.RequestStatus1, ViewData["S"] as IEnumerable<SelectListItem>, "Select")</td>
+                <td>@Html.DisplayTextFor(s => s.CustomerDate1)</td>
                 <td>@Html.DisplayTextFor(s => s.CustomerCFS1)</td>
-                <td>@Html.TextBoxFor(s => s.StaffCFS1, new { @type = "number" })</td>
-                <td>@Html.DropDownListFor(s => s.StaffComments1, ViewData["StaffComments2"] as IEnumerable<SelectListItem>, "Select")</td>
+                <td>@Html.DisplayTextFor(s => s.Structure)</td>
+                <td>@Html.DisplayTextFor(s => s.CustomerComments1)</td>
+                <td>@Html.DisplayTextFor(s => s.RequestStatus1)</td>
+            </tr>
+            <tr>
+                <td>@User.Identity.Name</td>
+                <td>@Html.TextBoxFor(s => s.StaffDate1, new { @type = "datetime-local"})</td>
+                <td colspan="2">@Html.TextBoxFor(s => s.StaffCFS1, new { @type = "number" })</td>
+                <td>@Html.DropDownListFor(s => s.StaffComments1, ViewData["Comments"] as IEnumerable<SelectListItem>)</td>
+                @*<td>@Html.TextAreaFor(s => s.StaffComments1)</td>*@
+                <td>@Html.DropDownListFor(s => s.RequestStatus1, ViewData["Status"] as IEnumerable<SelectListItem>, "--Select--")</td>
             </tr>
         </table>        
         <div>
             <button type="submit">Submit</button>
         </div>
     }
+    @Html.Partial("_CanalWater")
 </body>

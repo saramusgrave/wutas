@@ -1,15 +1,12 @@
 ﻿@using KlamathIrrigationDistrict.DataLayer.DataModels
-@*@using PagedList.Mvc;
-@model PagedList.IPagedList<DitchRiderRequests>*@
-@model List<DitchRiderRequests>
-
+@using PagedList.Mvc;
+@model PagedList.IPagedList<DitchRiderRequests>
 @{
     ViewBag.Title = "KID D.R.: Completed Requests";
     Layout = "~/Views/Shared/DitchRidersMenue.cshtml";
 }
 <body>
     <a href="@Url.Action("Customers", "DitchRiders")/@Url.RequestContext.RouteData.Values["id"]" class="previous"><br />&laquo; Customers</a>
-    <div style="overflow-x: auto;">
         <table class="ActiveRequests">
             <caption>Customer History (On)</caption>
             <tr>
@@ -38,12 +35,11 @@
                 </tr>
             }
         </table>
-    </div>
-    @*<div class="pagination" style="margin-left: 20px;">
+    <div class="pagination" style="margin-left: 20px;">
         Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber)
         of @Model.PageCount @Html.PagedListPager(Model, page => Url.Action("CustomerHistory", new { page }))
-    </div>*@
-    <table class="ActiveRequests" style="overflow-x: auto;">
+    </div>
+    <table class="ActiveRequests">
         <caption>Customer History (off)</caption>
         <tr>
             <th>@Html.Label("Date")</th>
@@ -59,20 +55,20 @@
         @for (int i = 0; i < Model.Count; i++)
         {
             <tr>
-                <td>@Model[i].CustomerDate2.ToShortDateString()</td>
+                <td>@Model[i].CustomerDate2</td>
                 <td>@Model[i].CustomerName</td>
                 <td>@Model[i].Structure</td>
                 <td>@Model[i].CustomerCFS2</td>
                 <td id="RBorder">@Model[i].CustomerComments2</td>
                 <td>@Model[i].Staff2</td>
-                <td>@Model[i].StaffDate2.ToShortDateString()</td>
+                <td>@Model[i].StaffDate2</td>
                 <td>@Model[i].StaffCFS2</td>
                 <td>@Model[i].StaffComments2</td>
             </tr>
         }
     </table>
-    @*<div class="pagination" style="margin-left: 20px;">
+    <div class="pagination" style="margin-left: 20px;">
         Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber)
         of @Model.PageCount @Html.PagedListPager(Model, page => Url.Action("CustomerHistory", new { page }))
-    </div>*@
+    </div>
 </body>

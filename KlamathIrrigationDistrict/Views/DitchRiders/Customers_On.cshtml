@@ -9,7 +9,6 @@
 }
 <body>
     <input type="text" id="SearchCustomers" onkeyup="SearchCustomersFn()" placeholder="Search Customers by Name" title="Type in a name" />
-    <div style="overflow-x: auto;">
         <table class="ActiveRequests" id="ActiveRequests">
             <caption>Customers who are currently running water</caption>
             <tr>
@@ -29,12 +28,11 @@
                     <td>@Model[i].Lateral</td>
                     <td>@Model[i].TotalAllotment</td>
                     <td>@Model[i].StaffCFS1</td>
-                    <td>@Model[i].StaffDate1.ToShortDateString()</td>
-                    <td>@Html.ActionLink("Off", "_AddRequestOff", new { @RequestID = Model[i].RequestID, @id = Url.RequestContext.RouteData.Values["id"] })</td>
+                    <td>@Model[i].StaffDate1</td>
+                    <td>@Html.ActionLink("Off", "_AddRequestOff", new { @RequestID = Model[i].RequestID, @id = Url.RequestContext.RouteData.Values["id"], @Lateral = Model[i].Lateral })</td>
                 </tr>
             }
         </table>
-    </div>
     @*<div class="pagination" style="margin-left: 20px;">
         Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber)
         of @Model.PageCount @Html.PagedListPager(Model, page => Url.Action("Customers_On", new { page }))

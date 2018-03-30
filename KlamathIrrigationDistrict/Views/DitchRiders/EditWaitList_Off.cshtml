@@ -14,39 +14,32 @@
         <table class="ActiveRequests">
             <caption>Waitlist Request Off</caption>
             <tr>
-                <th>@Html.Label("Request Date")</th>
                 <th>@Html.Label("Name")</th>
-                <th>@Html.Label("Turn Out")</th>
-                <th>@Html.Label("CFS")</th>
-                <th>@Html.Label("Status")</th>
-                <th>@Html.Label("Comments")</th>
-            </tr>
-            <tr>
-                <td>@Html.DisplayTextFor(s => s.CustomerDate2)</td>
-                <td>@Html.DisplayTextFor(s => s.CustomerName)</td>
-                <td>@Html.DisplayTextFor(s => s.Structure)</td>
-                <td>@Html.DisplayTextFor(s => s.CustomerCFS2)</td>
-                <td>@Html.DisplayTextFor(s => s.RequestStatus2)</td>
-                <td>@Html.DisplayTextFor(s => s.CustomerComments2)</td>
-            </tr>
-        </table>
-        <table class="ActiveRequests">
-            <caption>Turn Off Water</caption>
-            <tr>
                 <th>@Html.Label("Date")</th>
                 <th>@Html.Label("CFS")</th>
-                <th>@Html.Label("Status")</th>
+                <th>@Html.Label("Turnout")</th>
                 <th>@Html.Label("Comments")</th>
+                <th>@Html.Label("Staff")</th>
             </tr>
             <tr>
-                <td>@Html.TextBoxFor(s => s.StaffDate2, new { @type = "date" })</td>
-                <td>@Html.TextBoxFor(s => s.StaffCFS2, new { @type = "number" })</td>
-                <td>@Html.DropDownListFor(s => s.RequestStatus2, ViewData["S"] as IEnumerable<SelectListItem>, "Select")</td>
-                <td>@Html.DropDownListFor(s => s.StaffComments2, ViewData["StaffComments2"] as IEnumerable<SelectListItem>, "Select")</td>
+                <td>@Html.DisplayTextFor(s => s.CustomerName)</td>
+                <td>@Html.DisplayTextFor(s => s.CustomerDate2)</td>
+                <td>@Html.DisplayTextFor(s => s.CustomerCFS2)</td>
+                <td>@Html.DisplayTextFor(s => s.Structure)</td>
+                <td>@Html.DisplayTextFor(s => s.CustomerComments2)</td>
+                <td>@Html.DisplayTextFor(s => s.RequestStatus2)</td>
+            </tr>
+            <tr>
+                <td>@User.Identity.Name</td>
+                <td>@Html.TextBoxFor(s => s.StaffDate2, new { @type = "datetime-local" })</td>
+                <td colspan="2">@Html.TextBoxFor(s => s.StaffCFS2, new { @type = "number" })</td>
+                <td>@Html.DropDownListFor(s => s.StaffComments2, ViewData["Comments"] as IEnumerable<SelectListItem>)</td>
+                <td>@Html.DropDownListFor(s => s.RequestStatus2, ViewData["Status"] as IEnumerable<SelectListItem>, "--Select--")</td>
             </tr>
         </table>
         <div>
             <button type="submit">Submit</button>
         </div>
     }
+    @Html.Partial("_CanalWater")
 </body>
