@@ -471,6 +471,7 @@ input[type=TrackingID]
 {
 	max-width: 60px;
 }
+
 #RBorder
 {
 	border-right: 1px solid #08ccff;
@@ -572,7 +573,11 @@ a:visited
     {
         width: 100%;
     }
-   
+   input[type=search]
+    {
+        min-width: 200px;
+        color: blue;
+    }
 }
 
 /*Log In Page*/

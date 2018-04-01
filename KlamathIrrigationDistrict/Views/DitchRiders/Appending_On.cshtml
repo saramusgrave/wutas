@@ -1,13 +1,11 @@
 ﻿@using KlamathIrrigationDistrict.DataLayer.DataModels
-@*@using PagedList.Mvc;
-@model PagedList.IPagedList<DitchRiderRequests>*@
 @model List<DitchRiderRequests>
 @{
     ViewBag.Title = "KID D.R.: Appending Request Water On";
     Layout = "~/Views/Shared/DitchRidersMenue.cshtml";
 }
 <body>
-    <input type="text" id="SearchCustomers" onkeyup="SearchCustomers2Fn()" placeholder="Search Customers by Name" title="Type in a name" />
+    <input type="search" id="SearchCustomers" onkeyup="SearchCustomers2Fn()" placeholder="Search Customers by Name" title="Type in a name" />
     <table class="ActiveRequests" id="ActiveRequests">
         <caption>Pending Requests (On)</caption>
         <tr>
@@ -33,8 +31,4 @@
             </tr>
         }
     </table>
-    @*<div class="pagination" style="margin-left: 20px;">
-        Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber)
-        of @Model.PageCount @Html.PagedListPager(Model, page => Url.Action("Appending_On", new { page }))
-    </div><br />*@
 </body>

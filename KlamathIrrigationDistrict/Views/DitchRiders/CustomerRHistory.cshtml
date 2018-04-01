@@ -1,7 +1,6 @@
 ﻿@using KlamathIrrigationDistrict.DataLayer.DataModels
 @using PagedList.Mvc;
 @model PagedList.IPagedList<DitchRiderRequests>
-@*@model List<DitchRiderRequests>*@
 @{
     ViewBag.Title = "KID D.R.: Completed Requests";
     Layout = "~/Views/Shared/DitchRidersMenue.cshtml";
@@ -38,7 +37,7 @@
         </table>
     <div class="pagination" style="margin-left: 20px;">
         Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber)
-        of @Model.PageCount @Html.PagedListPager(Model, page => Url.Action("CustomerHistory", new { page }))
+        of @Model.PageCount @Html.PagedListPager(Model, page => Url.Action("CustomerHistory", new { page, @CustomerID = ViewData["CID"] }))
     </div>
     <table class="ActiveRequests">
         <caption>Past 3 Days (Off)</caption>
@@ -70,6 +69,6 @@
     </table>
     <div class="pagination" style="margin-left: 20px;">
         Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber)
-        of @Model.PageCount @Html.PagedListPager(Model, page => Url.Action("CustomerHistory", new { page }))
+        of @Model.PageCount @Html.PagedListPager(Model, page => Url.Action("CustomerHistory", new { page, @CustomerID = ViewData["CID"] }))
     </div>
 </body>

@@ -14,6 +14,8 @@ namespace KlamathIrrigationDistrict.DataLayer.Interfaces
         List<DitchRiderRequests> Comments();
         //Used to get Drop Down From SQL Violations
         List<DitchRiderRequests> Violations();
+        //Used to get Drop Down From SQL Canals
+        List<DitchRiderRequests> Canals();
         //View Customers on Ride 
         List<DitchRiderRequests> Customers(int id);
         //View Active Requests on for Ride 
@@ -53,9 +55,11 @@ namespace KlamathIrrigationDistrict.DataLayer.Interfaces
         void EditRequestStatus1_On(DitchRiderRequests ditchriderrequests);
         //Edit RequestStatus2
         void EditRequestStatus2_Off(DitchRiderRequests ditchriderrequests);
+        //Violations
+        void Violations(DitchRiderRequests ditchriderrequests);
         //Store procedure to view how much is in a canal for tomorrow
-        int WaterCFS_NextDayByCanal(string lateral);
+        float WaterCFS_NextDayByCanal(string lateral);
         //Stored procedure to view how much CFS is in canal for today
-        int WaterCFS_TodayByCanal(string lateral);
+        float WaterCFS_TodayByCanal(string lateral);
     }
 }

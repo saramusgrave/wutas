@@ -22,23 +22,38 @@
             </tr>
             @for (int i = 0; i < Model.Count; i++)
             {
+                @Html.Hidden(Model[i].CustomerID.ToString())
                 <tr>
-                    <td>@Model[i].CustomerDate1.ToShortDateString()</td>
+                    <td>@Model[i].CustomerDate1</td>
                     <td>@Model[i].CustomerName</td>
                     <td>@Model[i].Structure</td>
                     <td>@Model[i].CustomerCFS1</td>
                     <td id="RBorder">@Model[i].CustomerComments1</td>
                     <td>@Model[i].Staff1</td>
-                    <td>@Model[i].StaffDate1.ToShortDateString()</td>
-                    <td>@Model[i].StaffCFS1</td>
+                    @if (Model[i].StaffDate1 != Model[i].CustomerDate1)
+                    {
+                        <td style="color: red;">@Model[i].StaffDate1</td>
+                    }
+                    @if (Model[i].StaffDate1 == Model[i].CustomerDate1)
+                    {
+                        <td>@Model[i].StaffDate1</td>
+                    }
+                    @if (Model[i].StaffCFS1 != Model[i].CustomerCFS1)
+                    {
+                        <td style="color: red;">@Model[i].StaffCFS1</td>
+                    }
+                    @if (Model[i].StaffCFS1 == Model[i].CustomerCFS1)
+                    {
+                        <td>@Model[i].StaffCFS1</td>
+                    }
                     <td>@Model[i].StaffComments1</td>
                 </tr>
-            }
+            }                           
         </table>
-    <div class="pagination" style="margin-left: 20px;">
-        Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber)
-        of @Model.PageCount @Html.PagedListPager(Model, page => Url.Action("CustomerHistory", new { page }))
-    </div>
+        <div class="pagination" style="margin-left: 20px;">           
+            Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber)
+        of @Model.PageCount @Html.PagedListPager(Model, page => Url.Action("CustomerHistory", new { page, @CustomerID = ViewData["CID"] }))
+        </div>    
     <table class="ActiveRequests">
         <caption>Customer History (off)</caption>
         <tr>
@@ -54,6 +69,7 @@
         </tr>
         @for (int i = 0; i < Model.Count; i++)
         {
+            @Html.Hidden(Model[i].CustomerID.ToString())
             <tr>
                 <td>@Model[i].CustomerDate2</td>
                 <td>@Model[i].CustomerName</td>
@@ -61,7 +77,14 @@
                 <td>@Model[i].CustomerCFS2</td>
                 <td id="RBorder">@Model[i].CustomerComments2</td>
                 <td>@Model[i].Staff2</td>
-                <td>@Model[i].StaffDate2</td>
+                @if (Model[i].StaffDate2 != Model[i].CustomerDate2)
+                {
+                    <td style="color: red;">@Model[i].StaffDate2</td>
+                }
+                @if (Model[i].StaffDate2 == Model[i].CustomerDate2)
+                {
+                    <td>@Model[i].StaffDate2</td>
+                }
                 <td>@Model[i].StaffCFS2</td>
                 <td>@Model[i].StaffComments2</td>
             </tr>
@@ -69,6 +92,7 @@
     </table>
     <div class="pagination" style="margin-left: 20px;">
         Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber)
-        of @Model.PageCount @Html.PagedListPager(Model, page => Url.Action("CustomerHistory", new { page }))
+        of @Model.PageCount @Html.PagedListPager(Model, page => Url.Action("CustomerHistory", new { page,
+                           @CustomerID = ViewData["CID"] }))
     </div>
 </body>

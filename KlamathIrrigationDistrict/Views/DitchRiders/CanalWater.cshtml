@@ -7,7 +7,7 @@
 <body>
     @using (Html.BeginForm())
     {
-        <table class="ActiveRequests">
+        <table class="ActiveRequests" style="width: 500px;">
             <caption>Canal CFS Level</caption>
             <tr>
                 <th>@Html.Label("Canal")</th>
@@ -15,7 +15,7 @@
                 <th>@Html.Label("Tomorrow's CFS")</th>
             </tr>
             <tr>
-                <td>@Html.TextBoxFor(s => s.Lateral)</td>
+                <td>@Html.DropDownListFor(s => s.Lateral, ViewData["Lateral"] as IEnumerable<SelectListItem>, "--Select--")</td>
                 <td>@Model.TodayCFS</td>
                 <td>@Model.TomorrowCFS</td>
             </tr>

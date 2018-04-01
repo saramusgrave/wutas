@@ -2,13 +2,12 @@
 @*@using PagedList.Mvc;
 @model PagedList.IPagedList<DitchRiderRequests>*@
 @model List<DitchRiderRequests>
-
 @{
     ViewBag.Title = "KID D.R.: Customers With Water On";
     Layout = "~/Views/Shared/DitchRidersMenue.cshtml";
 }
 <body>
-    <input type="text" id="SearchCustomers" onkeyup="SearchCustomersFn()" placeholder="Search Customers by Name" title="Type in a name" />
+    <input type="search" id="SearchCustomers" onkeyup="SearchCustomersFn()" placeholder="Search Customers by Name" title="Type in a name" />
         <table class="ActiveRequests" id="ActiveRequests">
             <caption>Customers who are currently running water</caption>
             <tr>
@@ -26,7 +25,14 @@
                     <td>@Model[i].CustomerName</td> 
                     <td>@Model[i].Structure</td>
                     <td>@Model[i].Lateral</td>
-                    <td>@Model[i].TotalAllotment</td>
+                    @if (Model[i].TotalAllotment < 0)
+                    {
+                        <td style="color: red;">@Model[i].TotalAllotment</td>
+                    }
+                    @if (Model[i].TotalAllotment > 0)
+                    {
+                        <td>@Model[i].TotalAllotment</td>
+                    }
                     <td>@Model[i].StaffCFS1</td>
                     <td>@Model[i].StaffDate1</td>
                     <td>@Html.ActionLink("Off", "_AddRequestOff", new { @RequestID = Model[i].RequestID, @id = Url.RequestContext.RouteData.Values["id"], @Lateral = Model[i].Lateral })</td>

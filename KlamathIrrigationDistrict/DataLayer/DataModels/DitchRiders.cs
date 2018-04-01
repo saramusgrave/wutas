@@ -8,29 +8,30 @@ namespace KlamathIrrigationDistrict.DataLayer.DataModels
     //Request tabel
     public class DitchRiderRequests
     {
+        
         public int RequestID { get; set; }
         public DateTime TimeStampCustomer1 { get { return _Getdate; } set { _Getdate = value; } }
         public DateTime CustomerDate1 { get; set; }
         public int CustomerID { get; set; }
         public string CustomerName { get; set; }
         public string Structure { get; set; }
-        public int CustomerCFS1 { get; set; }
+        public float CustomerCFS1 { get; set; }
         public string CustomerComments1 { get; set; }
         public DateTime TimeStampStaff1 { get {return _Getdate; } set { _Getdate = value; }}
         public string Staff1 { get; set; }
         public DateTime StaffDate1 { get; set; }
         public string RequestStatus1 { get; set; }
-        public int StaffCFS1 { get; set; }
+        public float StaffCFS1 { get; set; }
         public string StaffComments1 { get; set; }
         public DateTime TimeStampCustomer2 { get { return _Getdate; } set { _Getdate = value; } }
         public DateTime CustomerDate2 { get; set; }
-        public int CustomerCFS2 { get; set; }
+        public float CustomerCFS2 { get; set; }
         public string CustomerComments2 { get; set; }
         public DateTime TimeStampStaff2 { get { return _Getdate; } set { _Getdate = value; } }
         public string Staff2 { get; set; }
         public DateTime StaffDate2 { get; set; }
         public string RequestStatus2 { get; set; }
-        public int StaffCFS2 { get; set; }
+        public float StaffCFS2 { get; set; }
         public string StaffComments2 { get; set; }
         public string Lateral { get; set; }
         public int Ride { get; set; }
@@ -45,9 +46,10 @@ namespace KlamathIrrigationDistrict.DataLayer.DataModels
         public int AcresFeet { get; set; }
         public int ViolationID { get; set; }
         public string Violation { get; set; }
-        public int TomorrowCFS { get; set; }
-        public int TodayCFS { get; set; }
-        public string X { get; set; }
+        public float TomorrowCFS { get; set; }
+        public float TodayCFS { get; set; }
+        public int On { get; set; }
+
         //Lists
         public List<DitchRiderRequests> Comments { get; set; }
         public List<DitchRiderRequests> Status { get; set; }

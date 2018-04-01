@@ -6,36 +6,32 @@
 }
 <body>
     <a href="@Url.Action("Customers", "DitchRiders")/@Url.RequestContext.RouteData.Values["id"]" class="previous"><br />&laquo; Customers</a>
-@using (Html.BeginForm())
-{
-       <table class="ActiveRequests">
-            <caption>Add Requests(On)</caption>
+    @using (Html.BeginForm())
+    {
+        <table class="ActiveRequests">
+            <caption>Give a Violation</caption>
             <tr>
                 <th>@Html.Label("Name")</th>
                 <th>@Html.Label("Date")</th>
-                <th>@Html.Label("CFS")</th>
                 <th>@Html.Label("Turnout")</th>
                 <th>@Html.Label("Comments")</th>
-                <th>@Html.Label("Status")</th>
+                <th>@Html.Label("Violation")</th>
             </tr>
-            <tr>               
-                @Html.HiddenFor(m => m.RequestID)
-                @Html.HiddenFor(m => m.TimeStampCustomer1)
+            <tr>                
+                @Html.HiddenFor(m => m.TimeStampStaff1, new { @Value = DateTime.Now })
                 @Html.HiddenFor(m => m.CustomerID)
-                @Html.HiddenFor(m => m.CustomerName)
-                @Html.HiddenFor(m => m.Staff1, new { @Value = User.Identity.Name})
+                @Html.HiddenFor(m => m.Staff1, new { @Value = User.Identity.Name })
                 @Html.HiddenFor(m => m.Ride, new { @Value = Url.RequestContext.RouteData.Values["id"] })
                 <td>@Html.DisplayTextFor(m => m.CustomerName)</td>
-                <td>@Html.TextBoxFor(m => m.CustomerDate1, new { @type = "datetime-local" })</td>
-                <td>@Html.TextBoxFor(m => m.CustomerCFS1, new { @type = "number", @step = "0.001" } )</td>
+                <td>@Html.TextBoxFor(m => m.StaffDate1, new { @type = "datetime-local" })</td>
                 <td>@Html.DisplayTextFor(m => m.Structure)</td>
-                <td>@Html.TextBoxFor(m => m.CustomerComments1, new { @Value = "Made By" + User.Identity.Name })</td>
-                <td>@Html.DropDownListFor(m => m.RequestStatus1, ViewData["Status"] as IEnumerable<SelectListItem>, "--Select--") </td>    
+                <td>@Html.TextAreaFor(m => m.StaffComments1)</td>
+                <td>@Html.DropDownListFor(m => m.Violation, ViewData["Violations"] as IEnumerable<SelectListItem>, "--Select--") </td>
             </tr>
         </table>
         <div>
             <button type="submit">Add</button>
         </div>
-}
+    }
     @Html.Partial("_CanalWater")
 </body>
