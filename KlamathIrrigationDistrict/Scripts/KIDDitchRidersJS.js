@@ -1,10 +1,27 @@
 ﻿function ShowPassword() {
     var x = document.getElementById("psw");
-    if (x.type == "password") {
+    if (x.type == "password")
+    {
         x.type = "text";
     }
-    else {
+    else
+    {
         x.type = "password";
+    }
+}
+function chkind()
+{
+    var obj = document.getElementById("Comments");
+    var x = document.getElementById("Sub");
+    if (obj.options[obj.selectedIndex].text == "Other")
+    {
+        x.style.display = "block";
+        obj.innerHTML.valueOf("Other") + obj.options[obj.selectedIndex].text;
+    }
+    else
+    {
+        obj.style.display = "block";
+        x.style.display = "none";
     }
 }
 function ConfirmFn()
@@ -89,18 +106,3 @@ function SearchCustomers2Fn()
 //    }
 //}
 
-//Attentp at drop down box to text box
-////$(document).ready(function OtherFn()
-////{
-////    $('#Comments').change(function OtherFn()
-////    {
-////        if($('#Comments').val() == 'Other')
-////        {
-////            $('#Other').show();
-////        }
-////        else 
-////        {
-////            $('#Other').hide();
-////        }
-////    });
-////})

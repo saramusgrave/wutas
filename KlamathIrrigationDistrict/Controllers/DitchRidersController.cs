@@ -457,7 +457,7 @@ namespace KlamathIrrigationDistrict.Controllers
             float Today = _ditchRiderRepo.WaterCFS_TodayByCanal(lateral);
             float Tomorrow = _ditchRiderRepo.WaterCFS_NextDayByCanal(lateral);
             DitchRiderRequests r = new DitchRiderRequests();
-            ViewData["Lateral"] = _ditchRiderRepo.Canals().Select(s => new SelectListItem() { Text = s.Lateral, Value = s.Lateral }).ToList();
+            ViewData["Lateral"] = _ditchRiderRepo.Canals().Select(s => new SelectListItem() { Text = s.Lateral, Value = s.Lateral  }).ToList();
             r.Lateral = ViewData["Lateral"].ToString();
 
             //r.Lateral = lateral;

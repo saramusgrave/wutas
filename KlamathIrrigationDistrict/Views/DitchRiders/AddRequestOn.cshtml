@@ -30,7 +30,7 @@
                 <td>@Html.TextBoxFor(m => m.CustomerCFS1, new { @type = "number", @step = "0.001" } )</td>
                 <td>@Html.DisplayTextFor(m => m.Structure)</td>
                 <td>@Html.TextBoxFor(m => m.CustomerComments1, new { @Value = "Made By" + User.Identity.Name })</td>
-                <td>@Html.DropDownListFor(m => m.RequestStatus1, ViewData["Status"] as IEnumerable<SelectListItem>, "--Select--") </td>    
+                <td>@Html.DropDownListFor(m => m.RequestStatus1, ViewData["Status"] as IEnumerable<SelectListItem>, "--Select--") </td> 
             </tr>
         </table>
         <div>

@@ -25,7 +25,9 @@
                 <td>@Html.DisplayTextFor(m => m.CustomerName)</td>
                 <td>@Html.TextBoxFor(m => m.StaffDate1, new { @type = "datetime-local" })</td>
                 <td>@Html.DisplayTextFor(m => m.Structure)</td>
-                <td>@Html.TextAreaFor(m => m.StaffComments1)</td>
+                <td>
+                    @Html.DropDownListFor(s => s.StaffComments1, ViewData["Comments"] as IEnumerable<SelectListItem>, new { @ID = "Comments", @onchange = "chkind()" })@Html.TextAreaFor(s => s.StaffComments1, new { @Id = "Sub", @hidden = "hidden" })
+                </td>
                 <td>@Html.DropDownListFor(m => m.Violation, ViewData["Violations"] as IEnumerable<SelectListItem>, "--Select--") </td>
             </tr>
         </table>

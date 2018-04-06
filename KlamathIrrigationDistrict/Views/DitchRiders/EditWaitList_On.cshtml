@@ -33,8 +33,9 @@
                 <td>@User.Identity.Name</td>
                 <td>@Html.TextBoxFor(s => s.StaffDate1, new { @type = "datetime-local" })</td>
                 <td colspan="2">@Html.TextBoxFor(s => s.StaffCFS1, new { @type = "number", @step = "0.001" })</td>
-                <td>@Html.DropDownListFor(s => s.StaffComments1, ViewData["Comments"] as IEnumerable<SelectListItem>)</td>
-                <td>@Html.DropDownListFor(s => s.RequestStatus1, ViewData["Status"] as IEnumerable<SelectListItem>, "--Select--")</td>
+                <td>
+                    @Html.DropDownListFor(s => s.StaffComments1, ViewData["Comments"] as IEnumerable<SelectListItem>, new { @ID = "Comments", @onchange = "chkind()" })@Html.TextAreaFor(s => s.StaffComments1, new { @Id = "Sub", @hidden = "hidden" })
+                </td>                <td>@Html.DropDownListFor(s => s.RequestStatus1, ViewData["Status"] as IEnumerable<SelectListItem>, "--Select--")</td>
             </tr>
         </table>
         <div>
