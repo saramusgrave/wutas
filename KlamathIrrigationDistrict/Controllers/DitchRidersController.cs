@@ -597,5 +597,40 @@ namespace KlamathIrrigationDistrict.Controllers
             _ditchRiderRepo.EditRHistory_On(std);
             return new RedirectResult(Url.Action("CustomerRHistory" + Url.RequestContext.RouteData.Values["id"]));           
         }
+        /*Delete RequestID 
+         * 
+         */
+        // [Authorize]
+        // public ActionResult DeleteRHistory(int RequestID, int id)
+        //{
+        //    if (!User.IsInRole("Ride " + id.ToString()) && !User.IsInRole("Relief Ride " + id.ToString()))
+        //    {
+        //        return View("Unauthorized");
+        //    }
+        //    var RID = _ditchRiderRepo.ViewCustomersRecentHistory(id).Where(s => s.RequestID == RequestID).FirstOrDefault();
+        //    if(RID == null)
+        //    {
+        //        return View("Unauthorized");
+        //    }
+        //    else
+        //    {
+        //        return View(RID);
+        //    }
+        //}       
+        [Authorize]
+        [HttpDelete]
+        public ActionResult DeleteRHistory(int id, int RequestID)
+        {
+            var RID = _ditchRiderRepo.ViewCustomersRecentHistory(id).Where(s => s.RequestID == RequestID).FirstOrDefault();
+            if (RID == null)
+            {
+                return View("Unauthorized");
+            }
+            else
+            {
+                _ditchRiderRepo.DeleteRHistory(RequestID);
+                return new RedirectResult("CustomerRHistory" + Url.RequestContext.RouteData.Values["id"]); 
+            }
+        }
     }
 }

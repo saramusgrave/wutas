@@ -36,6 +36,10 @@
                     {
                         <td>@Html.ActionLink("Edit", "EditRHistory_On", new { @RequestID = Model[i].RequestID, @CustomerID = Model[i].CustomerID, @Lateral = Model[i].Lateral, @id = Url.RequestContext.RouteData.Values["id"] })</td>
                     }
+                    @*<td>@Html.ActionLink("Delete", "DeleteRHistory", new { @RequestID = Model[i].RequestID, @id = Url.RequestContext.RouteData.Values["id"] })</td>*@
+                    <td>
+                        <input type="submit" value="Delete" onclick="return confirm('Are you  want to delete record Of Name = @Model[i].RequestID');" />
+                    </td>
                 </tr>
             }
         </table>

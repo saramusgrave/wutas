@@ -56,12 +56,16 @@ namespace KlamathIrrigationDistrict.DataLayer.Interfaces
         /*View Customer History Past 3 days
          * Use: CusttomerRHistory*/
         List<DitchRiderRequests> ViewCustomersRecentHistory(int id);
+        /*Get RequestID 
+          * Use: ViewRequests*/
+        DitchRiderRequests Get(int id);
 
         /*-------------------------Stored Procedures---------------------------------------*/
 
-        /*Get RequestID 
-         * Use: ViewRequests*/
-        DitchRiderRequests Get(int id);
+
+        /*Delete RequestID
+         * Use: DeleteRHistory*/
+        void DeleteRHistory(int RequestID);
         /*Add Requests as if customer Ride  on
          * Use: AddRequestOn*/
         void AddRequest_On(DitchRiderRequests ditchriderrequests);

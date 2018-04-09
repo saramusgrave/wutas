@@ -604,9 +604,6 @@ namespace KlamathIrrigationDistrict.DataLayer.Repositories
             }
             return (RequestList);
         }
-
-        /*-------------------------Stored Procedures---------------------------------------*/
-
         /* Get RequestID as Get(ID)
          * SQL: sp_DitchRider_Get
          * RequestID, TimeStampCustomer1, CustomerDate1, CustomerID, CustomerName, Structure, CustomerCFS1, TimeStampStaff1, Staff1, StaffDate1, RequestStatus1, StaffCFS1, StaffComments1, CustomerDate2, CustomerCFS2, TimeStampStaff2, Staff2, StaffDate2, RequestStatus2, StaffCFS2, StaffComments2
@@ -655,6 +652,31 @@ namespace KlamathIrrigationDistrict.DataLayer.Repositories
                 }
             }
             return (p);
+        }
+        
+        /*-------------------------Stored Procedures---------------------------------------*/
+
+        /* Delete Recent History as DeleterRHistory(int RequestID)
+         * SQL: sp_DitchRider_DeleteRHistory
+         * Give: @RequestID
+         * View: DeleteRHistory */
+        public virtual void DeleteRHistory(int RequestID)
+        {
+            using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["KID"].ConnectionString))
+            {
+                using (SqlCommand command = new SqlCommand())
+                {
+                    command.Connection = connection;
+                    command.CommandType = CommandType.StoredProcedure;
+                    command.CommandText = "sp_DitchRider_DeleteRHistory";
+
+                    DitchRiderRequests dr = new DitchRiderRequests();
+                    command.Parameters.AddWithValue("@RequestID", dr.RequestID);
+
+                    connection.Open();
+                    command.ExecuteNonQuery();
+                }
+            }
         }
         /* Add Customer Call Request for Water On as AddREquest_On(ditchriderrequests)
          * SQL: sp_DitchRider_AddRequestOn
