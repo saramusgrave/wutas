@@ -575,6 +575,7 @@
     <Content Include="Scripts\popper-utils.js.map" />
     <Content Include="Views\DitchRiders\_CanalWater.cshtml" />
     <Content Include="Views\DitchRiders\Violations.cshtml" />
+    <Content Include="Views\DitchRiders\EditRHistory_On.cshtml" />
     <None Include="Web.klamathirrigation.net - Web Deploy.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

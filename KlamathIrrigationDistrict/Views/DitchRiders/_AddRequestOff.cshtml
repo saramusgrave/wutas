@@ -20,12 +20,21 @@
         <tr>           
                 @Html.HiddenFor(m => m.RequestID)
                 @Html.HiddenFor(m => m.TimeStampCustomer2)
-                @Html.HiddenFor(m => m.Staff2, new { @Value = User.Identity.Name })             
-                <td>@Html.DisplayTextFor(m => m.CustomerName)</td>                
-                <td>@Html.TextBoxFor(m => m.CustomerDate2, new { @type = "datetime-local" })</td>
-                <td>@Html.TextBoxFor(m => m.CustomerCFS2, new { @type = "number", @step = "0.001" })</td>
+                @Html.HiddenFor(m => m.Staff2, new { @Value = User.Identity.Name })   
+            <tr>
+                <td>@Html.DisplayTextFor(m => m.CustomerName)</td>
+                <td>@Html.DisplayTextFor(m => m.StaffDate1)</td>
+                <td>@Html.DisplayTextFor(m => m.StaffCFS1)</td>
                 <td>@Html.DisplayTextFor(m => m.Structure)</td>
-                <td>@Html.TextBoxFor(m => m.CustomerComments2, new { @Value = "Made by " + User.Identity.Name })</td>
+                <td>@Html.DisplayTextFor(m => m.StaffComments1)</td>
+                <td>@Html.DisplayTextFor(m => m.RequestStatus1)</td>
+            </tr>   
+        <tr>       
+                <td>@User.Identity.Name</td>                
+                <td>@Html.TextBoxFor(m => m.StaffDate2, new { @type = "datetime-local" })</td>
+                <td>@Html.TextBoxFor(m => m.StaffCFS2, new { @type = "number", @step = "0.001" })</td>
+                <td>@Html.DisplayTextFor(m => m.Structure)</td>
+                <td>@Html.TextBoxFor(m => m.StaffComments2, new { @Value = "Made by " + User.Identity.Name })</td>
                 <td>@Html.DropDownListFor(s => s.RequestStatus2, ViewData["Status"] as IEnumerable<SelectListItem>)</td>              
         </tr>
     </table>

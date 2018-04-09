@@ -4,11 +4,9 @@ using System.ComponentModel.DataAnnotations;
 using System.Web.Mvc;
 
 namespace KlamathIrrigationDistrict.DataLayer.DataModels
-{
-    //Request tabel
+{    
     public class DitchRiderRequests
-    {
-        
+    {        
         public int RequestID { get; set; }
         public DateTime TimeStampCustomer1 { get { return _Getdate; } set { _Getdate = value; } }
         public DateTime CustomerDate1 { get; set; }
@@ -35,7 +33,6 @@ namespace KlamathIrrigationDistrict.DataLayer.DataModels
         public string StaffComments2 { get; set; }
         public string Lateral { get; set; }
         public int Ride { get; set; }
-        //public string Ride {get;set;}
         public float TotalAllotment { get; set; }
         public int CustomerMTLHisID { get; set;}
         public int CommentID { get; set; }

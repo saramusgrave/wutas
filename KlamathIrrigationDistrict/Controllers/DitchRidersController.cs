@@ -18,10 +18,9 @@ namespace KlamathIrrigationDistrict.Controllers
             _ditchRiderRepo = new DitchRidersRepository();
         }
 
-        //View Active Requests On
-        //ViewActiveRequestsOn()
-        //Page: _ActiveRequestsOn.cshtml
-        //ViewActiveRequestsOn()
+        /* View Active Requests On
+         * Page: _ActiveRequestsOn.cshtml
+         * Repository: ViewActiveRequestsOn()*/
         [Authorize]
         public ActionResult _ActiveRequestsOn(int id)
         {
@@ -31,15 +30,13 @@ namespace KlamathIrrigationDistrict.Controllers
             }
             var std = _ditchRiderRepo.ViewActiveRequestOn(id);
             return View(std);
-        }
-    
-        //Turn On Water For an Active Request
-        //ViewActiveRequestOn()
-        //Page: EditRequestOn
+        }    
+        /*Turn On Water For an Active Request
+         * ViewActiveRequestOn()
+         * Page: EditRequestOn*/
         [Authorize]
         public ActionResult EditRequestOn(int id, int RequestID, string Other, string lateral)
         {
-
             if (!User.IsInRole("Ride " + id.ToString()) && !User.IsInRole("Relief Ride " + id.ToString()))
             {
                 return View("Unauthorized");
@@ -53,7 +50,7 @@ namespace KlamathIrrigationDistrict.Controllers
             var std = _ditchRiderRepo.ViewActiveRequestOn(id).Where(s => s.RequestID == RequestID).FirstOrDefault();
             return View(std);
         }
-        //EditRequests4On
+        //EditRequestsOn
         [Authorize]
         [HttpPost]
         public ActionResult EditRequestOn(DitchRiderRequests std)
@@ -115,8 +112,8 @@ namespace KlamathIrrigationDistrict.Controllers
         }
 
         //View Pending On Requests
-        //ViewPending_4On()
-        //Page: Appending_4On
+        //ViewPending_On()
+        //Page: Appending_On
         [Authorize]
         [HttpGet]        
         public ActionResult Appending_On(int id)
@@ -130,7 +127,7 @@ namespace KlamathIrrigationDistrict.Controllers
         }
 
         //Edit Request Status On
-        //ViewPending_4On()
+        //ViewPending_On()
         //Page: EditRequestStatus_On
         [Authorize]
         public ActionResult EditRequestStatus_On(int id, int RequestID, string lateral)
@@ -372,6 +369,7 @@ namespace KlamathIrrigationDistrict.Controllers
                 return View("Unauthorized");
             }
             var std = _ditchRiderRepo.Customers(id).Where(s => s.CustomerID == CustomerID).FirstOrDefault();
+            ViewData["Comments"] = _ditchRiderRepo.Comments().Select(s => new SelectListItem() { Text = s.Comment, Value = s.Comment }).ToList();
             ViewData["Today"] = _ditchRiderRepo.WaterCFS_TodayByCanal(lateral);
             ViewData["Tomorrow"] = _ditchRiderRepo.WaterCFS_NextDayByCanal(lateral);
             ViewData["Violations"] = _ditchRiderRepo.Violations().Select(s => new SelectListItem() { Text = s.Violation, Value = s.Violation }).ToList();
@@ -564,6 +562,40 @@ namespace KlamathIrrigationDistrict.Controllers
             ditchRider = obditchriderlist.Where(s => s.CustomerID == CustomerID).ToPagedList(pageIndex, pageSize);
             ViewData["CID"] = CustomerID;
             return View(ditchRider);
+        }
+        /* Edit Customer Recent Activity only for a 24 hour period and only if the same staff member is logged in
+         * EditCusotmerRecentHistory
+         * EditRHistory_On */
+         [Authorize]
+         public ActionResult EditRHistory_On(int id, int CustomerID, int RequestID, string lateral)
+        {
+            if(!User.IsInRole("Ride " + id.ToString()) && !User.IsInRole("Relief Ride " + id.ToString()))
+            {
+                return View("Unauthorized");
+            }
+            var std = _ditchRiderRepo.ViewCustomersRecentHistory(id).Where(s => s.RequestID == RequestID).FirstOrDefault();
+            ViewData["Status"] = _ditchRiderRepo.Status().Select(s => new SelectListItem() { Text = s.RequestStatusName, Value = s.RequestStatusName }).ToList();
+            ViewData["Comments"] = _ditchRiderRepo.Comments().Select(s => new SelectListItem() { Text = s.Comment, Value = s.Comment }).ToList();
+            ViewData["Today"] = _ditchRiderRepo.WaterCFS_TodayByCanal(lateral);
+            ViewData["Tomorrow"] = _ditchRiderRepo.WaterCFS_NextDayByCanal(lateral);
+            ViewData["CID"] = _ditchRiderRepo.ViewCustomersRecentHistory(id).Where(s => s.CustomerID == CustomerID).First();
+            return View(std);
+        }
+        //EditRHistory_On
+        [Authorize]
+        [HttpPost]
+        public ActionResult EditRHistory_On(DitchRiderRequests std)
+        {
+            int RequestID = std.RequestID;
+            float CustomerCFS1 = std.CustomerCFS1;
+            DateTime CustomerDate1 = std.CustomerDate1;
+            string CustomerComments = std.CustomerComments1;
+            string Staff1 = std.Staff1;
+            DateTime StaffDate1 = std.StaffDate1;
+            float StaffCFS1 = std.StaffCFS1;
+            string StaffComments1 = std.StaffComments1;
+            _ditchRiderRepo.EditRHistory_On(std);
+            return new RedirectResult(Url.Action("CustomerRHistory" + Url.RequestContext.RouteData.Values["id"]));           
         }
     }
 }

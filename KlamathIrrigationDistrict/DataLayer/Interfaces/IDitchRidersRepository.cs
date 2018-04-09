@@ -5,61 +5,95 @@ namespace KlamathIrrigationDistrict.DataLayer.Interfaces
 {
     public interface IDitchRidersRepository
     {
+        /*-------------------------Drop Down---------------------------------------*/
 
-        //Views
-
-        //Used to get Drop Down From SQL RequestStatus1 and RequestStatus2
+         /*Status Drop Down
+          * Use: RequestStatus1, RequestStatus2*/
         List<DitchRiderRequests> Status();
-        //Used to get Drop Down From SQL Ditch Rider Comments
+        /*Comments Drop Down
+         * Use: StaffComments1, StaffComments2*/
         List<DitchRiderRequests> Comments();
-        //Used to get Drop Down From SQL Violations
+        /*Violations Drop Down
+         * Use: ViolationID*/
         List<DitchRiderRequests> Violations();
-        //Used to get Drop Down From SQL Canals
+        /*Canals Drop Down
+         * Use: CanalsList*/
         List<DitchRiderRequests> Canals();
-        //View Customers on Ride 
-        List<DitchRiderRequests> Customers(int id);
-        //View Active Requests on for Ride 
-        List<DitchRiderRequests> ViewActiveRequestOn(int id);
-        //View Active Requests off for Ride 
-        List<DitchRiderRequests> ViewActiveRequestOff(int id);
-        //View completed Request List for Ride  
-        List<DitchRiderRequests> ViewRequests(int id);
-        //View Requests with RequestStatus1 = Pending
-        List<DitchRiderRequests> ViewPending_On(int id);
-        //View Requests with RequestStatus2 = Pending
-        List<DitchRiderRequests> ViewPending_Off(int id);
-        //View Waitlist On
-        List<DitchRiderRequests> ViewWaitlist_On(int id);
-        //Waitlist Off
-        List<DitchRiderRequests> ViewWaitlist_Off(int id);
-        //View Customers on Ride  who currently have water running
-        List<DitchRiderRequests> ViewCustomersWithWater_On(int id);
-        //View Customer History
-        List<DitchRiderRequests> ViewCustomersHistory(int id);
-        //View Customer History Past 3 days
-        List<DitchRiderRequests> ViewCustomersRecentHistory(int id);
-                
-        //Stored Procedures
 
-        //Get Request ID
+
+        /*-------------------------Views---------------------------------------*/
+
+        /*View Customers on Ride
+        * Use: Customers*/
+        List<DitchRiderRequests> Customers(int id);
+        /*View Active Requests On
+        * Use: _ActiveRequestsOn*/
+        List<DitchRiderRequests> ViewActiveRequestOn(int id);
+        /*View Active Requests Off
+         * Use: _ActiveRequestsOff*/
+        List<DitchRiderRequests> ViewActiveRequestOff(int id);
+        /*View Completed Requests
+        * Use: CompletedRequests, _ActiveRequestsOn, EditRequestsOn*/
+        List<DitchRiderRequests> ViewRequests(int id);
+        /*View Pending On Requests
+         * Use: Appending_On, EditRequestStatus_On*/
+        List<DitchRiderRequests> ViewPending_On(int id);
+        /*View Pending Off Requests
+         * Use: Appending_Off, EditRequestStatus_Off*/
+        List<DitchRiderRequests> ViewPending_Off(int id);
+        /*View Wait List On Requests
+         * Use: WaitList_On, EditWaitList_On*/
+        List<DitchRiderRequests> ViewWaitlist_On(int id);
+        /*View Wait List Off Requests
+         * Use: WaitList_Off, EditWaitList_Off*/
+        List<DitchRiderRequests> ViewWaitlist_Off(int id);
+        /*View Customers who are currently running water
+         * Use: Customers_On*/
+        List<DitchRiderRequests> ViewCustomersWithWater_On(int id);
+        /*View Customer History
+         * Use: CustomerHistory */
+        List<DitchRiderRequests> ViewCustomersHistory(int id);
+        /*View Customer History Past 3 days
+         * Use: CusttomerRHistory*/
+        List<DitchRiderRequests> ViewCustomersRecentHistory(int id);
+
+        /*-------------------------Stored Procedures---------------------------------------*/
+
+        /*Get RequestID 
+         * Use: ViewRequests*/
         DitchRiderRequests Get(int id);
-        //Add Requests as if customer Ride  on
+        /*Add Requests as if customer Ride  on
+         * Use: AddRequestOn*/
         void AddRequest_On(DitchRiderRequests ditchriderrequests);
-        //Add Requests as if customer off
+        /*Add Requests as if customer off
+         * Use: _AddREquestOff*/
         void AddRequest_Off(DitchRiderRequests ditchriderrequests);
-        //Edit a Requests as ditch RiderOn
+        /*Edit a Requests as ditch RiderOn
+         * Use: EditRequestOn*/
         void EditRequestOn(DitchRiderRequests ditchriderrequests);
-        //Edit a Requests as ditch Rider off
+        /*Edit a Requests as ditch Rider off
+         * Use: EditRequestOff*/
         void EditRequestOff(DitchRiderRequests ditchriderrequests);   
-        //Edit RequestStatus1 
+        /*Edit RequestStatus1 
+         * Use: EditRequestStatus_On*/
         void EditRequestStatus1_On(DitchRiderRequests ditchriderrequests);
-        //Edit RequestStatus2
+        /*Edit RequestStatus2
+         * Use: EditRequestStatus_Off*/
         void EditRequestStatus2_Off(DitchRiderRequests ditchriderrequests);
-        //Violations
+        /*Violations
+         * Use: Violations*/
         void Violations(DitchRiderRequests ditchriderrequests);
-        //Store procedure to view how much is in a canal for tomorrow
+        /*Edit Recent History based on user log in and date
+         * Use: EditRHistory_On*/
+        void EditRHistory_On(DitchRiderRequests ditchriderrequests);
+
+        /*-------------------------Stored Procedures With a Return Value---------------------------------------*/
+
+        /*Store procedure to view how much is in a canal for tomorrow
+         * Use: CanalWater, _CanalWater*/
         float WaterCFS_NextDayByCanal(string lateral);
-        //Stored procedure to view how much CFS is in canal for today
+        /*Stored procedure to view how much CFS is in canal for today
+         * Use: CanalWater, _CanalWater*/
         float WaterCFS_TodayByCanal(string lateral);
     }
 }
