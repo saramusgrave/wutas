@@ -1,0 +1,39 @@
+﻿@using KlamathIrrigationDistrict.DataLayer.DataModels
+@model DitchRiderRequests
+@{
+    ViewBag.Title = "KID D.R.: Request Water On";
+    Layout = "~/Views/Shared/DitchRidersMenue.cshtml";
+}
+<body>
+    <a href="@Url.Action("Customers", "DitchRiders")/@Url.RequestContext.RouteData.Values["id"]" class="previous"><br />&laquo; Customers</a>
+    @using (Html.BeginForm())
+    {
+        <table class="ActiveRequests">
+            <caption>Give a Violation</caption>
+            <tr>
+                <th>@Html.Label("Name")</th>
+                <th>@Html.Label("Date")</th>
+                <th>@Html.Label("Turnout")</th>
+                <th>@Html.Label("Comments")</th>
+                <th>@Html.Label("Violation")</th>
+            </tr>
+            <tr>                
+                @Html.HiddenFor(m => m.TimeStampStaff1, new { @Value = DateTime.Now })
+                @Html.HiddenFor(m => m.CustomerID)
+                @Html.HiddenFor(m => m.Staff1, new { @Value = User.Identity.Name })
+                @Html.HiddenFor(m => m.Ride, new { @Value = Url.RequestContext.RouteData.Values["id"] })
+                <td>@Html.DisplayTextFor(m => m.CustomerName)</td>
+                <td>@Html.TextBoxFor(m => m.StaffDate1, new { @type = "datetime-local" })</td>
+                <td>@Html.DisplayTextFor(m => m.Structure)</td>
+                <td>
+                    @Html.DropDownListFor(s => s.StaffComments1, ViewData["Comments"] as IEnumerable<SelectListItem>)
+                </td>
+                <td>@Html.DropDownListFor(m => m.Violation, ViewData["Violations"] as IEnumerable<SelectListItem>, "--Select--") </td>
+            </tr>
+        </table>
+        <div>
+            <button type="submit">Add</button>
+        </div>
+    }
+    @Html.Partial("_CanalWater")
+</body>

@@ -5,7 +5,7 @@
 	overflow: auto;
 	top: 0;
 	display: inline-block;
-	width: 700px;
+	width: 900px;
 }
 
 #RideCenter
@@ -390,6 +390,7 @@ caption
 .ActiveRequests
 {
 	border-collapse: collapse;
+    width: 1000px;
 	overflow: auto;
 }
 .ActiveRequests th
@@ -404,7 +405,8 @@ caption
 
 .ActiveRequests tr:nth-child(even)
 {
-    background-color: #ddd;
+    /*background-color: #ddd;*/
+    background-color: #DCDCDC;
 }
 
 .ActiveRequests td
@@ -423,7 +425,9 @@ caption
 }*/
 .ActiveRequests tr:hover
 {
-    background-color: #dcd0d0;
+   font-weight: bold;
+   border-style: solid;
+   border-color: #08ccff;
  
 }
 /*.Appending
@@ -467,6 +471,7 @@ input[type=TrackingID]
 {
 	max-width: 60px;
 }
+
 #RBorder
 {
 	border-right: 1px solid #08ccff;
@@ -475,11 +480,13 @@ a:visited
 {
     color: blue;
 }
+
 /*Logo*/
 #Logo 
 {
 	display: block;
     padding: 10px;
+    width: 900px;
 }
 #Logo .footer
 {
@@ -508,12 +515,16 @@ a:visited
 {
 	#Header
 	{
-		width: 90%;
+		/*width: 90%;*/
+        width: 100%;
 		font-size: 20px;
+        padding: 0px;
+        float: left;
 	}
 	#Menu li a
 	{
 		text-align: center;
+        width: inherit;
 	}
 	#Menu li
 	{
@@ -537,14 +548,14 @@ a:visited
 	body
 	{
         font-size: 20px;
-		margin-left: 100px;
+		margin-left: 25px;        
 	}
 	#LogOutBtn
 	{
 		font-size: 20px;
         display: inline-block;
-        width: 150px;
-        padding: 0px;
+        width: 104px;
+        padding: 5px;
         position: relative;
         height: 47px;        
 	}
@@ -558,6 +569,15 @@ a:visited
     }
     a:visited
     {
+        color: blue;
+    }
+    .ActiveRequests
+    {
+        width: 100%;
+    }
+   input[type=search]
+    {
+        min-width: 200px;
         color: blue;
     }
 }

@@ -1,0 +1,32 @@
+﻿@using KlamathIrrigationDistrict.DataLayer.DataModels
+@model List<DitchRiderRequests>
+@{
+    ViewBag.Title = "KID D.R.: Home Page";
+    Layout = "~/Views/Shared/DitchRidersMenue.cshtml";
+}
+<body>
+    <input type="search" id="SearchCustomers" onkeyup="SearchCustomers2Fn()" placeholder="Search Customers by Name" title="Type in a name" />
+    <table class="ActiveRequests" id="ActiveRequests">
+        <caption>Active Requests (On)</caption>
+        <tr>
+            <th>@Html.Label("Date")</th>
+            <th>@Html.Label("Name")</th>
+            <th>@Html.Label("Turn Out")</th>
+            <th>@Html.Label("Lateral")</th>
+            <th>@Html.Label("CFS")</th>
+            <th colspan="2">@Html.Label("Comments")</th>
+        </tr>
+        @for (int i = 0; i < Model.Count; i++)
+        {
+            <tr>
+                <td>@Model[i].CustomerDate1</td>
+                <td>@Model[i].CustomerName</td>
+                <td>@Model[i].Structure</td>
+                <td>@Model[i].Lateral</td>
+                <td>@Model[i].CustomerCFS1</td>
+                <td>@Model[i].CustomerComments1</td>
+                <td>@Html.ActionLink("On", "EditRequestOn", new { @RequestID = Model[i].RequestID, @id = Url.RequestContext.RouteData.Values["id"], @lateral = Model[i].Lateral }) </td>
+            </tr>
+        }
+    </table>
+</body>

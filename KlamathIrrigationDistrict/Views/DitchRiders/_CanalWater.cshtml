@@ -1,0 +1,18 @@
+﻿@using KlamathIrrigationDistrict.DataLayer.DataModels
+@model DitchRiderRequests
+
+@using (Html.BeginForm())
+{
+    <div>
+        @Html.Label("Canal: ")
+        @Html.DisplayTextFor(s => s.Lateral)
+    </div>
+    <div>
+        @Html.Label("Today's CFS: ")
+        @ViewData["Today"]
+    </div>
+    <div>
+        @Html.Label("Tomorrow's CFS: ")
+        @ViewData["Tomorrow"]
+    </div>
+}

@@ -1,0 +1,46 @@
+﻿@using KlamathIrrigationDistrict.DataLayer.DataModels
+@model DitchRiderRequests
+@{
+    ViewBag.Title = "KID D.R.: Turn Off Water";
+    Layout = "~/Views/Shared/DitchRidersMenue.cshtml";
+}
+<body>
+    <a href="@Url.Action("WaitList_Off", "DitchRiders")/@Url.RequestContext.RouteData.Values["id"]" class="previous"><br />&laquo; Request</a>
+    @using (Html.BeginForm())
+    {
+        @Html.HiddenFor(s => s.RequestID)
+        @Html.HiddenFor(s => s.TimeStampStaff2)
+        @Html.HiddenFor(s => s.Staff2, new { @Value = User.Identity.Name })        
+        <table class="ActiveRequests">
+            <caption>Waitlist Request Off</caption>
+            <tr>
+                <th>@Html.Label("Name")</th>
+                <th>@Html.Label("Date")</th>
+                <th>@Html.Label("CFS")</th>
+                <th>@Html.Label("Turnout")</th>
+                <th>@Html.Label("Comments")</th>
+                <th>@Html.Label("Staff")</th>
+            </tr>
+            <tr>
+                <td>@Html.DisplayTextFor(s => s.CustomerName)</td>
+                <td>@Html.DisplayTextFor(s => s.CustomerDate2)</td>
+                <td>@Html.DisplayTextFor(s => s.CustomerCFS2)</td>
+                <td>@Html.DisplayTextFor(s => s.Structure)</td>
+                <td>@Html.DisplayTextFor(s => s.CustomerComments2)</td>
+                <td>@Html.DisplayTextFor(s => s.RequestStatus2)</td>
+            </tr>
+            <tr>
+                <td>@User.Identity.Name</td>
+                <td>@Html.TextBoxFor(s => s.StaffDate2, new { @type = "datetime-local" })</td>
+                <td colspan="2">@Html.TextBoxFor(s => s.StaffCFS2, new { @type = "number", @step = "0.001" })</td>
+                <td>
+                    @Html.DropDownListFor(s => s.StaffComments2, ViewData["Comments"] as IEnumerable<SelectListItem>, new { @ID = "Comments", @onchange = "chkind()" })@Html.TextAreaFor(s => s.StaffComments2, new { @Id = "Sub", @hidden = "hidden" })
+                </td>                <td>@Html.DropDownListFor(s => s.RequestStatus2, ViewData["Status"] as IEnumerable<SelectListItem>, "--Select--")</td>
+            </tr>
+        </table>
+        <div>
+            <button type="submit">Submit</button>
+        </div>
+    }
+    @Html.Partial("_CanalWater")
+</body>

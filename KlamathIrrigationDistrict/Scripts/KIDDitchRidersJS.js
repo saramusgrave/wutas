@@ -1,10 +1,27 @@
 ﻿function ShowPassword() {
     var x = document.getElementById("psw");
-    if (x.type == "password") {
+    if (x.type == "password")
+    {
         x.type = "text";
     }
-    else {
+    else
+    {
         x.type = "password";
+    }
+}
+function chkind()
+{
+    var obj = document.getElementById("Comments");
+    var x = document.getElementById("Sub");
+    if (obj.options[obj.selectedIndex].text == "Other")
+    {
+        x.style.display = "block";
+        obj.innerHTML.valueOf("Other") + obj.options[obj.selectedIndex].text;
+    }
+    else
+    {
+        obj.style.display = "block";
+        x.style.display = "none";
     }
 }
 function ConfirmFn()
@@ -44,7 +61,8 @@ function SearchCustomersFn()
 		}     		
 	}
 }
-function SearchCustomers2Fn() {
+function SearchCustomers2Fn()
+{
     var input, filter, table, tr, td, i;
     input = document.getElementById("SearchCustomers");
     filter = input.value.toUpperCase();
@@ -87,3 +105,4 @@ function SearchCustomers2Fn() {
 //        }
 //    }
 //}
+
