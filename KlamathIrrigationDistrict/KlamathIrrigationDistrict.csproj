@@ -417,6 +417,7 @@
     <Content Include="Views\DitchRiders\Unauthorized.cshtml" />
     <Content Include="Views\DitchRiders\CustomerHistory.cshtml" />
     <Content Include="Views\DitchRiders\CustomerRHistory.cshtml" />
+    <Content Include="Views\Customers\CustomerWaitList.cshtml" />
     <None Include="Web.klamathirrigation.net - Web Deploy.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
