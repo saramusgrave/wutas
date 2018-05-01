@@ -1,16 +1,17 @@
 ﻿@using KlamathIrrigationDistrict.DataLayer.DataModels
 @using PagedList.Mvc;
-@model PagedList.IPagedList<Customers>
+@*@model PagedList.IPagedList<Customers>*@
+@model List<Customers>
 @{
     ViewBag.Title = "Customers: Contacts Page";
+    Layout = "~/Views/Shared/CustomerMenu.cshtml";
 }
-<head>
+@*<head>
     <title>Customers: Contacts</title>
     <meta name="viewport" content="width=device-width" />
     <link rel="stylesheet" href="~/Styles/Customers.css" />
     <script src="~/Scripts/KIDDitchRidersJS.js"></script>
 </head>
-<!--First.LastName, Requests, history, Contacts, Edit Account, Conversions-->
 <header id="Menu">
     <ul>
         <li><label class="FirstLast">@User.Identity.Name</label></li>
@@ -21,7 +22,6 @@
                 <a href="./CustomerWaitList">Waitlist</a>
             </div>
         </li>
-        @*<li><a href="./Index">Requests</a></li>*@
         <li><a href="./CustomerWaterHistory">History</a></li>
         <li><a id="active" href="./ContactsPage">Contacts</a></li>
         <li><a href="./CustomerProfile">Profile</a></li>
@@ -30,33 +30,14 @@
 
         <li>
             <b>
-                Allotment in AFPA
-                <!--Dark Green #005e00 for Full Allotment!-->
-                <input style="color: #005e00; font-weight: bold;" type="Allotment" value="200" readonly>/200
-                <br>
-                <!--Lime Green #0cfc29 for Alotment 75% GONE!-->
-                Allotment in AFPA
-                <input style="color: #0cfc29; font-weight: bold;" type="Allotment" value="150" readonly>/200
-                <br>
-                <!--Orange  #ed7d30for Alotment 50% GONE!-->
-                Allotment in AFPA
-                <input style="color: #ed7d30; font-weight: bold;" type="Allotment" value="100" readonly>/200
-                <br>
-                <!--Gold #e4be00 for Alotment 25% GONE!-->
-                Allotment in AFPA
-                <input style="color: #e4be00; font-weight: bold;" type="Allotment" value="50" readonly>/200
-                <br>
-                <!--Red #ff0000 for NO Alotment Left!-->
-                Allotment in AFPA
-                <input style="color: #ff0000; font-weight: bold;" type="Allotment" value="0" readonly>/200
+                
             </b>
         </li>
 
     </ul>
-</header>
+</header>*@
 <body>
-    <!--Ditch Riders Table class=Contacts-->
-    <input type="search" id="SearchKIDStaff" onkeyup="SearchKIDStaff()" placeholder="Search for Position" />
+
     <div style="overflow: auto;">
         <table class="Contacts">
             <caption>KID Staff</caption>
@@ -82,9 +63,9 @@
             }
         </table>
     </div>
-    <div class="pagination" style="margin-left: 20px;">
+    @*<div class="pagination" style="margin-left: 20px;">
         Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber)
         of @Model.PageCount @Html.PagedListPager(Model, page => Url.Action("ContactsPage", new { page }))
-    </div>
+    </div>*@
 </body>
 

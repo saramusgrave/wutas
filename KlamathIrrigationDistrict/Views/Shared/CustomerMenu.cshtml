@@ -1,0 +1,84 @@
+﻿<!DOCTYPE html>
+
+<head>
+    <title>@ViewBag.Title</title>
+    <meta name="viewport" content="width=device-width" />
+    <link rel="stylesheet" href="~/Styles/Customers.css" />
+    <link rel="icon" href="http://www.klamathirrigation.com/images/Old%20Hydro%201.jpg" />
+</head>
+
+<header id="Header">
+    <div>
+        <a class="dropdown">CustomerID: @Url.RequestContext.RouteData.Values["id"]</a>
+    </div>
+    <nav id="Menue">
+        <ul id="Menu">
+            <li>
+                <a class="dropdown">@User.Identity.Name</a>
+            </li>
+            <li class="dropdown">
+                <!--'@Url.RequestContext.RouteData.Values["id"]' is where the action takes a passed value-->
+                <a href="@Url.Action("Index", "Customers" )/@Url.RequestContext.RouteData.Values["id"]">Requests</a>
+                <div class="dropdownRequest" style="overflow-x: auto;">
+                    <a href="@Url.Action("CustomerAddRequest", "Customers" )/@Url.RequestContext.RouteData.Values["id"]">Add Request</a>
+                </div>
+            </li>
+            <li>
+                <a href="@Url.Action("CustomerWaterHistory", "Customers" )/@Url.RequestContext.RouteData.Values["id"]">History</a>
+                <!--<div class="dropdownRequest" style="overflow-x: auto;">
+                    <a href="@Url.Action(" Appending_Off", "DitchRiders" )/@Url.RequestContext.RouteData.Values["id"]">Pending Off</a>
+                </div>-->
+            </li>
+            <li>
+                <a href="@Url.Action("ContactsPage", "Customers" )/@Url.RequestContext.RouteData.Values["id"]">Contacts</a>
+            </li>
+            <li>
+                <a href="@Url.Action("CustomerProfile", "Customers" )/@Url.RequestContext.RouteData.Values["id"]">Profile</a>
+            </li>
+            <li>
+                @using (Html.BeginForm("LogOff", "Account"))
+                {
+                    @Html.AntiForgeryToken()
+                    <button type="submit" class="btn btn-link" id="LogOutBtn">Log Out</button>
+                }
+            </li>
+        </ul>
+    </nav>
+</header>
+
+<html>
+<body>
+    @RenderBody()
+    <script src="~/Scripts/KIDDitchRidersJS.js"></script>
+</body>
+</html>
+
+<footer>
+    <div id="Logo">
+        <table class="footer">
+            <tr>
+                <th>Contact KID</th>
+                <th>Main Office</th>
+                <th>Phone Num.</th>
+                <th>Hours</th>
+            </tr>
+            <tr>
+                <td>
+                    <img src="http://www.klamathirrigation.com/images/Old%20Hydro%201.jpg">
+                </td>
+                <td>
+                    <address>
+                        6640 KID Lane,
+                        <br>Klamath Falls
+                        <br>OR 97603
+                    </address>
+                </td>
+                <td>(541)882-6661</td>
+                <td>
+                    8AM-4:30PM
+                    <br>Monday-Friday
+                </td>
+            </tr>
+        </table>
+    </div>
+</footer>

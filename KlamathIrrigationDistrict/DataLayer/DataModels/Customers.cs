@@ -13,6 +13,8 @@ namespace KlamathIrrigationDistrict.DataLayer.DataModels
         //constuctor for Customers
         //public Customers() { }
 
+        //NEED TO CHANGE ALL CFS variables to float
+
         //-------------------------------------------------------------------------------------
         //Customers(int CustomerID, int TrackingID, String Name, Decimal TotalAllotment)
         //public string Position { get; set { "Customer"}; }
@@ -80,7 +82,7 @@ namespace KlamathIrrigationDistrict.DataLayer.DataModels
         public string Structure { get; set; }
 
         //references 'CustomerCFS1 - meaning on
-        public int CustomerCFS_1 { get; set; }
+        public float CustomerCFS_1 { get; set; }
 
         //rerence the first pair of comments when water turned on
         public string CustomerComments_1 { get; set; }

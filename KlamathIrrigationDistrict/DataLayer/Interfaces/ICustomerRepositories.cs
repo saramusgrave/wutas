@@ -12,6 +12,8 @@ namespace KlamathIrrigationDistrict.DataLayer.Interfaces
         //get the customer information - customerID
         Customers Get(int CustomerID);
 
+        //----------------------------------------Views-----------------------------------
+
         //get the Request ID
         //Customers GetRequestID(int RequestID);
 
@@ -42,6 +44,8 @@ namespace KlamathIrrigationDistrict.DataLayer.Interfaces
 
         //customer set date range of requests wanting to view
         List<Customers> ViewRequestDates(int CustomerID, System.DateTime StartDate, System.DateTime EndDate);
+
+
 
         //save the customer information when updated
         //used by the staff or customer
