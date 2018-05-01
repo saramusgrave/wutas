@@ -2,53 +2,12 @@
 @using PagedList.Mvc;
 @model PagedList.IPagedList<DitchRiderRequests>
 @{
-    ViewBag.Title = "KID D.R.: Completed Requests";
+    ViewBag.Title = "KID: Recent Hisotry";
     Layout = "~/Views/Shared/DitchRidersMenue.cshtml";
 }
-<body>
-    <a href="@Url.Action("Customers", "DitchRiders")/@Url.RequestContext.RouteData.Values["id"]" class="previous"><br />&laquo; Customers</a>
-        <table class="ActiveRequests">
-            <caption>Past 3 Days (On)</caption>
-            <tr>
-                <th>@Html.Label("Date")</th>
-                <th>@Html.Label("Name")</th>
-                <th>@Html.Label("Turn Out")</th>
-                <th>@Html.Label("CFS")</th>
-                <th id="RBorder">@Html.Label("Comments")</th>
-                <th>@Html.Label("Staff")</th>
-                <th>@Html.Label("Date")</th>
-                <th>@Html.Label("CFS")</th>
-                <th colspan="2">@Html.Label("Comments")</th>
-            </tr>
-            @for (int i = 0; i < Model.Count; i++)
-            {                
-                <tr>
-                    <td>@Model[i].CustomerDate1</td>
-                    <td>@Model[i].CustomerName</td>
-                    <td>@Model[i].Structure</td>
-                    <td>@Model[i].CustomerCFS1</td>
-                    <td id="RBorder">@Model[i].CustomerComments1</td>
-                    <td>@Model[i].Staff1</td>
-                    <td>@Model[i].StaffDate1</td>
-                    <td>@Model[i].StaffCFS1</td>
-                    <td>@Model[i].StaffComments1</td>
-                    @if(Model[i].Staff1 == User.Identity.Name && Model[i].CustomerDate1 == DateTime.Today)
-                    {
-                        <td>@Html.ActionLink("Edit", "EditRHistory_On", new { @RequestID = Model[i].RequestID, @CustomerID = Model[i].CustomerID, @Lateral = Model[i].Lateral, @id = Url.RequestContext.RouteData.Values["id"] })</td>
-                    }
-                    @*<td>@Html.ActionLink("Delete", "DeleteRHistory", new { @RequestID = Model[i].RequestID, @id = Url.RequestContext.RouteData.Values["id"] })</td>*@
-                    <td>
-                        <input type="submit" value="Delete" onclick="return confirm('Are you  want to delete record Of Name = @Model[i].RequestID');" />
-                    </td>
-                </tr>
-            }
-        </table>
-    <div class="pagination" style="margin-left: 20px;">
-        Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber)
-        of @Model.PageCount @Html.PagedListPager(Model, page => Url.Action("CustomerRHistory", new { page, @CustomerID = ViewData["CID"] }))
-    </div>
+<a href="@Url.Action("Customers", "DitchRiders")/@Url.RequestContext.RouteData.Values["id"]" class="previous"><br />&laquo;Customers</a>
     <table class="ActiveRequests">
-        <caption>Past 3 Days (Off)</caption>
+        <caption>Past 3 Days On</caption>
         <tr>
             <th>@Html.Label("Date")</th>
             <th>@Html.Label("Name")</th>
@@ -61,22 +20,86 @@
             <th colspan="2">@Html.Label("Comments")</th>
         </tr>
         @for (int i = 0; i < Model.Count; i++)
-        {
+        {                
             <tr>
-                <td>@Model[i].CustomerDate2</td>
+                <td>@Model[i].CustomerDate1.ToString("MM/dd/yyyy hh:mm tt")</td>
                 <td>@Model[i].CustomerName</td>
                 <td>@Model[i].Structure</td>
-                <td>@Model[i].CustomerCFS2</td>
-                <td id="RBorder">@Model[i].CustomerComments2</td>
-                <td>@Model[i].Staff2</td>
-                <td>@Model[i].StaffDate2</td>
-                <td>@Model[i].StaffCFS2</td>
-                <td>@Model[i].StaffComments2</td>
+                <td>@Model[i].CustomerCFS1</td>
+                <td id="RBorder">@Model[i].CustomerComments1</td>
+                <td>@Model[i].Staff1</td>
+                @if (Model[i].StaffDate1 != Model[i].CustomerDate1)
+                {
+                    <td style="color: red;">@Model[i].StaffDate1.ToString("MM/dd/yyyy hh:mm tt")</td>
+                }
+                    @if (Model[i].StaffDate1 == Model[i].CustomerDate1)
+                    {
+                        <td>@Model[i].StaffDate1.ToString("MM/dd/yyyy hh:mm tt")</td>
+                    }
+                @if (Model[i].StaffCFS1 != Model[i].CustomerCFS1)
+                {
+                    <td style="color: red;">@Model[i].StaffCFS1</td>
+                }
+                    @if (Model[i].StaffCFS1 == Model[i].CustomerCFS1)
+                    {
+                        <td>@Model[i].StaffCFS1</td>
+                    }
+                <td>@Model[i].StaffComments1</td>
+                @*Turn on once you get the actual EditRHitory to wrok*@
+                @*@if (Model[i].Staff1 == User.Identity.Name && Model[i].CustomerDate1.Date == Model[i]._Getdate.Date)
+                {
+                    <td>@Html.ActionLink("Edit", "EditRHistory_On", new { @RequestID = Model[i].RequestID, @CustomerID = Model[i].CustomerID, @Lateral = Model[i].Lateral, @id = Url.RequestContext.RouteData.Values["id"] })</td>
+                }*@
             </tr>
         }
     </table>
-    <div class="pagination" style="margin-left: 20px;">
-        Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber)
-        of @Model.PageCount @Html.PagedListPager(Model, page => Url.Action("CustomerRHistory", new { page, @CustomerID = ViewData["CID"] }))
-    </div>
-</body>
+<div class="pagination" style="margin-left: 20px;">
+    Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber)
+    of @Model.PageCount @Html.PagedListPager(Model, page => Url.Action("CustomerRHistory", new { page, @CustomerID = ViewData["CID"] }))
+</div>
+<table class="ActiveRequests">
+    <caption>Past 3 Days Off</caption>
+    <tr>
+        <th>@Html.Label("Date")</th>
+        <th>@Html.Label("Name")</th>
+        <th>@Html.Label("Turn Out")</th>
+        <th>@Html.Label("CFS")</th>
+        <th id="RBorder">@Html.Label("Comments")</th>
+        <th>@Html.Label("Staff")</th>
+        <th>@Html.Label("Date")</th>
+        <th>@Html.Label("CFS")</th>
+        <th colspan="2">@Html.Label("Comments")</th>
+    </tr>
+    @for (int i = 0; i < Model.Count; i++)
+    {
+        <tr>
+            <td>@Model[i].CustomerDate2.ToString("MM/dd/yyyy hh:mm tt")</td>
+            <td>@Model[i].CustomerName</td>
+            <td>@Model[i].Structure</td>
+            <td>@Model[i].CustomerCFS2</td>
+            <td id="RBorder">@Model[i].CustomerComments2</td>
+            <td>@Model[i].Staff2</td>
+            @if (Model[i].StaffDate2 != Model[i].CustomerDate2)
+                {
+                <td style="color: red;">@Model[i].StaffDate2.ToString("MM/dd/yyyy hh:mm tt")</td>
+            }
+            @if (Model[i].StaffDate2 == Model[i].CustomerDate2)
+            {
+                <td>@Model[i].StaffDate2.ToString("MM/dd/yyyy hh:mm tt")</td>
+            }
+            @if (Model[i].StaffCFS2 != Model[i].CustomerCFS2)
+                {
+                <td style="color: red;">@Model[i].StaffCFS2</td>
+            }
+            @if (Model[i].StaffCFS2 == Model[i].CustomerCFS2)
+            {
+                <td>@Model[i].StaffCFS2</td>
+            }
+            <td>@Model[i].StaffComments2</td>
+        </tr>
+    }
+</table>
+<div class="pagination" style="margin-left: 20px;">
+    Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber)
+    of @Model.PageCount @Html.PagedListPager(Model, page => Url.Action("CustomerRHistory", new { page, @CustomerID = ViewData["CID"] }))
+</div>

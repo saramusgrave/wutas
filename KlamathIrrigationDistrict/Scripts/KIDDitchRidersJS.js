@@ -9,21 +9,15 @@
         x.type = "password";
     }
 }
-function chkind()
+
+$(document).ready(function ()
 {
-    var obj = document.getElementById("Comments");
-    var x = document.getElementById("Sub");
-    if (obj.options[obj.selectedIndex].text == "Other")
+    $('#Comments').change(function ()
     {
-        x.style.display = "block";
-        obj.innerHTML.valueOf("Other") + obj.options[obj.selectedIndex].text;
-    }
-    else
-    {
-        obj.style.display = "block";
-        x.style.display = "none";
-    }
-}
+        $('#Sub').toggle($(this).val() == 'Other');
+    });
+});
+
 function ConfirmFn()
 {
 	var txt;

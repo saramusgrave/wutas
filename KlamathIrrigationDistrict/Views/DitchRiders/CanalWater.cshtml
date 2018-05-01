@@ -1,27 +1,22 @@
 ﻿@using KlamathIrrigationDistrict.DataLayer.DataModels
 @model DitchRiderRequests
 @{
-    ViewBag.Title = "KID D.R.: Canals";
+    ViewBag.Title = "KID: Canals";
     Layout = "~/Views/Shared/DitchRidersMenue.cshtml";
 }
-<body>
-    @using (Html.BeginForm())
-    {
-        <table class="ActiveRequests" style="width: 500px;">
-            <caption>Canal CFS Level</caption>
-            <tr>
-                <th>@Html.Label("Canal")</th>
-                <th>@Html.Label("Today's CFS")</th>
-                <th>@Html.Label("Tomorrow's CFS")</th>
-            </tr>
-            <tr>
-                <td>@Html.DropDownListFor(s => s.Lateral, ViewData["Lateral"] as IEnumerable<SelectListItem>, "--Select--")</td>
-                <td>@Model.TodayCFS</td>
-                <td>@Model.TomorrowCFS</td>
-            </tr>
-        </table>        
-        <div>
-            <button type="submit">Submit</button>
-        </div>        
-    }    
-</body>
+@using (Html.BeginForm())
+{
+    <table class="ActiveRequests" style="width: 500px;">
+        <caption>Canal CFS Level</caption>
+        <tr>
+            <th>@Html.Label("Canal")</th>
+            <th>@Html.Label("Today's CFS")</th>
+            <th>@Html.Label("Tomorrow's CFS")</th>
+        </tr>
+        <tr>
+            <td>@Html.DropDownListFor(s => s.Lateral, ViewData["Lateral"] as IEnumerable<SelectListItem>, "--Select--", new { onchange = "this.form.submit();" })</td>
+            <td>@Model.TodayCFS</td>
+            <td>@Model.TomorrowCFS</td>
+        </tr>
+    </table>               
+}    
