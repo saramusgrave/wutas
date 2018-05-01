@@ -276,7 +276,7 @@ namespace KlamathIrrigationDistrict.DataLayer.Repositories
                 using (SqlCommand command = new SqlCommand())
                 {
                     command.Connection = connection;
-                    command.CommandText = "SELECT RequestID, CustomerDate1, CustomerName, Structure, CustomerCFS1, CustomerComments1 FROM Requests WHERE StaffCFS1 IS NULL AND RequestStatus1 = 'Pending'";
+                    command.CommandText = "SELECT RequestID, CustomerDate1, CustomerName, Structure, CustomerCFS1, CustomerComments1 FROM Requests WHERE StaffCFS1 IS NULL AND RequestStatus1 = 'Confirm'";
                     command.Parameters.AddWithValue("@CustomerID", CustomerID);
                     command.CommandType = CommandType.Text;
                     connection.Open();
@@ -291,6 +291,9 @@ namespace KlamathIrrigationDistrict.DataLayer.Repositories
                             p.Structure = reader["Structure"].ToString();
                             p.CustomerCFS_1 = int.Parse(reader["CustomerCFS1"].ToString());
                             p.CustomerComments_1 = reader["CustomerComments1"].ToString();
+                            //p.StaffName_1 = reader["Staff1"].ToString();
+                            //p.StaffDate1 = DateTime.Parse(reader["StaffDate1"].ToString());
+                            //p.StaffComments1 = reader["StaffComments1"].ToString();
                             ActiveRequestList.Add(p);
                         }
                     }
@@ -324,7 +327,7 @@ namespace KlamathIrrigationDistrict.DataLayer.Repositories
                 using (SqlCommand command = new SqlCommand())
                 {
                     command.Connection = connection;
-                    command.CommandText = "SELECT RequestID, CustomerDate1, CustomerName, Structure, CustomerCFS1, CustomerComments1, Staff1, StaffDate1, StaffComments1 FROM Requests WHERE StaffCFS1 IS NULL AND RequestStatus1 = 'Wait List'";
+                    command.CommandText = "SELECT RequestID, CustomerDate1, CustomerName, Structure, CustomerCFS1, CustomerComments1, Staff1, StaffDate1, StaffComments1 FROM Requests WHERE StaffCFS1 IS NULL AND RequestStatus1 IS NULL";
                     command.Parameters.AddWithValue("@CustomerID", CustomerID);
                     command.CommandType = CommandType.Text;
                     connection.Open();
@@ -339,9 +342,9 @@ namespace KlamathIrrigationDistrict.DataLayer.Repositories
                             p.Structure = reader["Structure"].ToString();
                             p.CustomerCFS_1 = int.Parse(reader["CustomerCFS1"].ToString());
                             p.CustomerComments_1 = reader["CustomerComments1"].ToString();
-                            p.StaffName_1 = reader["Staff1"].ToString();
-                            p.StaffDate1 = DateTime.Parse(reader["StaffDate1"].ToString());
-                            p.StaffComments1 = reader["StaffComments1"].ToString();
+                            //p.StaffName_1 = reader["Staff1"].ToString();
+                            //p.StaffDate1 = DateTime.Parse(reader["StaffDate1"].ToString());
+                            //p.StaffComments1 = reader["StaffComments1"].ToString();
                             ActiveRequestList.Add(p);
                         }
                     }
