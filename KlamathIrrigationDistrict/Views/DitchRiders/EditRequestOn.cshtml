@@ -1,63 +1,44 @@
 ﻿@using KlamathIrrigationDistrict.DataLayer.DataModels
 @model DitchRiderRequests
 @{
-    ViewBag.Title = "KID D.R.: Turn On Water";
+    ViewBag.Title = "KID: Request On";
     Layout = "~/Views/Shared/DitchRidersMenue.cshtml";
 }
-<script>
-    function chkind()
-    {
-        var obj = document.getElementById("Comments");
-        var x = document.getElementById("Sub");
-        if(obj.options[obj.selectedIndex].text == "Other")
-        {
-            x.style.display = "block";            
-            obj.innerHTML.valueOf("Other") + obj.options[obj.selectedIndex].text;        
-        }
-        else
-        {
-            obj.style.display = "block";
-            x.style.display = "none";
-        }
-    }
-</script>
-<body>
-    <a href="@Url.Action("_ActiveRequestsOn", "DitchRiders")/@Url.RequestContext.RouteData.Values["id"]" class="previous"><br />&laquo; Request</a>
-    @using (Html.BeginForm())
-    {
-        @Html.HiddenFor(s => s.RequestID)
-        @Html.HiddenFor(s => s.Staff1, new { @Value = User.Identity.Name })
-        @Html.HiddenFor(s => s.TimeStampStaff1)
-        <table class="ActiveRequests">
-            <caption>Log Water</caption>
-            <tr>
-                <th>@Html.Label("Name")</th>
-                <th>@Html.Label("Date")</th>
-                <th>@Html.Label("CFS")</th>
-                <th>@Html.Label("Turnout")</th>
-                <th>@Html.Label("Comments")</th>
-                <th>@Html.Label("Status")</th>
-            </tr>
-            <tr>
-                <td>@Html.DisplayTextFor(s => s.CustomerName)</td>
-                <td>@Html.DisplayTextFor(s => s.CustomerDate1)</td>
-                <td>@Html.DisplayTextFor(s => s.CustomerCFS1)</td>
-                <td>@Html.DisplayTextFor(s => s.Structure)</td>
-                <td>@Html.DisplayTextFor(s => s.CustomerComments1)</td>
-                <td>@Html.DisplayTextFor(s => s.RequestStatus1)</td>
-            </tr>
-            <tr>
-                <td>@User.Identity.Name</td>
-                <td>@Html.TextBoxFor(s => s.StaffDate1, new { @type = "datetime-local"})</td>
-                <td colspan="2">@Html.TextBoxFor(s => s.StaffCFS1, new { @type = "number", @step = "0.001" })</td>
-                <td>@Html.DropDownListFor(s => s.StaffComments1, ViewData["Comments"] as IEnumerable<SelectListItem>, new { @ID = "Comments", @onchange = "chkind()" })@Html.TextAreaFor(s => s.StaffComments1, new { @Id = "Sub", @hidden = "hidden" })
-                </td>
-                <td>@Html.DropDownListFor(s => s.RequestStatus1, ViewData["Status"] as IEnumerable<SelectListItem>, "--Select--")</td>
-            </tr>
-        </table>        
-        <div>
-            <button type="submit">Submit</button>
-        </div>
-    }
-    @Html.Partial("_CanalWater")
-</body>
+<a href="@Url.Action("_ActiveRequestsOn", "DitchRiders")/@Url.RequestContext.RouteData.Values["id"]" class="previous"><br />&laquo;Active Requests On</a>
+@using (Html.BeginForm())
+{
+    @Html.HiddenFor(s => s.RequestID)
+    @Html.HiddenFor(s => s.Staff1, new { @Value = User.Identity.Name })
+    @Html.HiddenFor(s => s.TimeStampStaff1)
+    <table class="ActiveRequests">
+        <caption>Log Water</caption>
+        <tr>
+            <th>@Html.Label("Name")</th>
+            <th>@Html.Label("Date")</th>
+            <th>@Html.Label("CFS")</th>
+            <th>@Html.Label("Turnout")</th>
+            <th>@Html.Label("Comments")</th>
+            <th>@Html.Label("Status")</th>
+        </tr>
+        <tr>
+            <td>@Html.DisplayTextFor(s => s.CustomerName)</td>
+            <td>@Html.DisplayTextFor(s => s.CustomerDate1)</td>
+            <td>@Html.DisplayTextFor(s => s.CustomerCFS1)</td>
+            <td>@Html.DisplayTextFor(s => s.Structure)</td>
+            <td>@Html.DisplayTextFor(s => s.CustomerComments1)</td>
+            <td>@Html.DisplayTextFor(s => s.RequestStatus1)</td>
+        </tr>
+        <tr>
+            <td>@User.Identity.Name</td>
+            <td>@Html.TextBoxFor(s => s.StaffDate1, new { @type = "datetime-local", @Value = Model._Getdate.Date.ToString("yyyy-MM-ddThh:mm") })</td>
+            <td colspan="2">@Html.TextBoxFor(s => s.StaffCFS1, new { @type = "number", @step = "0.001" })</td>
+            <td>@Html.DropDownListFor(s => s.StaffComments1, ViewData["Comments"] as IEnumerable<SelectListItem>, new { @ID = "Comments"})@Html.TextAreaFor(s => s.StaffComments2, new { @Id = "Sub", @hidden = "hidden" })
+            </td>
+            <td>@Html.DropDownListFor(s => s.RequestStatus1, ViewData["Status"] as IEnumerable<SelectListItem>)</td>
+        </tr>
+    </table>        
+    <div>
+        <button type="submit">Submit</button>
+    </div>
+}
+@Html.Partial("_CanalWater")

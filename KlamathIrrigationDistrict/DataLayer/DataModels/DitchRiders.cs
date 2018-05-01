@@ -45,7 +45,7 @@ namespace KlamathIrrigationDistrict.DataLayer.DataModels
         public string Violation { get; set; }
         public float TomorrowCFS { get; set; }
         public float TodayCFS { get; set; }
-        public int On { get; set; }
+        public Boolean On { get; set; }
 
         //Lists
         public List<DitchRiderRequests> Comments { get; set; }

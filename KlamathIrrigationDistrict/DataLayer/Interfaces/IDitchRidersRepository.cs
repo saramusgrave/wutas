@@ -63,9 +63,7 @@ namespace KlamathIrrigationDistrict.DataLayer.Interfaces
         /*-------------------------Stored Procedures---------------------------------------*/
 
 
-        /*Delete RequestID
-         * Use: DeleteRHistory*/
-        void DeleteRHistory(int RequestID);
+
         /*Add Requests as if customer Ride  on
          * Use: AddRequestOn*/
         void AddRequest_On(DitchRiderRequests ditchriderrequests);

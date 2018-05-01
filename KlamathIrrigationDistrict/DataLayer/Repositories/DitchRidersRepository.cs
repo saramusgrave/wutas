@@ -146,9 +146,8 @@ namespace KlamathIrrigationDistrict.DataLayer.Repositories
                 using (SqlCommand command = new SqlCommand())
                 {
                     command.Parameters.AddWithValue("@RideNum", id);
-                    command.Connection = connection;
-                    //command.CommandText = "SELECT * FROM [DitchRiderCustomers] WHERE Ride = @RideNum ORDER BY Lateral";
-                    command.CommandText = "SELECT [DitchRiderCustomers].*, (SELECT COUNT(CustomerName) FROM [Customers With Water On] WHERE [Customers With Water On].CustomerID = [DitchRiderCustomers].CustomerID AND [Customers With Water On].Structure = [DitchRiderCustomers].StructureID) AS WOn  FROM [DitchRiderCustomers] WHERE [DitchRiderCustomers].Ride = @RideNum ORDER BY [DitchRiderCustomers].Lateral";
+                    command.Connection = connection;                    
+                    command.CommandText = "SELECT * FROM [DitchRiderCustomersV2] WHERE Ride = @RideNum ORDER BY Lateral ";
                     command.CommandType = CommandType.Text;
                     connection.Open();
                     using (SqlDataReader reader = command.ExecuteReader())
@@ -164,7 +163,7 @@ namespace KlamathIrrigationDistrict.DataLayer.Repositories
                             c.TotalAllotment = float.Parse(reader["CurrentAllotment"].ToString());
                             c.Ride = int.Parse(reader["Ride"].ToString());
                             c.ViolationID = int.Parse(reader["Violation"].ToString());
-                            c.On = int.Parse(reader["WOn"].ToString());
+                            c.On = Boolean.Parse(reader["WaterOn"].ToString());
                            
                             CustomerList.Add(c);
                         }
@@ -438,7 +437,7 @@ namespace KlamathIrrigationDistrict.DataLayer.Repositories
                             p.Structure = reader["Structure"].ToString();
                             p.Lateral = reader["Lateral"].ToString();
                             p.RequestStatus2 = reader["RequestStatus2"].ToString();
-                            p.CustomerCFS2 = float.Parse(reader["CustomerCFS2"].ToString());
+                            p.StaffCFS1 = float.Parse(reader["StaffCFS1"].ToString());
                             p.CustomerComments2 = reader["CustomerComments2"].ToString();
 
                             RequestList.Add(p);
@@ -516,6 +515,7 @@ namespace KlamathIrrigationDistrict.DataLayer.Repositories
                             p.Structure = reader["Structure"].ToString();
                             p.Lateral = reader["Lateral"].ToString();
                             p.RequestStatus2 = reader["RequestStatus2"].ToString();
+                            p.CustomerCFS1 = float.Parse(reader["CustomerCFS1"].ToString());
                             p.CustomerCFS2 = float.Parse(reader["CustomerCFS2"].ToString());
                             p.CustomerComments2 = reader["CustomerComments2"].ToString();
 
@@ -594,7 +594,7 @@ namespace KlamathIrrigationDistrict.DataLayer.Repositories
                             p.Structure = reader["Structure"].ToString();
                             p.Lateral = reader["Lateral"].ToString();
                             p.RequestStatus2 = reader["RequestStatus2"].ToString();
-                            p.CustomerCFS2 = float.Parse(reader["CustomerCFS2"].ToString());
+                            p.StaffCFS1 = float.Parse(reader["StaffCFS1"].ToString());
                             p.CustomerComments2 = reader["CustomerComments2"].ToString();
 
                             RequestList.Add(p);
@@ -656,28 +656,7 @@ namespace KlamathIrrigationDistrict.DataLayer.Repositories
         
         /*-------------------------Stored Procedures---------------------------------------*/
 
-        /* Delete Recent History as DeleterRHistory(int RequestID)
-         * SQL: sp_DitchRider_DeleteRHistory
-         * Give: @RequestID
-         * View: DeleteRHistory */
-        public virtual void DeleteRHistory(int RequestID)
-        {
-            using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["KID"].ConnectionString))
-            {
-                using (SqlCommand command = new SqlCommand())
-                {
-                    command.Connection = connection;
-                    command.CommandType = CommandType.StoredProcedure;
-                    command.CommandText = "sp_DitchRider_DeleteRHistory";
 
-                    DitchRiderRequests dr = new DitchRiderRequests();
-                    command.Parameters.AddWithValue("@RequestID", dr.RequestID);
-
-                    connection.Open();
-                    command.ExecuteNonQuery();
-                }
-            }
-        }
         /* Add Customer Call Request for Water On as AddREquest_On(ditchriderrequests)
          * SQL: sp_DitchRider_AddRequestOn
          * GIVE: TimeStampCustomer1, CustomerDate1, CusotmerID, CustomerName, Structure, Lateral, CustomerCFS1, CustomerComments1, RequestStatsu1, Ride
@@ -700,7 +679,7 @@ namespace KlamathIrrigationDistrict.DataLayer.Repositories
                     command.Parameters.AddWithValue("@Structure", ditchriderrequests.Structure);
                     command.Parameters.AddWithValue("@Lateral", ditchriderrequests.Lateral);
                     command.Parameters.AddWithValue("@CustomerCFS1", ditchriderrequests.CustomerCFS1);
-                    command.Parameters.AddWithValue("@CustomerComments1", ditchriderrequests.CustomerComments1);
+                    command.Parameters.AddWithValue("@CustomerComments1", ditchriderrequests.CustomerComments1 == "Other" ? ditchriderrequests.CustomerComments2 : ditchriderrequests.CustomerComments1);
                     command.Parameters.AddWithValue("@RequestStatus1", ditchriderrequests.RequestStatus1);
                     command.Parameters.AddWithValue("@Ride", ditchriderrequests.Ride);
 
@@ -709,7 +688,7 @@ namespace KlamathIrrigationDistrict.DataLayer.Repositories
                 }
             }
         }
-        /* Add Customer Call Request for Water Off as AddREquest_Off(ditchriderrequests)
+        /* Add Customer Call Request for Water Off as AddRequest_Off(ditchriderrequests)
          * SQL: sp_DitchRider_AddREquestsOff
          * GIVE: RequestID, TimeStampCustomer2, CustomerDate2, CustomerComments2, CusotmerCFS2, RequestStatus2, Staff2, Lateral
          * View: _AddREquestOff
@@ -728,7 +707,7 @@ namespace KlamathIrrigationDistrict.DataLayer.Repositories
                     command.Parameters.AddWithValue("@TimeStampCustomer2", ditchriderrequests.TimeStampCustomer2);
                     command.Parameters.AddWithValue("@CustomerDate2", ditchriderrequests.CustomerDate2);
                     command.Parameters.AddWithValue("@CustomerCFS2", ditchriderrequests.CustomerCFS2);
-                    command.Parameters.AddWithValue("@CustomerComments2", ditchriderrequests.CustomerComments2);
+                    command.Parameters.AddWithValue("@CustomerComments2", ditchriderrequests.CustomerComments2 == "Other" ? ditchriderrequests.CustomerComments1 : ditchriderrequests.CustomerComments2);
                     command.Parameters.AddWithValue("@RequestStatus2", ditchriderrequests.RequestStatus2);
                     command.Parameters.AddWithValue("@Staff2", ditchriderrequests.Staff2);
                     command.Parameters.AddWithValue("@Lateral", ditchriderrequests.Lateral);
@@ -759,7 +738,7 @@ namespace KlamathIrrigationDistrict.DataLayer.Repositories
                     command.Parameters.AddWithValue("@StaffDate1", ditchriderrequests.StaffDate1);
                     command.Parameters.AddWithValue("@RequestStatus1", ditchriderrequests.RequestStatus1);
                     command.Parameters.AddWithValue("@StaffCFS1", ditchriderrequests.StaffCFS1);
-                    command.Parameters.AddWithValue("@StaffComments1", ditchriderrequests.StaffComments1);
+                    command.Parameters.AddWithValue("@StaffComments1", ditchriderrequests.StaffComments1 == "Other" ? ditchriderrequests.StaffComments2 : ditchriderrequests.StaffComments1);
 
                     connection.Open();
                     command.ExecuteNonQuery();
@@ -787,7 +766,7 @@ namespace KlamathIrrigationDistrict.DataLayer.Repositories
                     command.Parameters.AddWithValue("@StaffDate2", ditchriderrequests.StaffDate2);
                     command.Parameters.AddWithValue("@RequestStatus2", ditchriderrequests.RequestStatus2);
                     command.Parameters.AddWithValue("@StaffCFS2", ditchriderrequests.StaffCFS2);
-                    command.Parameters.AddWithValue("@StaffComments2", ditchriderrequests.StaffComments2);
+                    command.Parameters.AddWithValue("@StaffComments2", ditchriderrequests.StaffComments2 == "Other" ? ditchriderrequests.StaffComments1 : ditchriderrequests.StaffComments2);
 
                     connection.Open();
                     command.ExecuteNonQuery();
@@ -813,7 +792,7 @@ namespace KlamathIrrigationDistrict.DataLayer.Repositories
                     command.Parameters.AddWithValue("@TimeStampStaff1", ditchriderrequests.TimeStampCustomer1);
                     command.Parameters.AddWithValue("@Staff1", ditchriderrequests.Staff1);
                     command.Parameters.AddWithValue("@RequestStatus1", ditchriderrequests.RequestStatus1);
-                    command.Parameters.AddWithValue("@StaffComments1", ditchriderrequests.StaffComments1);
+                    command.Parameters.AddWithValue("@StaffComments1", ditchriderrequests.StaffComments1 == "Other" ? ditchriderrequests.StaffComments2 : ditchriderrequests.StaffComments1);
 
                     connection.Open();
                     command.ExecuteNonQuery();
@@ -839,7 +818,7 @@ namespace KlamathIrrigationDistrict.DataLayer.Repositories
                     command.Parameters.AddWithValue("@TimeStampStaff2", ditchriderrequests.TimeStampCustomer2);
                     command.Parameters.AddWithValue("@Staff2", ditchriderrequests.Staff2);
                     command.Parameters.AddWithValue("@RequestStatus2", ditchriderrequests.RequestStatus2);
-                    command.Parameters.AddWithValue("@StaffComments2", ditchriderrequests.StaffComments2);
+                    command.Parameters.AddWithValue("@StaffComments2", ditchriderrequests.StaffComments2 == "Other" ? ditchriderrequests.StaffComments1 : ditchriderrequests.StaffComments2);
 
                     connection.Open();
                     command.ExecuteNonQuery();
@@ -867,7 +846,7 @@ namespace KlamathIrrigationDistrict.DataLayer.Repositories
                     command.Parameters.AddWithValue("@Structure", ditchriderrequests.Structure);
                     command.Parameters.AddWithValue("@Lateral", ditchriderrequests.Lateral);
                     command.Parameters.AddWithValue("@Ride", ditchriderrequests.Ride);
-                    command.Parameters.AddWithValue("@StaffComments", ditchriderrequests.StaffComments1);
+                    command.Parameters.AddWithValue("@StaffComments1", ditchriderrequests.StaffComments1 == "Other" ? ditchriderrequests.StaffComments2 : ditchriderrequests.StaffComments1);
                     command.Parameters.AddWithValue("@TimeStampStaff", ditchriderrequests.TimeStampStaff1);
                     command.Parameters.AddWithValue("@Staff", ditchriderrequests.Staff1);
 
@@ -892,13 +871,12 @@ namespace KlamathIrrigationDistrict.DataLayer.Repositories
 
                     command.Parameters.AddWithValue("@RequestID", ditchriderrequests.RequestID);
                     command.Parameters.AddWithValue("@CustomerCFS1", ditchriderrequests.CustomerCFS1);
-                    command.Parameters.AddWithValue("@CustomerComments", ditchriderrequests.CustomerComments1);
+                    command.Parameters.AddWithValue("@CustomerComments1", ditchriderrequests.CustomerComments1);
                     command.Parameters.AddWithValue("@CustomerDate1", ditchriderrequests.CustomerDate1);
                     command.Parameters.AddWithValue("@Staff1", ditchriderrequests.Staff1);
                     command.Parameters.AddWithValue("@StaffDate1", ditchriderrequests.StaffDate1);
                     command.Parameters.AddWithValue("@StaffCFS1", ditchriderrequests.StaffCFS1);
                     command.Parameters.AddWithValue("@StaffComments1", ditchriderrequests.StaffComments1);
-
                     connection.Open();
                     command.ExecuteNonQuery();
                 }

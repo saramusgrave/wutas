@@ -575,7 +575,6 @@
     <Content Include="Views\DitchRiders\_CanalWater.cshtml" />
     <Content Include="Views\DitchRiders\Violations.cshtml" />
     <Content Include="Views\DitchRiders\EditRHistory_On.cshtml" />
-    <Content Include="Views\DitchRiders\DeleteRHistory.cshtml" />
     <None Include="Web.klamathirrigation.net - Web Deploy.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

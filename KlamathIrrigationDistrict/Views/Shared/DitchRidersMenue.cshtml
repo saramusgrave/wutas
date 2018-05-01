@@ -1,4 +1,5 @@
 ﻿<!DOCTYPE html>
+<html>
 <head>
     <title>@ViewBag.Title</title>
     <meta name="viewport" content="width=device-width" />
@@ -6,54 +7,54 @@
     <link rel="icon" href="http://www.klamathirrigation.com/images/Old%20Hydro%201.jpg" />
     @*@RenderSection("PageHead", false)*@
 </head>
-<header id="Header">
-    <div id="RideCenter">
-        <a class="dropdown">@User.Identity.Name: Ride @Url.RequestContext.RouteData.Values["id"]</a>        
-    </div>
-    <nav id="Menue">
-        <ul id="Menu">
-            <li class="dropdown">
-                <a href="@Url.Action("Customers", "DitchRiders")/@Url.RequestContext.RouteData.Values["id"]">Customers</a>
-                <div class="dropdownRequest" style="overflow-x: auto;">
-                    <a href="@Url.Action("Customers_On", "DitchRiders")/@Url.RequestContext.RouteData.Values["id"]">Customers With Water On</a>
-                </div>
-            </li>
-            <li class="dropdown">
-                <a href="@Url.Action("Appending_On", "DitchRiders")/@Url.RequestContext.RouteData.Values["id"]">Pending On</a>
-                <div class="dropdownRequest" style="overflow-x: auto;">
-                    <a href="@Url.Action("Appending_Off", "DitchRiders")/@Url.RequestContext.RouteData.Values["id"]">Pending Off</a>
-                </div>
-            </li>
-            <li class="dropdown">
-                <a href="@Url.Action("_ActiveRequestsOn", "DitchRiders")/@Url.RequestContext.RouteData.Values["id"]">Active Requests On</a>
-                <div class="dropdownRequest" style="overflow-x: auto;">
-                    <a href="@Url.Action("_ActiveRequestsOff", "DitchRiders")/@Url.RequestContext.RouteData.Values["id"]">Active Requests Off</a>
-                </div>
-            </li>
-            <li class="dropdown">
-                <a href="@Url.Action("WaitList_On", "DitchRiders")/@Url.RequestContext.RouteData.Values["id"]">Waitlist On</a>
-                <div class="dropdownRequest" style="overflow-x: auto;">
-                    <a href="@Url.Action("WaitList_Off", "DitchRiders")/@Url.RequestContext.RouteData.Values["id"]">Waitlist Off</a>
-                </div>
-            </li>
-            <li>
-                <a href="@Url.Action("CanalWater", "DitchRiders")/@Url.RequestContext.RouteData.Values["id"]">Canals</a>           
-            <li>
-                @using (Html.BeginForm("LogOff", "Account"))
-                {
-                    @Html.AntiForgeryToken()
-                    <button type="submit" class="btn btn-link" id="LogOutBtn">Log Out</button>
-                }
-            </li>
-        </ul>
-        </nav>
-</header>
-<html>
-
 <body>
+    <header id="Header">
+        <div id="RideCenter">
+            <a class="dropdown">@User.Identity.Name: Ride @Url.RequestContext.RouteData.Values["id"]</a>
+        </div>
+        <nav id="Menue">
+            <ul id="Menu">
+                <li class="dropdown">
+                    <a href="@Url.Action("Customers", "DitchRiders", new { @id = Url.RequestContext.RouteData.Values["id"]})">Customers</a>
+                    <div class="dropdownRequest" style="overflow-x: auto;">
+                        <a href="@Url.Action("Customers_On", "DitchRiders", new { @id = Url.RequestContext.RouteData.Values["id"]})">Customers Running Water</a>
+                    </div>
+                </li>
+                <li class="dropdown">
+                    <a href="@Url.Action("Appending_On", "DitchRiders", new { @id = Url.RequestContext.RouteData.Values["id"]})">Pending On</a>
+                    <div class="dropdownRequest" style="overflow-x: auto;">
+                        <a href="@Url.Action("Appending_Off", "DitchRiders", new { @id = Url.RequestContext.RouteData.Values["id"]})">Pending Off</a>
+                    </div>
+                </li>
+                <li class="dropdown">
+                    <a href="@Url.Action("_ActiveRequestsOn", "DitchRiders", new { @id = Url.RequestContext.RouteData.Values["id"]})">Active Requests On</a>
+                    <div class="dropdownRequest" style="overflow-x: auto;">
+                        <a href="@Url.Action("_ActiveRequestsOff", "DitchRiders", new { @id = Url.RequestContext.RouteData.Values["id"]})">Active Requests Off</a>
+                    </div>
+                </li>
+                <li class="dropdown">
+                    <a href="@Url.Action("WaitList_On", "DitchRiders", new { @id = Url.RequestContext.RouteData.Values["id"]})">Waitlist On</a>
+                    <div class="dropdownRequest" style="overflow-x: auto;">
+                        <a href="@Url.Action("WaitList_Off", "DitchRiders", new { @id = Url.RequestContext.RouteData.Values["id"]})">Waitlist Off</a>
+                    </div>
+                </li>
+                <li>
+                    <a href="@Url.Action("CanalWater", "DitchRiders", new { @id = Url.RequestContext.RouteData.Values["id"]})">Canals</a>
+                <li>
+                    @using (Html.BeginForm("LogOff", "Account"))
+                    {
+                        @Html.AntiForgeryToken()
+                        <button type="submit" class="btn btn-link" id="LogOutBtn">Log Out</button>
+                    }
+                </li>
+            </ul>
+        </nav>
+    </header>
     @RenderBody()
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
     <script src="~/Scripts/KIDDitchRidersJS.js"></script>
-    @*@RenderSection("Scripts", false)*@
+        @RenderSection("Scripts", false)        
 </body>
 </html>
 <footer>
