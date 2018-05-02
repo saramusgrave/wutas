@@ -13,16 +13,18 @@ namespace KlamathIrrigationDistrict.DataLayer.Repositories
 {
     //Actual body for the header file -> ICustomerRepository
     public class CustomerRepository : ICustomerRepository
-    {        
-        public virtual Customers Get(int CustomerID)
+    {
+        public virtual Customers Get(int id)
         {
             Customers s = null;
             using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings[@"KID"].ConnectionString))
             {
+                //current issue here
                 using (SqlCommand command = new SqlCommand())
                 {
                     command.Connection = connection;
-                    command.CommandText = "SELECT * FROM Customers";
+                    command.CommandText = "SELECT * FROM Customers WHERE CustomerID = @CustomerID";
+                    command.Parameters.AddWithValue("@CustomerID", id);
                     command.CommandType = CommandType.Text;
 
                     connection.Open();
@@ -31,7 +33,7 @@ namespace KlamathIrrigationDistrict.DataLayer.Repositories
                         if (reader.Read())
                         {
                             s = new Customers();
-                            s.CustomerID = int.Parse(reader["CustomerID"].ToString());
+                            //s.CustomerID = int.Parse(reader["CustomerID"].ToString());
                             s.TrackingID = int.Parse(reader["TrackingID"].ToString());
                             s.Name = reader["Name"].ToString();
                             s.Address1 = reader["Address1"].ToString();
@@ -46,7 +48,7 @@ namespace KlamathIrrigationDistrict.DataLayer.Repositories
             }
             return (s);
         }
-       
+
 
 
         public virtual List<Customers> ViewCustomers()
@@ -86,7 +88,7 @@ namespace KlamathIrrigationDistrict.DataLayer.Repositories
             return (vc);
         }
 
-
+        //allow user to view their own personal information - parameter (customerID)
         public virtual List<Customers> ViewCustomers(int CustomerID)
         {            
             List<Customers> vc = new List<Customers>();
@@ -119,22 +121,22 @@ namespace KlamathIrrigationDistrict.DataLayer.Repositories
                     }
                 }
 
-                //using (SqlCommand command = new SqlCommand())
-                //{
-                //    command.Connection = connection;
-                //    command.CommandText = "SELECT TotalAllotment FROM [Ride Customer List TotalAllotment] WHERE CustomerID = @CustomerID";
-                //    command.Parameters.AddWithValue("@CustomerID", CustomerID);
-                //    command.CommandType = CommandType.Text;
-                //    //connection.Open();
-                //    using (SqlDataReader reader = command.ExecuteReader())
-                //    {
-                //        if (reader.Read())
-                //        {
-                //            s.TotalAllotment = Decimal.Parse(reader["TotalAllotment"].ToString());
-                //            vc.Add(s);
-                //        }
-                //    }
-                //}
+                using (SqlCommand command = new SqlCommand())
+                {
+                    command.Connection = connection;
+                    command.CommandText = "SELECT TotalAllotment FROM [Ride Customer List TotalAllotment] WHERE CustomerID = @CustomerID";
+                    command.Parameters.AddWithValue("@CustomerID", CustomerID);
+                    command.CommandType = CommandType.Text;
+                    //connection.Open();
+                    using (SqlDataReader reader = command.ExecuteReader())
+                    {
+                        if (reader.Read())
+                        {
+                            s.TotalAllotment = Decimal.Parse(reader["TotalAllotment"].ToString());
+                            vc.Add(s);
+                        }
+                    }
+                }
 
             }
             return (vc);
@@ -226,41 +228,41 @@ namespace KlamathIrrigationDistrict.DataLayer.Repositories
                 }
 
                 //will display the actual change of allotment based on requests
-                using (SqlCommand command = new SqlCommand())
-                {
-                    command.Connection = connection;
-                    command.CommandText = "SELECT TotalAllotment FROM CustomerInfo WHERE CustomerID = @CustomerID";
-                    command.Parameters.AddWithValue("@CustomerID", CustomerID);
-                    command.CommandType = CommandType.Text;
-                    //connection.Open();
-                    using (SqlDataReader reader = command.ExecuteReader())
-                    {
-                        if (reader.Read())
-                        {
-                            p.CurrentAllotment = Decimal.Parse(reader["TotalAllotment"].ToString());
-                            RequestList.Add(p);
-                        }
-                    }
-                }
+                //using (SqlCommand command = new SqlCommand())
+                //{
+                //    command.Connection = connection;
+                //    command.CommandText = "SELECT TotalAllotment FROM CustomerInfo WHERE CustomerID = @CustomerID";
+                //    command.Parameters.AddWithValue("@CustomerID", CustomerID);
+                //    command.CommandType = CommandType.Text;
+                //    //connection.Open();
+                //    using (SqlDataReader reader = command.ExecuteReader())
+                //    {
+                //        if (reader.Read())
+                //        {
+                //            p.CurrentAllotment = Decimal.Parse(reader["TotalAllotment"].ToString());
+                //            RequestList.Add(p);
+                //        }
+                //    }
+                //}
 
                 //This displays the entirety of the the customer's allotment
                 //am i a madman for making two sql statements to be read????
-                using (SqlCommand command = new SqlCommand())
-                {
-                    command.Connection = connection;
-                    command.CommandText = "SELECT TotalAllotment FROM [Ride Customer List TotalAllotment] WHERE CustomerID = @CustomerID";
-                    command.Parameters.AddWithValue("@CustomerID", CustomerID);
-                    command.CommandType = CommandType.Text;
-                    //connection.Open();
-                    using (SqlDataReader reader = command.ExecuteReader())
-                    {
-                        if (reader.Read())
-                        {                            
-                            p.TotalAllotment = Decimal.Parse(reader["TotalAllotment"].ToString());
-                            RequestList.Add(p);
-                        }
-                    }
-                }
+                //using (SqlCommand command = new SqlCommand())
+                //{
+                //    command.Connection = connection;
+                //    command.CommandText = "SELECT TotalAllotment FROM [Ride Customer List TotalAllotment] WHERE CustomerID = @CustomerID";
+                //    command.Parameters.AddWithValue("@CustomerID", CustomerID);
+                //    command.CommandType = CommandType.Text;
+                //    //connection.Open();
+                //    using (SqlDataReader reader = command.ExecuteReader())
+                //    {
+                //        if (reader.Read())
+                //        {                            
+                //            p.TotalAllotment = Decimal.Parse(reader["TotalAllotment"].ToString());
+                //            RequestList.Add(p);
+                //        }
+                //    }
+                //}
 
             }
             return (RequestList);
@@ -289,7 +291,7 @@ namespace KlamathIrrigationDistrict.DataLayer.Repositories
                             p.CustomerDate1 = DateTime.Parse(reader["CustomerDate1"].ToString());
                             p.Name = reader["CustomerName"].ToString();
                             p.Structure = reader["Structure"].ToString();
-                            p.CustomerCFS_1 = int.Parse(reader["CustomerCFS1"].ToString());
+                            p.CustomerCFS_1 = float.Parse(reader["CustomerCFS1"].ToString());
                             p.CustomerComments_1 = reader["CustomerComments1"].ToString();
                             //p.StaffName_1 = reader["Staff1"].ToString();
                             //p.StaffDate1 = DateTime.Parse(reader["StaffDate1"].ToString());
@@ -355,7 +357,7 @@ namespace KlamathIrrigationDistrict.DataLayer.Repositories
 
         //ditch rider confirmed the activation of request
         //does not put anything into the StaffCFS1
-        public List<Customers> ActiveRequests(int CustomerID)
+        public List<Customers> ActiveRequests(int id)
         {
             List<Customers> ActiveRequestList = new List<Customers>();
             using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["KID"].ConnectionString))
@@ -364,7 +366,7 @@ namespace KlamathIrrigationDistrict.DataLayer.Repositories
                 {
                     command.Connection = connection;
                     command.CommandText = "SELECT RequestID, CustomerDate1, CustomerName, Structure, CustomerCFS1, CustomerComments1, Staff1, StaffDate1, StaffComments1 FROM Requests WHERE StaffCFS1 IS NULL AND RequestStatus1 = 'Confirmed'";
-                    command.Parameters.AddWithValue("@CustomerID", CustomerID);
+                    command.Parameters.AddWithValue("@CustomerID", id);
                     command.CommandType = CommandType.Text;
                     connection.Open();
                     using (SqlDataReader reader = command.ExecuteReader())
