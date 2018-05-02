@@ -6,11 +6,13 @@
 	top: 0; 
 	display: inline-block;
 	width: 900px;
+    color: white;
 }
 
 #RideCenter
-{
-	background-color: #08ccff;
+{    
+    background-color: #014764;
+    color: white;
 }
 
 #RideCenter a
@@ -20,6 +22,7 @@
 	padding: 14px 16px;
 	text-decoration: none;
 	border: 1px solid black;
+    color: white;
 }
 
 #Menu
@@ -27,28 +30,31 @@
 	float: left;
 	margin: 0 0 1em 0;
    	padding: 0;
-	background-color: #08ccff;
+    background-color: #014764;
+    color: white;
 }
 
 #Menu li
 {
 	float: left;
 	list-style: none;
+    color: white;
 }
 
 #Menu li a
 {
 	display: block;
-	color: black;
+    color: white;
 	text-align: center;
 	padding: 10px 20px;
 	text-decoration: none;
 	border: 1px solid black;
+
 }
 
 #Header li a:hover:not(#active)
 {
-	background-color: #0066ff;
+    background-color: #f7941d;
 }
 
 #active 
@@ -61,7 +67,7 @@
 {
 	display: none;
 	position: absolute;
-	background-color: #f9f9f9;
+    background-color: #014764;
 	box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
 	z-index: 1;
 	overflow: auto;
@@ -123,7 +129,8 @@
 .pagination > li > span:hover,
 .pagination > li > a:focus,
 .pagination > li > span:focus {
-  background-color: #0066ff;
+
+  background-color: #f7941d;
   color: white;
 }
 
@@ -136,8 +143,8 @@
   z-index: 2;
   color: white;
   cursor: default;
-  background-color: #0066ff;
-  border-color: #0066ff;
+  background-color: #f7941d;
+  border-color: #f7941d;
 }
 
 /*.pagination > .disabled > span,*/
@@ -230,7 +237,7 @@
 .pager li > a:hover,
 .pager li > a:focus {
   text-decoration: none;
-  background-color: #08ccff;
+  background-color: #014764;
 }
 
 .pager .next > a,
@@ -266,20 +273,24 @@
     padding: 12px 30px;
 	text-align: center;
 	display: inline-table;
-	background-color: #08ccff;
+    background-color: #014764;
 	border: 1px solid black;
+    color: white;
 }
-
-button:hover
+#LogOutBtn:hover
+{
+    background-color: #f7941d;    
+}
+/*button:hover
 {
 	opacity: .7;
-}
+}*/
 
 caption
 {
 	text-align: left;
 	font-weight: bolder;
-	color: #08ccff;
+    color: #027cb1;
 	font-size: 25px;	
 }
 
@@ -292,8 +303,8 @@ caption
 .ActiveRequests th
 {
 	border-collapse: collapse;
-	/*pale blue*/
-	background-color: #3399ff;
+    background-color: #027cb1;
+    color: white;
     padding-left: 5px;
     padding-right: 5px;
     text-align: center;
@@ -317,8 +328,7 @@ caption
 .ActiveRequests tr:hover
 {
    font-weight: bold;
-   border-style: solid;
-   border-color: #08ccff; 
+   border: 3px solid #014764;    
 }
 
 input[type=number]
@@ -340,8 +350,8 @@ input[type=TrackingID]
 }
 
 #RBorder
-{
-	border-right: 1px solid #08ccff;
+{    
+    border-right: 1px solid #014764;
 }
 a:visited
 {
@@ -354,6 +364,7 @@ a:visited
 	display: block;
     padding: 10px;
     width: 900px;
+    
 }
 #Logo .footer
 {
@@ -362,13 +373,13 @@ a:visited
 #Logo img
 {
 	height: 85px;
-	width: 150px;
 }
 #Logo .footer th
 {
 	vertical-align: bottom;
 	text-align: center;
-	background: #08ccff;
+    background-color: #014764;
+    color: white;
 }
 #Logo .footer td
 {
@@ -381,7 +392,8 @@ a:visited
 {
     #Header
     {
-        width: 589px;
+        /*width: 589px;*/
+        width: 900px;
     }
     #Menu
     {    
@@ -401,14 +413,14 @@ a:visited
     .ActiveRequests
     {
 	    border-collapse: collapse;
-        width: 589px;
+        /*width: 589px;*/
+        width: 900px;
 	    overflow: auto;        
     }
     .ActiveRequests th
     {
 	    border-collapse: collapse;
-	    /*pale blue*/
-	    background-color: #3399ff;
+	    
         text-align: center;
     }
     .ActiveRequests td
@@ -429,7 +441,7 @@ a:visited
 {
     #Header
     {
-        width: 900px;
+        width: 900px;        
     }
     #Menu
     {    
@@ -455,8 +467,7 @@ a:visited
     .ActiveRequests th
     {
 	    border-collapse: collapse;
-	    /*pale blue*/
-	    background-color: #3399ff;
+	    
         text-align: center;
     }
     .ActiveRequests td
@@ -503,8 +514,7 @@ a:visited
     .ActiveRequests th
     {
 	    border-collapse: collapse;
-	    /*pale blue*/
-	    background-color: #3399ff;
+	   
         text-align: center;
     }
     .ActiveRequests td
@@ -550,8 +560,7 @@ a:visited
     .ActiveRequests th
     {
 	    border-collapse: collapse;
-	    /*pale blue*/
-	    background-color: #3399ff;
+	    
         text-align: center;
     }
     .ActiveRequests td
@@ -600,8 +609,7 @@ a:visited
     .ActiveRequests th
     {
 	    border-collapse: collapse;
-	    /*pale blue*/
-	    background-color: #3399ff;
+	    
         text-align: center;
     }
     .ActiveRequests td

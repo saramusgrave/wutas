@@ -1,43 +1,29 @@
 ﻿@using KlamathIrrigationDistrict.Models
 @model LoginViewModel
 @{ 
-    ViewBag.Title = "KID: Log In Page";
-    ViewBag.Header = "Klamath Irrigation District Log In Page";
+        ViewBag.Title = "KID: Log In Page";
+        Layout = "~/Views/Shared/KIDLayout.cshtml";      
 }
-    <header class="LogInPage">@ViewBag.Header</header>
-    <head>
-        <title>@ViewBag.Title</title>
-        <link rel="stylesheet" href="~/Styles/LogInPage.css" />
-    </head>
-    <body>
-    <!--Main Logo class=Logoimg-->
-    <div id="Logoimg">
-        <img src="http://www.klamathirrigation.com/images/Old%20Hydro%201.jpg" class="LogInLogo">
+@using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    <div>
+        @Html.LabelFor(m => m.UserName, new { @style = "font-weight: bold" })<br />
+        @Html.TextBoxFor(m => m.UserName, new { @placeholder = "Enter User Name" })
+        @Html.ValidationMessageFor(m => m.UserName)
     </div>
-        <div class="container">
-            @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
-            {
-                @Html.AntiForgeryToken()
-                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-                <div>
-                    @Html.LabelFor(m => m.UserName, new { @style = "font-weight: bold" })<br />
-                    @Html.TextBoxFor(m => m.UserName, new { @placeholder = "Enter User Name" })
-                    @Html.ValidationMessageFor(m => m.UserName)
-                </div>
-                <div>
-                    @Html.LabelFor(m => m.Password, new { @style = "font-weight: bold" })<br />
-                    @Html.PasswordFor(m => m.Password, new { @placeholder = "Enter Password" })
-                    @Html.ValidationMessageFor(m => m.Password)
-                </div>
-                <div>
-                    <button type="submit">Log In</button>
-                </div>
-                <div>
-                    @Html.CheckBoxFor(m => m.RememberMe)
-                    @Html.LabelFor(m => m.RememberMe)
-                    @Html.ActionLink("Forgot your password?", "ForgotPassword")
-                </div>
-
-            }
-        </div>
-</body>
+    <div>
+        @Html.LabelFor(m => m.Password, new { @style = "font-weight: bold" })<br />
+        @Html.PasswordFor(m => m.Password, new { @placeholder = "Enter Password" })
+        @Html.ValidationMessageFor(m => m.Password)
+    </div>
+    <div>
+        <button type="submit">Log In</button>
+    </div>
+    <div>
+        @Html.CheckBoxFor(m => m.RememberMe)
+        @Html.LabelFor(m => m.RememberMe)<br />
+        @Html.ActionLink("Forgot your password?", "ForgotPassword")
+    </div>
+}
