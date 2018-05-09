@@ -70,70 +70,26 @@ namespace KlamathIrrigationDistrict.Controllers
         //[Authorize]
         [HttpGet]
         //public ActionResult Index()
-        public ActionResult Index(int id)
+        public ActionResult Index(int? id)
         {
+            if (!id.HasValue)
+            {
+                //pull out of a repository
+                string userID = User.Identity.Name;
+                id = _custRepo.getCustomerID(userID);
+
+                //pass the user's customerID to the URL
+                return RedirectToAction("Index", new { id = id });
+            }
+
             if (!User.IsInRole("Customer"))
             {
                 return View("Unauthorized");
             }
 
-            //User.Identity.GetUserName();
-            //string userID = User.Identity.GetUserId();
-            //int id = Convert.ToInt32(userID);
 
-            //var std = _custRepo.RequestNeedActivation(id);
-            var std = _custRepo.RequestNeedActivation(id);
+            var std = _custRepo.RequestNeedActivation(id.Value);
             return View(std);
-
-            //int pageSize = 10;
-            //int pageIndex = 1;
-            //pageIndex = page.HasValue ? Convert.ToInt32(page) : 1;
-
-            //IPagedList<Customers> cstaff = null;
-            ////IPagedList<Customers> cAllot = null;
-            //CustomerRepository customerrepository = new CustomerRepository();
-            //Customers CustomerStaff = new Customers();
-            //List<Customers> obCustomerList = new List<Customers>();
-
-            //obCustomerList = customerrepository.RequestNeedActivation(Person.CustomerID);
-            //CustomerStaff.customers = obCustomerList;
-            ////cstaff = obCustomerList.ToPagedList(pageIndex, pageSize);
-            //cstaff = obCustomerList.Where(s => s.CustomerID == Person.CustomerID).ToPagedList(pageIndex, pageSize);
-            //ViewData["CID"] = Person.CustomerID;
-            //return View(cstaff);
-
-            //((applicationUser)User.Identity).CustomerID
-            //CustomerID = ((ApplicationUser)User.Identity).CustomerID;
-
-            //if (User.Identity.Name.Equals("ryhayandgrain@gmail.com"))
-            //{
-            //    CustomerID = 760;
-            //    //CustomerStaff.TotalAllotment = _custRepo.GetAllotment(CustomerID);
-
-            //    obCustomerList = customerrepository.RequestNeedActivation(CustomerID);
-            //    CustomerStaff.customers = obCustomerList;               
-            //    cstaff = obCustomerList.ToPagedList(pageIndex, pageSize);
-            //    return View(cstaff);
-            //}
-            //else if (User.Identity.Name.Equals("josh@horsleyfarms.com"))
-            //{
-            //    //CustomerID = 3681;        //josh customerID
-            //    CustomerID = 549;           //Webb Gene & Pamela 
-
-            //    obCustomerList = customerrepository.RequestNeedActivation(CustomerID);
-            //    CustomerStaff.customers = obCustomerList;
-            //    cstaff = obCustomerList.ToPagedList(pageIndex, pageSize);
-            //    return View(cstaff);
-            //}
-            //else
-            //    CustomerID = 760;
-            //    obCustomerList = customerrepository.RequestNeedActivation(CustomerID);
-            //    CustomerStaff.customers = obCustomerList;
-            //    cstaff = obCustomerList.ToPagedList(pageIndex, pageSize);
-            //    return View(cstaff);
-
-
-
 
         }
 
@@ -181,24 +137,6 @@ namespace KlamathIrrigationDistrict.Controllers
         //        return View(cstaff);
         //}
 
-        //only page in which everyone shares
-        //public ActionResult ContactsPage(int? page)
-        //{
-        //    int pageSize = 10;
-        //    int pageIndex = 1;
-        //    pageIndex = page.HasValue ? Convert.ToInt32(page) : 1;
-
-        //    IPagedList<Customers> cstaff = null;
-        //    CustomerRepository customerrepository = new CustomerRepository();
-        //    Customers CustomerStaff = new Customers();
-        //    List<Customers> obCustomerList = new List<Customers>();
-
-        //    obCustomerList = customerrepository.ViewStaff();
-        //    CustomerStaff.customers = obCustomerList;
-        //    cstaff = obCustomerList.ToPagedList(pageIndex, pageSize);
-        //    return View(cstaff);
-        //}
-
         //simply just view the staff
         public ActionResult ContactsPage()
         {
@@ -211,65 +149,14 @@ namespace KlamathIrrigationDistrict.Controllers
             return View(std);
         }
 
-        //currently displaying Ryan's Customer Info
-        //Hardcoded customerID
-        //does not work because there is no ID referenced, attained at login
-        //[OutputCache(Duration = 500, VaryByParam = "CustomerID")]
-        //public ActionResult CustomerProfile(int? page)
-        //{
-        //    int CustomerID;
-
-        //    int pageSize = 10;
-        //    int pageIndex = 1;
-        //    pageIndex = page.HasValue ? Convert.ToInt32(page) : 1;
-        //    IPagedList<Customers> cInfo = null;
-
-        //    CustomerRepository customerrepository = new CustomerRepository();
-        //    Customers CustomerInfo = new Customers();
-        //    List<Customers> obCustomerInfo = new List<Customers>();
-
-        //    if (User.Identity.Name.Equals("ryhayandgrain@gmail.com"))
-        //    {
-        //        CustomerID = 760;
-
-        //        obCustomerInfo = customerrepository.ViewCustomers(CustomerID);
-        //        CustomerInfo.customers = obCustomerInfo;
-        //        cInfo = obCustomerInfo.ToPagedList(pageIndex, pageSize);
-        //        return View(cInfo);
-        //        //return View(obCustomerInfo);
-
-        //    }
-        //    else if (User.Identity.Name.Equals("josh@horsleyfarms.com"))
-        //    {
-        //        CustomerID = 3681;
-
-        //        obCustomerInfo = customerrepository.ViewCustomers(CustomerID);
-        //        CustomerInfo.customers = obCustomerInfo;
-        //        cInfo = obCustomerInfo.ToPagedList(pageIndex, pageSize);
-        //        return View(cInfo);
-        //        //return View(obCustomerInfo);
-        //    }
-        //    else
-        //        CustomerID = 760;
-        //    obCustomerInfo = customerrepository.ViewCustomers(CustomerID);
-        //    CustomerInfo.customers = obCustomerInfo;
-        //    cInfo = obCustomerInfo.ToPagedList(pageIndex, pageSize);
-        //    return View(cInfo);            
-        //}
 
         public ActionResult CustomerProfile(int id)
-        //public ActionResult CustomerProfile()
         {
-            //if (!User.IsInRole("Customer"))
-            //{
-            //    return View("Unauthorized");
-            //}
-
             var std = _custRepo.ViewCustomers(id);
             return View(std);
         }
 
-        public ActionResult CustomerWaterHistory(int id, int CustomerID, int? page)
+        public ActionResult CustomerWaterHistory(int id, int ?page)
         {
             if (!User.IsInRole("Customer"))
             {
@@ -285,10 +172,10 @@ namespace KlamathIrrigationDistrict.Controllers
             Customers CustomerHistory = new Customers();
             List<Customers> obCustomerWaterList = new List<Customers>();
 
-            obCustomerWaterList = customerrepository.CompleteCustomerRequests(CustomerID);
+            obCustomerWaterList = customerrepository.CompleteCustomerRequests(id);
             CustomerHistory.customers = obCustomerWaterList;
-            cHistory = obCustomerWaterList.Where(s => s.CustomerID == CustomerID).ToPagedList(pageIndex, pageSize);
-            ViewData["CID"] = CustomerID;
+            cHistory = obCustomerWaterList.Where(s => s.CustomerID == id).ToPagedList(pageIndex, pageSize);
+            ViewData["CID"] = id;
             return View(cHistory);
 
             //if (User.Identity.Name.Equals("ryhayandgrain@gmail.com"))
@@ -395,68 +282,6 @@ namespace KlamathIrrigationDistrict.Controllers
             return RedirectToAction("Index");
         }
 
-
-        //[HttpPost]
-        ////user can set a date range and view requests within that period
-        ////post will get the input from the user -> get will read input and apply
-        //public ActionResult View_SetDate_CustomerRequest(Customers DateRange, FormCollection form)
-        //{
-        //    int CustomerID = 760;
-
-        //    if (!ModelState.IsValid)
-        //    {
-        //        return View(DateRange);
-        //    }
-
-        //    //reference input name from BeginForm
-        //    string StartDate = form["Input_StartDate"];
-        //    string EndDate = form["Input_EndDate"];
-
-        //    DateRange.CustomerID = CustomerID;
-        //    DateRange.StartDate = Convert.ToDateTime(StartDate);
-        //    DateRange.EndDate = Convert.ToDateTime(EndDate);
-
-        //    //DateTime Input_StartDate = Convert.ToDateTime(StartDate);
-        //    //DateTime Input_EndDate = Convert.ToDateTime(EndDate);
-
-        //    //obCustomerRangeList = _custRepo.ViewRequestDates(CustomerID, DateRange.StartDate, DateRange.EndDate);
-
-
-
-        //    //return RedirectToAction("View_SetDate_CustomerRequest");
-        //    //return View("View_SetDate_CustomerRequest", new {CustomerID = DateRange.CustomerID, StartDate = DateRange.StartDate, EndDate = DateRange.EndDate });
-        //    //return View("View_SetDate_CustomerRequest", obCustomerRangeList);
-        //    return View("View_SetDate_CustomerRequest");
-        //}
-
-        //[HttpGet]
-        ////receive data input from 'HttpPost' and will then display it
-        //public ActionResult View_SetDate_CustomerRequest(int? page)
-        //{
-        //    //hard coded Ryan's info
-        //    //int CustomerID = 760;
-        //    //DateTime Input_StartDate;
-        //    //DateTime Input_EndDate;
-        //    //int CustomerID = 760;
-
-        //    int pageSize = 20;
-        //    int pageIndex = 1;
-        //    pageIndex = page.HasValue ? Convert.ToInt32(page) : 1;
-
-        //    IPagedList<Customers> cDateHistory = null;
-        //    CustomerRepository customerrepository = new CustomerRepository();
-        //    Customers CustomerRangeHistory = new Customers();
-        //    List<Customers> obCustomerRangeList = new List<Customers>();
-
-        //    //obCustomerRangeList = customerrepository.ViewRequestDates(CustomerID, Input_StartDate, Input_EndDate);
-        //    CustomerRangeHistory.customers = obCustomerRangeList;
-        //    cDateHistory = obCustomerRangeList.ToPagedList(pageIndex, pageSize);
-
-        //    return View(cDateHistory);
-        //}
-
-        //-------------------------------------------------------------------------------------------------------------------------------------
-        //functionality for specific people under the customer side
 
         [HttpGet]
         public ActionResult ViewAllotment(Customers cusAllotment)

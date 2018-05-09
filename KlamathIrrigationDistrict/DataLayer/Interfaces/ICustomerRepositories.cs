@@ -14,6 +14,8 @@ namespace KlamathIrrigationDistrict.DataLayer.Interfaces
 
         //----------------------------------------Views-----------------------------------
 
+        int getCustomerID(string userID);
+
         //get the Request ID
         //Customers GetRequestID(int RequestID);
 

@@ -49,6 +49,32 @@ namespace KlamathIrrigationDistrict.DataLayer.Repositories
             return (s);
         }
 
+        //return the int - customerID
+        public virtual int getCustomerID(string userID)
+        {
+            Customers s = new Customers();
+            using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings[@"KID"].ConnectionString))
+            {
+                using (SqlCommand command = new SqlCommand())
+                {
+                    command.Connection = connection;
+                    command.CommandType = CommandType.Text;
+                    command.CommandText = "SELECT CustomerID FROM [CustomerID] WHERE UserID = @UserID";
+                    command.Parameters.AddWithValue("@UserID", userID);
+                    connection.Open();
+                    using (SqlDataReader reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            
+                            s.CustomerID = int.Parse(reader["CustomerID"].ToString());                            
+                        }
+                    }
+                }
+            }
+            return (s.CustomerID);
+        }
+
 
 
         public virtual List<Customers> ViewCustomers()
@@ -100,7 +126,7 @@ namespace KlamathIrrigationDistrict.DataLayer.Repositories
                     command.Connection = connection;
                     command.CommandType = CommandType.Text;
                     //command.CommandText = "SELECT * FROM CustomerInfo ORDER BY Name";
-                    command.CommandText = "SELECT * FROM CustomerInfo WHERE CustomerID = @CustomerID";
+                    command.CommandText = "SELECT * FROM [CustomerProfile_AllotmentV2] WHERE CustomerID = @CustomerID";
                     command.Parameters.AddWithValue("@CustomerID", CustomerID);
                     connection.Open();
                     using (SqlDataReader reader = command.ExecuteReader())
@@ -111,33 +137,16 @@ namespace KlamathIrrigationDistrict.DataLayer.Repositories
                             s.CustomerID = int.Parse(reader["CustomerID"].ToString());
                             s.Name = reader["Name"].ToString();
                             s.Address1 = reader["Address1"].ToString();
-                            s.Address2 = reader["Address2"].ToString();
                             s.City = reader["City"].ToString();
                             s.State = reader["State"].ToString();
                             s.Zip = int.Parse(reader["Zip"].ToString());
                             s.Phone = reader["Phone"].ToString();
-                            vc.Add(s);
-                        }
-                    }
-                }
-
-                using (SqlCommand command = new SqlCommand())
-                {
-                    command.Connection = connection;
-                    command.CommandText = "SELECT TotalAllotment FROM [Ride Customer List TotalAllotment] WHERE CustomerID = @CustomerID";
-                    command.Parameters.AddWithValue("@CustomerID", CustomerID);
-                    command.CommandType = CommandType.Text;
-                    //connection.Open();
-                    using (SqlDataReader reader = command.ExecuteReader())
-                    {
-                        if (reader.Read())
-                        {
                             s.TotalAllotment = Decimal.Parse(reader["TotalAllotment"].ToString());
+                            s.Violations = int.Parse(reader["Violation"].ToString());
                             vc.Add(s);
                         }
                     }
                 }
-
             }
             return (vc);
         }
@@ -414,7 +423,7 @@ namespace KlamathIrrigationDistrict.DataLayer.Repositories
                             p.CustomerDate1 = DateTime.Parse(reader["CustomerDate1"].ToString());
                             p.Name = reader["CustomerName"].ToString();
                             p.Structure = reader["Structure"].ToString();
-                            p.CustomerCFS_1 = int.Parse(reader["CustomerCFS1"].ToString());
+                            p.CustomerCFS_1 = float.Parse(reader["CustomerCFS1"].ToString());
                             p.CustomerComments_2 = reader["CustomerComments2"].ToString();
                             //p.CustomerCFS_1 = int.Parse(reader["CustomerCFS1"].ToString());
                             //p.CustomerComments_1 = reader["CustomerComments1"].ToString();
@@ -427,7 +436,7 @@ namespace KlamathIrrigationDistrict.DataLayer.Repositories
                             p.StaffDate1 = DateTime.Parse(reader["StaffDate1"].ToString());
                             p.StaffDate2 = DateTime.Parse(reader["StaffDate2"].ToString());
                             p.RequestStatus2 = reader["RequestStatus2"].ToString();
-                            p.StaffCFS1 = int.Parse(reader["StaffCFS1"].ToString());
+                            p.StaffCFS1 = float.Parse(reader["StaffCFS1"].ToString());
                             p.StaffComments2 = reader["StaffComments2"].ToString();
 
                             CompleteRequestList.Add(p);

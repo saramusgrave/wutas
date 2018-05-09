@@ -3,156 +3,50 @@
 @model PagedList.IPagedList<Customers>
 @{
     ViewBag.Title = "Customers: Water History";
+    Layout = "~/Views/Shared/CustomerMenu.cshtml";
+
 }
-<head>
-    <title>KID: Customers</title>
-    <meta name="viewport" content="width=device-width" />
-    <link rel="stylesheet" href="~/Styles/Customers.css" />
-    <script src="~/Scripts/KIDDitchRidersJS.js"></script>
-</head>
-
-<header id="Menu">
-    <ul>
-        <li><label class="FirstLast">@User.Identity.Name</label></li>
-        <li class="dropdown">
-            <a href="./Index">Requests</a>
-            <div class="dropdownRequest" style="overflow-x: auto;">
-                <a href="./CustomerAddRequest">Add Request</a>
-                <a href="./CustomerWaitList">Waitlist</a>
-            </div>
-        </li>
-        @*<li><a href="./Index">Requests</a></li>*@
-        <li><a id="active" href="./CustomerWaterHistory">History</a></li>
-        <li><a href="./ContactsPage">Contacts</a></li>
-        <li><a href="./CustomerProfile">Profile</a></li>
-        <!--edit account page needs work-->
-        <a href="../KIDLogInPageHTML.html"><button class="LogOutBtn">Log Out</button></a>
-
-        <li>
-            <b>
-                Allotment in AFPA
-                <!--Dark Green #005e00 for Full Allotment!-->
-                <input style="color: #005e00; font-weight: bold;" type="Allotment" value="200" readonly>/200
-                <br>
-                <!--Lime Green #0cfc29 for Alotment 75% GONE!-->
-                Allotment in AFPA
-                <input style="color: #0cfc29; font-weight: bold;" type="Allotment" value="150" readonly>/200
-                <br>
-                <!--Orange  #ed7d30for Alotment 50% GONE!-->
-                Allotment in AFPA
-                <input style="color: #ed7d30; font-weight: bold;" type="Allotment" value="100" readonly>/200
-                <br>
-                <!--Gold #e4be00 for Alotment 25% GONE!-->
-                Allotment in AFPA
-                <input style="color: #e4be00; font-weight: bold;" type="Allotment" value="50" readonly>/200
-                <br>
-                <!--Red #ff0000 for NO Alotment Left!-->
-                Allotment in AFPA
-                <input style="color: #ff0000; font-weight: bold;" type="Allotment" value="0" readonly>/200
-            </b>
-        </li>
-    </ul>
-</header>
-<body>
-    
-    <p>
-        Instructions: Enter the Date Range of history you would like to see.
-    </p>
-    <a href="View_SetDate_CustomerRequest" class="next">View Request in Date Range &raquo;</a>
-
-    @*    <div style="overflow-x: auto;">
-            <!--Select Data Range Class = Contacts-->
-            @*<table class="Contacts">
-            <caption>Select Date Range</caption>
-            <tr>
-                <th>Starting Date</th>
-                <th>Ending Date</th>
-                <th></th>
-            </tr>
-            <tr>
-        @using (Html.BeginForm("View_SetDate_CustomerRequest", "CustomersController"))
+<div style="overflow-x: auto;">
+    <table class="Contacts">
+        <caption>Complete Request (off)</caption>
+        <tr>
+            <th>@Html.Label("RequestID")</th>
+            <th>@Html.Label("Structure")</th>
+            <th>@Html.Label("CFS Requested")</th>
+            <th>@Html.Label("Request Date")</th>
+            <th>@Html.Label("Comments")</th>
+            <th>@Html.Label("Applied CFS")</th>
+            <th>@Html.Label("Staff Name")</th>
+            @*<th>@Html.Label("Ditch Rider Date")</th>*@
+            <th>@Html.Label("Comments")</th>
+            <th>@Html.Label("Status")</th>
+            <th>@Html.Label("Active Date")</th>
+            <th>@Html.Label("Complete Date")</th>
+        </tr>
+        @* Allow the user to input into 'Active Request' -> add a request *@
+        @for (int i = 0; i < Model.Count; i++)
         {
-            <table class="Contacts">
-                <caption>Select Date Range</caption>
-                <tr>
-                    <th>Starting Date</th>
-                    <th>Ending Date</th>
-                    <th></th>
-                </tr>
-                <input id="StartDate" type="date" name="StartDate" value="" />
-                <input id="EndDate" type="date" name="EndDate" value="" />
-
-                <button type="submit" id="SubmitDateRange" Name="DateRange" value="StartDate">Set Range</button>
-                </tr>
-            </table>
+            <tr>
+                <td>@Model[i].RequestID</td>
+                <td>@Model[i].Structure</td>
+                <td>@Model[i].CustomerCFS_1</td>
+                <td>@Model[i].CustomerDate1.ToShortDateString()</td>
+                <td id="RBorder">@Model[i].CustomerComments_1</td>
+                @*<td>@Model[i].DitchRiderDate.ToShortDateString()</td>*@
+                <td>@Model[i].StaffCFS1</td>
+                <td>@Model[i].StaffName_2</td>
+                <td>@Model[i].StaffComments2</td>
+                <td>@Model[i].RequestStatus2</td>
+                <td>@Model[i].StaffDate1.ToShortDateString()</td>
+                <td>@Model[i].StaffDate2.ToShortDateString()</td>
+            </tr>
         }
-
-        @*</tr>
-            </table>
-    *@
-
-    @*@using (Html.BeginForm("View_SetDate_CustomerRequest", "CustomersController", FormMethod.Post))
-        {
-            <div style="overflow-x: auto;">
-                <table class="Contacts">
-                    <div>
-
-                        @Html.Label("Start Date")
-                        <input name="Input_StartDate" type="date" id="StartDateRange" value="@DateTime.Today" />
-                    </div>
-                    <div>
-                        @Html.Label("End Date")
-                        <input name="Input_EndDate" type="date" id="EndDateRange" value="@DateTime.Today" />
-                    </div>
-
-                    <div>
-                        <button type="submit" id="SubmitDateRange" Name="DateRange" value="submit">Set Range</button>
-                    </div>
-                </table>
-            </div>
-        }*@
-
-    <div style="overflow-x: auto;">
-        <table class="Contacts">
-            <caption>Complete Request (off)</caption>
-            <tr>
-                <th>@Html.Label("RequestID")</th>
-                <th>@Html.Label("Structure")</th>
-                <th>@Html.Label("CFS Requested")</th>
-                <th>@Html.Label("Request Date")</th>
-                <th>@Html.Label("Comments")</th>
-                <th>@Html.Label("Applied CFS")</th>
-                <th>@Html.Label("Staff Name")</th>
-                @*<th>@Html.Label("Ditch Rider Date")</th>*@
-                <th>@Html.Label("Comments")</th>
-                <th>@Html.Label("Status")</th>
-                <th>@Html.Label("Active Date")</th>
-                <th>@Html.Label("Complete Date")</th>
-            </tr>
-            @* Allow the user to input into 'Active Request' -> add a request *@
-            @for (int i = 0; i < Model.Count; i++)
-            {
-                <tr>
-                    <td>@Model[i].RequestID</td>
-                    <td>@Model[i].Structure</td>
-                    <td>@Model[i].CustomerCFS_1</td>
-                    <td>@Model[i].CustomerDate1.ToShortDateString()</td>
-                    <td id="RBorder">@Model[i].CustomerComments_1</td>
-                    @*<td>@Model[i].DitchRiderDate.ToShortDateString()</td>*@
-                    <td>@Model[i].StaffCFS1</td>
-                    <td>@Model[i].StaffName_2</td>
-                    <td>@Model[i].StaffComments2</td>
-                    <td>@Model[i].RequestStatus2</td>
-                    <td>@Model[i].StaffDate1.ToShortDateString()</td>
-                    <td>@Model[i].StaffDate2.ToShortDateString()</td>
-                </tr>
-            }
-        </table>
-    </div>
-    <div class="pagination" style="margin-left: 20px;">
-            Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber)
-            of @Model.PageCount @Html.PagedListPager(Model, page => Url.Action("CustomerWaterHistory", new { page }))
-        </div>
+    </table>
+</div>
+<div class="pagination" style="margin-left: 20px;">
+    Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber)
+    of @Model.PageCount @Html.PagedListPager(Model, page => Url.Action("CustomerWaterHistory", new { page }))
+</div>
 </body>
 
 @*<div style="overflow-x: auto;">
@@ -201,11 +95,11 @@
                 <td>@Model[i].CustomerCFS_2</td>
                 <td id="RBorder">@Model[i].CustomerComments_2</td>
                 @*<td>Scott Linville</td>*@
-                @*<td>@Model[i].StaffName_2</td>
-                <td>@Model[i].StaffDate2.ToShortDateString()</td>
-                <td>@Model[i].StaffCFS2</td>
-                <td>@Model[i].StaffComments2</td>
-            </tr>
-        }
-    </table>
-</div>*@
+@*<td>@Model[i].StaffName_2</td>
+                    <td>@Model[i].StaffDate2.ToShortDateString()</td>
+                    <td>@Model[i].StaffCFS2</td>
+                    <td>@Model[i].StaffComments2</td>
+                </tr>
+            }
+        </table>
+    </div>*@
