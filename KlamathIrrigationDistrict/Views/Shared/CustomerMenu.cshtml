@@ -16,12 +16,15 @@
             <li>
                 <a class="dropdown">@User.Identity.Name</a>
             </li>
+
             <li class="dropdown">
                 <!--'@Url.RequestContext.RouteData.Values["id"]' is where the action takes a passed value-->
                 <a href="@Url.Action("Index", "Customers", new { @id = Url.RequestContext.RouteData.Values["id"]})">Requests</a>
                 <div class="dropdownRequest" style="overflow-x: auto;">
                     <a href="@Url.Action("CustomerAddRequest", "Customers", new { @id = Url.RequestContext.RouteData.Values["id"]})">Add Request</a>
+                    <a href="@Url.Action("CustomerWaitList", "Customers", new { @id = Url.RequestContext.RouteData.Values["id"]})">WaitList</a>
                 </div>
+               
             </li>
             <li>
                 <a href="@Url.Action("CustomerWaterHistory", "Customers", new { @id = Url.RequestContext.RouteData.Values["id"]})">History</a>                

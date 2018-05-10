@@ -28,9 +28,6 @@ namespace KlamathIrrigationDistrict.DataLayer.Interfaces
         //allow user to see staff contacts
         List<Customers> ViewStaff();
 
-        //list of customers request dependent on their CustomerID
-        List<Customers> ViewCustomerRequests(int CustomerID);
-
         //list of active customers requests that have yet to be acknowledged by ditch rider
         List<Customers> RequestNeedActivation(int CustomerID);
 

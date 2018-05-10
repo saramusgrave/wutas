@@ -60,10 +60,7 @@ namespace KlamathIrrigationDistrict.Controllers
             _custRepo = new CustomerRepository();
         }
 
-        //NEED AN ActionResult for each page in views
-
-        //CURRENTLY THIS DISPLAYS ALL PAGES REGARDING CUSTOMERS JOSH AND RYAN
-        //RYAN IS DEFAULT!!
+       
         //-------------------------------------------------------------------------------------------------------------------------------------
         /*Views for list of Customers*/
         [Authorize(Roles = "Office Specialist, Customer")]
@@ -72,6 +69,9 @@ namespace KlamathIrrigationDistrict.Controllers
         //public ActionResult Index()
         public ActionResult Index(int? id)
         {
+            //ryhayandgrain@gmail.com       ID = 760
+            //josh@horsleyfarms.com         ID = 3681
+
             if (!id.HasValue)
             {
                 //pull out of a repository
@@ -86,64 +86,30 @@ namespace KlamathIrrigationDistrict.Controllers
             {
                 return View("Unauthorized");
             }
-
-
-            var std = _custRepo.RequestNeedActivation(id.Value);
+            
+            var std = _custRepo.ActiveRequests(id.Value);
             return View(std);
 
         }
 
-        //waitlist - customer request is on hold by ditch rider because not enough water
-        //public ActionResult CustomerWaitList (int? page)
-        //{
-        //    int CustomerID;
-        //    //int TotalAllotment;
+        //NEED A VIEW FOR THE CUSTOMER TO SEE SUBMITTED REQUESTS (CHECK REQUESTSTATUS1 IS NULL)
+        //allow for the user to remember what they had submitted
 
-        //    int pageSize = 10;
-        //    int pageIndex = 1;
-        //    pageIndex = page.HasValue ? Convert.ToInt32(page) : 1;
+        //allow user to see the differnce of request status - waitlist
+        public ActionResult CustomerWaitList(int id)
+        {
+            var std = _custRepo.WaitListCustomerRequest(id);
+            return View(std);
 
-        //    IPagedList<Customers> cstaff = null;
-        //    //IPagedList<Customers> cAllot = null;
-        //    CustomerRepository customerrepository = new CustomerRepository();
-        //    Customers CustomerStaff = new Customers();
-        //    List<Customers> obCustomerList = new List<Customers>();
-
-        //    if (User.Identity.Name.Equals("ryhayandgrain@gmail.com"))
-        //    {
-        //        CustomerID = 760;
-        //        //CustomerStaff.TotalAllotment = _custRepo.GetAllotment(CustomerID);
-
-        //        obCustomerList = customerrepository.WaitListCustomerRequest(CustomerID);
-        //        CustomerStaff.customers = obCustomerList;
-        //        cstaff = obCustomerList.ToPagedList(pageIndex, pageSize);
-        //        return View(cstaff);
-        //    }
-        //    else if (User.Identity.Name.Equals("josh@horsleyfarms.com"))
-        //    {
-        //        //CustomerID = 3681;        //josh customerID
-        //        CustomerID = 549;           //Webb Gene & Pamela 
-
-        //        obCustomerList = customerrepository.WaitListCustomerRequest(CustomerID);
-        //        CustomerStaff.customers = obCustomerList;
-        //        cstaff = obCustomerList.ToPagedList(pageIndex, pageSize);
-        //        return View(cstaff);
-        //    }
-        //    else
-        //        CustomerID = 760;
-        //        obCustomerList = customerrepository.WaitListCustomerRequest(CustomerID);
-        //        CustomerStaff.customers = obCustomerList;
-        //        cstaff = obCustomerList.ToPagedList(pageIndex, pageSize);
-        //        return View(cstaff);
-        //}
+        }        
 
         //simply just view the staff
         public ActionResult ContactsPage()
         {
-            //if (!User.IsInRole("Customer"))
-            //{
-            //    return View("Unauthorized");
-            //}
+            if (!User.IsInRole("Customer"))
+            {
+                return View("Unauthorized");
+            }
 
             var std = _custRepo.ViewStaff();
             return View(std);
@@ -177,32 +143,6 @@ namespace KlamathIrrigationDistrict.Controllers
             cHistory = obCustomerWaterList.Where(s => s.CustomerID == id).ToPagedList(pageIndex, pageSize);
             ViewData["CID"] = id;
             return View(cHistory);
-
-            //if (User.Identity.Name.Equals("ryhayandgrain@gmail.com"))
-            //{
-            //    CustomerID = 760;
-
-            //    obCustomerWaterList = customerrepository.CompleteCustomerRequests(CustomerID);
-            //    CustomerHistory.customers = obCustomerWaterList;
-            //    cHistory = obCustomerWaterList.ToPagedList(pageIndex, pageSize);
-            //    return View(cHistory);
-            //}
-            //else if (User.Identity.Name.Equals("josh@horsleyfarms.com"))
-            //{
-            //    //CustomerID = 3681;        //Josh CustomerID
-            //    CustomerID = 549;           //Webb Gene & Pamela 
-
-            //    obCustomerWaterList = customerrepository.CompleteCustomerRequests(CustomerID);
-            //    CustomerHistory.customers = obCustomerWaterList;
-            //    cHistory = obCustomerWaterList.ToPagedList(pageIndex, pageSize);
-            //    return View(cHistory);
-            //}
-            //else
-            //    CustomerID = 760;
-            //    obCustomerWaterList = customerrepository.CompleteCustomerRequests(CustomerID);
-            //    CustomerHistory.customers = obCustomerWaterList;
-            //    cHistory = obCustomerWaterList.ToPagedList(pageIndex, pageSize);
-            //    return View(cHistory);
         }
 
         //should read this fucntion when running CustomerAddRequest view
@@ -244,12 +184,12 @@ namespace KlamathIrrigationDistrict.Controllers
 
         //Display water currently on
         //will need to be a dropdown of requests
-        [HttpGet]
-        public ActionResult RequestWater_On(int id)
-        {
-            var std = _custRepo.ActiveRequests(id);
-            return View(std);
-        }
+        //[HttpGet]
+        //public ActionResult RequestWater_On(int id)
+        //{
+        //    var std = _custRepo.ActiveRequests(id);
+        //    return View(std);
+        //}
 
         //AddCustomer
         [Authorize(Roles = "Office Specialist")]

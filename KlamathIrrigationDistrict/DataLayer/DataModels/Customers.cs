@@ -143,7 +143,7 @@ namespace KlamathIrrigationDistrict.DataLayer.DataModels
         public DateTime StaffDate2 { get; set; }
 
         //will be referenced when customer viewing history of applied CFS
-        public int StaffCFS2 { get; set; }
+        public float StaffCFS2 { get; set; }
 
         //will be referenced to allow customer to view staff comments
         public string StaffComments2 { get; set; }
