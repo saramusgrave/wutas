@@ -9,48 +9,31 @@ using System.Linq;
 using System.Web;
 
 
+
 namespace KlamathIrrigationDistrict.DataLayer.Repositories
 {
-    //Actual body for the header file -> ICustomerRepository
     public class CustomerRepository : ICustomerRepository
     {
-        public virtual Customers Get(int id)
-        {
-            Customers s = null;
-            using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings[@"KID"].ConnectionString))
-            {
-                //current issue here
-                using (SqlCommand command = new SqlCommand())
-                {
-                    command.Connection = connection;
-                    command.CommandText = "SELECT * FROM Customers WHERE CustomerID = @CustomerID";
-                    command.Parameters.AddWithValue("@CustomerID", id);
-                    command.CommandType = CommandType.Text;
 
-                    connection.Open();
-                    using (SqlDataReader reader = command.ExecuteReader())
-                    {
-                        if (reader.Read())
-                        {
-                            s = new Customers();
-                            //s.CustomerID = int.Parse(reader["CustomerID"].ToString());
-                            s.TrackingID = int.Parse(reader["TrackingID"].ToString());
-                            s.Name = reader["Name"].ToString();
-                            s.Address1 = reader["Address1"].ToString();
-                            s.Address2 = reader["Address2"].ToString();
-                            s.City = reader["City"].ToString();
-                            s.State = reader["State"].ToString();
-                            s.Zip = int.Parse(reader["Zip"].ToString());
-                            s.TotalAllotment = decimal.Parse(reader["TotalAllotment"].ToString());
-                        }
-                    }
-                }
-            }
-            return (s);
-        }
+        /* Purpose: 
+         * SQL:     
+         * CHECKS:  
+         * GET:     
+         * RETURNS: 
+         * VIEW:    
+         */
 
-        //USING - Index
-        //return the int - customerID
+        /*---------------------------------------------------------------------------------------Views ------------------------------------------------------------------------------------------*/
+
+
+        /* Purpose: connects the user's username with their customerID 
+         *          through the [CustomerID] table - need to update this in future
+         *          to allow other users to login and navigate program.
+         *          This is how ASP is retrieving user information from login
+         * SQL:     SELECT CustomerID FROM [CustomerID]
+         * GET:     UserID
+         * RETURNS: UserID of the CutomerID
+         */
         public virtual int getCustomerID(string userID)
         {
             Customers s = new Customers();
@@ -67,8 +50,8 @@ namespace KlamathIrrigationDistrict.DataLayer.Repositories
                     {
                         while (reader.Read())
                         {
-                            
-                            s.CustomerID = int.Parse(reader["CustomerID"].ToString());                            
+
+                            s.CustomerID = int.Parse(reader["CustomerID"].ToString());
                         }
                     }
                 }
@@ -76,49 +59,18 @@ namespace KlamathIrrigationDistrict.DataLayer.Repositories
             return (s.CustomerID);
         }
 
-
-        //USING - StaffEditCustomer
-        public virtual List<Customers> ViewCustomers()
-        {
-            List<Customers> vc = new List<Customers>();
-            using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings[@"KID"].ConnectionString))
-            {
-                using (SqlCommand command = new SqlCommand())
-                {
-                    command.Connection = connection;
-                    command.CommandType = CommandType.Text;
-                    command.CommandText = "SELECT * FROM CustomerInfo ORDER BY Name";
-                    //command.CommandText = "SELECT * FROM CustomerInfo WHERE CustomerID = @CustomerID";
-                    //command.Parameters.AddWithValue("@CustomerID", CustomerID);
-                    connection.Open();
-                    using (SqlDataReader reader = command.ExecuteReader())
-                    {
-                        while (reader.Read())
-                        {
-                            Customers s = new Customers();
-                            s.CustomerID = int.Parse(reader["CustomerID"].ToString());
-                            s.TrackingID = int.Parse(reader["TrackingID"].ToString());
-                            s.Name = reader["Name"].ToString();
-                            s.Email = reader["Email"].ToString();
-                            s.Address1 = reader["Address1"].ToString();
-                            s.Address2 = reader["Address2"].ToString();
-                            s.City = reader["City"].ToString();
-                            s.State = reader["State"].ToString();
-                            s.Zip = int.Parse(reader["Zip"].ToString());
-                            s.TotalAllotment = decimal.Parse(reader["TotalAllotment"].ToString());
-                            s.Password = reader["Password"].ToString();
-                            vc.Add(s);
-                        }
-                    }
-                }
-            }
-            return (vc);
-        }
-
-        //USING - CustomerProfile
-        //allow user to view their own personal information - parameter (customerID)
+        /* Purpose: retrieves the user(customer) information to view their information
+         * SQL:     SELECT * FROM [CustomerProfile_AllotmentV2] WHERE CustomerID = @CustomerID; 
+         *          (breakdown of CustomerProfile_AllotmentV2)
+         *          SELECT          TOP (100) PERCENT klamath1.CustomerProfile_Allotment.CustomerID, klamath1.CustomerProfile_Allotment.Name, klamath1.CustomerProfile_Allotment.Address1, klamath1.CustomerProfile_Allotment.City, 
+                                    klamath1.CustomerProfile_Allotment.State, klamath1.CustomerProfile_Allotment.Zip, klamath1.CustomerProfile_Allotment.Phone, klamath1.CustomerProfile_Allotment.TotalAllotment, COUNT(dbo.Violations.ViolationID) 
+                                    AS Violation
+         * GET:     CustomerID, Name, Address1, City, State, Zip, Phone, TotalAlootment, Violations
+         * RETURNS: List<Customers>
+         * VIEW:    CustomerProfile(id), StaffEditCustomers(id)
+         */
         public virtual List<Customers> ViewCustomers(int CustomerID)
-        {            
+        {
             List<Customers> vc = new List<Customers>();
             using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings[@"KID"].ConnectionString))
             {
@@ -135,7 +87,7 @@ namespace KlamathIrrigationDistrict.DataLayer.Repositories
                     {
                         while (reader.Read())
                         {
-                            
+
                             s.CustomerID = int.Parse(reader["CustomerID"].ToString());
                             s.Name = reader["Name"].ToString();
                             s.Address1 = reader["Address1"].ToString();
@@ -153,8 +105,12 @@ namespace KlamathIrrigationDistrict.DataLayer.Repositories
             return (vc);
         }
 
-        //USING - ContactsPage
-        //Allow user to see the contact information for employees
+        /* Purpose: Retrieve the staff name and contact information within KID
+         * SQL:     SELECT Position, FirstName, LastName, Email, PhoneNumber FROM KIDStaff WHERE StaffStatus = 1
+         * GET:     Position, FirstName, LastName, Email, Phone Number
+         * RETURNS: List of KID staff
+         * VIEW:    ContactsPage()
+         */
         public List<Customers> ViewStaff()
         {
             List<Customers> StaffContacts = new List<Customers>();
@@ -164,7 +120,6 @@ namespace KlamathIrrigationDistrict.DataLayer.Repositories
                 {
                     command.Connection = connection;
                     command.CommandText = "SELECT Position, FirstName, LastName, Email, PhoneNumber FROM KIDStaff WHERE StaffStatus = 1";
-                    //command.CommandText = "SELECT Positions.Position, StaffID, FirstName, LastName, Password, Email, PhoneNumber,StaffStatus, StartDate, EndDate, ModifiedDateTime, ModifiedUser FROM KIDStaff, Positions WHERE Positions.PositionID = KIDStaff.Position ORDER BY  KIDStaff.StaffStatus DESC,KIDStaff.StaffID ASC  ";
                     command.CommandType = CommandType.Text;
 
                     connection.Open();
@@ -174,8 +129,8 @@ namespace KlamathIrrigationDistrict.DataLayer.Repositories
                         {
                             Customers StaffInfo = new Customers();
                             StaffInfo.Staff_Position = reader["Position"].ToString();
-                            StaffInfo.Staff_FirstName = reader["FirstName"].ToString();                            
-                            StaffInfo.Staff_LastName = reader["LastName"].ToString();                        
+                            StaffInfo.Staff_FirstName = reader["FirstName"].ToString();
+                            StaffInfo.Staff_LastName = reader["LastName"].ToString();
                             StaffInfo.Staff_Email = reader["Email"].ToString();
                             StaffInfo.Staff_PhoneNumber = reader["PhoneNumber"].ToString();
                             StaffContacts.Add(StaffInfo);
@@ -187,45 +142,13 @@ namespace KlamathIrrigationDistrict.DataLayer.Repositories
 
         }
 
-        
-        //show the customer request, check where Staff has not yet completed the request
-        public List<Customers> RequestNeedActivation(int CustomerID)
-        {
-            List<Customers> ActiveRequestList = new List<Customers>();
-            using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["KID"].ConnectionString))
-            {
-                Customers p = new Customers();
-                using (SqlCommand command = new SqlCommand())
-                {
-                    command.Connection = connection;
-                    command.CommandText = "SELECT RequestID, CustomerDate1, CustomerName, Structure, CustomerCFS1, CustomerComments1 FROM Requests WHERE StaffCFS1 IS NULL AND RequestStatus1 = 'Confirm'";
-                    command.Parameters.AddWithValue("@CustomerID", CustomerID);
-                    command.CommandType = CommandType.Text;
-                    connection.Open();
-                    using (SqlDataReader reader = command.ExecuteReader())
-                    {
-                        while (reader.Read())
-                        {
-                            //Customers p = new Customers();
-                            p.RequestID = int.Parse(reader["RequestID"].ToString());
-                            p.CustomerDate1 = DateTime.Parse(reader["CustomerDate1"].ToString());
-                            p.Name = reader["CustomerName"].ToString();
-                            p.Structure = reader["Structure"].ToString();
-                            p.CustomerCFS_1 = float.Parse(reader["CustomerCFS1"].ToString());
-                            p.CustomerComments_1 = reader["CustomerComments1"].ToString();
-                            //p.StaffName_1 = reader["Staff1"].ToString();
-                            //p.StaffDate1 = DateTime.Parse(reader["StaffDate1"].ToString());
-                            //p.StaffComments1 = reader["StaffComments1"].ToString();
-                            ActiveRequestList.Add(p);
-                        }
-                    }
-                }
-            }
-            return (ActiveRequestList);
-        }
-
-        //NEED TO SEE SARA's WAITLIST ACTIVE PAGE
-        //this will go to waitlist of customer when Ditch Rider has confirmed the request
+        /* Purpose: Retrieve the Customer Requests that have been 'Waitlisted' within the RequestStatus
+         * SQL:     SELECT RequestID, CustomerDate1, CustomerName, Structure, CustomerCFS1, CustomerComments1, RequestStatus1, TimeStampStaff1, StaffComments1 FROM Requests WHERE CustomerID = @CustomerID AND RequestStatus1 = 'Wait List'";
+         * CHECKS:  RequestStatus1 = 'Wait List'
+         * GET:     RequestID, CustomerDate1, CustomerName, Structure, CustomerCFS1, CustomerComments1, RequestStatus1, TimeStampStaff1, StaffComments1
+         * RETURNS: List of Requests
+         * VIEW:    CustomerWaitList(id)
+         */
         public List<Customers> WaitListCustomerRequest(int CustomerID)
         {
             List<Customers> WaitList = new List<Customers>();
@@ -261,8 +184,52 @@ namespace KlamathIrrigationDistrict.DataLayer.Repositories
             return (WaitList);
         }
 
-        //USING - Index
-        //customer see the status 'confirm' for request, status2 is null
+        /* Purpose: Retrieve the Recently applied requests made by the customer (does not have a status - RequestStatus)
+         * SQL:     SELECT RequestID, CustomerDate1, CustomerName, Structure, CustomerCFS1, CustomerComments1 FROM Requests WHERE RequestStatus1 IS NULL AND CustomerID = @CustomerID";
+         * CHECKS:  RequestStatus1 as NULL
+         * GET:     RequestID, CustomerDate1, CustomerName, Structure, CustomerCFS1, CustomerCOmments1
+         * RETURNS: List of Requests
+         * VIEW:    CustomerRecentRequest(id)
+         */
+        public List<Customers> RecentRequests(int id)
+        {
+            List<Customers> Customer_Recent = new List<Customers>();
+            using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["KID"].ConnectionString))
+            {
+                using (SqlCommand command = new SqlCommand())
+                {
+                    command.Connection = connection;
+                    command.CommandText = "SELECT RequestID, CustomerDate1, CustomerName, Structure, CustomerCFS1, CustomerComments1 FROM Requests WHERE RequestStatus1 IS NULL AND CustomerID = @CustomerID";
+                    command.Parameters.AddWithValue("@CustomerID", id);
+                    command.CommandType = CommandType.Text;
+                    connection.Open();
+                    using (SqlDataReader reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            Customers p = new Customers();
+                            p.RequestID = int.Parse(reader["RequestID"].ToString());
+                            p.CustomerDate1 = DateTime.Parse(reader["CustomerDate1"].ToString());
+                            p.Name = reader["CustomerName"].ToString();
+                            p.Structure = reader["Structure"].ToString();
+                            p.CustomerCFS_1 = float.Parse(reader["CustomerCFS1"].ToString());
+                            p.CustomerComments_1 = reader["CustomerComments1"].ToString();
+
+                            Customer_Recent.Add(p);
+                        }
+                    }
+                }
+            }
+            return (Customer_Recent);
+        }
+
+        /* Purpose: retrieves requests that have the status of confirmed 
+         * SQL:     SELECT RequestID, CustomerDate1, CustomerName, Structure, CustomerCFS1, CustomerComments1, Staff1, StaffDate1, StaffComments1 FROM Requests WHERE RequestStatus1 = 'Confirm' AND RequestStatus2 IS NULL AND CustomerID = @CustomerID";
+         * CHECKS:  RequestStatus1 = 'Confirm' AND RequestStatus2 IS NULL
+         * GET:     RequestID, CustomerDate1, CustomerName, Structure, CustomerCFS1, CustomerComments1, Staff1, StaffDate1, StaffCOmments1
+         * RETURNS: List of Requests
+         * VIEW:    Index
+         */
         public List<Customers> ActiveRequests(int id)
         {
             List<Customers> ActiveRequestList = new List<Customers>();
@@ -271,7 +238,7 @@ namespace KlamathIrrigationDistrict.DataLayer.Repositories
                 using (SqlCommand command = new SqlCommand())
                 {
                     command.Connection = connection;
-                    command.CommandText = "SELECT RequestID, CustomerDate1, CustomerName, Structure, CustomerCFS1, CustomerComments1, Staff1, StaffDate1, StaffComments1 FROM Requests WHERE RequestStatus1 = 'Confirm' AND CustomerID = @CustomerID";
+                    command.CommandText = "SELECT RequestID, CustomerDate1, CustomerName, Structure, CustomerCFS1, CustomerComments1, Staff1, StaffDate1, StaffComments1 FROM Requests WHERE RequestStatus1 = 'Confirm' AND RequestStatus2 IS NULL AND CustomerID = @CustomerID";
                     command.Parameters.AddWithValue("@CustomerID", id);
                     command.CommandType = CommandType.Text;
                     connection.Open();
@@ -298,8 +265,15 @@ namespace KlamathIrrigationDistrict.DataLayer.Repositories
             return (ActiveRequestList);
         }
 
-        //USING - CustomerWaterHistory
-        //Shows the history of Customer requests that have been completed
+
+        /* Purpose: Retrieves the requests that have been fully completed
+         * SQL:     SELECT * FROM [Customer History] WHERE CustomerID = @CustomerID
+         * CHECKS:  
+         * GET:     CustomerID, CustomerName, Structure, CustomerDate1, CustomerCFS1, CustomerCOmments1, RequestStatus1, StaffDate1, StaffCFS1, StaffComments1, CustomerDate2, 
+         *          CustomerCFS2, CustomerComments2, RequestStatus2, Staff2, StaffDate2, StaffCFS2, StaffComments2, Ride
+         * RETURNS: list of requests
+         * VIEW:    CustomerWaterHistory(id, page)
+         */
         public List<Customers> CompleteCustomerRequests(int CustomerID)
         {
             List<Customers> CompleteRequestList = new List<Customers>();
@@ -308,7 +282,7 @@ namespace KlamathIrrigationDistrict.DataLayer.Repositories
                 using (SqlCommand command = new SqlCommand())
                 {
                     command.Connection = connection;
-                    command.CommandText =   "SELECT * FROM [Customer History] WHERE CustomerID = @CustomerID";
+                    command.CommandText = "SELECT * FROM [Customer History] WHERE CustomerID = @CustomerID";
                     command.Parameters.AddWithValue("@CustomerID", CustomerID);
                     command.CommandType = CommandType.Text;
                     connection.Open();
@@ -316,7 +290,7 @@ namespace KlamathIrrigationDistrict.DataLayer.Repositories
                     {
                         while (reader.Read())
                         {
-                            Customers p = new Customers();                            
+                            Customers p = new Customers();
                             p.CustomerID = int.Parse(reader["CustomerID"].ToString());
                             p.Name = reader["CustomerName"].ToString();
                             p.Structure = reader["Structure"].ToString();
@@ -345,76 +319,17 @@ namespace KlamathIrrigationDistrict.DataLayer.Repositories
             return (CompleteRequestList);
         }
 
-        //may need in regards to the menu to display the top of the menu
-        //NEEDS TO RETURN A FLOAT THEN
-        //apply the view of the customers TotalAllotment, Ride, Lateral, Structure, Name, CustomerMTLHisID
-        public List<Customers> ViewCustomerAllotment(int CustomerID)
-        {
-            List<Customers> AllotmentList = new List<Customers>();
-            using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["KID"].ConnectionString))
-            {
-                using (SqlCommand command = new SqlCommand())
-                {
-                    command.Connection = connection;
-                    //command.CommandText = "SELECT * FROM Requests";
-                    command.CommandText = "SELECT StructureID, TotalAllotment, CustomerMTLHisID FROM [Ride Customer List TotalAllotment] WHERE CustomerID = @CustomerID";
-                    command.Parameters.AddWithValue("@CustomerID", CustomerID);
-                    command.CommandType = CommandType.Text;
-                    connection.Open();
-                    using (SqlDataReader reader = command.ExecuteReader())
-                    {
-                        while (reader.Read())
-                        {
-                            Customers p = new Customers();
-                            //p.Name = reader["CustomerName"].ToString();
-                            //p.CustomerID = int.Parse(reader["CustomerID"].ToString());
-                            p.Structure = reader["StructureID"].ToString();
-                            p.TotalAllotment = Decimal.Parse(reader["TotalAllotment"].ToString());
-                            //p.Ride = int.Parse(reader["Ride"].ToString());
-                            //p.Lateral = reader["Lateral"].ToString();
-                            p.CustomerMTLHisID = int.Parse(reader["CustomerMTLHisID"].ToString());
 
-                            //populate the 'AllotmentList' -> return to allow view
-                            AllotmentList.Add(p);
-                        }
-                    }
-                }
-            }
-            return (AllotmentList);
-        }
+        /*--------------------------------------------------------------------------------Stored Procedures-------------------------------------------------------------------------------------*/
 
-        //list of requests within a set range
-        public List<Customers> ViewRequestDates(int CustomerID, DateTime StartDate, DateTime EndDate)
-        {
-            List<Customers> RangeRequestList = new List<Customers>();
-            using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings[@"KID"].ConnectionString))
-            {
-                using (SqlCommand command = new SqlCommand())
-                {
-                    command.Connection = connection;
-                    command.CommandText = "sp_Date_ViewRequests";
-                    command.CommandType = CommandType.StoredProcedure;
 
-                    connection.Open();
-                    using (SqlDataReader reader = command.ExecuteReader())
-                    {
-                        while (reader.Read())
-                        {
-                            Customers p = new Customers();
-                            command.Parameters.AddWithValue("@CustomerID", CustomerID);
-                            command.Parameters.AddWithValue("@StarDate", StartDate);
-                            command.Parameters.AddWithValue("@EndDate", EndDate);
-                            RangeRequestList.Add(p);
-
-                        }
-                    }
-
-                }
-            }
-            return (RangeRequestList);
-        }
-
-        //apply the stored procedure of updating or entering in new customer data
+        /* Purpose: apply the stored procedure of updating or entering in new customer data
+         * SQL:     sp_InsertCustomer
+         * CHECKS:  
+         * GIVE:    CustomerID, Name, Address1, City, State, Zip, Phone, TotalAllotment
+         * RETURNS: 
+         * VIEW:    StaffEditCustomer(id)
+         */
         public virtual void Save(Customers customers)
         {
             using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings[@"KID"].ConnectionString))
@@ -423,13 +338,9 @@ namespace KlamathIrrigationDistrict.DataLayer.Repositories
                 {
                     command.Connection = connection;
                     command.CommandType = CommandType.StoredProcedure;
-                    command.CommandText = "sp_Customer_Insert_Update";
-                    //if (customers.CustomerID != null)
-                    //{
-                    //    command.Parameters.AddWithValue("@CustomerID", customers.CustomerID);
-                    //}
+                    command.CommandText = "sp_InsertCustomer";
+
                     command.Parameters.AddWithValue("@CustomerID", customers.CustomerID);
-                    command.Parameters.AddWithValue("@TrackingID", customers.TrackingID);
                     command.Parameters.AddWithValue("@Name", customers.Name);
                     command.Parameters.AddWithValue("@Address1", customers.Address1);
                     command.Parameters.AddWithValue("@Address2", customers.Address2);
@@ -442,10 +353,14 @@ namespace KlamathIrrigationDistrict.DataLayer.Repositories
                 }
             }
         }
-        
-        //USING - CustomerAddRequest
-        //will input the user's water request into database
-        //SEE SARA
+
+        /* Purpose: Add the Customer Request from the input information
+         * SQL:     sp_Customer_AddRequest
+         * CHECKS:  
+         * GIVE:    CustomerID, CustomerName, CustomerCFS1, TimeStampCustomer1, CustomerDate1, CustomerComments1
+         * RETURNS: 
+         * VIEW:    CustomerAddRequest(Customers)
+         */
         public virtual void AddWaterOrderRequest(Customers NewWaterOrder)
         {
             //find a better way to Apply request for Water Order
@@ -473,37 +388,6 @@ namespace KlamathIrrigationDistrict.DataLayer.Repositories
                 }
             }
         }
-             
-        //functionality needs work
-        public virtual decimal GetAllotment(int CustomerID)
-        {
-            Customers s = null;
-
-            using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["KID"].ConnectionString))
-            {
-                using (SqlCommand command = new SqlCommand())
-                {
-                    command.Connection = connection;
-                    command.CommandText = "SELECT TotalAllotment FROM [Ride Customer List TotalAllotment] WHERE CustomerID = @CustomerID";
-                    command.Parameters.AddWithValue("@CustomerID", CustomerID);
-                    command.CommandType = CommandType.Text;
-                    connection.Open();
-                    using (SqlDataReader reader = command.ExecuteReader())
-                    {
-                        if (reader.Read())
-                        {
-                            s.TotalAllotment = Decimal.Parse(reader["TotalAllotment"].ToString());
-                            //AllotmentList.Add(p); 
-                        }
-                    }                    
-                }
-            }
-            return (s.TotalAllotment);
-        }
-
-       
-
-
 
     }
 }

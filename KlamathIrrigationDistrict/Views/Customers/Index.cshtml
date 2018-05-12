@@ -9,12 +9,16 @@
 
 <body>
 
+    <p>Water requests that have been confirmed and turned on</p>
+
+
     <table class="Contacts">
         <caption>Active Request (On)</caption>
         <tr>
             <th>@Html.Label("RequestID")</th>
             <th>@Html.Label("Structure")</th>
             <th>@Html.Label("CFS Requesting")</th>
+            <th>@Html.Label("Structure")</th>
             <th>@Html.Label("Date")</th>
             <th>@Html.Label("Comments")</th>
             <th>@Html.Label("Staff")</th>
@@ -28,6 +32,7 @@
                 <td>@Model[i].RequestID</td>
                 <td>@Model[i].Structure</td>
                 <td>@Model[i].CustomerCFS_1</td>
+                <td>@Model[i].Structure</td>
                 <td>@Model[i].CustomerDate1.ToShortDateString()</td>
                 <td>@Model[i].CustomerComments_1</td>
                 <td>@Model[i].StaffName_1</td>

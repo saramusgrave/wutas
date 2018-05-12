@@ -1,0 +1,40 @@
+﻿@using KlamathIrrigationDistrict.DataLayer.DataModels
+@using PagedList.Mvc;
+@model List<Customers>
+@{
+    ViewBag.Title = "Customer: Recent Requests";
+    Layout = "~/Views/Shared/CustomerMenu.cshtml";
+}
+
+<body>
+
+    <p>The recent water requests submitted, awaiting KID confirmation</p>
+
+    <div style="overflow-x: auto;">
+        <table class="Contacts">
+            <caption>Current Customer Info</caption>
+            <tr>
+                <th>@Html.Label("RequestID")</th>
+                <th>@Html.Label("Structure")</th>
+                <th>@Html.Label("CFS Requesting")</th>
+                <th>@Html.Label("Structure")</th>
+                <th>@Html.Label("Date")</th>
+                <th>@Html.Label("Comments")</th>
+            </tr>
+
+            @for (int i = 0; i < Model.Count; i++)
+            {
+                <tr>
+                    <td>@Model[i].RequestID</td>
+                    <td>@Model[i].Structure</td>
+                    <td>@Model[i].CustomerCFS_1</td>
+                    <td>@Model[i].Structure</td>
+                    <td>@Model[i].CustomerDate1.ToShortDateString()</td>
+                    <td>@Model[i].CustomerComments_1</td>
+                </tr>
+            }
+        </table>
+    </div>
+
+</body>
+

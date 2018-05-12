@@ -10,14 +10,8 @@ namespace KlamathIrrigationDistrict.DataLayer.DataModels
     //Customers Table
     public class Customers
     {
-        //constuctor for Customers
-        //public Customers() { }
-
-        //NEED TO CHANGE ALL CFS variables to float
-
         //-------------------------------------------------------------------------------------
-        //Customers(int CustomerID, int TrackingID, String Name, Decimal TotalAllotment)
-        //public string Position { get; set { "Customer"}; }
+        //Customer Information
 
         //variables for setting Request Date View
         public DateTime StartDate { get; set; }

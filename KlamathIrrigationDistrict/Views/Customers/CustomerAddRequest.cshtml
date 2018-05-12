@@ -31,7 +31,7 @@
                     <!--originally Html.BeginForm() was here-->
                     @Html.HiddenFor(m => m.RequestID)
                     <td>@Html.TextBoxFor(m => m.CustomerDate1, new { @type = "date", @placeholder = "GETDATE()" })</td>
-                    <td>@Html.TextBoxFor(m => m.CustomerID, new { @Value = Model.CustomerID })</td>         @*Need to pull from the customer identity, how?*@
+                    <td>@Html.TextBoxFor(m => m.CustomerID, new { @Value = Model.Name})</td>         @*Need to pull from the customer identity, how?*@
                     <td>@Html.TextBoxFor(m => m.Name, new { @Value = User.Identity.Name })</td>
                     <td>@Html.TextBoxFor(m => m.Structure)</td>
                     <td>@Html.TextBoxFor(m => m.CustomerCFS_1, new { @type = "number" })</td>

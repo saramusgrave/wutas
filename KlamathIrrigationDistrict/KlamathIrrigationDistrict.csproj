@@ -578,6 +578,7 @@
     <Content Include="Views\Shared\CustomerMenu.cshtml" />
     <Content Include="Views\Customers\RequestWater_On.cshtml" />
     <Content Include="Views\Customers\CustomerWaitList.cshtml" />
+    <Content Include="Views\Customers\CustomerRecentRequest.cshtml" />
     <None Include="Web.klamathirrigation.net - Web Deploy.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
