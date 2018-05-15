@@ -246,7 +246,7 @@ namespace KlamathIrrigationDistrict.Controllers
             string City = cust.City;
             string State = cust.State;
             int Zip = cust.Zip;
-            decimal TotalAllotment = cust.TotalAllotment;
+            float TotalAllotment = cust.TotalAllotment;
             _custRepo.Save(cust);
             //_custRepo.ViewCustomerRequests(cust.CustomerID);     //given edit -> change history
             return RedirectToAction("Index");

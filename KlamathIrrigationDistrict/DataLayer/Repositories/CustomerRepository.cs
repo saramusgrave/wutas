@@ -23,17 +23,14 @@ namespace KlamathIrrigationDistrict.DataLayer.Repositories
          * VIEW:    
          */
 
-        /*---------------------------------------------------------------------------------------Views ------------------------------------------------------------------------------------------*/
-
-
         /* Purpose: connects the user's username with their customerID 
-         *          through the [CustomerID] table - need to update this in future
-         *          to allow other users to login and navigate program.
-         *          This is how ASP is retrieving user information from login
-         * SQL:     SELECT CustomerID FROM [CustomerID]
-         * GET:     UserID
-         * RETURNS: UserID of the CutomerID
-         */
+        *          through the [CustomerID] table - need to update this in future
+        *          to allow other users to login and navigate program.
+        *          This is how ASP is retrieving user information from login
+        * SQL:     SELECT CustomerID FROM [CustomerID]
+        * GET:     UserID
+        * RETURNS: UserID of the CutomerID
+        */
         public virtual int getCustomerID(string userID)
         {
             Customers s = new Customers();
@@ -59,6 +56,40 @@ namespace KlamathIrrigationDistrict.DataLayer.Repositories
             return (s.CustomerID);
         }
 
+        /* Purpose: will retrieve the currentallotment for user to view as using water
+         * SQL:     SELECT CurrentAllotment FROM [CustomerProfile_AllotmentV2] WHERE CustomerID = @CustomerID
+         * CHECKS:  cutomerID
+         * GET:     
+         * RETURNS: int (CurrentAllotment)
+         * VIEW:    On the Menu
+         */
+        public virtual float getCurrentAllotment(int CustomerID)
+        {
+            Customers s = new Customers();
+            using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings[@"KID"].ConnectionString))
+            {
+                using (SqlCommand command = new SqlCommand())
+                {
+                    command.Connection = connection;
+                    command.CommandType = CommandType.Text;
+                    command.CommandText = "SELECT CurrentAllotment FROM [CustomerProfile_AllotmentV2] WHERE CustomerID = @CustomerID";
+                    command.Parameters.AddWithValue("@CustomerID", CustomerID);
+                    connection.Open();
+                    using (SqlDataReader reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            s.CurrentAllotment = int.Parse(reader["CurrentAllotment"].ToString());
+                        }
+                    }
+                }
+            }
+            return (s.CustomerID);
+        }
+
+        /*---------------------------------------------------------------------------------------Views ------------------------------------------------------------------------------------------*/
+
+           
         /* Purpose: retrieves the user(customer) information to view their information
          * SQL:     SELECT * FROM [CustomerProfile_AllotmentV2] WHERE CustomerID = @CustomerID; 
          *          (breakdown of CustomerProfile_AllotmentV2)
@@ -95,8 +126,9 @@ namespace KlamathIrrigationDistrict.DataLayer.Repositories
                             s.State = reader["State"].ToString();
                             s.Zip = int.Parse(reader["Zip"].ToString());
                             s.Phone = reader["Phone"].ToString();
-                            s.TotalAllotment = Decimal.Parse(reader["TotalAllotment"].ToString());
+                            s.TotalAllotment = float.Parse(reader["TotalAllotment"].ToString());
                             s.Violations = int.Parse(reader["Violation"].ToString());
+                            s.CurrentAllotment = float.Parse(reader["CurrentAllotment"].ToString());
                             vc.Add(s);
                         }
                     }
@@ -372,18 +404,15 @@ namespace KlamathIrrigationDistrict.DataLayer.Repositories
                     command.Connection = connection;
                     command.CommandType = CommandType.StoredProcedure;
                     command.CommandText = "sp_Customer_AddRequest";
-                    connection.Open();
 
                     command.Parameters.AddWithValue("@CustomerID", NewWaterOrder.CustomerID);
                     command.Parameters.AddWithValue("@CustomerName", NewWaterOrder.Name);
                     command.Parameters.AddWithValue("@Structure", NewWaterOrder.Structure);
-                    //use getdate parameter to fulfill the customerdate
-                    //command.Parameters.AddWithValue("@TimeStampCustomer1", NewWaterOrder.TimeStampCustomer1);
                     command.Parameters.AddWithValue("@CustomerDate1", NewWaterOrder._GetCustomerDate);
                     command.Parameters.AddWithValue("@CustomerCFS1", NewWaterOrder.CustomerCFS_1);
                     command.Parameters.AddWithValue("@CustomerComments1", NewWaterOrder.CustomerComments_1);
 
-                    //connection.Open();
+                    connection.Open();
                     command.ExecuteNonQuery();
                 }
             }

@@ -14,6 +14,8 @@ namespace KlamathIrrigationDistrict.DataLayer.Interfaces
          * USE:     Index
          */
         int getCustomerID(string userID);
+
+        float getCurrentAllotment(int CustomerID);
         
         /*----------------------------------------Views----------------------------------------------------*/
         
