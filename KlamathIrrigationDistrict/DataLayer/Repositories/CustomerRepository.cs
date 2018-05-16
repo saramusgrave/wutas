@@ -77,14 +77,14 @@ namespace KlamathIrrigationDistrict.DataLayer.Repositories
                     connection.Open();
                     using (SqlDataReader reader = command.ExecuteReader())
                     {
-                        while (reader.Read())
+                        if (reader.Read())
                         {
-                            s.CurrentAllotment = int.Parse(reader["CurrentAllotment"].ToString());
+                            s.CurrentAllotment = float.Parse(reader["CurrentAllotment"].ToString());
                         }
                     }
                 }
             }
-            return (s.CustomerID);
+            return (s.CurrentAllotment);
         }
 
         /*---------------------------------------------------------------------------------------Views ------------------------------------------------------------------------------------------*/

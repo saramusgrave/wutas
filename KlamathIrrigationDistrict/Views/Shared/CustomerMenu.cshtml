@@ -36,6 +36,9 @@
             <li>
                 <a href="@Url.Action("CustomerProfile", "Customers", new { @id = Url.RequestContext.RouteData.Values["id"]})">Profile</a>
             </li>
+            <li>
+                <label>Current Allotment:</label> @ViewBag.CurrentAllotment
+            </li>
 
             <li>
                 @using (Html.BeginForm("LogOff", "Account"))

@@ -77,7 +77,7 @@ namespace KlamathIrrigationDistrict.Controllers
                 //pull out of a repository - Username (Email)
                 string userID = User.Identity.Name;
                 id = _custRepo.getCustomerID(userID);       //See Repository
-
+                                               
                 //pass the user's customerID to the URL
                 return RedirectToAction("Index", new { id = id });
             }
@@ -86,6 +86,9 @@ namespace KlamathIrrigationDistrict.Controllers
             {
                 return View("Unauthorized");
             }
+                    
+             //this will establish current allotment at the menu bar
+                ViewBag.CurrentAllotment = _custRepo.getCurrentAllotment(id.Value);
 
             var std = _custRepo.ActiveRequests(id.Value);
             return View(std);
@@ -96,13 +99,18 @@ namespace KlamathIrrigationDistrict.Controllers
          * Page:    CustomerAddRequest
          *          -Website: under 'requests'*/
         [HttpGet]
-        public ActionResult CustomerAddRequest()
+        public ActionResult CustomerAddRequest(int ID)
         {
             if (!User.IsInRole("Customer"))
             {
                 return View("Unauthorized");
             }
-            return View(new Customers());
+
+            //passes the customers into info
+            List<Customers> info = _custRepo.ViewCustomers(ID);
+
+            //only takes one customer - apply 'First' function
+            return View(info.First());
         }
 
         /* Allow user to input information for water request page
@@ -113,7 +121,7 @@ namespace KlamathIrrigationDistrict.Controllers
         public ActionResult CustomerAddRequest(Customers WaterRequest)
         {
             _custRepo.AddWaterOrderRequest(WaterRequest);
-            return new RedirectResult(Url.Action("Customers/" + Url.RequestContext.RouteData.Values["id"]));
+            return new RedirectResult(Url.Action("Index/" + Url.RequestContext.RouteData.Values["id"]));
         }
 
         /* View Customer's recent requests - need approval (RequestStatus)

@@ -21,6 +21,7 @@
                 <th>@Html.Label("State")</th>
                 <th>@Html.Label("ZipCode")</th>
                 <th>@Html.Label("Total Allotment")</th>
+                <th>@Html.Label("Current Allotment")</th>
                 <th>@Html.Label("Violations")</th>
             </tr>
 
@@ -34,6 +35,7 @@
                     <td>@Model[i].State</td>
                     <td>@Model[i].Zip</td>
                     <td>@Model[i].TotalAllotment</td>
+                    <td>@Model[i].CurrentAllotment</td>
                     <td>@Model[i].Violations</td>
                 </tr>
             }
