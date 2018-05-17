@@ -10,14 +10,8 @@ namespace KlamathIrrigationDistrict.DataLayer.DataModels
     //Customers Table
     public class Customers
     {
-        //constuctor for Customers
-        //public Customers() { }
-
-        //NEED TO CHANGE ALL CFS variables to float
-
         //-------------------------------------------------------------------------------------
-        //Customers(int CustomerID, int TrackingID, String Name, Decimal TotalAllotment)
-        //public string Position { get; set { "Customer"}; }
+        //Customer Information
 
         //variables for setting Request Date View
         public DateTime StartDate { get; set; }
@@ -53,14 +47,16 @@ namespace KlamathIrrigationDistrict.DataLayer.DataModels
         public string Lateral { get; set; }
 
         //this number holds the entirety of allotment
-        public decimal TotalAllotment { get; set; }
+        public float TotalAllotment { get; set; }
 
         //this number will change given the user's request
-        public decimal CurrentAllotment { get; set; }
+        public float CurrentAllotment { get; set; }
 
         public int Ride { get; set; }
 
         public int CustomerMTLHisID { get; set; }
+
+        public int Violations { get; set; }
 
         //-------------------------------------------------------------------------------------
         //info to obtain the staff info for contact
@@ -99,7 +95,7 @@ namespace KlamathIrrigationDistrict.DataLayer.DataModels
         public string RequestStatus1 { get; set; }
 
         //reference 'customercfs2' - water turned on again
-        public int CustomerCFS_2 { get; set; }
+        public float CustomerCFS_2 { get; set; }
 
         //second set of comments when customer wants to use more water
         public string CustomerComments_2 { get; set; }
@@ -126,7 +122,7 @@ namespace KlamathIrrigationDistrict.DataLayer.DataModels
         public DateTime StaffDate1 { get; set; }
 
         //will be referenced when customer viewing history of applied CFS
-        public int StaffCFS1 { get; set; }
+        public float StaffCFS1 { get; set; }
 
         //will be referenced to allow customer to view staff comments
         public string StaffComments1 { get; set; }
@@ -141,7 +137,7 @@ namespace KlamathIrrigationDistrict.DataLayer.DataModels
         public DateTime StaffDate2 { get; set; }
 
         //will be referenced when customer viewing history of applied CFS
-        public int StaffCFS2 { get; set; }
+        public float StaffCFS2 { get; set; }
 
         //will be referenced to allow customer to view staff comments
         public string StaffComments2 { get; set; }

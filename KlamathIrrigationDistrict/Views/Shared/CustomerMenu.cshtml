@@ -4,7 +4,7 @@
     <title>@ViewBag.Title</title>
     <meta name="viewport" content="width=device-width" />
     <link rel="stylesheet" href="~/Styles/Customers.css" />
-    <link rel="icon" href="http://www.klamathirrigation.com/images/Old%20Hydro%201.jpg" />
+    <link rel="icon" href="~/Attachments/KIDLogo.jpg" />
 </head>
 
 <header id="Header">
@@ -16,25 +16,30 @@
             <li>
                 <a class="dropdown">@User.Identity.Name</a>
             </li>
+
             <li class="dropdown">
                 <!--'@Url.RequestContext.RouteData.Values["id"]' is where the action takes a passed value-->
-                <a href="@Url.Action("Index", "Customers" )/@Url.RequestContext.RouteData.Values["id"]">Requests</a>
+                <a href="@Url.Action("Index", "Customers", new { @id = Url.RequestContext.RouteData.Values["id"]})">Requests</a>
                 <div class="dropdownRequest" style="overflow-x: auto;">
-                    <a href="@Url.Action("CustomerAddRequest", "Customers" )/@Url.RequestContext.RouteData.Values["id"]">Add Request</a>
+                    <a href="@Url.Action("CustomerAddRequest", "Customers", new { @id = Url.RequestContext.RouteData.Values["id"]})">Add Request</a>
+                    <a href="@Url.Action("CustomerRecentRequest", "Customers", new { @id = Url.RequestContext.RouteData.Values["id"]})">Recent</a>
+                    <a href="@Url.Action("CustomerWaitList", "Customers", new { @id = Url.RequestContext.RouteData.Values["id"]})">WaitList</a>
                 </div>
+               
             </li>
             <li>
-                <a href="@Url.Action("CustomerWaterHistory", "Customers" )/@Url.RequestContext.RouteData.Values["id"]">History</a>
-                <!--<div class="dropdownRequest" style="overflow-x: auto;">
-                    <a href="@Url.Action(" Appending_Off", "DitchRiders" )/@Url.RequestContext.RouteData.Values["id"]">Pending Off</a>
-                </div>-->
+                <a href="@Url.Action("CustomerWaterHistory", "Customers", new { @id = Url.RequestContext.RouteData.Values["id"]})">History</a>                
             </li>
             <li>
-                <a href="@Url.Action("ContactsPage", "Customers" )/@Url.RequestContext.RouteData.Values["id"]">Contacts</a>
+                <a href="@Url.Action("ContactsPage", "Customers", new { @id = Url.RequestContext.RouteData.Values["id"]})">Contacts</a>
             </li>
             <li>
-                <a href="@Url.Action("CustomerProfile", "Customers" )/@Url.RequestContext.RouteData.Values["id"]">Profile</a>
+                <a href="@Url.Action("CustomerProfile", "Customers", new { @id = Url.RequestContext.RouteData.Values["id"]})">Profile</a>
             </li>
+            <li>
+                <label>Current Allotment:</label> @ViewBag.CurrentAllotment
+            </li>
+
             <li>
                 @using (Html.BeginForm("LogOff", "Account"))
                 {
@@ -64,7 +69,7 @@
             </tr>
             <tr>
                 <td>
-                    <img src="http://www.klamathirrigation.com/images/Old%20Hydro%201.jpg">
+                    <img src="~/Attachments/KIDLogo.jpg">
                 </td>
                 <td>
                     <address>

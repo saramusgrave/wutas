@@ -9,58 +9,69 @@ namespace KlamathIrrigationDistrict.DataLayer.Interfaces
     //------------------------------------------------------------
     public interface ICustomerRepository 
     {
-        //get the customer information - customerID
-        Customers Get(int CustomerID);
+        /* PURPOSE: retrieve the CustomerID from UserID
+         * RETURNS: int
+         * USE:     Index
+         */
+        int getCustomerID(string userID);
 
-        //----------------------------------------Views-----------------------------------
+        float getCurrentAllotment(int CustomerID);
+        
+        /*----------------------------------------Views----------------------------------------------------*/
+        
 
-        //get the Request ID
-        //Customers GetRequestID(int RequestID);
-
-        //allow customer to view their information
-        List<Customers> ViewCustomers();
-
-        //pull the specific customer information
+        /* PURPOSE: 
+         * RETURNS: 
+         * USE:     
+         */
+        
+            
+        /* PURPOSE: View CustomerInfo
+         * RETURNS: List of Customer
+         * USE:     CustomerProfile(id), StaffEditCustomer(id)
+         */
+         //pull the specific customer information
         List<Customers> ViewCustomers(int CustomerID);
 
-        //allow user to see staff contacts
+        /* PURPOSE: view staff contact information
+         * RETURNS: list of staff
+         * USE:     ContactsPage()
+         */
         List<Customers> ViewStaff();
 
-        //list of customers request dependent on their CustomerID
-        List<Customers> ViewCustomerRequests(int CustomerID);
-
-        //list of active customers requests that have yet to be acknowledged by ditch rider
-        List<Customers> RequestNeedActivation(int CustomerID);
-
+        /* PURPOSE: View the requests that are 'wait list' status
+         * RETURNS: list of requests
+         * USE:     CustomerWaitList(id)
+         */
         List<Customers> WaitListCustomerRequest(int CustomerID);
 
+        /* PURPOSE: view the recently submitted requests (waiting status)
+         * RETURNS: list of requests
+         * USE:     CustomerRecentRequest(id)
+         */
+        List<Customers> RecentRequests(int CustomerID);
+
+        /* PURPOSE: View the requests that have been confirmed (RequestStatus1)
+         * RETURNS: list of active requests
+         * USE:     Index
+         */
         List<Customers> ActiveRequests(int CustomerID);
 
         //list of complete request that would include staff input
         List<Customers> CompleteCustomerRequests(int CustomerID);
 
-        //list of customer TotalAllotment, Ride, Lateral, Structure, Name, CustomerMTLHisID
-        List<Customers> ViewCustomerAllotment(int CustomerID);
-
-        //customer set date range of requests wanting to view
-        List<Customers> ViewRequestDates(int CustomerID, System.DateTime StartDate, System.DateTime EndDate);
-
-
-
-        //save the customer information when updated
-        //used by the staff or customer
+        /*------------------------------------ Stored Procedures -------------------------------------------*/
+        
+        /* PURPOSE: Save the customer information that is inputed
+         * RETURNS: Customers
+         * USE:     StaffEditCustomer
+         */
         void Save(Customers customers);
 
-        //Does not use stored procedure, will only apply all that a customer can in request for
+        /* PURPOSE: allow user to input information for request
+         * RETURNS: Request
+         * USE:     CustomerAddRequest(Customers)
+         */
         void AddWaterOrderRequest(Customers NewWaterOrder);
-
-        //this funcitonality needs work - apply to display or add to 'customer'
-        decimal GetAllotment(int CustomerID);
-
-    
-
-
-        //need to write a an update function that would update the AspNetUsers when customerID is updated
-
     }
 }
