@@ -66,7 +66,6 @@ namespace KlamathIrrigationDistrict.Controllers
         /* View Active Requests On
          * Page: Index
          * Repository: getCustomerID, ActiveRequests(id)*/
-        [Authorize(Roles = "Office Specialist, Customer")]
         [HttpGet]
         public ActionResult Index(int? id)
         {
@@ -88,7 +87,7 @@ namespace KlamathIrrigationDistrict.Controllers
             }
                     
              //this will establish current allotment at the menu bar
-                ViewBag.CurrentAllotment = _custRepo.getCurrentAllotment(id.Value);
+             ViewBag.CurrentAllotment = _custRepo.getCurrentAllotment(id.Value);
 
             var std = _custRepo.ActiveRequests(id.Value);
             return View(std);
@@ -108,6 +107,9 @@ namespace KlamathIrrigationDistrict.Controllers
 
             //passes the customers into info
             List<Customers> info = _custRepo.ViewCustomers(ID);
+
+            //this will establish current allotment at the menu bar
+            ViewBag.CurrentAllotment = _custRepo.getCurrentAllotment(ID);
 
             //only takes one customer - apply 'First' function
             return View(info.First());
@@ -129,6 +131,9 @@ namespace KlamathIrrigationDistrict.Controllers
           * Repository: RecentRequest(id)*/
         public ActionResult CustomerRecentRequest(int id)
         {
+            //this will establish current allotment at the menu bar
+            ViewBag.CurrentAllotment = _custRepo.getCurrentAllotment(id);
+
             var std = _custRepo.RecentRequests(id);
             return View(std);
         }
@@ -138,6 +143,9 @@ namespace KlamathIrrigationDistrict.Controllers
          * Repository: WaitListCustomerRequest(id)*/
         public ActionResult CustomerWaitList(int id)
         {
+            //this will establish current allotment at the menu bar
+            ViewBag.CurrentAllotment = _custRepo.getCurrentAllotment(id);
+
             var std = _custRepo.WaitListCustomerRequest(id);
             return View(std);
 
@@ -163,6 +171,9 @@ namespace KlamathIrrigationDistrict.Controllers
          * Repository:  ViewCustomers(id)*/
         public ActionResult CustomerProfile(int id)
         {
+            //this will establish current allotment at the menu bar
+            ViewBag.CurrentAllotment = _custRepo.getCurrentAllotment(id);
+
             var std = _custRepo.ViewCustomers(id);
             return View(std);
         }
@@ -177,6 +188,9 @@ namespace KlamathIrrigationDistrict.Controllers
             {
                 return View("Unauthorized");
             }
+
+            //this will establish current allotment at the menu bar
+            ViewBag.CurrentAllotment = _custRepo.getCurrentAllotment(id);
 
             int pageSize = 20;
             int pageIndex = 1;

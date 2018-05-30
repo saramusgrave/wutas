@@ -151,7 +151,7 @@ namespace KlamathIrrigationDistrict.DataLayer.Repositories
                 using (SqlCommand command = new SqlCommand())
                 {
                     command.Connection = connection;
-                    command.CommandText = "SELECT Position, FirstName, LastName, Email, PhoneNumber FROM KIDStaff WHERE StaffStatus = 1";
+                    command.CommandText = "SELECT Position, FirstName, LastName, Email, PhoneNumber FROM KIDStaff WHERE StaffStatus = 1 AND Position != 'Customer'";
                     command.CommandType = CommandType.Text;
 
                     connection.Open();
@@ -218,7 +218,7 @@ namespace KlamathIrrigationDistrict.DataLayer.Repositories
 
         /* Purpose: Retrieve the Recently applied requests made by the customer (does not have a status - RequestStatus)
          * SQL:     SELECT RequestID, CustomerDate1, CustomerName, Structure, CustomerCFS1, CustomerComments1 FROM Requests WHERE RequestStatus1 IS NULL AND CustomerID = @CustomerID";
-         * CHECKS:  RequestStatus1 as NULL
+         * CHECKS:  RequestStatus1 as 'Pending'
          * GET:     RequestID, CustomerDate1, CustomerName, Structure, CustomerCFS1, CustomerCOmments1
          * RETURNS: List of Requests
          * VIEW:    CustomerRecentRequest(id)
@@ -231,7 +231,7 @@ namespace KlamathIrrigationDistrict.DataLayer.Repositories
                 using (SqlCommand command = new SqlCommand())
                 {
                     command.Connection = connection;
-                    command.CommandText = "SELECT RequestID, CustomerDate1, CustomerName, Structure, CustomerCFS1, CustomerComments1 FROM Requests WHERE RequestStatus1 IS NULL AND CustomerID = @CustomerID";
+                    command.CommandText = "SELECT RequestID, CustomerDate1, CustomerName, Structure, CustomerCFS1, CustomerComments1 FROM Requests WHERE RequestStatus1 != 'Confirm' AND RequestStatus1 != 'Wait List' AND CustomerID = @CustomerID";
                     command.Parameters.AddWithValue("@CustomerID", id);
                     command.CommandType = CommandType.Text;
                     connection.Open();
@@ -388,7 +388,7 @@ namespace KlamathIrrigationDistrict.DataLayer.Repositories
 
         /* Purpose: Add the Customer Request from the input information
          * SQL:     sp_Customer_AddRequest
-         * CHECKS:  
+         * CHECKS:  Set the Request1Status as 'Pending'
          * GIVE:    CustomerID, CustomerName, CustomerCFS1, TimeStampCustomer1, CustomerDate1, CustomerComments1
          * RETURNS: 
          * VIEW:    CustomerAddRequest(Customers)
