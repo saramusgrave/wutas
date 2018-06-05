@@ -302,7 +302,7 @@ namespace KlamathIrrigationDistrict.DataLayer.Repositories
          * SQL:     SELECT * FROM [Customer History] WHERE CustomerID = @CustomerID
          * CHECKS:  
          * GET:     CustomerID, CustomerName, Structure, CustomerDate1, CustomerCFS1, CustomerCOmments1, RequestStatus1, StaffDate1, StaffCFS1, StaffComments1, CustomerDate2, 
-         *          CustomerCFS2, CustomerComments2, RequestStatus2, Staff2, StaffDate2, StaffCFS2, StaffComments2, Ride
+         *          CustomerCFS2, CustomerComments2, RequestStatus2, Staff2, StaffDate2, StaffCFS2, StaffComments2, Ride, RequestID
          * RETURNS: list of requests
          * VIEW:    CustomerWaterHistory(id, page)
          */
@@ -314,7 +314,7 @@ namespace KlamathIrrigationDistrict.DataLayer.Repositories
                 using (SqlCommand command = new SqlCommand())
                 {
                     command.Connection = connection;
-                    command.CommandText = "SELECT * FROM [Customer History] WHERE CustomerID = @CustomerID";
+                    command.CommandText = "SELECT * FROM [Customer History_V2] WHERE CustomerID = @CustomerID";
                     command.Parameters.AddWithValue("@CustomerID", CustomerID);
                     command.CommandType = CommandType.Text;
                     connection.Open();
@@ -324,6 +324,7 @@ namespace KlamathIrrigationDistrict.DataLayer.Repositories
                         {
                             Customers p = new Customers();
                             p.CustomerID = int.Parse(reader["CustomerID"].ToString());
+                            p.RequestID = int.Parse(reader["RequestID"].ToString());
                             p.Name = reader["CustomerName"].ToString();
                             p.Structure = reader["Structure"].ToString();
                             p.CustomerDate1 = DateTime.Parse(reader["CustomerDate1"].ToString());
