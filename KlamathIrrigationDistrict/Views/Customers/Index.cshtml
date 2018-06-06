@@ -17,6 +17,7 @@
         <tr>
             <th>@Html.Label("RequestID")</th>
             <th>@Html.Label("Structure")</th>
+            <th>@Html.Label("Detail")</th>
             <th>@Html.Label("CFS Requesting")</th>
             <th>@Html.Label("Structure")</th>
             <th>@Html.Label("Date")</th>
@@ -31,6 +32,7 @@
             <tr>
                 <td>@Model[i].RequestID</td>
                 <td>@Model[i].Structure</td>
+                <td>@Model[i].StructureComment</td>
                 <td>@Model[i].CustomerCFS_1</td>
                 <td>@Model[i].Structure</td>
                 <td>@Model[i].CustomerDate1.ToShortDateString()</td>

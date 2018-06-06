@@ -9,6 +9,13 @@ namespace KlamathIrrigationDistrict.DataLayer.Interfaces
     //------------------------------------------------------------
     public interface ICustomerRepository 
     {
+
+        /* PURPOSE: retrieve all structures within a person's profile
+         * RETURNS: List of StructureID
+         * USE:     AddRequest
+         */
+        List<Customers> getStructure(int CustomerID);
+
         /* PURPOSE: retrieve the CustomerID from UserID
          * RETURNS: int
          * USE:     Index

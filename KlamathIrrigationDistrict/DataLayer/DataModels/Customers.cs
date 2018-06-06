@@ -109,6 +109,9 @@ namespace KlamathIrrigationDistrict.DataLayer.DataModels
         //the request status of second round of applied request
         public String RequestStatus2 { get; set; }
 
+        //Customer comment on their structure to help them remember
+        public String StructureComment { get; set; }
+
         //-------------------------------------------------------------------------------------
         //DitchRider Variables for Customer to see when viewing the customer history
 

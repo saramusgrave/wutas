@@ -111,6 +111,9 @@ namespace KlamathIrrigationDistrict.Controllers
             //this will establish current allotment at the menu bar
             ViewBag.CurrentAllotment = _custRepo.getCurrentAllotment(ID);
 
+            //populate the structure dropdown
+            ViewData["Structure"] = _custRepo.getStructure(ID).Select(s => new SelectListItem() { Text = s.Structure, Value = s.Structure }).ToList();
+
             //only takes one customer - apply 'First' function
             return View(info.First());
         }

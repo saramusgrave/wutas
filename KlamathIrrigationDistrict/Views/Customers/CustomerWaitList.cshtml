@@ -14,26 +14,31 @@
         <tr>
             <th>@Html.Label("RequestID")</th>
             <th>@Html.Label("Structure")</th>
+            <th>@Html.Label("Detail")</th>
             <th>@Html.Label("CFS Requesting")</th>
             <th>@Html.Label("Date")</th>
             <th>@Html.Label("Comments")</th>
             <th>@Html.Label("Status")</th>
+            <th>@Html.Label("Staff")</th>
             <th>@Html.Label("Applied Date")</th>
             <th>@Html.Label("Staff Comment")</th>
 
         </tr>
         @for (int i = 0; i < Model.Count; i++)
         {
-            <tr>
-                <td>@Model[i].RequestID</td>
-                <td>@Model[i].Structure</td>
-                <td>@Model[i].CustomerCFS_1</td>
-                <td>@Model[i].CustomerDate1.ToShortDateString()</td>
-                <td>@Model[i].CustomerComments_1</td>
-                <td>@Model[i].RequestStatus1</td>
-                <td>@Model[i].StaffDate1</td>
-                <td>@Model[i].StaffComments1</td>
-            </tr>
+        <tr>
+            <td>@Model[i].RequestID</td>
+            <td>@Model[i].Structure</td>
+            <td>@Model[i].StructureComment</td>
+            <td>@Model[i].CustomerCFS_1</td>
+            <td>@Model[i].CustomerDate1.ToShortDateString()</td>
+            <td>@Model[i].CustomerComments_1</td>
+            <td>@Model[i].RequestStatus1</td>
+            <td>@Model[i].StaffName_1</td>
+            <td>@Model[i].StaffDate1.ToShortDateString()</td>
+            @*<td>@Html.TextBoxFor(s => s.StaffDate1, new { @type = "datetime-local", @Value = Model._Getdate.Date.ToString("yyyy-MM-ddThh:mm") })</td>*@
+            <td>@Model[i].StaffComments1</td>
+        </tr>
         }
     </table>
 </body>

@@ -23,6 +23,7 @@
                     <th>@Html.Label("CustomerID")</th>
                     <th>@Html.Label("Name")</th>
                     <th>@Html.Label("Structure")</th>
+                    <th>@Html.Label("Detail")</th>
                     <th>@Html.Label("CFS Requesting")</th>
                     <th>@Html.Label("Comments")</th>
                 </tr>
@@ -32,8 +33,8 @@
                     <td>@Html.TextBoxFor(m => m.CustomerDate1, new { @type = "date", @placeholder = "GETDATE()" })</td>
                     <td>@Html.TextBoxFor(m => m.CustomerID, new { @Value = Model.CustomerID, @readonly = "" })</td>
                     <td>@Html.TextBoxFor(m => m.Name, new { @Value = Model.Name, @readonly = "" })</td>
-                    <td>@Html.TextBoxFor(m => m.Structure)</td>
-                    @*<td>@Html.TextBoxFor(m => m.Structure, new { @Value = Model.Structure, @readonly = "" })</td>*@
+                    <td>@Html.DropDownListFor(m => m.Structure, ViewData["Structure"] as IEnumerable<SelectListItem>)</td>
+                    <td>@Html.TextBoxFor(m => m.StructureComment)</td>
                     <td>@Html.TextBoxFor(m => m.CustomerCFS_1, new { @type = "number" })</td>
                     <td>@Html.TextBoxFor(m => m.CustomerComments_1, new { @type = "Comments" })</td>
 
