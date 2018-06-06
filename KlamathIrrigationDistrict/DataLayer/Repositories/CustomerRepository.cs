@@ -107,8 +107,9 @@ namespace KlamathIrrigationDistrict.DataLayer.Repositories
                 using (SqlCommand command = new SqlCommand())
                 {
                     command.Connection = connection;
-                    command.CommandType = CommandType.Text;
-                    command.CommandText = "SELECT CurrentAllotment FROM [CustomerProfile_AllotmentV2] WHERE CustomerID = @CustomerID";
+                    command.CommandType = CommandType.StoredProcedure;
+                    //command.CommandText = "SELECT CurrentAllotment FROM [CustomerProfile_AllotmentV2] WHERE CustomerID = @CustomerID";
+                    command.CommandText = "Get_CurrentAllotment";
                     command.Parameters.AddWithValue("@CustomerID", CustomerID);
                     connection.Open();
                     using (SqlDataReader reader = command.ExecuteReader())
