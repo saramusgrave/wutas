@@ -19,7 +19,6 @@
             <th>@Html.Label("Structure")</th>
             <th>@Html.Label("Detail")</th>
             <th>@Html.Label("CFS Requesting")</th>
-            <th>@Html.Label("Structure")</th>
             <th>@Html.Label("Date")</th>
             <th>@Html.Label("Comments")</th>
             <th>@Html.Label("Staff")</th>
@@ -37,7 +36,7 @@
                 <td>@Model[i].CustomerDate1.ToShortDateString()</td>
                 <td>@Model[i].CustomerComments_1</td>
                 <td>@Model[i].StaffName_1</td>
-                <td>@Model[i].StaffDate1.ToShortDateString()</td>
+                <td>@Model[i].TimeStampStaff2.ToShortDateString()</td>
                 <td>@Model[i].StaffComments1</td>
             </tr>
         }

@@ -4,7 +4,6 @@
 @{
     ViewBag.Title = "Customers: Water History";
     Layout = "~/Views/Shared/CustomerMenu.cshtml";
-
 }
 
 <body>
@@ -20,7 +19,6 @@
                 <th>@Html.Label("Comments")</th>
                 <th>@Html.Label("Applied CFS")</th>
                 <th>@Html.Label("Staff Name")</th>
-                @*<th>@Html.Label("Ditch Rider Date")</th>*@
                 <th>@Html.Label("Comments")</th>
                 <th>@Html.Label("Status")</th>
                 <th>@Html.Label("Active Date")</th>
@@ -35,7 +33,6 @@
                     <td>@Model[i].CustomerCFS_1</td>
                     <td>@Model[i].CustomerDate1.ToShortDateString()</td>
                     <td id="RBorder">@Model[i].CustomerComments_1</td>
-                    @*<td>@Model[i].DitchRiderDate.ToShortDateString()</td>*@
                     <td>@Model[i].StaffCFS1</td>
                     <td>@Model[i].StaffName_2</td>
                     <td>@Model[i].StaffComments2</td>
@@ -48,6 +45,6 @@
     </div>
     <div class="pagination" style="margin-left: 20px;">
         Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber)
-        of @Model.PageCount @Html.PagedListPager(Model, page => Url.Action("CustomerWaterHistory", new { page }))
+        of @Model.PageCount @Html.PagedListPager(Model, page => Url.Action("CustomerWaterHistory", new { page, @CustomerID = ViewData["CID"] }))
     </div>
 </body>

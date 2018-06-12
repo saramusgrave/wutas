@@ -195,7 +195,7 @@ namespace KlamathIrrigationDistrict.Controllers
             //this will establish current allotment at the menu bar
             ViewBag.CurrentAllotment = _custRepo.getCurrentAllotment(id);
 
-            int pageSize = 20;
+            int pageSize = 15;
             int pageIndex = 1;
             pageIndex = page.HasValue ? Convert.ToInt32(page) : 1;
 

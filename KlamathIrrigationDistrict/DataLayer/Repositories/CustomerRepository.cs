@@ -226,7 +226,7 @@ namespace KlamathIrrigationDistrict.DataLayer.Repositories
                 using (SqlCommand command = new SqlCommand())
                 {
                     command.Connection = connection;
-                    command.CommandText = "SELECT RequestID, CustomerDate1, CustomerName, Structure, CustomerCFS1, CustomerComments1, RequestStatus1, StaffDate1, StaffComments1, StructureComment, Staff1 FROM Requests WHERE CustomerID = @CustomerID AND RequestStatus1 = 'Wait List'";
+                    command.CommandText = "SELECT RequestID, CustomerDate1, CustomerName, Structure, CustomerCFS1, CustomerComments1, RequestStatus1, TimeStampStaff1, StaffComments1, StructureComment, Staff1 FROM Requests WHERE CustomerID = @CustomerID AND RequestStatus1 = 'Wait List'";
                     command.Parameters.AddWithValue("@CustomerID", CustomerID);
                     command.CommandType = CommandType.Text;
                     connection.Open();
@@ -242,7 +242,7 @@ namespace KlamathIrrigationDistrict.DataLayer.Repositories
                             p.CustomerCFS_1 = float.Parse(reader["CustomerCFS1"].ToString());
                             p.CustomerComments_1 = reader["CustomerComments1"].ToString();
                             p.RequestStatus1 = reader["RequestStatus1"].ToString();
-                            p.StaffDate1 = DateTime.Parse(reader["StaffDate1"].ToString());
+                            p.TimeStampStaff1 = DateTime.Parse(reader["TimestampStaff1"].ToString());
                             p.StaffComments1 = reader["StaffComments1"].ToString();
                             p.StructureComment = reader["StructureComment"].ToString();
                             p.StaffName_1 = reader["Staff1"].ToString();
@@ -270,7 +270,7 @@ namespace KlamathIrrigationDistrict.DataLayer.Repositories
                 using (SqlCommand command = new SqlCommand())
                 {
                     command.Connection = connection;
-                    command.CommandText = "SELECT RequestID, CustomerDate1, CustomerName, Structure, CustomerCFS1, CustomerComments1, StructureComment FROM Requests WHERE RequestStatus1 != 'Confirm' AND RequestStatus1 != 'Wait List' AND CustomerID = @CustomerID";
+                    command.CommandText = "SELECT RequestID, CustomerDate1, CustomerName, Structure, CustomerCFS1, CustomerComments1, StructureComment FROM Requests WHERE RequestStatus1 != 'Confirm' AND RequestStatus1 != 'Wait List' AND RequestStatus1 != 'Rejected' AND CustomerID = @CustomerID";
                     command.Parameters.AddWithValue("@CustomerID", id);
                     command.CommandType = CommandType.Text;
                     connection.Open();
@@ -310,7 +310,7 @@ namespace KlamathIrrigationDistrict.DataLayer.Repositories
                 using (SqlCommand command = new SqlCommand())
                 {
                     command.Connection = connection;
-                    command.CommandText = "SELECT RequestID, CustomerDate1, CustomerName, Structure, CustomerCFS1, CustomerComments1, Staff1, StaffDate1, StaffComments1, StructureComment FROM Requests WHERE RequestStatus1 = 'Confirm' AND RequestStatus2 IS NULL AND CustomerID = @CustomerID";
+                    command.CommandText = "SELECT RequestID, CustomerDate1, CustomerName, Structure, CustomerCFS1, CustomerComments1, Staff1, StaffComments1, StructureComment, TimeStampStaff2 FROM Requests WHERE RequestStatus1 = 'Confirm' AND RequestStatus2 IS NULL AND CustomerID = @CustomerID";
                     command.Parameters.AddWithValue("@CustomerID", id);
                     command.CommandType = CommandType.Text;
                     connection.Open();
@@ -326,7 +326,7 @@ namespace KlamathIrrigationDistrict.DataLayer.Repositories
                             p.CustomerCFS_1 = float.Parse(reader["CustomerCFS1"].ToString());
                             p.CustomerComments_1 = reader["CustomerComments1"].ToString();
                             p.StaffName_1 = reader["Staff1"].ToString();
-                            p.StaffDate1 = DateTime.Parse(reader["StaffDate1"].ToString());
+                            p.TimeStampStaff2 = DateTime.Parse(reader["TimeStampStaff2"].ToString());
                             p.StaffComments1 = reader["StaffComments1"].ToString();
                             p.StructureComment = reader["StructureComment"].ToString();
 
@@ -355,7 +355,7 @@ namespace KlamathIrrigationDistrict.DataLayer.Repositories
                 using (SqlCommand command = new SqlCommand())
                 {
                     command.Connection = connection;
-                    command.CommandText = "SELECT * FROM [Customer History_V2] WHERE CustomerID = @CustomerID";
+                    command.CommandText = "SELECT * FROM [Customer History_V2] WHERE CustomerID = @CustomerID ORDER BY RequestID DESC";
                     command.Parameters.AddWithValue("@CustomerID", CustomerID);
                     command.CommandType = CommandType.Text;
                     connection.Open();
